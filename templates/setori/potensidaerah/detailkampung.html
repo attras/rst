@@ -1,0 +1,384 @@
+{% extends 'setori/base_layout/base_layout.html' %} 
+{% load static %}
+{% block css %}
+<style>
+    .header {
+        background-color: #6c757d;
+        padding: 10px;
+        color: white;
+    }
+    .section-title {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .content {
+        padding: 20px;
+    }
+    .data-section, .info-section {
+        border: 1px solid #dee2e6;
+        margin-bottom: 20px;
+        padding: 15px;
+    }
+    .table-custom th, .table-custom td {
+        padding: 10px;
+    }
+    .section-title {
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #dee2e6;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .card-header-custom {
+            background-color: #367588;
+            color: white;
+            font-weight: bold;
+        }
+        .info-section p {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .data-section {
+            margin: 20px 0;
+        }
+        .data-section h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .data-section p {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .info-title {
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .map-container img {
+            width: 100%;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .content-container {
+            text-align: center;
+        }
+        .tab-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa; /* Warna background untuk container tab */
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan untuk container tab */
+        }
+
+        .tab-controls .tab-link {
+            text-decoration: none;
+            color: #495057; /* Warna teks */
+            font-weight: bold;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease; /* Efek transisi untuk interaksi */
+        }
+
+        .tab-controls .tab-link:hover {
+            background-color: #e9ecef; /* Warna background saat hover */
+            color: #212529; /* Warna teks saat hover */
+        }
+
+        .tab-controls .tab-link.active {
+            background-color: #367588; /* Warna background untuk tab aktif */
+            color: #ffffff; /* Warna teks untuk tab aktif */
+        }
+
+        .tab-controls .tab-link.active:after {
+            content: '';
+            display: block;
+            margin: auto;
+            height: 3px;
+            width: 50%;
+            background: #ffffff; /* Garis di bawah tab aktif */
+        }
+
+</style> 
+{% endblock css %} 
+
+{% block main %}  
+<div class="body">
+    <div class="page-header" style="position: relative; margin-bottom: 0; overflow: hidden;">
+        <img src="{% static 'img/header/atasan.jpg' %}" alt="Header Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+        <div class="container p-relative z-index-1 py-2">
+            <div class="row mh-200px mh-lg-300px align-items-center py-4">
+                <div class="col">
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                        <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">Potensi Daerah</h1>
+                    </div>
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                        <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
+                            <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Beranda</a></li>
+                            <li class="active text-color-light opacity-7">Potensi Daerah</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Data deskripsi -->
+    <div class="row content">
+        <div class="col-md-6 data-section">
+            <div class="container">
+                <div class="row data-section">
+                    <div class="col-12">
+                        <div class="card">
+                            <div style="display: flex; justify-content: center;">
+                                <img src="{% static 'img/potensi/detail_1.jpg' %}" class="card-img-top" style="width: 80%; height: auto;">
+                            </div>
+                            <div class="card-body">
+                                <h3>Informasi</h3>
+                                <div class="content-container">
+                                    <p><strong>Wilayah:</strong> Kepulauan Aruri</p>
+                                    <p><strong>Distrik:</strong> Supiori Selatan</p>
+                                    <p><strong>Luas Wilayah:</strong> 1000 km</p>
+                                    <p><strong>Jumlah Penduduk:</strong> 1000 Jiwa</p>
+                                    <p><strong>Kepadatan Penduduk:</strong> 1000 jiwa/km</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row data-section">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3>Maps</h3>
+                                <div class="map-container" style="height: 400px;">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.47268893396!2d135.72742674436404!3d-0.7541726980906849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x680171f324b75afb%3A0xc3480285d5705e8e!2sDinas%20Kesehatan!5e0!3m2!1sid!2sid!4v1728291617820!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data detail -->
+        <div class="col-md-6 data-section">       
+            <div id="tab-group-1" class="card bg-transparent mb-0">
+                <div class="rounded-m overflow-hidden mx-3">
+                    <div class="tab-controls tabs-large tabs-rounded" data-highlight="bg-dark-dark">
+                        <a href="#" class="tab-link active" id="tab-1-link" data-bs-toggle="collapse" data-bs-target="#tab-1">Profil</a>
+                        <a href="#" class="tab-link" id="tab-2-link" data-bs-toggle="collapse" data-bs-target="#tab-2">Data Umum</a>
+                    </div>
+                </div>                               
+        
+                <div data-bs-parent="#tab-group-1" class="collapse show" id="tab-1">     
+                    <!-- Section Title -->
+                    <div class="row">
+                        <div class="col text-center">
+                            <h3 class="section-title">Profil Daerah</h3>
+                        </div>
+                    </div>
+                    <!-- Info Section -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="card mb-4">
+                                <div class="card-header card-header-custom">
+                                    Visi
+                                </div>
+                                <div class="card-body">
+                                    "Menjadikan Kampung XYZ sebagai kampung yang maju, mandiri, dan berbudaya, dengan masyarakat yang sejahtera dan berdaya saing tinggi."
+                                </div>
+                                <div class="card-header card-header-custom">
+                                    Misi
+                                </div>
+                                <div class="card-body">
+                                    <p>1. Peningkatan Kesejahteraan Masyarakat:</p>
+                                    Meningkatkan akses terhadap pendidikan, kesehatan, dan lapangan kerja bagi seluruh warga kampung.
+                                    Mengembangkan program-program pemberdayaan ekonomi berbasis potensi lokal untuk meningkatkan pendapatan masyarakat.
+                                    <p>2. Pengembangan Infrastruktur dan Lingkungan:</p>
+                                    Meningkatkan kualitas dan aksesibilitas infrastruktur kampung, termasuk jalan, air bersih, dan fasilitas umum lainnya.
+                                    Menjaga kelestarian lingkungan dengan mengimplementasikan program penghijauan dan pengelolaan sampah yang efektif.
+                                    <p>3. Pelestarian Budaya dan Kearifan Lokal:</p>
+                                    Melestarikan dan mengembangkan seni budaya lokal melalui berbagai kegiatan dan festival budaya.
+                                    Mendorong partisipasi aktif masyarakat dalam pelestarian nilai-nilai kearifan lokal.
+                                    <p>4. Peningkatan Kualitas Pelayanan Publik:</p>
+                                    Meningkatkan kualitas pelayanan publik dengan memberikan pelayanan yang cepat, tepat, dan transparan.
+                                    Mendorong partisipasi masyarakat dalam proses pengambilan keputusan dan pembangunan kampung.
+        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Facilities Section -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="card mb-4">
+                                <div class="card-header card-header-custom">
+                                    Sarana dan Prasarana
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <p><strong>Puskesmas:</strong> -</p>
+                                            <p><strong>Posyandu:</strong> -</p>
+                                            <p><strong>Pondok Bersalin:</strong> -</p>
+                                            <p><strong>Rumah Sakit:</strong> -</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div data-bs-parent="#tab-group-1" class="collapse" id="tab-2">     
+                        <!-- Section Title -->
+                        <div class="row">
+                            <div class="col text-center">
+                                <h3 class="section-title">Data Umum</h3>
+                            </div>
+                        </div>
+                        <!-- Info Section -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header card-header-custom">
+                                        Info Wilayah
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Tipologi:</strong> -</p>
+                                        <p><strong>Ketinggian:</strong> -</p>
+                                        <p><strong>Luas Wilayah:</strong> -</p>
+                                        <p><strong>Total Jiwa:</strong> -</p>
+                                        <p><strong>Laki-laki:</strong> -</p>
+                                        <p><strong>Perempuan:</strong> -</p>
+                                        <p><strong>Total OAP:</strong> -</p>
+                                        <p><strong>Total Non OAP:</strong> -</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header card-header-custom">
+                                        Batas Wilayah
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Utara:</strong> -</p>
+                                        <p><strong>Selatan:</strong> -</p>
+                                        <p><strong>Timur:</strong> -</p>
+                                        <p><strong>Barat:</strong> -</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Facilities Section -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="card mb-4">
+                                    <div class="card-header card-header-custom">
+                                        Sarana dan Prasarana
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <p><strong>Puskesmas:</strong> -</p>
+                                                <p><strong>Posyandu:</strong> -</p>
+                                                <p><strong>Pondok Bersalin:</strong> -</p>
+                                                <p><strong>Rumah Sakit:</strong> -</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Table Section -->
+    <div class="row content">
+        <div class="col">
+            <table class="table table-bordered table-custom">
+                <thead>
+                    <tr>
+                        <th>Nama Distrik</th>
+                        <th>Ibu Kota</th>
+                        <th>Jumlah Kampung</th>
+                        <th>Daftar Kampung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Supiori Selatan</td>
+                        <td>Masyarakat</td>
+                        <td>7</td>
+                        <td>Awaik, Brak, Bidayam, Famfui, Masyarakat, Odet, Waidori</td>
+                    </tr>
+                    <tr>
+                        <td>Supiori Utara</td>
+                        <td>Fanjar</td>
+                        <td>5</td>
+                        <td>Fanjar, Korido, Jopesi, Warebo, Wirabet</td>
+                    </tr>
+                    <tr>
+                        <td>Supiori Timur</td>
+                        <td>Sorendiweri</td>
+                        <td>10</td>
+                        <td>Doudule, Jekor, Mamdas, Sawata, Sorendiweri, Ansudu, Inswambesi, Kumpuneyendi, Manjasiwona, Ansus Besar</td>
+                    </tr>
+                    <tr>
+                        <td>Kepulauan Aruri</td>
+                        <td>Menwaudi</td>
+                        <td>4</td>
+                        <td>Amdo, Mapia, Mejeni, Napiendi</td>
+                    </tr>
+                    <tr>
+                        <td>Supiori Barat</td>
+                        <td>Wayei</td>
+                        <td>7</td>
+                        <td>Amiyai, Kisyap, Mapia, Mejeni, Napiendi, Wayei</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const tabLinks = document.querySelectorAll('.tab-controls .tab-link');
+
+    tabLinks.forEach(link => {
+        link.addEventListener('click', function () {
+            // Remove active class from all tab links
+            tabLinks.forEach(tab => tab.classList.remove('active'));
+            // Add active class to the clicked tab link
+            this.classList.add('active');
+
+            // Hide all tab content
+            document.querySelectorAll('.tab-content .collapse').forEach(tabContent => {
+                tabContent.classList.remove('show');
+            });
+
+            // Show the corresponding tab content
+            const target = this.getAttribute('data-bs-target');
+            document.querySelector(target).classList.add('show');
+        });
+    });
+});
+</script>
+{% endblock main %} 

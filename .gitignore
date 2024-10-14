@@ -1,0 +1,7 @@
+projek_setori/settings.py
+admin_setori/media/*
+*.pyc
+*.sql
+*.sqlite3
+admin_setori/migrations/*.py
+app_setori/migrations/*.py

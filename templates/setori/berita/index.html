@@ -1,0 +1,206 @@
+{% extends 'setori/base_layout/base_layout.html' %} 
+{% load static %}
+
+{% block main %} 
+        <!-- header -->
+        <div class="body">
+            <div class="page-header" style="position: relative; margin-bottom: 0; overflow: hidden;">
+                <img src="{% static 'img/header/atasan.jpg' %}" alt="Header Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+                <div class="container p-relative z-index-1 py-2">
+                    <div class="row mh-200px mh-lg-300px align-items-center py-4">
+                        <div class="col">
+                            <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                                <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">Berita</h1>
+                            </div>
+                            <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                                <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
+                                    <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Beranda</a></li>
+                                    <li class="active text-color-light opacity-7">Berita</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- News -->
+        <div class="bg-grey-100 px-3 px-xl-0 border-radius-2-bottom p-relative overflow-hidden">
+            <div class="container py-5">
+                <div class="row pt-5">
+                    <div class="col-lg-4 mb-4 pb-1">
+                        <article class="post">
+                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                                <div class="p-relative rounded-3 overflow-hidden">
+                                    <div class="post-date p-absolute top-20 left-20">
+                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
+                                        <span class="month bg-secondary">Jan</span>
+                                    </div>
+                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
+                                        <img class="card-img-top" src="{% static 'img/berita/1.jpg' %}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
+                                    </a>
+                                    <div class="card-body bg-light p-4">
+                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
+                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Pemkab Supiori bersama dengan warga Kampung Aruri melakukan aksi penanganan DB</a></h4>
+                                        <p class="card-text text-3-5 mb-1">Pemkab Supiori bersama warga Kampung Aruri telah meluncurkan sebuah program komprehensif untuk...</p>
+                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
+                                        <div class="d-flex align-items-center mt-3 pt-1">
+                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
+                                            <strong class="text-color-dark text-2">by John Doe</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-lg-4 mb-4 pb-1">
+                        <article class="post">
+                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                                <div class="p-relative rounded-3 overflow-hidden">
+                                    <div class="post-date p-absolute top-20 left-20">
+                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
+                                        <span class="month bg-secondary">Jan</span>
+                                    </div>
+                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
+                                        <img class="card-img-top" src="{% static 'img/berita/2.jpg' %}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
+                                    </a>
+                                    <div class="card-body bg-light p-4">
+                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
+                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Supiori menerima penghargaan kesehatan tertinggi dari Mentri Kesehatan</a></h4>
+                                        <p class="card-text text-3-5 mb-1">Supiori menerima penghargaan kesehatan tertinggi berkat peningkatan fasilitas dan kualitas tenaga medisnya...</p>
+                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
+                                        <div class="d-flex align-items-center mt-3 pt-1">
+                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
+                                            <strong class="text-color-dark text-2">by John Doe</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-lg-4 mb-4 pb-1">
+                        <article class="post">
+                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                                <div class="p-relative rounded-3 overflow-hidden">
+                                    <div class="post-date p-absolute top-20 left-20">
+                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
+                                        <span class="month bg-secondary">Jan</span>
+                                    </div>
+                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
+                                        <img class="card-img-top" src="{% static 'img/berita/3.jpg' %}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
+                                    </a>
+                                    <div class="card-body bg-light p-4">
+                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
+                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Beberapa wisata alam tersembunyi di Supiori, nomor 4 wajib kamu coba</a></h4>
+                                        <p class="card-text text-3-5 mb-1">Keindahan alam Supiori memotivasi warga menjaga kesehatan lingkungan dan kebersihan daerah yang...</p>
+                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
+                                        <div class="d-flex align-items-center mt-3 pt-1">
+                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
+                                            <strong class="text-color-dark text-2">by John Doe</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>                            
+                    <div class="col-lg-4 mb-4 pb-1">
+                        <article class="post">
+                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                                <div class="p-relative rounded-3 overflow-hidden">
+                                    <div class="post-date p-absolute top-20 left-20">
+                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
+                                        <span class="month bg-secondary">Jan</span>
+                                    </div>
+                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
+                                        <img class="card-img-top" src="{% static 'img/berita/4.jpg' %}" loading="lazy" alt="Card Image"width="100%" height="200px" object-fit="cover">
+                                    </a>
+                                    <div class="card-body bg-light p-4">
+                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
+                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Supiori berhasil menurunkan kasus anak stunting.</a></h4>
+                                        <p class="card-text text-3-5 mb-1">Program pengentasan stunting di Supiori berhasil menurunkan kasus anak stunting melalui...</p>
+                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
+                                        <div class="d-flex align-items-center mt-3 pt-1">
+                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
+                                            <strong class="text-color-dark text-2">by John Doe</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-lg-4 mb-4 pb-1">
+                        <article class="post">
+                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                                <div class="p-relative rounded-3 overflow-hidden">
+                                    <div class="post-date p-absolute top-20 left-20">
+                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
+                                        <span class="month bg-secondary">Jan</span>
+                                    </div>
+                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
+                                        <img class="card-img-top" src="{% static 'img/berita/5.jpg' %}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
+                                    </a>
+                                    <div class="card-body bg-light p-4">
+                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
+                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Puskesmas keliling Supiori menjangkau daerah terpencil.</a></h4>
+                                        <p class="card-text text-3-5 mb-1">Pelayanan kesehatan di Supiori semakin baik dengan Puskesmas keliling yang menjangkau daerah-daerah terpencil...</p>
+                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
+                                        <div class="d-flex align-items-center mt-3 pt-1">
+                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
+                                            <strong class="text-color-dark text-2">by John Doe</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-lg-4 mb-4 pb-1">
+                        <article class="post">
+                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                                <div class="p-relative rounded-3 overflow-hidden">
+                                    <div class="post-date p-absolute top-20 left-20">
+                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
+                                        <span class="month bg-secondary">Jan</span>
+                                    </div>
+                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
+                                        <img class="card-img-top" src="{% static 'img/berita/6.jpg' %}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
+                                    </a>
+                                    <div class="card-body bg-light p-4">
+                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
+                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Supiori kampanye pola hidup sehat bagi warganya.</a></h4>
+                                        <p class="card-text text-3-5 mb-1">Supiori meningkatkan kualitas hidup dengan kampanye kesehatan rutin dan penyuluhan...</p>
+                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
+                                        <div class="d-flex align-items-center mt-3 pt-1">
+                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
+                                            <strong class="text-color-dark text-2">by John Doe</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="pt-3 pb-5">
+                    <ul class="pagination pagination-rounded pagination-md justify-content-center">
+                        <li class="page-item"><a class="page-link bg-transparent text-dark" href="#" data-cursor-effect-hover="fit"><i class="fas fa-angle-left"></i></a></li>
+                        <li class="page-item active"><a class="page-link bg-secondary text-light border-color-secondary" href="#" data-cursor-effect-hover="fit">1</a></li>
+                        <li class="page-item"><a class="page-link bg-transparent text-dark" href="#" data-cursor-effect-hover="fit">2</a></li>
+                        <li class="page-item"><a class="page-link bg-transparent text-dark" href="#" data-cursor-effect-hover="fit">3</a></li>
+                        <li class="page-item"><a class="page-link bg-transparent text-dark" href="#" data-cursor-effect-hover="fit"><i class="fas fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasMain" aria-labelledby="offcanvasMain">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="mb-4" id="offCanvasLogo"></div>
+        <nav class="offcanvas-nav w-100" id="offCanvasNav"></nav>
+    </div>
+</div>
+
+{% endblock main %} 
