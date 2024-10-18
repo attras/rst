@@ -1,15 +1,34 @@
 {% extends 'admin/base_layout/index.html' %}
 {% block css %} {% endblock css %}
 {% block main %}
-<!-- Master Wilayah Table -->
+
+<!-- PAGE-HEADER -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Dashboard 01</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+        </ol>
+    </div>
+    <div class="ms-auto pageheader-btn">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addKategoriModal">
+            <span>
+                <i class="fe fe-plus"></i>
+            </span> Add kategori
+        </a>
+        <a href="#" class="btn btn-success btn-icon text-white">
+            <span>
+                <i class="fe fe-log-in"></i>
+            </span> Export
+        </a>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-             
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWilayahModal">
-                    Tambah Wilayah
-                </button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -17,19 +36,17 @@
                         <thead class="border-top">
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Nama Wilayah</th>
-                                <th class="bg-transparent border-bottom-0">Level</th>
+                                <th class="bg-transparent border-bottom-0">Kategori</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for wilayah in dt_wilayah %}
+                          {% for kategori in dt_category %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ wilayah.wilayah_nama }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ wilayah.get_level_display }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ kategori.name }}</td>
                                 <td class="">
-                                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteWilayahModal_{{ wilayah.wilayah_id }}" data-bs-original-title="Delete">
+                                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteKategoriModal_{{ kategori.categori_id }}" data-bs-original-title="Delete">
                                         <i>
                                             <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                                 <path d="M0 0h24v24H0V0z" fill="none" />
@@ -37,20 +54,20 @@
                                             </svg>
                                         </i>
                                     </a>
-                                    <!-- Delete Wilayah Modal -->
-                                    <div class="modal fade" id="deleteWilayahModal_{{ wilayah.wilayah_id }}" tabindex="-1" aria-labelledby="deleteWilayahModalLabel" aria-hidden="true">
+                                    <!-- Delete Identitas Modal -->
+                                    <div class="modal fade" id="deleteKategoriModal_{{ kategori.categori_id }}" tabindex="-1" aria-labelledby="deleteKategoriModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteWilayahModalLabel">Delete Wilayah</h5>
+                                                    <h5 class="modal-title" id="deleteKategoriModalLabel">Delete Identitas</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Apakah Anda yakin ingin menghapus wilayah ini?</p>
+                                                    <p>Apakah Anda yakin ingin menghapus identitas ini?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                    <a href="{% url 'admin_setori:delete_wilayah' wilayah_id=wilayah.wilayah_id %}">
+                                                    <a href="{% url 'admin_setori:del_kategori' category_id=kategori.categori_id %}">
                                                         <button type="button" class="btn btn-danger">Hapus</button>
                                                     </a>
                                                 </div>
@@ -59,7 +76,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            {% endfor %}
+                          {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -68,40 +85,22 @@
     </div>
 </div>
 
-<!-- Add Wilayah Modal -->
-<div class="modal fade" id="addWilayahModal" tabindex="-1" aria-labelledby="addWilayahModalLabel" aria-hidden="true">
+<!-- Add Identitas Modal -->
+<div class="modal fade" id="addKategoriModal" tabindex="-1" aria-labelledby="addKategoriModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addWilayahModalLabel">Tambah Wilayah</h5>
+                <h5 class="modal-title" id="addKategoriModalLabel">Tambah Identitas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_wilayah' %}">
+                <form method="post" action="{% url 'admin_setori:add_kategori' %}">
                   {% csrf_token %}
                     <div class="mb-3">
-                        <label class="form-label">Nama Wilayah</label>
-                        <input type="text" name="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required />
+                        <label class="form-label">Kategori</label>
+                        <input type="text" name="name" class="form-control" placeholder="Masukkan Nama Kategori" required />
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Level</label>
-                        <select name="wilayah_level" class="form-select" required>
-                            <option value="" disabled selected>Pilih Level</option>
-                            {% for value in level %}
-                            <option value="{{ value.0 }}">{{ value.1 }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Wilayah Parent (Optional)</label>
-                        <select name="wilayah_parent" class="form-select">
-                            <option value="" disabled selected>Pilih Wilayah Parent</option>
-                            {% for parent_wilayah in dt_wilayah %}
-                                <option value="{{ parent_wilayah.wilayah_id }}">{{ parent_wilayah.wilayah_nama }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit"  onclick="" class="btn btn-primary">Simpan</button>
                 </form>
             </div>
         </div>
@@ -110,5 +109,15 @@
 {% endblock main %}
 {% block js %}
 <!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->
-
+<script>
+         function showAlert() {
+            Swal.fire({
+                position: "top",
+  icon: "success",
+  title: "Your work has been saved",
+  showConfirmButton: false,
+  timer: 6000
+            });
+        }
+</script>
 {% endblock js %}

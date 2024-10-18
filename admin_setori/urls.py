@@ -5,11 +5,24 @@ from .views import *
 
 app_name = 'admin_setori'
 urlpatterns = [
-    # path('login', auth.LogViews.as_view(), name = 'login'),
+    path('login', auth.LoginViews.as_view(), name = 'halaman_login'),
+    path('logout', auth.LogoutViews.as_view(), name = 'logout_admin'),
+
     path('dashboard/',admin_index.Admin_indexViews.as_view(), name = 'dashboard'),
-    path('master_user', master_user.Master_userViews.as_view(), name = 'master_user'),
-   
-    path('master_kategori', master_kategori.Master_kategoriViews.as_view(), name = 'master_kategori'),
+    
+    
+     path('master_user/',include([
+         path('', master_user.Master_userViews.as_view(), name = 'master_user'),
+         path('add', master_user.AddUser.as_view(), name = 'add_user'),
+         path('delete/<int:id_user>', master_user.DeleteUser.as_view(), name = 'del_user'),
+         ])),
+
+    path('kategori/',include([
+        path('', master_kategori.Master_kategoriViews.as_view(), name = 'master_kategori'),
+        path('add', master_kategori.AddCategory.as_view(), name = 'add_kategori'),
+        path('del/<uuid:category_id>', master_kategori.DeleteCategory.as_view(), name = 'del_kategori'),
+        ])),
+    
     # path('add_kategori',master_kategori.Addkategori.as_view(),name='add_kategori'),
 
     path('faq/',include([
@@ -27,16 +40,24 @@ urlpatterns = [
     
     path('master_wilayah/',include([
         path('', master_wilayah.Master_wilayahViews.as_view(), name = 'master_wilayah'),
-        # path('add', master_wilayah.AddMasterWilayah.as_view(), name = 'add_master_wilayah'),
+        path('add', master_wilayah.AddWilayah.as_view(), name = 'add_wilayah'),
+        path('delete/<str:wilayah_id>', master_wilayah.DeleteWilayah.as_view(), name = 'delete_wilayah'),
+       
         ])),
     
     path('master_identitas/',include([
         path('', master_identitas.Master_identitasViews.as_view(), name = 'master_identitas'),
-        # path('add_master_identitas', master_identitas.AddMasterIdentitas.as_view(), name = 'add_master_identitas'),
-        # path('edit/<slug:identitas_slug>/', master_identitas.EditMasterIdentitas.as_view(), name = 'edit_master_identitas'),
-        # path('delete/<slug:identitas_slug>/', master_identitas.DeleteMasterIdentitas.as_view(), name = 'delete_master_identitas'),
+        path('add_master_identitas', master_identitas.AddIdentitas.as_view(), name = 'add_identitas'),
+        path('edit/<uuid:identitas_id>/', master_identitas.EditIdentitas.as_view(), name = 'edit_identitas'),
+        path('delete/<uuid:id_identitas>', master_identitas.DeleteIdentitas.as_view(), name = 'delete_identitas'),
         ])),
 
-    path('master_slider/',master_slider.Master_sliderViews.as_view(),name='master_slider'),
+    path('',include([
+        path('master_slider/',master_slider.Master_sliderViews.as_view(),name='master_slider'),
+        path('add_slider/',master_slider.Add_slider.as_view(),name='add_slider'),
+        # path('delete_slider/',master_slider.Master_sliderViews.as_view(),name='delete_slider'),
+        ])),
+
+    
     # path('add_slider',master_slider.Addslider.as_view(),name='add_slider'),
 ]

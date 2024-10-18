@@ -19,7 +19,7 @@
 
 		<!-- BOOTSTRAP CSS -->
 		<link href="{% static 'admin/assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		
 		<!-- STYLE CSS -->
 		<link href="{% static 'admin/assets/css/style.css' %}" rel="stylesheet"/>
 		<link href="{% static 'admin/assets/css/dark-style.css' %}" rel="stylesheet"/>
@@ -49,7 +49,8 @@
 
 		<!-- COLOR SKIN CSS -->
 		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'admin/assets/colors/color1.css' %}" />
-
+		<!-- sweet alert -->
+		<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 		<style>	
 			.side-header{
 				background-color: #2f2f2f !important;
@@ -57,10 +58,12 @@
 			
 		</style>
        {% block css %} {% endblock css %}
+		
+	   
 	</head>
 
 	<body class="app sidebar-mini">
-        
+		
 		<!-- GLOBAL-LOADER -->
 		<div id="global-loader">
 			<img src="{% static 'admin/assets/images/loader.svg' %}" class="loader-img" alt="Loader">
@@ -68,7 +71,7 @@
 		<!-- /GLOBAL-LOADER -->
 
 		<!-- PAGE -->
-		<div class="page">
+		
 			<div class="page-main">
 
 				<!--APP-SIDEBAR-->
@@ -185,28 +188,14 @@
 						<div class="d-flex">
 							<a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
 							<a class="header-brand1 d-flex d-md-none" href="index.html">
-								<img src="{% static '' %}admin/assets/images/brand/logo.png" class="header-brand-img desktop-logo" alt="logo">
-								<img src="{% static '' %}admin/assets/images/brand/logo-1.png" class="header-brand-img toggle-logo" alt="logo">
-								<img src="{% static '' %}admin/assets/images/brand/logo-2.png" class="header-brand-img light-logo" alt="logo">
-								<img src="{% static '' %}admin/assets/images/brand/logo-3.png" class="header-brand-img light-logo1" alt="logo">
+								<img src="{% static 'admin/assets/images/brand/logo.png' %}" class="header-brand-img desktop-logo" alt="logo">
+								<img src="{% static 'admin/assets/images/brand/logo-1.png' %}" class="header-brand-img toggle-logo" alt="logo">
+								<img src="{% static 'admin/assets/images/brand/logo-2.png' %}" class="header-brand-img light-logo" alt="logo">
+								<img src="{% static 'admin/assets/images/brand/logo-3.png' %}" class="header-brand-img light-logo1" alt="logo">
 							</a><!-- LOGO -->
-							<div class="main-header-center ms-3 d-none d-md-block">
-								<input class="form-control" placeholder="Search for anything..." type="search"> <button class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-							</div>
+							
 							<div class="d-flex order-lg-2 ms-auto header-right-icons">
-								<div class="dropdown d-lg-none d-md-block d-none">
-									<a href="#" class="nav-link icon" data-bs-toggle="dropdown">
-										<i class="fe fe-search"></i>
-									</a>
-									<div class="dropdown-menu header-search dropdown-menu-start">
-										<div class="input-group w-100 p-2">
-											<input type="text" class="form-control" placeholder="Search....">
-											<div class="input-group-text btn btn-primary">
-												<i class="fa fa-search" aria-hidden="true"></i>
-											</div>
-										</div>
-									</div>
-								</div><!-- SEARCH -->
+								<!-- SEARCH -->
 								<button class="navbar-toggler navresponsive-toggler d-md-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
 									<span class="navbar-toggler-icon fe fe-more-vertical text-dark"></span>
 								</button>
@@ -216,127 +205,12 @@
 										<span class="light-layout" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Light Theme"><i class="fe fe-sun"></i></span>
 									</a>
 								</div><!-- Theme-Layout -->
-								<div class="dropdown d-none d-md-flex">
-									<a class="nav-link icon full-screen-link nav-link-bg">
-										<i class="fe fe-minimize fullscreen-button"></i>
-									</a>
-								</div><!-- FULL-SCREEN -->
-								<div class="dropdown d-none d-md-flex notifications">
-									<a class="nav-link icon" data-bs-toggle="dropdown"><i class="fe fe-bell"></i><span class=" pulse"></span>
-									</a>
-									<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow ">
-										<div class="drop-heading border-bottom">
-											<div class="d-flex">
-												<h6 class="mt-1 mb-0 fs-16 fw-semibold">You have Notification</h6>
-												<div class="ms-auto">
-													<span class="badge bg-success rounded-pill">3</span>
-												</div>
-											</div>
-										</div>
-										<div class="notifications-menu">
-											<a class="dropdown-item d-flex" href="chat.html">
-												<div class="me-3 notifyimg  bg-primary-gradient brround box-shadow-primary">
-													<i class="fe fe-message-square"></i>
-												</div>
-												<div class="mt-1">
-													<h5 class="notification-label mb-1">New review received</h5>
-													<span class="notification-subtext">2 hours ago</span>
-												</div>
-											</a>
-											<a class="dropdown-item d-flex" href="chat.html">
-												<div class="me-3 notifyimg  bg-secondary-gradient brround box-shadow-primary">
-													<i class="fe fe-mail"></i>
-												</div>
-												<div class="mt-1">
-													<h5 class="notification-label mb-1">New Mails Received</h5>
-													<span class="notification-subtext">1 week ago</span>
-												</div>
-											</a>
-											<a class="dropdown-item d-flex" href="cart.html">
-												<div class="me-3 notifyimg  bg-success-gradient brround box-shadow-primary">
-													<i class="fe fe-shopping-cart"></i>
-												</div>
-												<div class="mt-1">
-													<h5 class="notification-label mb-1">New Order Received</h5>
-													<span class="notification-subtext">1 day ago</span>
-												</div>
-											</a>
-										</div>
-										<div class="dropdown-divider m-0"></div>
-										<a href="#" class="dropdown-item text-center p-3 text-muted">View all Notification</a>
-									</div>
-								</div><!-- NOTIFICATIONS -->
-								<div class="dropdown  d-none d-md-flex message">
-									<a class="nav-link icon text-center" data-bs-toggle="dropdown">
-										<i class="fe fe-message-square"></i><span class=" pulse-danger"></span>
-									</a>
-									<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-										<div class="drop-heading border-bottom">
-											<div class="d-flex">
-												<h6 class="mt-1 mb-0 fs-16 fw-semibold">You have Messages</h6>
-												<div class="ms-auto">
-													<span class="badge bg-danger rounded-pill">4</span>
-												</div>
-											</div>
-										</div>
-										<div class="message-menu">
-											<a class="dropdown-item d-flex" href="chat.html">
-												<span class="avatar avatar-md brround me-3 align-self-center cover-image" data-bs-image-src="{% static '' %}admin/assets/images/users/1.jpg"></span>
-												<div class="wd-90p">
-													<div class="d-flex">
-														<h5 class="mb-1">Madeleine</h5>
-														<small class="text-muted ms-auto text-end">
-															3 hours ago
-														</small>
-													</div>
-													<span>Hey! there I' am available....</span>
-												</div>
-											</a>
-											<a class="dropdown-item d-flex" href="chat.html">
-												<span class="avatar avatar-md brround me-3 align-self-center cover-image" data-bs-image-src="{% static '' %}admin/assets/images/users/12.jpg"></span>
-												<div class="wd-90p">
-													<div class="d-flex">
-														<h5 class="mb-1">Anthony</h5>
-														<small class="text-muted ms-auto text-end">
-															5 hour ago
-														</small>
-													</div>
-													<span>New product Launching...</span>
-												</div>
-											</a>
-											<a class="dropdown-item d-flex" href="chat.html">
-												<span class="avatar avatar-md brround me-3 align-self-center cover-image" data-bs-image-src="{% static '' %}admin/assets/images/users/4.jpg"></span>
-												<div class="wd-90p">
-													<div class="d-flex">
-														<h5 class="mb-1">Olivia</h5>
-														<small class="text-muted ms-auto text-end">
-															45 mintues ago
-														</small>
-													</div>
-													<span>New Schedule Realease......</span>
-												</div>
-											</a>
-											<a class="dropdown-item d-flex" href="chat.html">
-												<span class="avatar avatar-md brround me-3 align-self-center cover-image" data-bs-image-src="{% static '' %}admin/assets/images/users/15.jpg"></span>
-												<div class="wd-90p">
-													<div class="d-flex">
-														<h5 class="mb-1">Sanderson</h5>
-														<small class="text-muted ms-auto text-end">
-															2 days ago
-														</small>
-													</div>
-													<span>New Schedule Realease......</span>
-												</div>
-											</a>
-										</div>
-										<div class="dropdown-divider m-0"></div>
-										<a href="#" class="dropdown-item text-center p-3 text-muted">See all Messages</a>
-									</div>
-								</div><!-- MESSAGE-BOX -->
+								
+								
 								<div class="dropdown d-none d-md-flex profile-1">
 									<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
 										<span>
-											<img src="{% static '' %}admin/assets/images/users/8.jpg" alt="profile-user" class="avatar  profile-user brround cover-image">
+											<img src="{% static 'admin/assets/images/users/8.jpg' %}" alt="profile-user" class="avatar  profile-user brround cover-image">
 										</span>
 									</a>
 									<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -360,7 +234,7 @@
 										<a class="dropdown-item" href="faq.html">
 											<i class="dropdown-icon fe fe-alert-triangle"></i> Need help??
 										</a>
-										<a class="dropdown-item" href="login.html">
+										<a class="dropdown-item" href="{% url 'admin_setori:logout_admin' %}">
 											<i class="dropdown-icon fe fe-alert-circle"></i> Sign out
 										</a>
 									</div>
@@ -401,118 +275,8 @@
 									<i class="fe fe-minimize fullscreen-button"></i>
 								</a>
 							</div><!-- FULL-SCREEN -->
-							<div class="dropdown  d-md-flex notifications">
-								<a class="nav-link icon" data-bs-toggle="dropdown"><i class="fe fe-bell"></i><span class=" pulse"></span>
-								</a>
-								<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-									<div class="drop-heading border-bottom">
-										<div class="d-flex">
-											<h6 class="mt-1 mb-0 fs-16 fw-semibold">You have Notification</h6>
-											<div class="ms-auto">
-												<span class="badge bg-success rounded-pill">3</span>
-											</div>
-										</div>
-									</div>
-									<div class="notifications-menu">
-										<a class="dropdown-item d-flex" href="chat.html">
-											<div class="me-3 notifyimg  bg-primary-gradient brround box-shadow-primary">
-												<i class="fe fe-message-square"></i>
-											</div>
-											<div class="mt-1">
-												<h5 class="notification-label mb-1">New review received</h5>
-												<span class="notification-subtext">2 hours ago</span>
-											</div>
-										</a>
-										<a class="dropdown-item d-flex" href="chat.html">
-											<div class="me-3 notifyimg  bg-secondary-gradient brround box-shadow-primary">
-												<i class="fe fe-mail"></i>
-											</div>
-											<div class="mt-1">
-												<h5 class="notification-label mb-1">New Mails Received</h5>
-												<span class="notification-subtext">1 week ago</span>
-											</div>
-										</a>
-										<a class="dropdown-item d-flex" href="cart.html">
-											<div class="me-3 notifyimg  bg-success-gradient brround box-shadow-primary">
-												<i class="fe fe-shopping-cart"></i>
-											</div>
-											<div class="mt-1">
-												<h5 class="notification-label mb-1">New Order Received</h5>
-												<span class="notification-subtext">1 day ago</span>
-											</div>
-										</a>
-									</div>
-									<div class="dropdown-divider m-0"></div>
-									<a href="#" class="dropdown-item text-center p-3 text-muted">View all Notification</a>
-								</div>
-							</div><!-- NOTIFICATIONS -->
-							<div class="dropdown d-md-flex message">
-								<a class="nav-link icon text-center" data-bs-toggle="dropdown">
-									<i class="fe fe-message-square"></i><span class=" pulse-danger"></span>
-								</a>
-								<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-									<div class="drop-heading border-bottom">
-										<div class="d-flex">
-											<h6 class="mt-1 mb-0 fs-16 fw-semibold">You have Messages</h6>
-											<div class="ms-auto">
-												<span class="badge bg-danger rounded-pill">4</span>
-											</div>
-										</div>
-									</div>
-									<div class="message-menu">
-										<a class="dropdown-item d-flex" href="chat.html">
-											<span class="avatar avatar-md brround me-3 align-self-center cover-image" data-bs-image-src="{% static '' %}admin/assets/images/users/1.jpg"></span>
-											<div class="wd-90p">
-												<div class="d-flex">
-													<h5 class="mb-1">Madeleine</h5>
-													<small class="text-muted ms-auto text-end">
-														3 hours ago
-													</small>
-												</div>
-												<span>Hey! there I' am available....</span>
-											</div>
-										</a>
-										<a class="dropdown-item d-flex" href="chat.html">
-											<span class="avatar avatar-md brround me-3 align-self-center cover-image" data-bs-image-src="{% static '' %}admin/assets/images/users/12.jpg"></span>
-											<div class="wd-90p">
-												<div class="d-flex">
-													<h5 class="mb-1">Anthony</h5>
-													<small class="text-muted ms-auto text-end">
-														5 hour ago
-													</small>
-												</div>
-												<span>New product Launching...</span>
-											</div>
-										</a>
-										<a class="dropdown-item d-flex" href="chat.html">
-											<span class="avatar avatar-md brround me-3 align-self-center cover-image" data-bs-image-src="{% static '' %}admin/assets/images/users/4.jpg"></span>
-											<div class="wd-90p">
-												<div class="d-flex">
-													<h5 class="mb-1">Olivia</h5>
-													<small class="text-muted ms-auto text-end">
-														45 mintues ago
-													</small>
-												</div>
-												<span>New Schedule Realease......</span>
-											</div>
-										</a>
-										<a class="dropdown-item d-flex" href="chat.html">
-											<span class="avatar avatar-md brround me-3 align-self-center cover-image" data-bs-image-src="{% static '' %}admin/assets/images/users/15.jpg"></span>
-											<div class="wd-90p">
-												<div class="d-flex">
-													<h5 class="mb-1">Sanderson</h5>
-													<small class="text-muted ms-auto text-end">
-														2 days ago
-													</small>
-												</div>
-												<span>New Schedule Realease......</span>
-											</div>
-										</a>
-									</div>
-									<div class="dropdown-divider m-0"></div>
-									<a href="#" class="dropdown-item text-center p-3 text-muted">See all Messages</a>
-								</div>
-							</div><!-- MESSAGE-BOX -->
+							<!-- NOTIFICATIONS -->
+							<!-- MESSAGE-BOX -->
 							<div class="dropdown d-md-flex profile-1">
 								<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
 									<span>
@@ -540,7 +304,7 @@
 									<a class="dropdown-item" href="#">
 										<i class="dropdown-icon fe fe-alert-triangle"></i> Need help?
 									</a>
-									<a class="dropdown-item" href="login.html">
+									<a class="dropdown-item" href="{% url 'admin_setori:logout_admin' %}">
 										<i class="dropdown-icon fe fe-alert-circle"></i> Sign out
 									</a>
 								</div>
@@ -558,8 +322,17 @@
                 <!--app-content open-->
 				<div class="app-content">
 					<div class="side-app">
-					{% block main %} {% endblock main %}
+						
+		{% if messages %}
+        {% for message in messages%}
+		<div class="alert alert-primary" role="alert">
+			A simple primary alert—check it out! {{message}}
+		  </div>
+	
+        {% endfor %}
+        {% endif %}
 
+					{% block main %} {% endblock main %}
 
 					</div>
 				</div>
@@ -582,8 +355,6 @@
 							<!-- Tabs -->
 							<ul class="nav panel-tabs">
 								<li class=""><a href="#side1" class="active" data-bs-toggle="tab"><i class="fe fe-user me-1"></i> Profile</a></li>
-								<li><a href="#side2" data-bs-toggle="tab"><i class="fe fe-users me-1"></i> Contacts</a></li>
-								<li><a href="#side3" data-bs-toggle="tab"><i class="fe fe-settings me-1"></i> Settings</a></li>
 							</ul>
 						</div>
 						<div class="tab-content">
@@ -640,225 +411,6 @@
 									</div>
 								</a>
 							</div>
-							<div class="tab-pane" id="side2">
-								<div class="list-group list-group-flush ">
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/9.jpg"><span class="avatar-status bg-success"></span></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Mozelle Belt</div>
-											<p class="mb-0 tx-12 text-muted">mozellebelt@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/11.jpg"></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Florinda Carasco</div>
-											<p class="mb-0 tx-12 text-muted">florindacarasco@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/10.jpg"><span class="avatar-status bg-success"></span></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Alina Bernier</div>
-											<p class="mb-0 tx-12 text-muted">alinaaernier@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/2.jpg"><span class="avatar-status bg-success"></span></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Zula Mclaughin</div>
-											<p class="mb-0 tx-12 text-muted">zulamclaughin@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/13.jpg"></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Isidro Heide</div>
-											<p class="mb-0 tx-12 text-muted">isidroheide@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/12.jpg"><span class="avatar-status bg-success"></span></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Mozelle Belt</div>
-											<p class="mb-0 tx-12 text-muted">mozellebelt@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/4.jpg"></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Florinda Carasco</div>
-											<p class="mb-0 tx-12 text-muted">florindacarasco@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/7.jpg"></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Alina Bernier</div>
-											<p class="mb-0 tx-12 text-muted">alinabernier@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/2.jpg"></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Zula Mclaughin</div>
-											<p class="mb-0 tx-12 text-muted">zulamclaughin@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/14.jpg"><span class="avatar-status bg-success"></span></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Isidro Heide</div>
-											<p class="mb-0 tx-12 text-muted">isidroheide@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/11.jpg"></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Florinda Carasco</div>
-											<p class="mb-0 tx-12 text-muted">florindacarasco@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/9.jpg"></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Alina Bernier</div>
-											<p class="mb-0 tx-12 text-muted">alinabernier@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/15.jpg"><span class="avatar-status bg-success"></span></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Zula Mclaughin</div>
-											<p class="mb-0 tx-12 text-muted">zulamclaughin@gmail.com</p>
-										</div>
-									</div>
-									<div class="list-group-item d-flex  align-items-center">
-										<div class="me-2">
-											<span class="avatar avatar-md brround cover-image" data-bs-image-src="{% static '' %}admin/assets/images/faces/4.jpg"></span>
-										</div>
-										<div class="">
-											<div class="fw-semibold" data-bs-toggle="modal" data-target="#chatmodel">Isidro Heide</div>
-											<p class="mb-0 tx-12 text-muted">isidroheide@gmail.com</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane" id="side3">
-								<a class="dropdown-item bg-gray-100 pd-y-10" href="#">
-									Account Settings
-								</a>
-								<div class="card-body">
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" checked>
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Updates Automatically</span>
-										</label>
-									</div>
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Allow Location Map</span>
-										</label>
-									</div>
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" checked>
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Show Contacts</span>
-										</label>
-									</div>
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" checked>
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Show Notication</span>
-										</label>
-									</div>
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Show Tasks Statistics</span>
-										</label>
-									</div>
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" checked>
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Show Email Notification</span>
-										</label>
-									</div>
-								</div>
-								<a class="dropdown-item bg-gray-100 pd-y-10" href="#">
-									General Settings
-								</a>
-								<div class="card-body">
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" checked>
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Show User Online</span>
-										</label>
-									</div>
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Website Notication</span>
-										</label>
-									</div>
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Show Recent activity</span>
-										</label>
-									</div>
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Logout Automatically</span>
-										</label>
-									</div>
-									<div class="form-group mg-b-10">
-										<label class="custom-switch ps-0">
-											<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" checked>
-											<span class="custom-switch-indicator"></span>
-											<span class="custom-switch-description mg-l-10">Aloow All Notifications</span>
-										</label>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -866,8 +418,8 @@
 			<!--/Sidebar-right-->
 
 			<!-- FOOTER -->
-			<footer class="footer">
-				<div class="container">
+			<footer class="footer ">
+				<div class="container ">
 					<div class="row align-items-center flex-row-reverse">
 						<div class="col-md-12 col-sm-12 text-center">
 							 Copyright © 2021 <a href="#">Setori</a>. Designed with <span class="fa fa-heart text-danger"></span> by <a href="#"> RST </a> All rights reserved
@@ -880,6 +432,31 @@
 
 		{% block js %}
 		{% endblock js %}
+		
+
+        
+		<script>
+			// Mengumpulkan pesan Django ke dalam array
+			
+	
+			// Fungsi untuk menampilkan semua pesan
+			function showMessages() {
+				messages.forEach(msg => {
+					Swal.fire({
+						icon: msg.icon,
+						title: msg.title,
+						text: msg.text,
+						showConfirmButton: false,
+						timer: 3000  // Optional: alert will disappear after 3 seconds
+					});
+				});
+			}
+	
+			// Panggil fungsi untuk menampilkan pesan
+			if (messages.length > 0) {
+				showMessages();
+			}
+		</script>
 		<!-- BACK-TO-TOP -->
 		<a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
 
@@ -889,6 +466,7 @@
 		<!-- BOOTSTRAP JS -->
 		<script src="{% static 'admin/assets/plugins/bootstrap/js/popper.min.js' %}"></script>
 		<script src="{% static 'admin/assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+		
 		
 		<!-- SPARKLINE JS-->
 		<script src="{% static 'admin/assets/js/jquery.sparkline.min.js' %}"></script>

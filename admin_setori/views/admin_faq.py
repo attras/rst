@@ -7,6 +7,11 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django import forms
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+from admin_setori.decorators import role_required
+
+
 
 class Admin_faqViews(View):
     def get(self, request):
@@ -35,6 +40,14 @@ class Addfaq(View) :
             messages.error(request,"gagal menambahkan")
             return redirect('admin_setori:admin_faq')
         
+class Deletefaq(View):
+    def get(self, request, id_faq):
+        del_faq = get_object_or_404(Faq,faq_id=id_faq)
+        del_faq.delete()
+        messages.success(request, f"data berhasil dihapus")
+        return redirect('admin_setori:admin_faq')
+
+
 # class Editfaq(View) :
 #     def get(self, request, id_faq):
 #         faq = Faq.objects.get(faq_id=id_faq)
@@ -63,12 +76,6 @@ class Addfaq(View) :
 #             messages.error(request,"gagal menambahkan")
 #             return redirect(reverse('admin_setori:edit_faq',args=[id_faq]))
 
-class Deletefaq(View):
-    def get(self, request, id_faq):
-        del_faq = get_object_or_404(Faq,faq_id=id_faq)
-        del_faq.delete()
-        messages.success(request, f"data berhasil dihapus")
-        return redirect('admin_setori:admin_faq')
 
 
     

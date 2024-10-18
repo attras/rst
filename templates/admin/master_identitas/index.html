@@ -1,14 +1,16 @@
 {% extends 'admin/base_layout/index.html' %}
 {% block css %} {% endblock css %}
 {% block main %}
-<!-- Master Wilayah Table -->
+<!-- Master Identitas Table -->
+
+
 <div class="row">
     <div class="col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-             
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWilayahModal">
-                    Tambah Wilayah
+                <h3 class="card-title mb-0">Master Identitass</h3>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addIdentitasModal">
+                    Tambah Identitas
                 </button>
             </div>
             <div class="card-body">
@@ -17,19 +19,17 @@
                         <thead class="border-top">
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Nama Wilayah</th>
-                                <th class="bg-transparent border-bottom-0">Level</th>
+                                <th class="bg-transparent border-bottom-0">Identitas</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for wilayah in dt_wilayah %}
+                          {% for identitas in dt_identitas %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ wilayah.wilayah_nama }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ wilayah.get_level_display }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ identitas.identitas }}</td>
                                 <td class="">
-                                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteWilayahModal_{{ wilayah.wilayah_id }}" data-bs-original-title="Delete">
+                                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteIdentitasModal_{{ identitas.id }}" data-bs-original-title="Delete">
                                         <i>
                                             <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                                 <path d="M0 0h24v24H0V0z" fill="none" />
@@ -37,20 +37,20 @@
                                             </svg>
                                         </i>
                                     </a>
-                                    <!-- Delete Wilayah Modal -->
-                                    <div class="modal fade" id="deleteWilayahModal_{{ wilayah.wilayah_id }}" tabindex="-1" aria-labelledby="deleteWilayahModalLabel" aria-hidden="true">
+                                    <!-- Delete Identitas Modal -->
+                                    <div class="modal fade" id="deleteIdentitasModal_{{ identitas.id }}" tabindex="-1" aria-labelledby="deleteIdentitasModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteWilayahModalLabel">Delete Wilayah</h5>
+                                                    <h5 class="modal-title" id="deleteIdentitasModalLabel">Delete Identitas</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Apakah Anda yakin ingin menghapus wilayah ini?</p>
+                                                    <p>Apakah Anda yakin ingin menghapus identitas ini?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                    <a href="{% url 'admin_setori:delete_wilayah' wilayah_id=wilayah.wilayah_id %}">
+                                                    <a href="{% url 'admin_setori:delete_identitas' id_identitas=identitas.id %}">
                                                         <button type="button" class="btn btn-danger">Hapus</button>
                                                     </a>
                                                 </div>
@@ -59,7 +59,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            {% endfor %}
+                          {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -68,38 +68,20 @@
     </div>
 </div>
 
-<!-- Add Wilayah Modal -->
-<div class="modal fade" id="addWilayahModal" tabindex="-1" aria-labelledby="addWilayahModalLabel" aria-hidden="true">
+<!-- Add Identitas Modal -->
+<div class="modal fade" id="addIdentitasModal" tabindex="-1" aria-labelledby="addIdentitasModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addWilayahModalLabel">Tambah Wilayah</h5>
+                <h5 class="modal-title" id="addIdentitasModalLabel">Tambah Identitas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_wilayah' %}">
+                <form method="post" action="{% url 'admin_setori:add_identitas' %}">
                   {% csrf_token %}
                     <div class="mb-3">
-                        <label class="form-label">Nama Wilayah</label>
-                        <input type="text" name="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Level</label>
-                        <select name="wilayah_level" class="form-select" required>
-                            <option value="" disabled selected>Pilih Level</option>
-                            {% for value in level %}
-                            <option value="{{ value.0 }}">{{ value.1 }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Wilayah Parent (Optional)</label>
-                        <select name="wilayah_parent" class="form-select">
-                            <option value="" disabled selected>Pilih Wilayah Parent</option>
-                            {% for parent_wilayah in dt_wilayah %}
-                                <option value="{{ parent_wilayah.wilayah_id }}">{{ parent_wilayah.wilayah_nama }}</option>
-                            {% endfor %}
-                        </select>
+                        <label class="form-label">Identitas</label>
+                        <input type="text" name="identitas" class="form-control" placeholder="Masukkan Nama Identitas" required />
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
@@ -107,6 +89,7 @@
         </div>
     </div>
 </div>
+
 {% endblock main %}
 {% block js %}
 <!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->
