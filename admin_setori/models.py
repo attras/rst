@@ -117,8 +117,8 @@ class CreateUpdateTime(models.Model):
 
 class Faq(CreateUpdateTime):
     faq_id = models.TextField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    pertanyaan = models.CharField(max_length=225)
-    jawaban = models.CharField(max_length=225)
+    pertanyaan = models.TextField()
+    jawaban = models.TextField()
 
 class Tahun(models.Model):
     tahun = models.IntegerField(default=2024)
