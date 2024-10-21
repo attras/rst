@@ -37,6 +37,9 @@
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
                                 <th class="bg-transparent border-bottom-0">logo</th>
+                                <th class="bg-transparent border-bottom-0">Foto</th>
+                                <th class="bg-transparent border-bottom-0">text</th>
+                                <th class="bg-transparent border-bottom-0">status</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                             </tr>
                         </thead>
@@ -44,7 +47,14 @@
                           {% for slider in dt_slider %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kategori.name }}</td>
+                                <td class="text-muted fs-15 fw-semibold">
+                                    <img src="{{ slider.logo }}" alt="logo" style="width: 50px; height: auto;">
+                                </td>
+                                <td class="text-muted fs-15 fw-semibold">
+                                    <img src="{{ slider.foto }}" alt="logo" style="width: 50px; height: auto;">
+                                </td>
+                                <td class="text-muted fs-15 fw-semibold">{{ slider.text}}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ slider.status}}</td>
                                 <td class="">
                                     <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteModal_{{ kategori.categori_id }}" data-bs-original-title="Delete">
                                         <i>
@@ -54,26 +64,7 @@
                                             </svg>
                                         </i>
                                     </a>
-                                    <!-- Delete Identitas Modal -->
-                                    <div class="modal fade" id="deleteModal_{{ kategori.categori_id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel">Delete Identitas</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Apakah Anda yakin ingin menghapus identitas ini?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                    <a href="{% url 'admin_setori:del_slider' category_id=kategori.categori_id %}">
-                                                        <button type="button" class="btn btn-danger">Hapus</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                 </td>
                             </tr>
                           {% endfor %}
@@ -94,18 +85,63 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_slider' %}">
-                  {% csrf_token %}
+                <form method="post" action="{% url 'admin_setori:add_slider' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
                     <div class="mb-3">
-                        <label class="form-label"></label>
-                        <input type="text" name="name" class="form-control" placeholder="Masukkan Nama " required />
+                        <label class="form-label" for="id_logo">Logo</label>
+                        <input type="file" name="logo" id="id_logo" class="form-control" accept="image/*"  />
+                        <div class="form-text">Unggah logo slider (format gambar).</div>
                     </div>
-                    <button type="submit"  onclick="" class="btn btn-primary">Simpan</button>
+                    
+                    <div class="mb-3">
+                        <label class="form-label" for="id_foto">Background Foto</label>
+                        <input type="file" name="foto" id="id_foto" class="form-control" accept="image/*" required />
+                        <div class="form-text">Unggah background foto slider (format gambar).</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label" for="id_text">Teks Slider</label>
+                        <input type="text" name="text" id="id_text" class="form-control" maxlength="255" placeholder="Masukkan teks slider"  />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_status" class="form-label">Status</label>
+                        <select name="status" id="id_status" class="form-select" required>
+                            <option value="true">Aktif</option>
+                            <option value="false">Tidak Aktif</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+{% for slider in dt_slider %}
+ <!-- Delete Identitas Modal -->
+ <!-- <div class="modal fade" id="deleteModal_{{ kategori.categori_id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Identitas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus identitas ini?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <a href="{% url 'admin_setori:del_slider' category_id=kategori.categori_id %}">
+                    <button type="button" class="btn btn-danger">Hapus</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div> -->
+{% endfor %}
+
 {% endblock main %}
 {% block js %}
 {% endblock js %}

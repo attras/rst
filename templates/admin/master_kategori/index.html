@@ -42,38 +42,25 @@
                         </thead>
                         <tbody>
                           {% for kategori in dt_category %}
-                            <tr class="border-bottom">
+                          
+                            <tr class="border-bottom" >
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ kategori.name }}</td>
                                 <td class="">
-                                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteKategoriModal_{{ kategori.categori_id }}" data-bs-original-title="Delete">
-                                        <i>
+                                    <!-- delete -->
+                                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteKategoriModal_{{ kategori.categori_id }}" data-bs-original-title="Delete" >
+                                        <i >
                                             <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                                 <path d="M0 0h24v24H0V0z" fill="none" />
                                                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
                                             </svg>
                                         </i>
                                     </a>
-                                    <!-- Delete Identitas Modal -->
-                                    <div class="modal fade" id="deleteKategoriModal_{{ kategori.categori_id }}" tabindex="-1" aria-labelledby="deleteKategoriModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteKategoriModalLabel">Delete Identitas</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Apakah Anda yakin ingin menghapus identitas ini?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                    <a href="{% url 'admin_setori:del_kategori' category_id=kategori.categori_id %}">
-                                                        <button type="button" class="btn btn-danger">Hapus</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <a href="">
+                                        <button>
+
+                                        </button>
+                                    </a>
                                 </td>
                             </tr>
                           {% endfor %}
@@ -106,18 +93,40 @@
         </div>
     </div>
 </div>
+{% for kategori in dt_category %}
+   <!-- Delete Identitas Modal -->
+<div class="modal fade" id="deleteKategoriModal_{{ kategori.categori_id }}" tabindex="-1" aria-labelledby="deleteKategoriModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteKategoriModalLabel">Delete Identitas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus identitas ini?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <a href="{% url 'admin_setori:del_kategori' category_id=kategori.categori_id %}">
+                    <button type="button" class="btn btn-danger">Hapus</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endblock main %}
 {% block js %}
 <!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->
 <script>
-         function showAlert() {
-            Swal.fire({
-                position: "top",
-  icon: "success",
-  title: "Your work has been saved",
-  showConfirmButton: false,
-  timer: 6000
-            });
-        }
+//          function showAlert() {
+//             Swal.fire({
+//                 position: "top",
+//   icon: "success",
+//   title: "Your work has been saved",
+//   showConfirmButton: false,
+//   timer: 6000
+//             });
+//         }
 </script>
 {% endblock js %}

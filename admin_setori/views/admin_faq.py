@@ -48,33 +48,24 @@ class Deletefaq(View):
         return redirect('admin_setori:admin_faq')
 
 
-# class Editfaq(View) :
-#     def get(self, request, id_faq):
-#         faq = Faq.objects.get(faq_id=id_faq)
-#         data = {
-          
-#             'dt_faq' : faq,
-#             'faq_id' : id_faq
-#         }
-#         return render(request,'admin/admin_faq/edit.html',data)
-    
-#     def post(self, request,id_faq):
-#         jawaban = request.POST.get('pertanyaan')
-#         pertanyaan = request.POST.get('jawaban')
-#         try:
-#             with transaction.atomic():
-#                 insert_faq = Faq(faq_id=id_faq)
-#                 insert_faq.pertanyaan = jawaban
-#                 insert_faq.jawaban = pertanyaan
-#                 insert_faq.created_at = timezone.now()
-#                 insert_faq.save()
+class Editfaq(View) :
+    def post(self, request,id_faq):
+        jawaban = request.POST.get('pertanyaan')
+        pertanyaan = request.POST.get('jawaban')
+        try:
+            with transaction.atomic():
+                insert_faq = Faq(faq_id=id_faq)
+                insert_faq.pertanyaan = jawaban
+                insert_faq.jawaban = pertanyaan
+                insert_faq.created_at = timezone.now()
+                insert_faq.save()
 
-#                 messages.success(request, f"data berhasil diedit")
-#                 return redirect('admin_setori:admin_faq')
-#         except Exception as e:
-#             print('Error Data', e)
-#             messages.error(request,"gagal menambahkan")
-#             return redirect(reverse('admin_setori:edit_faq',args=[id_faq]))
+                messages.success(request, f"data berhasil diedit")
+                return redirect('admin_setori:admin_faq')
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menambahkan")
+            return redirect(reverse('admin_setori:edit_faq',args=[id_faq]))
 
 
 

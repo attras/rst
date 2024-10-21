@@ -28,7 +28,7 @@ urlpatterns = [
     path('faq/',include([
         path('',admin_faq.Admin_faqViews.as_view(),name='admin_faq'),
         path('add_faq',admin_faq.Addfaq.as_view(),name='add_faq'),
-        # path('edit_faq/<str:id_faq>',admin_faq.Editfaq.as_view(),name='edit_faq'),
+        path('edit_faq/<str:id_faq>',admin_faq.Editfaq.as_view(),name='edit_faq'),
         path('hapus_faq/<str:id_faq>',admin_faq.Deletefaq.as_view(),name='hapus_faq'),
       
         ])),

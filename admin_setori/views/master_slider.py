@@ -23,7 +23,7 @@ class Master_sliderViews(View):
         return render(request, 'admin/master_slider/index.html',data)
     
 class Add_slider(View):
-    def get(self, request):
+    def post(self, request):
         logo = request.POST.get('logo')
         foto = request.POST.get('foto')
         text = request.POST.get('text')
@@ -38,15 +38,15 @@ class Add_slider(View):
                 insert_slider.status = status
                 insert_slider.save()
                 messages.success(request, " added successfully!")
-                return redirect('admin_setori:add_slider') 
+                return redirect('admin_setori:master_slider') 
 
         except Exception as e:
             print('Error while adding category', e)
             messages.error(request, "Failed to add ")
-            return redirect('admin_setori:add_slider')
+            return redirect('admin_setori:master_slider')
         
 class Delete_slider(View):
-    def get(self, request, id):
+    def post(self, request, id):
         del_slider = get_object_or_404(Slider,id_slider=id)
         del_slider.deleted_at = timezone.now()
         del_slider.delete()
