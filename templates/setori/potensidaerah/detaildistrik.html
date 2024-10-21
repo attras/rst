@@ -32,7 +32,7 @@
             padding-bottom: 5px;
         }
         .card-header-custom {
-            background-color: #007bff;
+            background-color: #367588;
             color: white;
             font-weight: bold;
         }
@@ -88,7 +88,7 @@
                         </div>
                         <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
                             <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
-                                <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Potensi</a></li>
+                                <li><a href="{% url 'app_setori:index_home' %}" class="text-light text-decoration-none">Potensi</a></li>
                                 <li class="active text-color-light opacity-7">Detail Potensi</li>
                             </ul>
                         </div>
@@ -105,11 +105,10 @@
                 <div class="row data-section">
                     <div class="col-12">
                         <div class="card">
-                            <img src="URL_GAMBAR_PERTAMA" class="card-img-top" alt="Image of Supiori Selatan">
+                            <img src="{% static 'img/potensi/detail_1.jpg' %}" class="card-img-top" alt="Image of Supiori Selatan">
                             <div class="card-body">
                                 <h3>Informasi</h3>
                                 <div class="content-container">
-                                    <p><strong>Wilayah:</strong> Kepulauan Aruri</p>
                                     <p><strong>Distrik:</strong> Supiori Selatan</p>
                                     <p><strong>Luas Wilayah:</strong> 1000 km</p>
                                     <p><strong>Jumlah Penduduk:</strong> 1000 Jiwa</p>
@@ -124,8 +123,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3>Maps</h3>
-                                <div class="map-container">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.47268893396!2d135.72742674436404!3d-0.7541726980906849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x680171f324b75afb%3A0xc3480285d5705e8e!2sDinas%20Kesehatan!5e0!3m2!1sid!2sid!4v1728291617820!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <div class="map-container" style="height: 400px;">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.47268893396!2d135.72742674436404!3d-0.7541726980906849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x680171f324b75afb%3A0xc3480285d5705e8e!2sDinas%20Kesehatan!5e0!3m2!1sid!2sid!4v1728291617820!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -137,8 +136,8 @@
         <div class="col-md-6 data-section">       
             <!-- Section Title -->
             <div class="row">
-                <div class="col">
-                    <h3 class="section-title" >Data Umum</h3>
+                <div class="col text-center">
+                    <h3 class="section-title">Data Umum</h3>
                 </div>
             </div>
             <!-- Info Section -->
@@ -149,9 +148,7 @@
                             Info Wilayah
                         </div>
                         <div class="card-body">
-                            <p><strong>Tipologi:</strong> -</p>
-                            <p><strong>Ketinggian:</strong> -</p>
-                            <p><strong>Luas Wilayah:</strong> -</p>
+                            <p><strong>Kode Kecamatan:</strong> -</p>
                             <p><strong>Total Jiwa:</strong> -</p>
                             <p><strong>Laki-laki:</strong> -</p>
                             <p><strong>Perempuan:</strong> -</p>

@@ -3,26 +3,30 @@
 
 {% block main %} 
 <div class="body">
-    <div role="main" class="main px-3 px-lg-5">
-
-    <div class="page-header py-0 px-3 px-xl-0 border-radius-2-top p-relative mb-0 overflow-hidden" style="background: url('img/generic/atasan.jpg') no-repeat center center; background-size: cover;">
-        <div class="container p-relative z-index-1 py-2">
-            <div class="row mh-200px mh-lg-300px align-items-center py-4">
-                <div class="col">
-                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
-                        <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">FAQ</h1>
-                    </div>
-                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
-                        <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
-                            <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Beranda</a></li>
-                            <li class="active text-color-light opacity-7">FAQ</li>
-                        </ul>
+    
+        <div class="body">
+            <div class="page-header" style="position: relative; margin-bottom: 0; overflow: hidden;">
+                <img src="{% static 'img/header/atasan.jpg' %}" alt="Header Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+                <div class="container p-relative z-index-1 py-2">
+                    <div class="row mh-200px mh-lg-300px align-items-center py-4">
+                        <div class="col">
+                            <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                                <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">Detail Berita</h1>
+                            </div>
+                            <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                                <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
+                                    <li><a href="{% url 'app_setori:index_home' %}" class="text-light text-decoration-none">Beranda</a></li>
+                                    <li class="active text-color-light opacity-7">Detail Berita</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
+
+    <div role="main" class="main px-3 px-lg-5"> 
         <div class="container mt-lg-5 pt-5">
 
             <div class="row">
@@ -36,7 +40,7 @@
                                 <h1 class="read__title">Pemkab Supiori bersama dengan warga Kampung Aruri melakukan aksi penanganan DB</h1>
 
                                 <div class="post-image pb-4">
-                                    <img class="card-img-top border-radius-2" src="img/demos/accounting-1/Desain tanpa judul/1.jpg" alt="Card Image">
+                                    <img class="card-img-top border-radius-2" src="{% static 'img/berita/1.jpg' %}" alt="Card Image">
                                 </div>
 
                                 <div class="card-body p-0">
@@ -58,7 +62,7 @@
                                     <hr class="my-5">
 
                                     <div class="post-block post-author">
-                                        <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3">Author</h3>
+                                        <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3">Penulis</h3>
                                         <div class="img-thumbnail img-thumbnail-no-borders d-block pb-3">
                                             <a href="blog-post.html">
                                                 <img src="d:\xampp\htdocs\Setori\img\demos\accounting-1\Desain tanpa judul\1.jpg" class="rounded-circle" alt="">

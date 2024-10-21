@@ -14,7 +14,7 @@
                             </div>
                             <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
                                 <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
-                                    <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Beranda</a></li>
+                                    <li><a href="{% url 'app_setori:index_home' %}" class="text-light text-decoration-none">Beranda</a></li>
                                     <li class="active text-color-light opacity-7">FAQ</li>
                                 </ul>
                             </div>
@@ -24,90 +24,91 @@
             </div>
         </div>
 
-        <div class="container pt-4 pb-5 pt-lg-5">
-            <div class="row align-items-center py-5">
-                <div class="col-lg-12 mb-5 mb-lg-0 pe-lg-5">
-                    <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
-                        <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">FAQ</h2>
-                    </div>							
-                    <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                        <h4>
-                            "FAQ" adalah singkatan dari "Frequently Asked Questions," yang dalam bahasa Indonesia berarti "Pertanyaan yang Sering Diajukan."    
-                        </h4>
+        <div class="bg-grey-100 px-3 px-xl-0 border-radius-2-bottom p-relative overflow-hidden">
+            <div class="container pt-4 pb-5 pt-lg-5">
+                <div class="row align-items-center py-5">
+                    <div class="col-lg-12 mb-5 mb-lg-0 pe-lg-5">
+                        <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                            <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">FAQ</h2>
+                        </div>							
+                        <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+                            <p>
+                                "FAQ" adalah singkatan dari "Frequently Asked Questions," yang dalam bahasa Indonesia berarti "Pertanyaan yang Sering Diajukan."    
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--dropdown-->
+            <div class="container pt-4 pb-5 pt-lg-5">
+                <div class="accordion accordion-modern-status accordion-modern-status-arrow accordion-modern-status-arrow-dark" id="accordionWhyChooseUs">
+                    <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                        <div class="card-header bg-transparent" id="1heading">
+                            <h4 class="card-title m-0">
+                                <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#1" aria-expanded="false" aria-controls="5">
+                                    Bagaimana cara Setori mengumpulkan dan mengelola data kesehatan?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="1" class="collapse" aria-labelledby="1heading" data-bs-parent="#accordionWhyChooseUs">
+                            <div class="card-body pt-0">
+                                <p class="mb-0">Setori menggunakan sistem pengelolaan data yang efisien dengan penyimpanan yang aman dan kemampuan untuk mengintegrasikan informasi dari berbagai sumber. Admin yang ditugaskan memasukkan data ke dalam sistem, memastikan bahwa data selalu terbaru dan akurat.</div>
+                        </div>
+                    </div>
+                    <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                        <div class="card-header bg-transparent" id="2heading">
+                            <h4 class="card-title m-0">
+                                <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#2" aria-expanded="false" aria-controls="5">
+                                    Bagaimana cara Setori mengumpulkan dan mengelola data kesehatan?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="2" class="collapse" aria-labelledby="2heading" data-bs-parent="#accordionWhyChooseUs">
+                            <div class="card-body pt-0">
+                                <p class="mb-0">Setori menggunakan sistem pengelolaan data yang efisien dengan penyimpanan yang aman dan kemampuan untuk mengintegrasikan informasi dari berbagai sumber. Admin yang ditugaskan memasukkan data ke dalam sistem, memastikan bahwa data selalu terbaru dan akurat.</div>
+                        </div>
+                    </div>
+                    <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                        <div class="card-header bg-transparent" id="3heading">
+                            <h4 class="card-title m-0">
+                                <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#3" aria-expanded="false" aria-controls="5">
+                                    Bagaimana cara Setori mengumpulkan dan mengelola data kesehatan?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="3" class="collapse" aria-labelledby="3heading" data-bs-parent="#accordionWhyChooseUs">
+                            <div class="card-body pt-0">
+                                <p class="mb-0">Setori menggunakan sistem pengelolaan data yang efisien dengan penyimpanan yang aman dan kemampuan untuk mengintegrasikan informasi dari berbagai sumber. Admin yang ditugaskan memasukkan data ke dalam sistem, memastikan bahwa data selalu terbaru dan akurat.</div>
+                        </div>
+                    </div>
+                    <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                        <div class="card-header bg-transparent" id="4heading">
+                            <h4 class="card-title m-0">
+                                <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#4" aria-expanded="false" aria-controls="5">
+                                    Bagaimana cara Setori mengumpulkan dan mengelola data kesehatan?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="4" class="collapse" aria-labelledby="4heading" data-bs-parent="#accordionWhyChooseUs">
+                            <div class="card-body pt-0">
+                                <p class="mb-0">Setori menggunakan sistem pengelolaan data yang efisien dengan penyimpanan yang aman dan kemampuan untuk mengintegrasikan informasi dari berbagai sumber. Admin yang ditugaskan memasukkan data ke dalam sistem, memastikan bahwa data selalu terbaru dan akurat.</div>
+                        </div>
+                    </div>
+                    <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                        <div class="card-header bg-transparent" id="5heading">
+                            <h4 class="card-title m-0">
+                                <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#5" aria-expanded="false" aria-controls="5">
+                                    Bagaimana cara Setori mengumpulkan dan mengelola data kesehatan?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="5" class="collapse" aria-labelledby="5heading" data-bs-parent="#accordionWhyChooseUs">
+                            <div class="card-body pt-0">
+                                <p class="mb-0">Setori menggunakan sistem pengelolaan data yang efisien dengan penyimpanan yang aman dan kemampuan untuk mengintegrasikan informasi dari berbagai sumber. Admin yang ditugaskan memasukkan data ke dalam sistem, memastikan bahwa data selalu terbaru dan akurat.</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!--dropdown-->
-        <div class="container pt-4 pb-5 pt-lg-5">
-            <div class="accordion accordion-modern-status accordion-modern-status-arrow accordion-modern-status-arrow-dark" id="accordionWhyChooseUs">
-                <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                    <div class="card-header bg-transparent" id="1heading">
-                        <h4 class="card-title m-0">
-                            <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#1" aria-expanded="false" aria-controls="5">
-                                Bagaimana cara Setori mengumpulkan dan mengelola data kesehatan?
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="1" class="collapse" aria-labelledby="1heading" data-bs-parent="#accordionWhyChooseUs">
-                        <div class="card-body pt-0">
-                            <p class="mb-0">Setori menggunakan sistem pengelolaan data yang efisien dengan penyimpanan yang aman dan kemampuan untuk mengintegrasikan informasi dari berbagai sumber. Admin yang ditugaskan memasukkan data ke dalam sistem, memastikan bahwa data selalu terbaru dan akurat.</div>
-                    </div>
-                </div>
-                <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                    <div class="card-header bg-transparent" id="2heading">
-                        <h4 class="card-title m-0">
-                            <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#2" aria-expanded="false" aria-controls="5">
-                                Bagaimana cara Setori mengumpulkan dan mengelola data kesehatan?
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="2" class="collapse" aria-labelledby="2heading" data-bs-parent="#accordionWhyChooseUs">
-                        <div class="card-body pt-0">
-                            <p class="mb-0">Setori menggunakan sistem pengelolaan data yang efisien dengan penyimpanan yang aman dan kemampuan untuk mengintegrasikan informasi dari berbagai sumber. Admin yang ditugaskan memasukkan data ke dalam sistem, memastikan bahwa data selalu terbaru dan akurat.</div>
-                    </div>
-                </div>
-                <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                    <div class="card-header bg-transparent" id="3heading">
-                        <h4 class="card-title m-0">
-                            <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#3" aria-expanded="false" aria-controls="5">
-                                Bagaimana cara Setori mengumpulkan dan mengelola data kesehatan?
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="3" class="collapse" aria-labelledby="3heading" data-bs-parent="#accordionWhyChooseUs">
-                        <div class="card-body pt-0">
-                            <p class="mb-0">Setori menggunakan sistem pengelolaan data yang efisien dengan penyimpanan yang aman dan kemampuan untuk mengintegrasikan informasi dari berbagai sumber. Admin yang ditugaskan memasukkan data ke dalam sistem, memastikan bahwa data selalu terbaru dan akurat.</div>
-                    </div>
-                </div>
-                <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                    <div class="card-header bg-transparent" id="4heading">
-                        <h4 class="card-title m-0">
-                            <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#4" aria-expanded="false" aria-controls="5">
-                                Bagaimana cara Setori mengumpulkan dan mengelola data kesehatan?
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="4" class="collapse" aria-labelledby="4heading" data-bs-parent="#accordionWhyChooseUs">
-                        <div class="card-body pt-0">
-                            <p class="mb-0">Setori menggunakan sistem pengelolaan data yang efisien dengan penyimpanan yang aman dan kemampuan untuk mengintegrasikan informasi dari berbagai sumber. Admin yang ditugaskan memasukkan data ke dalam sistem, memastikan bahwa data selalu terbaru dan akurat.</div>
-                    </div>
-                </div>
-                <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                    <div class="card-header bg-transparent" id="5heading">
-                        <h4 class="card-title m-0">
-                            <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#5" aria-expanded="false" aria-controls="5">
-                                Bagaimana cara Setori mengumpulkan dan mengelola data kesehatan?
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="5" class="collapse" aria-labelledby="5heading" data-bs-parent="#accordionWhyChooseUs">
-                        <div class="card-body pt-0">
-                            <p class="mb-0">Setori menggunakan sistem pengelolaan data yang efisien dengan penyimpanan yang aman dan kemampuan untuk mengintegrasikan informasi dari berbagai sumber. Admin yang ditugaskan memasukkan data ke dalam sistem, memastikan bahwa data selalu terbaru dan akurat.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 {% endblock main %} 

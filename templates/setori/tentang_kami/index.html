@@ -1,6 +1,145 @@
 {% extends 'setori/base_layout/base_layout.html' %} 
 {% load static %}
+{% block css %} 
+<style>
+/* Carousel Inner Section */
+.carousel-inner {
+    height: 100%;
+}
+
+/* Mengatur ukuran gambar menjadi 50% dari ukuran normal */
+.carousel-item img {
+    width: 50%;   /* Mengurangi ukuran gambar menjadi 50% */
+    height: auto; /* Mempertahankan rasio gambar */
+    display: block;
+    margin: 0 auto; /* Agar gambar tetap berada di tengah */
+}
+
+@media (max-width: 768px) {
+    /* Untuk layar handphone, membuat gambar lebih kecil dan responsif */
+    .carousel-item img {
+        width: 70%; /* Ukuran gambar lebih kecil pada layar handphone */
+    }
+}
+
+@media (max-width: 576px) {
+    /* Layout vertikal untuk layar yang sangat kecil, gambar memenuhi layar */
+    .carousel-item img {
+        width: 90%; /* Ukuran lebih besar untuk layar sangat kecil */
+    }
+
+    .col-lg-6 {
+        text-align: center; /* Pusatkan teks pada layar kecil */
+    }
+}
+
+</style>
+{% endblock css %} 
 
 {% block main %}  
 
-{% endblock main %} 
+<!-- header -->
+<div class="body">
+    <div class="page-header" style="position: relative; margin-bottom: 0; overflow: hidden;">
+        <img src="{% static 'img/header/atasan.jpg' %}" alt="Header Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+        <div class="container p-relative z-index-1 py-2">
+            <div class="row mh-200px mh-lg-300px align-items-center py-4">
+                <div class="col">
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                        <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">Tentang Kami</h1>
+                    </div>
+                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                        <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
+                            <li><a href="{% url 'app_setori:index_home' %}"  class="text-light text-decoration-none">Beranda</a></li>
+                            <li class="active text-color-light opacity-7">Tentang Kami</li>
+                        </ul>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="bg-grey-100 px-3 px-xl-0 border-radius-2-bottom p-relative overflow-hidden">
+<br>
+<!-- Tentang Kami -->
+<div class="container-fluid">
+    <div class="row">
+       <div class="container-fluid">
+    <div class="row">
+        <!-- Carousel section (Kiri) -->
+        <div class="col-lg-6 col-md-12 p-0">
+            <div id="carouselExampleDark" class="carousel slide h-100">
+                <div class="carousel-inner h-100">
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active h-100">
+                        <img src="{% static 'img/tentang_kami/bupati.png' %}" class="d-block mx-auto" alt="Slide 1 Image">
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="carousel-item h-100">
+                        <img src="{% static 'img/tentang_kami/wabup.png' %}" class="d-block mx-auto" alt="Slide 2 Image">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Teks section (Kanan) -->
+        <div class="col-lg-6 d-flex flex-column justify-content-center p-4">
+            <!-- Bagian Bupati -->
+            <div class="mb-4">
+                <h2 class="font-weight-semibold">Bupati Supiori</h2>
+                <p>Drs. Yan Imbab (lahir 20 Juni 1953) adalah Bupati Supiori periode 2021-2024.</p>
+            </div>
+            <!-- Bagian Wakil Bupati -->
+            <div>
+                <h2 class="font-weight-semibold">Wakil Bupati Supiori</h2>
+                <p>Nichodemus Ronsumbre terpilih sebagai wakil bupati.</p>
+            </div>
+        </div>
+        <div class="container" id="intro">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mt-5 mt-lg-0 py-lg-5">
+                    <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                        <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Tentang Kami</h2>
+                    </div>
+                    <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+                        <h4 class="pe-lg-5">
+                            Setori menyediakan infografik data kesehatan Kabupaten Supiori lengkap hingga rinciannya di kampung, serta berita terbaru yang terkait dengan Supiori untuk informasi terkini dan pemahaman data yang mudah. ​
+                        </h4>
+                    </div>
+
+                    <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="800">
+                        
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center p-relative py-5">
+                    <div class="opacity-2 p-absolute w-100">
+                        <img src="{% static 'img/img/icons/abstract-bg-1.svg' %}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary w-100'}" />
+                    </div>
+                    <div class="cascading-images-wrapper custom-cascading-images-wrapper-1">
+                        <div class="cascading-images p-relative">
+                            <div class="">
+                                <img class="img-fluid" src="{% static 'img/icons/tentang_kami/2.jpg' %}" loading="lazy" alt="">
+                            </div>
+                            <div class="p-absolute w-100" style="top: 21%; left: -30%;">
+                                <img src="{% static 'img/icons/tentang_kami/1.jpg' %}" loading="lazy" class="img-fluid" alt="" />
+                            </div>
+                        </div>      
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>   
+</div>
+{% endblock main %}

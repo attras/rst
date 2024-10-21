@@ -15,7 +15,7 @@
                                     </div>
                                     <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
                                         <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
-                                            <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Beranda</a></li>
+                                            <li><a href="{% url 'app_setori:index_home' %}" class="text-light text-decoration-none">Beranda</a></li>
                                             <li class="active text-color-light opacity-7">Data Pokok</li>
                                         </ul>
                                     </div>
@@ -42,6 +42,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-lg-3 mb-4 mb-sm-5 mb-lg-0">
                             <div class="feature-box appear-animation d-flex flex-column align-items-center text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="0">
                                 <div class="feature-box-icon bg-transparent w-auto h-auto p-0 top-0 align-items-center mb-3">
@@ -90,17 +91,17 @@
                 <!--chart-->
                 <div class="container">
                     <div class="row pt-5">
-                        <div class="col-lg-6 mb-4">
-                            <div id="oap_non_oap"></div>
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="oap_non_oap" href="{% url 'app_setori:detail_data' %}"></div>
                         </div>
-                        <div class="col-lg-6 mb-4">
-                            <div id="piramid_usia"></div>
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="piramid_usia" href="{% url 'app_setori:detail_data' %}"></div>
                         </div>
-                        <div id="air_bersih" style="width:100%; height:600px;"></div>
+                        <div class="shadow-sm" id="air_bersih" style="width:100%; height:600px;" href="{% url 'app_setori:detail_data' %}"></div>
                         <p></p>
-                        <div id="tenaga_kesehatan" style="width:100%; height:600px;"></div>
+                        <div class="shadow-sm" id="tenaga_kesehatan" style="width:100%; height:600px;" href="{% url 'app_setori:detail_data' %}"></div>
                         <p></p>
-                        <div id="sarana_kesehatan" style="width:100%; height:600px;"></div>
+                        <div class="shadow-sm" id="sarana_kesehatan" style="width:100%; height:600px;" href="{% url 'app_setori:detail_data' %}"></div>
                         <p></p>
                     </div>
                 </div>

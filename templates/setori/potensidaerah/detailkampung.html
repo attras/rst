@@ -124,7 +124,7 @@
                     </div>
                     <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
                         <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
-                            <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Beranda</a></li>
+                            <li><a href="{% url 'app_setori:index_home' %}"  class="text-light text-decoration-none">Beranda</a></li>
                             <li class="active text-color-light opacity-7">Potensi Daerah</li>
                         </ul>
                     </div>
@@ -258,9 +258,7 @@
                                         Info Wilayah
                                     </div>
                                     <div class="card-body">
-                                        <p><strong>Tipologi:</strong> -</p>
-                                        <p><strong>Ketinggian:</strong> -</p>
-                                        <p><strong>Luas Wilayah:</strong> -</p>
+                                        <p><strong>Kode Kelurahan:</strong> -</p>
                                         <p><strong>Total Jiwa:</strong> -</p>
                                         <p><strong>Laki-laki:</strong> -</p>
                                         <p><strong>Perempuan:</strong> -</p>
@@ -304,6 +302,7 @@
                             </div>
                         </div>
                 </div>
+                
             </div>
         </div>
     </div>

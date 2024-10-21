@@ -1,0 +1,383 @@
+{% extends 'setori/base_layout/base_layout.html' %} 
+{% load static %}
+
+{% block css %}
+<style>
+    .header {
+        background-color: #6c757d;
+        padding: 10px;
+        color: white;
+    }
+    .section-title {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .content {
+        padding: 20px;
+    }
+    .data-section, .info-section {
+        border: 1px solid #dee2e6;
+        margin-bottom: 20px;
+        padding: 15px;
+    }
+    .table-custom th, .table-custom td {
+        padding: 10px;
+    }
+    .section-title {
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #dee2e6;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .card-header-custom {
+            background-color: #367588;
+            color: white;
+            font-weight: bold;
+        }
+        .info-section p {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .data-section {
+            margin: 20px 0;
+        }
+        .data-section h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .data-section p {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .info-title {
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .map-container img {
+            width: 100%;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .content-container {
+            text-align: center;
+        }
+        .tab-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa; /* Warna background untuk container tab */
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan untuk container tab */
+        }
+
+        .tab-controls .tab-link {
+            text-decoration: none;
+            color: #495057; /* Warna teks */
+            font-weight: bold;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease; /* Efek transisi untuk interaksi */
+        }
+
+        .tab-controls .tab-link:hover {
+            background-color: #e9ecef; /* Warna background saat hover */
+            color: #212529; /* Warna teks saat hover */
+        }
+
+        .tab-controls .tab-link.active {
+            background-color: #367588; /* Warna background untuk tab aktif */
+            color: #ffffff; /* Warna teks untuk tab aktif */
+        }
+
+        .tab-controls .tab-link.active:after {
+            content: '';
+            display: block;
+            margin: auto;
+            height: 3px;
+            width: 50%;
+            background: #ffffff; /* Garis di bawah tab aktif */
+        }
+
+</style> 
+{% endblock css %} 
+
+{% block main %} 
+<div class="bg-grey-100 px-3 px-xl-0 border-radius-2-bottom p-relative overflow-hidden">
+                <!-- header -->
+                <div class="body">
+                    <div class="page-header" style="position: relative; margin-bottom: 0; overflow: hidden;">
+                        <img src="{% static 'img/header/atasan.jpg' %}" alt="Header Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+                        <div class="container p-relative z-index-1 py-2">
+                            <div class="row mh-200px mh-lg-300px align-items-center py-4">
+                                <div class="col">
+                                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                                        <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">Data Pokok</h1>
+                                    </div>
+                                    <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                                        <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
+                                            <li><a href="{% url 'app_setori:index_home' %}" class="text-light text-decoration-none">Beranda</a></li>
+                                            <li class="active text-color-light opacity-7">Data Pokok</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+				<!-- Jumlah Penduduk -->
+				<div class="container">
+                    <div class="row py-5">
+                        <div class="col-lg-3 mb-4 mb-sm-5 mb-lg-0">
+                            <div class="feature-box appear-animation d-flex flex-column align-items-center text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="0">
+                                <div class="feature-box-icon bg-transparent w-auto h-auto p-0 top-0 align-items-center mb-3">
+                                    <div class="p-absolute opacity-2 rotate-l-10">
+                                        <img width="80" src="img/icons/abstract-bg-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
+                                    </div>
+                                    <img src="{% static 'img/icons/ikon_jumlah_orang/jiwa.png' %}" width="150" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'p-relative top-10'}" />
+                                </div>
+                                <div class="feature-box-info w-100">
+                                    <h4 class="feature-title mb-1">Total Penduduk</h4>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">192.782</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 mb-4 mb-sm-5 mb-lg-0">
+                            <div class="feature-box appear-animation d-flex flex-column align-items-center text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="0">
+                                <div class="feature-box-icon bg-transparent w-auto h-auto p-0 top-0 align-items-center mb-3">
+                                    <div class="p-absolute opacity-2 rotate-l-10">
+                                        <img width="80" src="img/icons/abstract-bg-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
+                                    </div>
+                                    <img src="{% static 'img/icons/ikon_jumlah_orang/laki.png' %}" width="150" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'p-relative top-10'}" />
+                                </div>
+                                <div class="feature-box-info w-100">
+                                    <h4 class="feature-title mb-1">Total Pria</h4>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">192.782</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb-4 mb-sm-5 mb-lg-0">
+                            <div class="feature-box appear-animation d-flex flex-column align-items-center text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="0">
+                                <div class="feature-box-icon bg-transparent w-auto h-auto p-0 top-0 align-items-center mb-3">
+                                    <div class="p-absolute opacity-2 rotate-l-10">
+                                        <img width="80" src="img/icons/abstract-bg-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
+                                    </div>
+                                    <img src="{% static 'img/icons/ikon_jumlah_orang/wanita.png' %}" width="150" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'p-relative top-10'}" />
+                                </div>
+                                <div class="feature-box-info w-100">
+                                    <h4 class="feature-title mb-1">Total Wanita</h4>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">192.782</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb-4 mb-sm-5 mb-lg-0">
+                            <div class="feature-box appear-animation d-flex flex-column align-items-center text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="0">
+                                <div class="feature-box-icon bg-transparent w-auto h-auto p-0 top-0 align-items-center mb-3">
+                                    <div class="p-absolute opacity-2 rotate-l-10">
+                                        <img width="80" src="img/icons/abstract-bg-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary'}" />
+                                    </div>
+                                    <img src="{% static 'img/icons/ikon_jumlah_orang/family.png' %}" width="150" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'p-relative top-10'}" />
+                                </div>
+                                <div class="feature-box-info w-100">
+                                    <h4 class="feature-title mb-1">Total Keluarga</h4>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">2.782</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--pilih daerah-->
+                    <div id="tab-group-1" class="card bg-transparent mb-0">
+                        <div class="rounded-m overflow-hidden mx-3">
+                            <div class="tab-controls tabs-large tabs-rounded" data-highlight="bg-dark-dark">
+                                <a href="#" class="tab-link active" id="tab-1-link" data-bs-toggle="collapse" data-bs-target="#tab-1">test 1</a>
+                                <a href="#" class="tab-link" id="tab-2-link" data-bs-toggle="collapse" data-bs-target="#tab-2">test 2</a>
+                                <a href="#" class="tab-link" id="tab-2-link" data-bs-toggle="collapse" data-bs-target="#tab-3">test 3</a>
+                                <a href="#" class="tab-link" id="tab-2-link" data-bs-toggle="collapse" data-bs-target="#tab-4">test 4</a>
+                                <a href="#" class="tab-link" id="tab-2-link" data-bs-toggle="collapse" data-bs-target="#tab-5">test 5</a>
+                            </div>
+                        </div>
+                    </div>                               
+            
+            <!--chart-->
+            <div data-bs-parent="#tab-group-1" class="collapse show" id="tab-1">
+                <div class="container pt-4 pb-5 pt-lg-5">
+                    <div class="row align-items-center py-5">
+                        <div class="col-lg-12 mb-5 mb-lg-0 pe-lg-5">
+                            <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                                <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">test 1</h2>
+                            </div>							
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row pt-5">
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="oap_non_oap"></div>
+                        </div>
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="piramid_usia"></div>
+                        </div>
+                        <div class="shadow-sm" id="air_bersih" style="width:100%; height:600px;"></div>
+                        <p></p>
+                        <div class="shadow-sm" id="tenaga_kesehatan" style="width:100%; height:600px;"></div>
+                        <p></p>
+                        <div class="shadow-sm" id="sarana_kesehatan" style="width:100%; height:600px;"></div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <div data-bs-parent="#tab-group-1" class="collapse show" id="tab-2">
+                <div class="container pt-4 pb-5 pt-lg-5">
+                    <div class="row align-items-center py-5">
+                        <div class="col-lg-12 mb-5 mb-lg-0 pe-lg-5">
+                            <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                                <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">test 2</h2>
+                            </div>							
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row pt-5">
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="oap_non_oap"></div>
+                        </div>
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="piramid_usia"></div>
+                        </div>
+                        <div class="shadow-sm" id="air_bersih" style="width:100%; height:600px;"></div>
+                        <p></p>
+                        <div class="shadow-sm" id="tenaga_kesehatan" style="width:100%; height:600px;"></div>
+                        <p></p>
+                        <div class="shadow-sm" id="sarana_kesehatan" style="width:100%; height:600px;"></div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <div data-bs-parent="#tab-group-1" class="collapse show" id="tab-3">
+                <div class="container pt-4 pb-5 pt-lg-5">
+                    <div class="row align-items-center py-5">
+                        <div class="col-lg-12 mb-5 mb-lg-0 pe-lg-5">
+                            <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                                <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">test 3</h2>
+                            </div>							
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row pt-5">
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="oap_non_oap"></div>
+                        </div>
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="piramid_usia"></div>
+                        </div>
+                        <div class="shadow-sm" id="air_bersih" style="width:100%; height:600px;"></div>
+                        <p></p>
+                        <div class="shadow-sm" id="tenaga_kesehatan" style="width:100%; height:600px;"></div>
+                        <p></p>
+                        <div class="shadow-sm" id="sarana_kesehatan" style="width:100%; height:600px;"></div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <div data-bs-parent="#tab-group-1" class="collapse show" id="tab-4">
+                <div class="container pt-4 pb-5 pt-lg-5">
+                    <div class="row align-items-center py-5">
+                        <div class="col-lg-12 mb-5 mb-lg-0 pe-lg-5">
+                            <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                                <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">test 4</h2>
+                            </div>							
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row pt-5">
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="oap_non_oap"></div>
+                        </div>
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="piramid_usia"></div>
+                        </div>
+                        <div class="shadow-sm" id="air_bersih" style="width:100%; height:600px;"></div>
+                        <p></p>
+                        <div class="shadow-sm" id="tenaga_kesehatan" style="width:100%; height:600px;"></div>
+                        <p></p>
+                        <div class="shadow-sm" id="sarana_kesehatan" style="width:100%; height:600px;"></div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <div data-bs-parent="#tab-group-1" class="collapse show" id="tab-5">
+                <div class="container pt-4 pb-5 pt-lg-5">
+                    <div class="row align-items-center py-5">
+                        <div class="col-lg-12 mb-5 mb-lg-0 pe-lg-5">
+                            <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                                <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">test 5</h2>
+                            </div>							
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row pt-5">
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="oap_non_oap"></div>
+                        </div>
+                        <div class="shadow-sm col-lg-6 mb-4">
+                            <div id="piramid_usia"></div>
+                        </div>
+                        <div class="shadow-sm" id="air_bersih" style="width:100%; height:600px;"></div>
+                        <p></p>
+                        <div class="shadow-sm" id="tenaga_kesehatan" style="width:100%; height:600px;"></div>
+                        <p></p>
+                        <div class="shadow-sm" id="sarana_kesehatan" style="width:100%; height:600px;"></div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                const tabLinks = document.querySelectorAll('.tab-controls .tab-link');
+            
+                tabLinks.forEach(link => {
+                    link.addEventListener('click', function () {
+                        // Remove active class from all tab links
+                        tabLinks.forEach(tab => tab.classList.remove('active'));
+                        // Add active class to the clicked tab link
+                        this.classList.add('active');
+            
+                        // Hide all tab content
+                        document.querySelectorAll('.tab-content .collapse').forEach(tabContent => {
+                            tabContent.classList.remove('show');
+                        });
+            
+                        // Show the corresponding tab content
+                        const target = this.getAttribute('data-bs-target');
+                        document.querySelector(target).classList.add('show');
+                    });
+                });
+            });
+            </script>
+
+</div>
+{% endblock main %} 

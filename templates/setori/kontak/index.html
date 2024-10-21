@@ -1,6 +1,22 @@
 {% extends 'setori/base_layout/base_layout.html' %} 
 {% load static %}
 
+{% block css %}
+<style>
+    .social-icons .fab {
+    font-size: 2em; /* Mengatur ukuran ikon, dapat disesuaikan */
+}
+
+/* Contoh penyesuaian tambahan */
+.social-icons a {
+    display: inline-block;
+    margin: 10px; /* Jarak antar ikon */
+}
+
+</style>
+{% endblock css %}
+
+
 {% block main %}  
         <!-- header -->
         <div class="body">
@@ -14,7 +30,7 @@
                             </div>
                             <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
                                 <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
-                                    <li><a href="demo-accounting-1.html" class="text-light text-decoration-none">Beranda</a></li>
+                                    <li><a href="{% url 'app_setori:index_home' %}" class="text-light text-decoration-none">Beranda</a></li>
                                     <li class="active text-color-light opacity-7">Kontak</li>
                                 </ul>
                             </div>
@@ -24,6 +40,7 @@
             </div>
         </div>              
 
+        <div class="bg-grey-100 px-3 px-xl-0 border-radius-2-bottom p-relative overflow-hidden">
             <!-- Intro -->
             <div class="container pt-4 pt-lg-5 pb-4" id="intro">
                 <div class="row align-items-center">
@@ -35,34 +52,37 @@
                 </div>
                 <div class="p-relative">
                     <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                        <p class="mb-0">Whether you have a question about our services, need advice on tax planning, or want to schedule a consultation, our team of experienced professionals is ready to assist you.</p>
+                        <p class="mb-0">
+                            Apakah Anda memiliki pertanyaan mengenai fitur layanan kami, atau ingin melaporkan tindak pidana berkaitan dengan kesehatan? tim profesional kami yang berpengalaman siap membantu Anda.</p>
                     </div>
                 </div>
+
+                <!--isi kontak-->
                 <div class="row mt-5 pt-2">
                     <div class="col-lg-4 mb-3 mb-lg-0">
 
                         <div class="feature-box feature-box-secondary">
                             <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                                <img src="img/icons/pin-light.svg" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': ''}" />
+                                <img src="{% static 'img/img/icons/pin-light.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': ''}" />
                             </div>
                             <div class="feature-box-info ps-3">
-                                <strong class="d-block text-4-5 text-dark mb-1">Office Address</strong>
-                                <p class="mb-0 text-3-5 line-height-7">123 Financial Avenue, Suite 456,</p>
-                                <p class="mb-0 text-3-5 line-height-7">Cityville, State, 12345</p>
+                                <strong class="d-block text-4-5 text-dark mb-1">Dinas Kesehatan Kab Supiori</strong>
+                                <p class="mb-0 text-3-5 line-height-7">Marsram, Kec. Supiori Tim.</p>
+                                <p class="mb-0 text-3-5 line-height-7">Kabupaten Supiori, Papua 98161</p>
                                 <p class="mb-0 text-3-5 line-height-7"><a href="https://www.google.com/maps" target="_blank" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">Get Directions</a></p>
                             </div>
                         </div>
 
                         <div class="feature-box feature-box-secondary mt-4 pt-2">
                             <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                                <img src="img/icons/email.svg" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                                <img src="{% static 'img/img/icons/email.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
                             </div>
                             <div class="feature-box-info ps-3">
-                                <strong class="d-block text-4-5 text-dark mb-1">E-mail</strong>
-                                <p class="mb-0 text-3-5 line-height-7">General Inquiries:</p>
-                                <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:info@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">info@youraccountingfirm.com</a></p>
-                                <p class="mb-0 text-3-5 line-height-7">Client Support:</p>
-                                <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:support@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">support@youraccountingfirm.com</a></p>
+                                <strong class="d-block text-4-5 text-dark mb-1">Alamat E-mail</strong>
+                                <p class="mb-0 text-3-5 line-height-7">Alamat Pengaduan:</p>
+                                <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:info@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">pengaduansupiori@gmail.com</a></p>
+                                <p class="mb-0 text-3-5 line-height-7">Customer Servise:</p>
+                                <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:support@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">cssupiori@gmail.com</a></p>
                             </div>
                         </div>
 
@@ -71,29 +91,57 @@
 
                         <div class="feature-box feature-box-secondary">
                             <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                                <img src="img/icons/phone-2.svg" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                                <img src="{% static 'img/img/icons/phone-2.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
                             </div>
                             <div class="feature-box-info ps-3">
-                                <strong class="d-block text-4-5 text-dark mb-1">Phone</strong>
-                                <p class="mb-0 text-3-5 line-height-7">Main Office: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
-                                <p class="mb-0 text-3-5 line-height-7">Sales: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
-                                <p class="mb-0 text-3-5 line-height-7">Client Support: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
+                                <strong class="d-block text-4-5 text-dark mb-1">Nomor Handphone</strong>
+                                <p class="mb-0 text-3-5 line-height-7">Nomor Pengaduan: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
+                                <p class="mb-0 text-3-5 line-height-7">Hotline: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
+                                <p class="mb-0 text-3-5 line-height-7">Customer Servise: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
                             </div>
                         </div>
 
                         <div class="feature-box feature-box-secondary mt-4 pt-2">
                             <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                                <img src="img/icons/clock.svg" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                                <img src="{% static 'img/img/icons/clock.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
                             </div>
                             <div class="feature-box-info ps-3">
-                                <strong class="d-block text-4-5 text-dark mb-1">Business Hours</strong>
-                                <p class="mb-0 text-3-5 line-height-7">Monday to Friday: 9:00 AM - 6:00 PM</p>
-                                <p class="mb-0 text-3-5 line-height-7">Saturday: 10:00 AM - 2:00 PM</p>
-                                <p class="mb-0 text-3-5 line-height-7">Sunday: Closed</p>
+                                <strong class="d-block text-4-5 text-dark mb-1">Jam Kerja</strong>
+                                <p class="mb-0 text-3-5 line-height-7">Senin - Jumat: 9:00 - 17:00</p>
+                                <p class="mb-0 text-3-5 line-height-7">Sabtu: 10:00 - 14:00</p>
+                                <p class="mb-0 text-3-5 line-height-7">Minggu: Tidak Melayani</p>
                             </div>
                         </div>
 
                     </div>
+
+                    <div class="col-lg-4">
+                        <div class="feature-box feature-box-secondary">
+                            <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                                <img src="{% static 'img/img/icons/phone-2.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                            </div>
+                            <div class="feature-box-info ps-3">
+                                <strong class="d-block text-4-5 text-dark mb-1">Sosial Media</strong>
+                                <ul class="social-icons social-icons-clean social-icons-medium">
+                                    <li class="social-icons-instagram">
+                                        <a href="http://www.instagram.com/" target="_blank" title="Instagram">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li class="social-icons-x">
+                                        <a href="http://www.x.com/" target="_blank" title="X">
+                                            <i class="fab fa-x-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li class="social-icons-facebook">
+                                        <a href="http://www.facebook.com/" target="_blank" title="Facebook">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                </ul>    
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
 
                 <div class="row pt-4">
@@ -101,85 +149,16 @@
                         <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                             <p class="mb-0 text-dark d-flex justify-content-center">
                                 <img src="img/demos/accounting-1/icons/icon-5.svg" width="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-dark me-2'}" />
-                                24/7 Availability - Round-the-clock support for all your accounting needs, anytime.
+                                Selalu siaga demi masyarakat supiori lebih sejahtera
                             </p>
                         </div>
                     </div>
                 </div>
-
             </div>
 
-            <!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
-				<div class="bg-grey-100 px-3 px-xl-0 border-radius-2 p-relative overflow-hidden mt-5">
-                    <div id="googlemaps" class="google-map m-0" style="min-height: 580px;"></div>
-				</div>
-
-            <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasMain" aria-labelledby="offcanvasMain">
-                <div class="offcanvas-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div class="mb-4" id="offCanvasLogo"></div>
-                    <nav class="offcanvas-nav w-100" id="offCanvasNav"></nav>
-                </div>
+            <div class="map-container" style="display: flex; justify-content: center;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.47268893396!2d135.72742674436404!3d-0.7541726980906849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x680171f324b75afb%3A0xc3480285d5705e8e!2sDinas%20Kesehatan!5e0!3m2!1sid!2sid!4v1728291617820!5m2!1sid!2sid" width="100%" height="450px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-
-    	<!-- Google Maps -->
-		<script>
-			/* 
-			Map Markers:
-			- Get an API Key: https://developers.google.com/maps/documentation/javascript/get-api-key
-			- Generate Map Id: https://console.cloud.google.com/google/maps-apis/studio/maps
-			- Use https://www.latlong.net/convert-address-to-lat-long.html to get Latitude and Longitude of a specific address
-			*/
-			(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-				({key: "YOUR_API_KEY", v: "weekly"});
-
-			async function initMap() {
-				const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-				const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
-					"marker",
-				);
-				const map = new Map(document.getElementById("googlemaps"), {
-					zoom: 14,
-					center: { lat: -37.817240, lng: 144.955820 },
-					mapId: "YOUR_MAP_API_ID",
-				});
-				const markers = [
-					{
-						position: { lat: -37.817240, lng: 144.955820 },
-						title: "Office 1<br>Melbourne, 121 King St, Australia<br>Phone: 123-456-1234",
-					}
-				];
-
-				const infoWindow = new InfoWindow();
-
-				markers.forEach(({ position, title }, i) => {
-					const pin = new PinElement({
-						background: "#e36159",
-						borderColor: "#e36159",
-						glyphColor: "#FFF",
-					});
-					const marker = new AdvancedMarkerElement({
-						position,
-						map,
-						title: `${title}`,
-						content: pin.element,
-					});
-
-					marker.addListener("click", ({ domEvent, latLng }) => {
-						const { target } = domEvent;
-
-						infoWindow.close();
-						infoWindow.setContent(marker.title);
-						infoWindow.open(marker.map, marker);
-					});
-				});	
-
-			}
-
-			initMap();	
-
-		</script>
-
+        </div>
 {% endblock main %} 
+
