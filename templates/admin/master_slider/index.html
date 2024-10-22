@@ -48,15 +48,15 @@
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                    <img src="{{ slider.logo }}" alt="logo" style="width: 50px; height: auto;">
+                                    <img src="{{ slider.logo.url }}" alt="logo" style="width: 50px; height: auto;">
                                 </td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                    <img src="{{ slider.foto }}" alt="logo" style="width: 50px; height: auto;">
+                                    <img src="{{ slider.foto.url }}" alt="logo" style="width: 50px; height: auto;">
                                 </td>
                                 <td class="text-muted fs-15 fw-semibold">{{ slider.text}}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ slider.status}}</td>
                                 <td class="">
-                                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteModal_{{ kategori.categori_id }}" data-bs-original-title="Delete">
+                                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteSliderModal_{{ slider.id_slider }}" data-bs-original-title="Delete">
                                         <i>
                                             <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                                 <path d="M0 0h24v24H0V0z" fill="none" />
@@ -108,8 +108,8 @@
                     <div class="mb-3">
                         <label for="id_status" class="form-label">Status</label>
                         <select name="status" id="id_status" class="form-select" required>
-                            <option value="true">Aktif</option>
-                            <option value="false">Tidak Aktif</option>
+                            <option value=1>Aktif</option>
+                            <option value=0>Tidak Aktif</option>
                         </select>
                     </div>
                     
@@ -121,11 +121,11 @@
 </div>
 {% for slider in dt_slider %}
  <!-- Delete Identitas Modal -->
- <!-- <div class="modal fade" id="deleteModal_{{ kategori.categori_id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+ <div class="modal fade" id="deleteSliderModal_{{ slider.id_slider }}" tabindex="-1" aria-labelledby="deleteSliderModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Delete Identitas</h5>
+                <h5 class="modal-title" id="deleteSliderModalLabel">Delete Identitas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -133,13 +133,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <a href="{% url 'admin_setori:del_slider' category_id=kategori.categori_id %}">
+                <a href="{% url 'admin_setori:delete_slider' id=slider.id_slider %}">
                     <button type="button" class="btn btn-danger">Hapus</button>
                 </a>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 {% endfor %}
 
 {% endblock main %}

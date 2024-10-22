@@ -8,4 +8,5 @@ from .admin_faq import *
 from .admin_kontak import *
 from .master_slider import *
 from .master_identitas import *
+from .layanan import *
 

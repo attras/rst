@@ -2,10 +2,27 @@
 {% block css %} {% endblock css %}
 {% block main %}
 <!-- Button to Add New User -->
-<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
-    Add New FAQ
-</button>
-
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Dashboard 01</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+        </ol>
+    </div>
+    <div class="ms-auto pageheader-btn">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addKontakModal">
+            <span>
+                <i class="fe fe-plus"></i>
+            </span> Add kontak
+        </a>
+        <a href="#" class="btn btn-success btn-icon text-white">
+            <span>
+                <i class="fe fe-log-in"></i>
+            </span> Export
+        </a>
+    </div>
+</div>
 {% endblock main %}
 {% block js %}
 <!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->

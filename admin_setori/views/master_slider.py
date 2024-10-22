@@ -24,8 +24,8 @@ class Master_sliderViews(View):
     
 class Add_slider(View):
     def post(self, request):
-        logo = request.POST.get('logo')
-        foto = request.POST.get('foto')
+        logo = request.FILES.get('logo')
+        foto = request.FILES.get('foto')
         text = request.POST.get('text')
         status = request.POST.get('status')
 
@@ -46,12 +46,12 @@ class Add_slider(View):
             return redirect('admin_setori:master_slider')
         
 class Delete_slider(View):
-    def post(self, request, id):
+    def get(self, request, id):
         del_slider = get_object_or_404(Slider,id_slider=id)
         del_slider.deleted_at = timezone.now()
         del_slider.delete()
         messages.success(request, f"data berhasil dihapus")
-        return redirect('admin_setori:delete_slider')
+        return redirect('admin_setori:master_slider')
 
              
 

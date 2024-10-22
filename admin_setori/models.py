@@ -163,3 +163,10 @@ class Slider(CreateUpdateTime):
     foto = models.ImageField(upload_to='slider/background',null=True,validators=[validate_file_gambar, validate_file_size_gambar],blank=True)
     text = models.CharField(max_length=255)
     status = models.BooleanField(default=False)
+
+class Layanan(CreateUpdateTime):
+    id_layanan = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
+    surat = models.CharField(max_length=100, unique=True)
+    syarat = models.TextField()
+
+

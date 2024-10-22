@@ -52,12 +52,17 @@ urlpatterns = [
         path('delete/<uuid:id_identitas>', master_identitas.DeleteIdentitas.as_view(), name = 'delete_identitas'),
         ])),
 
-    path('',include([
-        path('master_slider/',master_slider.Master_sliderViews.as_view(),name='master_slider'),
+    path('master_slider/',include([
+        path('',master_slider.Master_sliderViews.as_view(),name='master_slider'),
         path('add_slider/',master_slider.Add_slider.as_view(),name='add_slider'),
-        # path('delete_slider/',master_slider.Master_sliderViews.as_view(),name='delete_slider'),
+        path('delete_slider/<uuid:id>',master_slider.Delete_slider.as_view(),name='delete_slider'),
         ])),
 
-    
+    path('admin_layanan/',include([
+        path('',layanan.LayananViews.as_view(),name='admin_layanan'),
+        path('add_layanan/',layanan.Addlayanan.as_view(),name='add_layanan'),
+        path('delete/<str:layanan_id>/',layanan.Deletelayanan.as_view(),name='delete_layanan')
+        ])),
+
     # path('add_slider',master_slider.Addslider.as_view(),name='add_slider'),
 ]
