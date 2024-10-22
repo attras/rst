@@ -159,7 +159,7 @@ class Category(models.Model):
     
 class Slider(CreateUpdateTime):
     id_slider = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
-    logo = models.ImageField(upload_to='slider/logo',null=True,validators=[validate_file_gambar, validate_file_size_gambar],blank=True )
+    logo = models.ImageField(upload_to='slider/logo',null=True,validators=[validate_file_gambar, validate_file_size_gambar],blank=True,default='admin_setori/static/default/defaultlogo.jpeg' )
     foto = models.ImageField(upload_to='slider/background',null=True,validators=[validate_file_gambar, validate_file_size_gambar],blank=True)
     text = models.CharField(max_length=255)
     status = models.BooleanField(default=False)
