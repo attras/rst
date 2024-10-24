@@ -33,35 +33,42 @@
                                 <td class="text-muted fs-15 fw-semibold">{{ faq.jawaban }}</td>
                              
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
-                                <td class="">
-                                <a class="btn btn-primary btn-sm rounded-11 me-2" 
-                                    href="#" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#editFaqModal" 
-                                    data-bs-id="{{ faq.id }}" 
-                                    data-bs-pertanyaan="{{ faq.pertanyaan }}" 
-                                    data-bs-jawaban="{{ faq.jawaban }}">
-                                     <i>
-                                         <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
-                                             <path d="M0 0h24v24H0V0z" fill="none" />
-                                             <path
-                                                 d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"
-                                             />
-                                         </svg>
-                                     </i>
-                                 </a>
-                                 
-                                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteUserModal_{{ faq.id }}" data-bs-original-title="Delete">
-                                        <i>
-                                            <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
-                                                <path d="M0 0h24v24H0V0z" fill="none" />
-                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
-                                            </svg>
-                                        </i>
-                                    </a>
-                                    
-                                    
-                                </td>
+                                <td class="text-muted fs-15 fw-semibold">
+                                    <a class="btn btn-primary btn-sm rounded-11 me-2" 
+                                        href="#" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#editFaqModal" 
+                                        data-bs-id="{{ faq.faq_id }}" 
+                                        data-bs-pertanyaan="{{ faq.pertanyaan }}" 
+                                        data-bs-jawaban="{{ faq.jawaban }}">
+                                         <i>
+                                             <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
+                                                 <path d="M0 0h24v24H0V0z" fill="none" />
+                                                 <path
+                                                     d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"
+                                                 />
+                                             </svg>
+                                         </i>
+                                     </a>
+                                     
+                                        <a class="btn btn-danger btn-sm rounded-11"
+                                         data-bs-toggle="modal" 
+                                         data-bs-target="#deleteUserModal" 
+                                         data-bs-original-title="Delete"
+                                         data-bs-id="{{ faq.faq_id }}" 
+                                         data-bs-pertanyaan="{{ faq.pertanyaan }}" 
+                                         >
+                                         
+                                            <i>
+                                                <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
+                                                    <path d="M0 0h24v24H0V0z" fill="none" />
+                                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
+                                                </svg>
+                                            </i>
+                                        </a>
+                                        
+                                        
+                                    </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -98,9 +105,8 @@
         </div>
     </div>
 </div>
-{% for faq in dt_faq %}
-<!-- Delete User Modal -->
-<div class="modal fade" id="deleteUserModal_{{ faq.id }}" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -114,7 +120,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cancel
                 </button>
-                <a href="{% url 'admin_setori:hapus_faq' id_faq=faq.faq_id %}">
+                <a id="del" href="">
                     <button type="button" class="btn btn-danger">Delete</button>
                 </a>
             
@@ -125,6 +131,7 @@
 
 <!-- edit User Modal -->
 <!-- Edit FAQ Modal -->
+
 <div class="modal fade" id="editFaqModal" tabindex="-1" aria-labelledby="editFaqModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -141,7 +148,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Jawaban</label>
-                        <input type="text" name="jawaban" id="edit-jawaban" class="form-control" placeholder="Masukan Jawaban" required />
+                        <textarea name="jawaban" id="edit-jawaban" class="form-control" placeholder="Masukan Jawaban" required ></textarea>
                     </div>
                     <button type="submit" class="btn btn-warning">Update FAQ</button>
                 </form>
@@ -149,8 +156,6 @@
         </div>
     </div>
 </div>
-
-{% endfor %}
 
 <script>
     var editFaqModal = document.getElementById('editFaqModal');
@@ -169,14 +174,34 @@
         var inputJawaban = editFaqModal.querySelector('#edit-jawaban');
         var form = editFaqModal.querySelector('form');
 
-        modalTitle.textContent = 'Edit FAQ ID ' + faqId;
+        modalTitle.textContent = 'Edit pertanyaan ' + pertanyaan;
         inputPertanyaan.value = pertanyaan;
         inputJawaban.value = jawaban;
 
         // Update form action URL dynamically with the correct FAQ ID
-        form.action = "{% url 'admin_setori:edit_faq' 'id_faq=faq.faq_id' %}".replace('faq.faq_id', faqId);
+        form.action = "{% url 'admin_setori:edit_faq' 'holder' %}".replace('holder', faqId);
+        
     });
+
+          //delete
+    var deleteFaqModal = document.getElementById('deleteUserModal');
+    deleteFaqModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+        var faqId = button.getAttribute('data-bs-id');
+
+        // Extract info from data-bs-* attributes
+        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
+        var modalTitle = deleteFaqModal.querySelector('.modal-title');
+        var link = deleteFaqModal.querySelector('#del')
+        modalTitle.textContent = 'hapus ' + pertanyaan;
+      
+        // Update form action URL dynamically with the correct FAQ ID
+        link.href = "{% url 'admin_setori:delete_faq' 'holder' %}".replace('holder', faqId);
+    });
+    
 </script>
+
 
 
 {% endblock main %}

@@ -54,7 +54,7 @@ class Editfaq(View) :
         pertanyaan = request.POST.get('jawaban')
         try:
             with transaction.atomic():
-                insert_faq = Faq(faq_id=id_faq)
+                insert_faq = get_object_or_404(Faq, faq_id=id_faq)
                 insert_faq.pertanyaan = jawaban
                 insert_faq.jawaban = pertanyaan
                 insert_faq.created_at = timezone.now()
@@ -64,8 +64,8 @@ class Editfaq(View) :
                 return redirect('admin_setori:admin_faq')
         except Exception as e:
             print('Error Data', e)
-            messages.error(request,"gagal menambahkan")
-            return redirect(reverse('admin_setori:edit_faq',args=[id_faq]))
+            messages.error(request,"gagal edit")
+            return redirect(reverse('admin_setori:admin_faq'))
 
 
 
