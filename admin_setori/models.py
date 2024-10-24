@@ -150,7 +150,7 @@ class MasterIdentitass(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
     identitas = models.CharField(max_length=100)
 
-class Category(models.Model):
+class Category(CreateUpdateTime):
     categori_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=100, unique=True)
 
@@ -170,3 +170,40 @@ class Layanan(CreateUpdateTime):
     syarat = models.TextField()
 
 
+class News(CreateUpdateTime):
+	title = models.CharField(max_length=255)
+	thumbnail = models.ImageField(upload_to='artikel', validators=[validate_file_gambar, validate_file_size_gambar], default='artikel/defaultartikel.jpeg')
+	content = models.TextField()
+	slug = models.SlugField(unique=True, max_length=300)
+	category = models.ForeignKey(Category, on_delete=models.RESTRICT)
+	created_by = models.ForeignKey(Account, on_delete=models.RESTRICT)
+	last_updated_by = models.CharField(max_length=5, null=True, blank=True)
+	seen = models.SmallIntegerField(default=0)
+	jenis = models.CharField(max_length=255, null=True)
+
+def save(self, *args, **kwargs):
+        # Automatically generate slug if not provided
+        if not self.slug:
+            self.slug = generate_unique_slug(self)
+        super(News, self).save(*args, **kwargs)    
+  
+def generate_unique_slug(instance, new_slug=None, counter=0):
+    """
+    Generate a unique slug for a News instance based on its title.
+    If a slug already exists, append a counter to ensure uniqueness.
+    """
+    # Initial slug, either passed or generated from the title
+    slug = new_slug or slugify(instance.title)
+    
+    if counter > 0:
+        slug = f"{slug}-{counter}"  # Append the counter to the slug if it's not the first attempt
+
+    # Check if the slug already exists
+    Klass = instance.__class__
+    qs_exists = Klass.objects.filter(slug=slug).exists()
+
+    if qs_exists:
+        # Increment counter and recursively call the function until a unique slug is found
+        return generate_unique_slug(instance, new_slug=new_slug, counter=counter + 1)
+    
+    return slug

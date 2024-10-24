@@ -16,7 +16,12 @@ urlpatterns = [
          path('add', master_user.AddUser.as_view(), name = 'add_user'),
          path('delete/<int:id_user>', master_user.DeleteUser.as_view(), name = 'del_user'),
          ])),
+         
+     path('admin_berita/',include([
+         path('',admin_berita.Admin_beritaViews.as_view(), name = 'admin_berita'),
+         path('add',admin_berita.AddBerita.as_view(), name = 'add_berita'),
 
+         ])),
     path('kategori/',include([
         path('', master_kategori.Master_kategoriViews.as_view(), name = 'master_kategori'),
         path('add', master_kategori.AddCategory.as_view(), name = 'add_kategori'),
