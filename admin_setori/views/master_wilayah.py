@@ -40,7 +40,10 @@ class AddWilayah(View):
             if not wilayah_parent or wilayah_parent.wilayah_level != '1':
                 messages.error(request, "Kecamatan harus dipilih dari Kabupaten yang sudah ada.")
                 return redirect('admin_setori:master_wilayah')
-
+        else:
+             if  wilayah_parent is not None :
+                 messages.error(request, "Level wilayah tidak valid.")
+                 return redirect('admin_setori:master_wilayah')
         # Jika validasi lolos, simpan data
         try:
             with transaction.atomic():

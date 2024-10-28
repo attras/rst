@@ -40,12 +40,6 @@ class Addfaq(View) :
             messages.error(request,"gagal menambahkan")
             return redirect('admin_setori:admin_faq')
         
-class Deletefaq(View):
-    def get(self, request, id_faq):
-        del_faq = get_object_or_404(Faq,faq_id=id_faq)
-        del_faq.delete()
-        messages.success(request, f"data berhasil dihapus")
-        return redirect('admin_setori:admin_faq')
 
 
 class Editfaq(View) :
@@ -69,5 +63,56 @@ class Editfaq(View) :
 
 
 
+class DeleteAt(View):
+    def get(self, request, id_faq):
+        try:
+            with transaction.atomic():
+                del_faq = get_object_or_404(Faq,faq_id=id_faq)
+                del_faq.deleted_at = timezone.now()
+                del_faq.save()
+                messages.success(request, f"data berhasil dihapus")
+                return redirect('admin_setori:admin_faq')
+                
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:admin_faq')
+    
+class Historifaq(View):
+    def get(self, request):
+        dt_faq = Faq.objects.filter(deleted_at__isnull = False)
+        data = {
+            'dt_faq' : dt_faq
+        }
+        return render(request, 'admin/admin_faq/histori.html',data)
+    
+class Restorefaq(View):
+    def get(self, request, id_faq):
+        try:
+            with transaction.atomic():
+                del_faq = get_object_or_404(Faq,faq_id=id_faq)
+                del_faq.deleted_at = None
+                del_faq.save()
+                messages.success(request, f"data berhasil dipulihkan")
+                return redirect('admin_setori:histori_faq')
+                
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:histori_faq')
+    
+    
     
 
+class Deletefaq(View):
+    def get(self, request, id_faq):
+        try:
+            with transaction.atomic():
+                del_faq = get_object_or_404(Faq,faq_id=id_faq)
+                del_faq.delete()
+                messages.success(request, f"data berhasil dihapus")
+                return redirect('admin_setori:histori_faq')
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:histori_faq')

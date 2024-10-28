@@ -13,7 +13,7 @@ from admin_setori.decorators import role_required, admin_only
 from django.utils.decorators import method_decorator
 
 @method_decorator(login_required(), name='dispatch')
-@method_decorator(admin_only(), name='dispatch')
+# @method_decorator(admin_only(), name='dispatch')
 class Master_kategoriViews(View):
     def get(self, request):
         dt_category = Category.objects.all()

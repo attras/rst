@@ -1,0 +1,172 @@
+{% extends 'admin/base_layout/index.html' %}
+{% block css %} {% endblock css %}
+{% block main %}
+
+<!-- Button to Add New User -->
+ <a href="{% url 'admin_setori:admin_faq' %}">
+
+     <button type="button" class="btn btn-primary mb-3" >
+         Kembali
+     </button>
+ </a>
+
+<!-- User Table -->
+<div class="row">
+    <div class="col-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Histori FAQ</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th class="bg-transparent border-bottom-0 w-5">No</th>
+                                <th class="bg-transparent border-bottom-0">Pertanyaan</th>
+                                <th class="bg-transparent border-bottom-0">Jawaban</th>
+                                <th class="bg-transparent border-bottom-0">Tanggal Dihapus</th>
+                                <th class="bg-transparent border-bottom-0">Action</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for faq in dt_faq %}
+                            <tr class="border-bottom">
+                                <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ faq.pertanyaan }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ faq.jawaban }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ faq.deleted_at|date:"Y-m-d" }}</td>
+                             
+                                <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
+                                <td class="text-muted fs-15 fw-semibold">
+                                    <a class="" 
+                                        href="#" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#restoreFaqModal" 
+                                        data-bs-id="{{ faq.faq_id }}" 
+                                        data-bs-pertanyaan="{{ faq.pertanyaan }}" 
+                                        >
+                                        <button class="btn btn-success">Restore</button>
+                                     </a>
+                                     
+                                        <a class=""
+                                         data-bs-toggle="modal" 
+                                         data-bs-target="#deleteUserModal" 
+                                         data-bs-original-title="Delete"
+                                         data-bs-id="{{ faq.faq_id }}" 
+                                         data-bs-pertanyaan="{{ faq.pertanyaan }}" 
+                                         >
+                                         
+                                         <button class="btn btn-danger">Hapus permanen</button>
+                                        </a>
+                                        
+                                        
+                                    </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- COL END -->
+</div>
+
+
+<!-- delete -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModalLabel">hapus permanen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah anda yakin?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <a id="del" href="">
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </a>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  Restore Modal -->
+<div class="modal fade" id="restoreFaqModal" tabindex="-1" aria-labelledby="restoreFaqModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="restoreFaqModalLabel">kembalikan data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah anda yakin?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <a id="restore" href="">
+                    <button type="button" class="btn btn-primary">save</button>
+                </a>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+     var RestoreFaqModal = document.getElementById('restoreFaqModal');
+    RestoreFaqModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+        var faqId = button.getAttribute('data-bs-id');
+
+        // Extract info from data-bs-* attributes
+        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
+        var modalTitle = RestoreFaqModal.querySelector('.modal-title');
+        var link = RestoreFaqModal.querySelector('#restore')
+        modalTitle.textContent = 'kembalikan ' + pertanyaan;
+      
+        // Update form action URL dynamically with the correct FAQ ID
+        link.href = "{% url 'admin_setori:restore_faq' 'holder' %}".replace('holder', faqId);
+    });
+
+          //delete
+    var deleteFaqModal = document.getElementById('deleteUserModal');
+    deleteFaqModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+        var faqId = button.getAttribute('data-bs-id');
+
+        // Extract info from data-bs-* attributes
+        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
+        var modalTitle = deleteFaqModal.querySelector('.modal-title');
+        var link = deleteFaqModal.querySelector('#del')
+        modalTitle.textContent = 'hapus ' + pertanyaan;
+      
+        // Update form action URL dynamically with the correct FAQ ID
+        link.href = "{% url 'admin_setori:delete_faq' 'holder' %}".replace('holder', faqId);
+    });
+    
+</script>
+
+
+
+{% endblock main %}
+
+
+{% block js %}
+<!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->
+
+{% endblock js %}
+

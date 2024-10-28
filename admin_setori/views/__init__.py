@@ -10,4 +10,5 @@ from .master_slider import *
 from .master_identitas import *
 from .layanan import *
 from .admin_berita import *
+from .coba_wilayah import *
 

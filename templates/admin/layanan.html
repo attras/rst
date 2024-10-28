@@ -51,14 +51,14 @@
                                 <td class="text-muted fs-15 fw-semibold">{{ layanan.syarat|safe}}</td>
                              
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
-                                <td class="">
-                                <!-- <a class="btn btn-primary btn-sm rounded-11 me-2" 
+                                <td class="text-muted fs-15 fw-semibold">
+                                <a class="btn btn-primary btn-sm rounded-11 me-2" 
                                     href="#" 
                                     data-bs-toggle="modal" 
-                                    data-bs-target="#editFaqModal" 
-                                    data-bs-id="{{ faq.id }}" 
-                                    data-bs-pertanyaan="{{ faq.pertanyaan }}" 
-                                    data-bs-jawaban="{{ faq.jawaban }}">
+                                    data-bs-target="#editLayananModal" 
+                                    data-bs-id="{{ layanan.id_layanan }}" 
+                                    data-bs-surat="{{ layanan.surat }}" 
+                                    data-bs-syarat="{{ layanan.syarat }}">
                                      <i>
                                          <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                              <path d="M0 0h24v24H0V0z" fill="none" />
@@ -67,7 +67,7 @@
                                              />
                                          </svg>
                                      </i>
-                                 </a> -->
+                                 </a>
                                  
                                     <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteLayananModal_{{ layanan.id_layanan }}" data-bs-original-title="Delete">
                                         <i>
@@ -141,34 +141,34 @@
     </div>
 </div>
 
+
+{% endfor %}
 <!-- edit Layanan Modal -->
-<!-- Edit FAQ Modal -->
-<!-- <div class="modal fade" id="editFaqModal" tabindex="-1" aria-labelledby="editFaqModalLabel" aria-hidden="true">
+<!-- Edit layanan Modal -->
+<div class="modal fade" id="editLayananModal" tabindex="-1" aria-labelledby="editLayananModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editFaqModalLabel">Edit FAQ</h5>
+                <h5 class="modal-title" id="editLayananModalLabel">Edit layanan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="post" action="">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label class="form-label">Pertanyaan</label>
-                        <input type="text" name="pertanyaan" id="edit-pertanyaan" class="form-control" placeholder="Masukan Pertanyaan" required />
+                        <label class="form-label">surat</label>
+                        <input type="text" name="surat" id="edit-surat" class="form-control" placeholder="Masukan surat" required />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Jawaban</label>
-                        <input type="text" name="jawaban" id="edit-jawaban" class="form-control" placeholder="Masukan Jawaban" required />
+                        <label class="form-label">syarat</label>
+                        <textarea type="text" name="editsyarat" class="form-control"  placeholder="Masukan syarat" id="editor"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-warning">Update FAQ</button>
+                    <button type="submit" class="btn btn-warning">Update layanan</button>
                 </form>
             </div>
         </div>
     </div>
-</div> -->
-
-{% endfor %}
+</div>
 
 
 <script type="importmap">
@@ -200,10 +200,43 @@
             
             height: '500px'
         } )
-        .then( /* ... */ )
-        .catch( /* ... */ );
+        .then(editor => {
+            // Optionally listen for changes to update the hidden textarea
+            editor.model.document.on('change:data', () => {
+                const data = editor.getData();
+                document.querySelector('textarea[name="editsyarat"]').value = data;
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
 </script>
+<script>
+     var editLayananModal = document.getElementById('editLayananModal');
+    editLayananModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
 
+        // Extract info from data-bs-* attributes
+        var layananId = button.getAttribute('data-bs-id');
+        var surat = button.getAttribute('data-bs-surat');
+        var syarat = button.getAttribute('data-bs-syarat');
+
+        // Update the modal's form fields
+        var modalTitle = editLayananModal.querySelector('.modal-title');
+        var inputsurat = editLayananModal.querySelector('#edit-surat');
+        var inputsyarat = editLayananModal.querySelector('#editor');
+        var form = editLayananModal.querySelector('form');
+
+        modalTitle.textContent = 'Edit surat ' + surat;
+        inputsurat.value = surat;
+        inputsyarat.value = syarat;
+
+        // Update form action URL dynamically with the correct layanan ID
+        form.action = "{% url 'admin_setori:edit_layanan' 'holder' %}".replace('holder', layananId);
+        
+    });
+</script>
 
 
 {% endblock main %}

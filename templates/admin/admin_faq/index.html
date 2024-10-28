@@ -1,11 +1,29 @@
 {% extends 'admin/base_layout/index.html' %}
 {% block css %} {% endblock css %}
 {% block main %}
-<!-- Button to Add New User -->
-<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
-    Add New FAQ
-</button>
 
+<!-- PAGE-HEADER -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">FAQ</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+        </ol>
+    </div>
+    <div class="ms-auto pageheader-btn">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            <span>
+                <i class="fe fe-plus"></i>
+            </span> Add kategori
+        </a>
+        <a href="{% url 'admin_setori:histori_faq' %}" class="btn btn-success btn-icon text-white">
+            <span>
+                <i class="fe fe-log-in"></i>
+            </span> Histori
+        </a>
+    </div>
+</div>
 <!-- User Table -->
 <div class="row">
     <div class="col-12 col-sm-12">
@@ -97,7 +115,7 @@
                     </div>
                     <div class="mb-3"></div>
                         <label  class="form-label">Jawaban</label>
-                        <input type="text" name="jawaban" class="form-control"  placeholder="Masukan Jawaban" />
+                        <textarea type="text" name="jawaban" class="form-control"  placeholder="Masukan Jawaban"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
@@ -106,6 +124,7 @@
     </div>
 </div>
 
+<!-- delete -->
 <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -197,7 +216,7 @@
         modalTitle.textContent = 'hapus ' + pertanyaan;
       
         // Update form action URL dynamically with the correct FAQ ID
-        link.href = "{% url 'admin_setori:delete_faq' 'holder' %}".replace('holder', faqId);
+        link.href = "{% url 'admin_setori:delete_at_faq' 'holder' %}".replace('holder', faqId);
     });
     
 </script>

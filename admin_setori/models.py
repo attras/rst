@@ -127,7 +127,7 @@ class Tahun(models.Model):
 
 LEVEL_WILAYAH = (
     (1, 'Kabupaten'),
-    (2, 'Kecamatan'),
+    (2, 'Kecamatan/distrik'),
     (3, 'Kampung')
 )
 
@@ -207,3 +207,19 @@ def generate_unique_slug(instance, new_slug=None, counter=0):
         return generate_unique_slug(instance, new_slug=new_slug, counter=counter + 1)
     
     return slug
+
+
+class CobaWilayah(Tahun, CreateUpdateTime):
+    wilayah_id = models.TextField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    wilayah_nama = models.TextField()
+    wilayah_level = models.CharField(default=None, choices=LEVEL_WILAYAH, max_length=1)
+    asal_kabupaten = models.TextField(default=None)
+    asal_kecamatan = models.TextField(null=True, blank=True, default=None)
+    nama_kampung = models.TextField(null=True, blank=True, default=None)
+
+
+    def get_level_display(self):
+        for key, value in LEVEL_WILAYAH:
+            if str(key) == self.wilayah_level:
+                return value
+        return None

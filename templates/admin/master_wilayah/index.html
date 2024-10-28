@@ -79,7 +79,7 @@
             <div class="modal-body">
                 <form method="post" action="{% url 'admin_setori:add_wilayah' %}">
                   {% csrf_token %}
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label class="form-label">Nama Wilayah</label>
                         <input type="text" name="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required />
                     </div>
@@ -97,7 +97,22 @@
                         <select name="wilayah_parent" class="form-select">
                             <option value="" disabled selected>Pilih Wilayah Parent</option>
                             {% for parent_wilayah in dt_wilayah %}
+
                                 <option value="{{ parent_wilayah.wilayah_id }}">{{ parent_wilayah.wilayah_nama }}</option>
+                            {% endfor %}
+                        </select>
+                    </div> -->
+
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Nama Wilayah</label>
+                        <input type="text" name="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required />
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Level</label>
+                        <select name="wilayah_level" class="form-select" required>
+                            <option value="" disabled selected>Pilih Level</option>
+                            {% for value in level %}
+                            <option value="{{ value.0 }}">{{ value.1 }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -107,6 +122,88 @@
         </div>
     </div>
 </div>
+<form method="post" action="{% url 'admin_setori:add_wilayah' %}">
+    {% csrf_token %}
+
+    <div class="row">
+        <!-- Input Nama Wilayah -->
+        <div class="mb-3 col-md-6">
+            <label class="form-label">Nama Wilayah</label>
+            <input type="text" name="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required />
+        </div>
+
+        <!-- Input Level -->
+        <!-- <div class="mb-3 col-md-6">
+            <label class="form-label">Level</label>
+            <select name="wilayah_level" class="form-select" required>
+                <option value="" disabled selected>Pilih Level</option>
+                {% for value in level %}
+                <option value="{{ value.0 }}">{{ value.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="mb-3 col-md-6">
+            <label class="form-label">Wilayah Parent (Optional)</label>
+            <select name="wilayah_parent" class="form-select">
+                <option value="" disabled selected>Pilih Wilayah Parent</option>
+                {% for parent_wilayah in dt_wilayah %}
+
+                    <option value="{{ parent_wilayah.wilayah_id }}">{{ parent_wilayah.wilayah_nama }}</option>
+                {% endfor %}
+            </select>
+        </div>  -->
+ <!-- Input Level -->
+ <div class="mb-3 col-md-6">
+    <label class="form-label">Level</label>
+    <select name="wilayah_level" class="form-select" id="wilayah_level" required>
+        <option value="" disabled selected>Pilih Level</option>
+        {% for value in level %}
+        <option value="{{ value.0 }}">{{ value.1 }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="mb-3 col-md-6">
+    <label class="form-label">Wilayah Parent (Optional)</label>
+    <select name="wilayah_parent" class="form-select" id="wilayah_parent">
+        <option value="" disabled selected>Pilih Wilayah Parent</option>
+        {% for parent_wilayah in dt_wilayah %}
+            <option value="{{ parent_wilayah.wilayah_id }}" data-level="{{ parent_wilayah.level }}">
+                {{ parent_wilayah.wilayah_nama }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+
+<script>
+document.getElementById('wilayah_level').addEventListener('change', function() {
+    const selectedLevel = parseInt(this.value);
+    const wilayahParentSelect = document.getElementById('wilayah_parent');
+    
+    Array.from(wilayahParentSelect.options).forEach(option => {
+        if (option.getAttribute('data-level') == '1' || option.value === "") {
+            option.hidden = selectedLevel === 2 && option.getAttribute('data-level') != '1';
+        } else {
+            option.hidden = selectedLevel === 2;
+        }
+    });
+});
+</script>
+
+
+  
+
+    </div>
+
+    <!-- Button Submit -->
+    <div class="row">
+        <div class="col-md-12 text-end">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+    </div>
+</form>
+
 {% endblock main %}
 {% block js %}
 <!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->

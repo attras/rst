@@ -46,3 +46,23 @@ class Deletelayanan(View):
         del_layanan.delete()
         messages.success(request, f"data berhasil dihapus")
         return redirect('admin_setori:admin_layanan')
+    
+
+class Editlayanan(View) :
+    def post(self, request,id_layanan):
+        surat = request.POST.get('surat')
+        syarat = request.POST.get('editsyarat')
+        try:
+            with transaction.atomic():
+                insert_layanan = get_object_or_404(Layanan, id_layanan )
+                insert_layanan.surat = syarat
+                insert_layanan.syarat = surat
+                insert_layanan.created_at = timezone.now()
+                insert_layanan.save()
+
+                messages.success(request, f"data berhasil diedit")
+                return redirect('admin_setori:admin_layanan')
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal edit")
+            return redirect(reverse('admin_setori:admin_layanan'))

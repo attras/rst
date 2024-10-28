@@ -52,6 +52,7 @@ class Delete_slider(View):
         del_slider.delete()
         messages.success(request, f"data berhasil dihapus")
         return redirect('admin_setori:master_slider')
+    
 
              
 

@@ -10,6 +10,11 @@ urlpatterns = [
 
     path('dashboard/',admin_index.Admin_indexViews.as_view(), name = 'dashboard'),
     
+     path('coba_wilayah/',coba_wilayah.Coba_wilayahViews.as_view(), name = 'coba_wilayah'),
+     path('add_coba_wilayah/',coba_wilayah.AddCobaWilayah.as_view(), name = 'add_coba_wilayah'),
+    path('delete/<str:wilayah_id>/', coba_wilayah.DeleteCobaWilayah.as_view(), name='delete_coba_wilayah'),
+
+     
     
      path('master_user/',include([
          path('', master_user.Master_userViews.as_view(), name = 'master_user'),
@@ -34,7 +39,10 @@ urlpatterns = [
         path('',admin_faq.Admin_faqViews.as_view(),name='admin_faq'),
         path('add_faq',admin_faq.Addfaq.as_view(),name='add_faq'),
         path('edit_faq/<str:id_faq>',admin_faq.Editfaq.as_view(),name='edit_faq'),
+        path('delete_at/<str:id_faq>',admin_faq.DeleteAt.as_view(),name='delete_at_faq'),
         path('hapus_faq/<str:id_faq>',admin_faq.Deletefaq.as_view(),name='delete_faq'),
+        path('histori/',admin_faq.Historifaq.as_view(),name='histori_faq'),
+        path('restore/<str:id_faq>',admin_faq.Restorefaq.as_view(),name='restore_faq'),
       
         ])),
 
@@ -66,6 +74,7 @@ urlpatterns = [
     path('admin_layanan/',include([
         path('',layanan.LayananViews.as_view(),name='admin_layanan'),
         path('add_layanan/',layanan.Addlayanan.as_view(),name='add_layanan'),
+        path('edit_layanan/<str:id_layanan>/',layanan.Editlayanan.as_view(),name='edit_layanan'),
         path('delete/<str:layanan_id>/',layanan.Deletelayanan.as_view(),name='delete_layanan')
         ])),
 
