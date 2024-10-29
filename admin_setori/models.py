@@ -126,10 +126,13 @@ class Tahun(models.Model):
         abstract = True
 
 LEVEL_WILAYAH = (
-    (1, 'Kabupaten'),
-    (2, 'Kecamatan/distrik'),
-    (3, 'Kampung')
+    (1, 'Provinsi'),
+    (2, 'Kabupaten'),
+    (3, 'Kecamatan/distrik'),
+    (4, 'Kampung')
+
 )
+
 
 class MasterWilayah(Tahun, CreateUpdateTime):
     wilayah_id = models.TextField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
@@ -209,17 +212,14 @@ def generate_unique_slug(instance, new_slug=None, counter=0):
     return slug
 
 
-class CobaWilayah(Tahun, CreateUpdateTime):
-    wilayah_id = models.TextField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    wilayah_nama = models.TextField()
-    wilayah_level = models.CharField(default=None, choices=LEVEL_WILAYAH, max_length=1)
-    asal_kabupaten = models.TextField(default=None)
-    asal_kecamatan = models.TextField(null=True, blank=True, default=None)
-    nama_kampung = models.TextField(null=True, blank=True, default=None)
 
-
-    def get_level_display(self):
-        for key, value in LEVEL_WILAYAH:
-            if str(key) == self.wilayah_level:
-                return value
-        return None
+class Info_wilayah(CreateUpdateTime):
+    info_wilayah_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    visi = models.TextField(help_text="Visi kelurahan")
+    misi = models.TextField(help_text="Misi kelurahan")
+    nama_info_wilayah = models.CharField(max_length=255, help_text="Nama Kelurahan")
+    kode_info_wilayah = models.CharField(max_length=50, unique=True, help_text="Kode unik untuk Kelurahan")
+    tahun_pembentukan = models.IntegerField(help_text="Tahun pembentukan kelurahan")
+    dasar_hukum_pembentukan = models.TextField(help_text="Dasar hukum pembentukan kelurahan")
+    kode_pos = models.CharField(max_length=10, help_text="Kode pos kelurahan")
+    wilayah = models.ForeignKey(MasterWilayah, on_delete=models.RESTRICT)
