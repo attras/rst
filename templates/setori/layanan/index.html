@@ -42,84 +42,21 @@
 <body>
     <div class="container pt-4 pb-5 pt-lg-5">
         <div class="accordion accordion-modern-status accordion-modern-status-arrow accordion-modern-status-arrow-dark" id="accordionWhyChooseUs">
-            <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                <div class="card-header bg-transparent" id="collapseWhyChooseUsHeadingOne">
-                    <h4 class="card-title m-0">
-                        <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhyChooseUsOne" aria-expanded="false" aria-controls="collapseWhyChooseUsOne">
-                            KTP
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseWhyChooseUsOne" class="collapse" aria-labelledby="collapseWhyChooseUsHeadingOne" data-bs-parent="#accordionWhyChooseUs">
-                    <div class="card-body pt-0">
-                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
-                </div>
-            </div>
-            <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                <div class="card-header bg-transparent" id="collapseWhyChooseUsHeadingTwo">
-                    <h4 class="card-title m-0">
-                        <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhyChooseUsTwo" aria-expanded="false" aria-controls="collapseWhyChooseUsTwo">
-                            KK
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseWhyChooseUsTwo" class="collapse" aria-labelledby="collapseWhyChooseUsHeadingTwo" data-bs-parent="#accordionWhyChooseUs">
-                    <div class="card-body pt-0">
-                        <p class="mb-0">Quia corrupti magnam aperiam. , commodi impedit ipsa eum voluptas nostrum veritatis consectetur accusamus necessitatibus tempore.</div>
-                </div>
-            </div>
-            <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                <div class="card-header bg-transparent" id="collapseWhyChooseUsHeadingThree">
-                    <h4 class="card-title m-0">
-                        <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhyChooseUsThree" aria-expanded="false" aria-controls="collapseWhyChooseUsThree">
-                            Surat Perintah
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseWhyChooseUsThree" class="collapse" aria-labelledby="collapseWhyChooseUsHeadingThree" data-bs-parent="#accordionWhyChooseUs">
-                    <div class="card-body pt-0">
-                        <p class="mb-0">Porro iste laborum minima deserunt ducimus distinctio</div>
-                </div>
-            </div>
-            <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                <div class="card-header bg-transparent" id="collapseWhyChooseUsHeadingFour">
-                    <h4 class="card-title m-0">
-                        <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhyChooseUsFour" aria-expanded="false" aria-controls="collapseWhyChooseUsFour">
-                            SKCK
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseWhyChooseUsFour" class="collapse" aria-labelledby="collapseWhyChooseUsHeadingFour" data-bs-parent="#accordionWhyChooseUs">
-                    <div class="card-body pt-0">
-                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate alias labore molestiae unde autem harum aut aliquid accusantium veritatis! Mollitia praesentium architecto quae et eum ratione illum, aliquid minus dignissimos.</div>
-                </div>
-            </div>
-            <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                <div class="card-header bg-transparent" id="collapseWhyChooseUsHeadingFive">
-                    <h4 class="card-title m-0">
-                        <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhyChooseUsFive" aria-expanded="false" aria-controls="collapseWhyChooseUsFive">
-                            Akta Lahir
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseWhyChooseUsFive" class="collapse" aria-labelledby="collapseWhyChooseUsHeadingFive" data-bs-parent="#accordionWhyChooseUs">
-                    <div class="card-body pt-0">
-                        <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque doloremque eaque animi. Ducimus, libero harum enim inventore modi quidem vitae suscipit vel dolorum, magni voluptas impedit facilis fugiat, corrupti eos!</div>
-                </div>
-            </div>
-            <div class="card card-default box-shadow-8 border-radius-2 bg-light">
-                <div class="card-header bg-transparent" id="collapseWhyChooseUsHeadingSix">
-                    <h4 class="card-title m-0">
-                        <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWhyChooseUsSix" aria-expanded="false" aria-controls="collapseWhyChooseUsSix">
-                            Akta Nikah
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseWhyChooseUsSix" class="collapse" aria-labelledby="collapseWhyChooseUsHeadingSix" data-bs-parent="#accordionWhyChooseUs">
-                    <div class="card-body pt-0">
-                        <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque doloremque eaque animi. Ducimus, libero harum enim inventore modi quidem vitae suscipit vel dolorum, magni voluptas impedit facilis fugiat, corrupti eos!</div>
-                </div>
-            </div>
+            {% for layanan in dt_layanan %}
+                    <div class="card card-default box-shadow-8 border-radius-2 bg-light">
+                        <div class="card-header bg-transparent" id="{{ forloop.counter }}heading">
+                            <h4 class="card-title m-0">
+                                <a class="accordion-toggle bg-transparent text-3-5 text-color-dark font-weight-semi-bold collapsed" data-bs-toggle="collapse" data-bs-target="#{{ forloop.counter }}" aria-expanded="false" aria-controls="5">
+                                    {{ layanan.surat }}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="{{ forloop.counter }}" class="collapse" aria-labelledby="{{ forloop.counter }}heading" data-bs-parent="#accordionWhyChooseUs">
+                            <div class="card-body pt-0">
+                                <p class="mb-0">{{ layanan.syarat|safe }}</div>
+                        </div>
+                    </div>
+            {% endfor %}
         </div>
     </div>
     

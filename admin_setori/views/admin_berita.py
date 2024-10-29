@@ -71,3 +71,12 @@ class AddBerita(View):
             print('Error adding News:', e)
             messages.error(request, "Failed to add news. Please try again.")
             return redirect('admin_setori:admin_berita')
+
+class Deleteberita(View):
+    def get(self, request, news_slug):
+        del_news = get_object_or_404(News, slug=news_slug)
+        del_news.delete()
+        messages.success(request, "Data berhasil dihapus")
+        return redirect('admin_setori:admin_berita')
+
+

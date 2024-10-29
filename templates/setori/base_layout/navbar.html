@@ -1,7 +1,10 @@
 {%  load static %}
 {% block css %}
+
 {% endblock css %}
-<header id="header" data-plugin-options="{'stickyScrollUp': true, 'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true,
+
+
+<!-- <header id="header" data-plugin-options="{'stickyScrollUp': true, 'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true,
  'stickyEnableOnMobile': false, 'stickyChangeLogo': false, 'stickyStartAt': 100, 'stickyHeaderContainerHeight': 100}" >
 				<div class="header-body border-top-0 h-auto box-shadow-none" style="background:#367588;">
 					<div class="container-fluid px-3 px-lg-5 p-static">
@@ -54,7 +57,7 @@
 														FAQ
 													</a>
 												</li>
-                        <li>
+                        						<li>
 													<a class="nav-link" href="{% url 'app_setori:kontak' %}" style=" color:white;">
 														Kontak
 													</a>
@@ -69,4 +72,88 @@
 						</div>
 					</div>
 				</div>
-			</header>
+			</header> -->
+
+			<header id="header" data-plugin-options="{'stickyScrollUp': true, 'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': false, 'stickyStartAt': 100, 'stickyHeaderContainerHeight': 100}">
+				<div class="header-body border-top-0 h-auto box-shadow-none" style="background:#367588;">
+					<div class="container-fluid px-3 px-lg-5 p-static">
+						<div class="row align-items-center py-3">
+							<div class="col-auto col-lg-2 col-xxl-3 me-auto me-lg-0">
+								<div class="header-logo" data-clone-element-to="#offCanvasLogo">
+									<a href="{% url 'app_setori:index_home' %}">
+										<img alt="Logo_Setori" width="200" height="auto" src="{% static 'img/icons/logo_setori/logo_setori_putih.png' %}">
+									</a>
+								</div>
+							</div>
+							<div class="col-auto col-lg-8 col-xxl-6 justify-content-lg-center">
+								<div class="header-nav header-nav-links justify-content-lg-center">
+									<div class="header-nav-main header-nav-main-text-capitalize header-nav-main-arrows header-nav-main-effect-2">
+										<nav class="collapse">
+											<ul class="nav nav-pills" id="mainNav">
+												<li>
+													<a href="{% url 'app_setori:index_home' %}" class="nav-link"  style=" color:white;">
+														Beranda
+													</a>
+												</li>
+												
+												<li>
+													<a class="nav-link" href="{% url 'app_setori:data' %}" style=" color:white;">
+														Data Pokok
+													</a>
+												</li>
+												<li>
+													<a class="nav-link" href="{% url 'app_setori:berita' %}" style=" color:white;">
+														Berita
+													</a>
+												</li>
+												<li>
+													<a class="nav-link" href="{% url 'app_setori:potensi' %}" style=" color:white;">
+														Potensi Daerah
+													</a>
+												</li>
+												<li>
+													<a class="nav-link" href="{% url 'app_setori:tentang' %}" style=" color:white;">
+														Tentang Kami
+													</a>
+												</li>
+												<li>
+													<a class="nav-link" href="{% url 'app_setori:layanan' %}" style=" color:white;">
+														Layanan
+													</a>		
+												</li>
+												<li>
+													<a class="nav-link" href="{% url 'app_setori:faq' %}" style=" color:white;">
+														FAQ
+													</a>
+												</li>
+                        						<li>
+													<a class="nav-link" href="{% url 'app_setori:kontak' %}" style=" color:white;">
+														Kontak
+													</a>
+												</li>
+											</ul>
+										</nav>
+									</div>
+								</div>
+							</div>
+							<div class="col-auto col-lg-2 col-xxl-3 " >
+								<div class="d-flex justify-content-end align-items-center ">
+									<button class="btn header-btn-collapse-nav rounded-pill" style="background:transparent" data-bs-toggle="offcanvas" href="#offcanvasMain" role="button" aria-controls="offcanvasMain">
+										<i class="fas fa-bars" style="font-size: 24px;"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</header>
+
+				<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasMain" aria-labelledby="offcanvasMain" style="background:#367588;">
+					<div class="offcanvas-header">
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
+					</div>
+					<div class="offcanvas-body" >
+						<div class="mb-4" id="offCanvasLogo"></div>
+						<nav class="offcanvas-nav w-100" id="offCanvasNav"></nav>
+					</div>
+				</div>

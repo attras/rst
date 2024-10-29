@@ -173,22 +173,19 @@
             <!-- News -->
             <div class="container">
                 <div class="row pt-5">
+                    {% for berita in dt_berita %}
                     <div class="col-lg-4 mb-4 pb-1">
                         <article class="post">
                             <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
                                 <div class="p-relative rounded-3 overflow-hidden">
-                                    <div class="post-date p-absolute top-20 left-20">
-                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
-                                        <span class="month bg-secondary">Jan</span>
-                                    </div>
-                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
-                                        <img class="card-img-top" src="{% static 'img/berita/1.jpg' %}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
+                                    <a href="{% url 'app_setori:detail_berita' berita.slug %}" class="text-decoration-none">
+                                        <img class="card-img-top" src="{{ berita.thumbnail.url }}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
                                     </a>
                                     <div class="card-body bg-light p-4">
-                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
-                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Pemkab Supiori bersama dengan warga Kampung Aruri melakukan aksi penanganan DB</a></h4>
-                                        <p class="card-text text-3-5 mb-1">Pemkab Supiori bersama warga Kampung Aruri telah meluncurkan sebuah program komprehensif untuk...</p>
-                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
+                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">{{ berita.category.name }}</span>
+                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' berita.slug %}" class="text-decoration-none text-dark text-color-hover-primary">{{ berita.title }}</a></h4>
+                                        <p class="card-text text-3-5 mb-1"><p>{{ berita.content|safe|slice:":97" }}...</p>
+                                        <a href="{% url 'app_setori:detail_berita' berita.slug %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
                                         <div class="d-flex align-items-center mt-3 pt-1">
                                             <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
                                         </div>
@@ -197,126 +194,8 @@
                             </div>
                         </article>
                     </div>
-                    <div class="col-lg-4 mb-4 pb-1">
-                        <article class="post">
-                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
-                                <div class="p-relative rounded-3 overflow-hidden">
-                                    <div class="post-date p-absolute top-20 left-20">
-                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
-                                        <span class="month bg-secondary">Jan</span>
-                                    </div>
-                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
-                                        <img class="card-img-top" src="{% static 'img/berita/2.jpg' %}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
-                                    </a>
-                                    <div class="card-body bg-light p-4">
-                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
-                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Supiori menerima penghargaan kesehatan tertinggi dari Mentri Kesehatan</a></h4>
-                                        <p class="card-text text-3-5 mb-1">Supiori menerima penghargaan kesehatan tertinggi berkat peningkatan fasilitas dan kualitas tenaga medisnya...</p>
-                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        <div class="d-flex align-items-center mt-3 pt-1">
-                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col-lg-4 mb-4 pb-1">
-                        <article class="post">
-                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
-                                <div class="p-relative rounded-3 overflow-hidden">
-                                    <div class="post-date p-absolute top-20 left-20">
-                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
-                                        <span class="month bg-secondary">Jan</span>
-                                    </div>
-                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
-                                        <img class="card-img-top" src="{% static 'img/berita/3.jpg' %}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
-                                    </a>
-                                    <div class="card-body bg-light p-4">
-                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
-                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Beberapa wisata alam tersembunyi di Supiori, nomor 4 wajib kamu coba</a></h4>
-                                        <p class="card-text text-3-5 mb-1">Keindahan alam Supiori memotivasi warga menjaga kesehatan lingkungan dan kebersihan daerah yang...</p>
-                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        <div class="d-flex align-items-center mt-3 pt-1">
-                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>                            
-                    <div class="col-lg-4 mb-4 pb-1">
-                        <article class="post">
-                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
-                                <div class="p-relative rounded-3 overflow-hidden">
-                                    <div class="post-date p-absolute top-20 left-20">
-                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
-                                        <span class="month bg-secondary">Jan</span>
-                                    </div>
-                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
-                                        <img class="card-img-top" src="{% static 'img/berita/4.jpg' %}" loading="lazy" alt="Card Image"width="100%" height="200px" object-fit="cover">
-                                    </a>
-                                    <div class="card-body bg-light p-4">
-                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
-                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Supiori berhasil menurunkan kasus anak stunting.</a></h4>
-                                        <p class="card-text text-3-5 mb-1">Program pengentasan stunting di Supiori berhasil menurunkan kasus anak stunting melalui...</p>
-                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        <div class="d-flex align-items-center mt-3 pt-1">
-                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col-lg-4 mb-4 pb-1">
-                        <article class="post">
-                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
-                                <div class="p-relative rounded-3 overflow-hidden">
-                                    <div class="post-date p-absolute top-20 left-20">
-                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
-                                        <span class="month bg-secondary">Jan</span>
-                                    </div>
-                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
-                                        <img class="card-img-top" src="{% static 'img/berita/5.jpg' %}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
-                                    </a>
-                                    <div class="card-body bg-light p-4">
-                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
-                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Puskesmas keliling Supiori menjangkau daerah terpencil.</a></h4>
-                                        <p class="card-text text-3-5 mb-1">Pelayanan kesehatan di Supiori semakin baik dengan Puskesmas keliling yang menjangkau daerah-daerah terpencil...</p>
-                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        <div class="d-flex align-items-center mt-3 pt-1">
-                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col-lg-4 mb-4 pb-1">
-                        <article class="post">
-                            <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
-                                <div class="p-relative rounded-3 overflow-hidden">
-                                    <div class="post-date p-absolute top-20 left-20">
-                                        <span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
-                                        <span class="month bg-secondary">Jan</span>
-                                    </div>
-                                    <a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none">
-                                        <img class="card-img-top" src="{% static 'img/berita/6.jpg' %}" loading="lazy" alt="Card Image" width="100%" height="200px" object-fit="cover">
-                                    </a>
-                                    <div class="card-body bg-light p-4">
-                                        <span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
-                                        <h4 class="my-2"><a href="{% url 'app_setori:detail_berita' %}" class="text-decoration-none text-dark text-color-hover-primary">Supiori kampanye pola hidup sehat bagi warganya.</a></h4>
-                                        <p class="card-text text-3-5 mb-1">Supiori meningkatkan kualitas hidup dengan kampanye kesehatan rutin dan penyuluhan...</p>
-                                        <a href="{% url 'app_setori:detail_berita' %}" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-                                        <div class="d-flex align-items-center mt-3 pt-1">
-                                            <img src="img/avatars/avatar.jpg" loading="lazy" class="img-fluid rounded-circle me-2" width="25" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
+                    {% endfor %}
+                    
                 </div>
                 <div class="pt-3 pb-5">
                     <ul class="pagination pagination-rounded pagination-md justify-content-center">
