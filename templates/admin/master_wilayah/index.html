@@ -2,15 +2,32 @@
 {% block css %} {% endblock css %}
 {% block main %}
 <!-- Master Wilayah Table -->
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Dashboard 01</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+        </ol>
+    </div>
+    <div class="ms-auto pageheader-btn">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addWilayahModal">
+            <span>
+                <i class="fe fe-plus"></i>
+            </span> Tambah Wilayah
+        </a>
+        <a href="#" class="btn btn-success btn-icon text-white">
+            <span>
+                <i class="fe fe-log-in"></i>
+            </span> Histori hapus
+        </a>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-12 col-sm-12">
         <div class="card">
-            <div class="card-header">
-             
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWilayahModal">
-                    Tambah Wilayah
-                </button>
-            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="data-table" class="table table-bordered text-nowrap mb-0">
@@ -19,6 +36,7 @@
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
                                 <th class="bg-transparent border-bottom-0">Nama Wilayah</th>
                                 <th class="bg-transparent border-bottom-0">Level</th>
+                                <th class="bg-transparent border-bottom-0">status</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                             </tr>
                         </thead>
@@ -28,15 +46,29 @@
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ wilayah.wilayah_nama }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ wilayah.get_level_display }}</td>
-                                <td class="">
-                                    <a class="btn btn-danger btn-sm rounded-11" data-bs-toggle="modal" data-bs-target="#deleteWilayahModal_{{ wilayah.wilayah_id }}" data-bs-original-title="Delete">
-                                        <i>
-                                            <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
-                                                <path d="M0 0h24v24H0V0z" fill="none" />
-                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
-                                            </svg>
-                                        </i>
-                                    </a>
+                                <td class="text-muted fs-15 fw-semibold"> 
+                                {% if wilayah.wilayah_status %}
+                                    Aktif
+                                {% else %}
+                                    Tidak Aktif
+                                {% endif %}
+                                </td>
+                                <td class="text-muted fs-15 fw-semibold">
+                                    <a class="btn btn-danger btn-sm rounded-11"
+                                         data-bs-toggle="modal" 
+                                         data-bs-target="#deleteModal" 
+                                         data-bs-original-title="Delete"
+                                         data-bs-id="{{ wilayah.wilayah_id }}" 
+                                         >
+                                         
+                                            <i>
+                                                <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
+                                                    <path d="M0 0h24v24H0V0z" fill="none" />
+                                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
+                                                </svg>
+                                            </i>
+                                        </a>
+
                                     <!-- Delete Wilayah Modal -->
                                     <div class="modal fade" id="deleteWilayahModal_{{ wilayah.wilayah_id }}" tabindex="-1" aria-labelledby="deleteWilayahModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -78,132 +110,75 @@
             </div>
             <div class="modal-body">
                 <form method="post" action="{% url 'admin_setori:add_wilayah' %}">
-                  {% csrf_token %}
-                    <!-- <div class="mb-3">
-                        <label class="form-label">Nama Wilayah</label>
-                        <input type="text" name="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required />
-                    </div>
+                    {% csrf_token %}
+                
                     <div class="mb-3">
-                        <label class="form-label">Level</label>
-                        <select name="wilayah_level" class="form-select" required>
-                            <option value="" disabled selected>Pilih Level</option>
-                            {% for value in level %}
-                            <option value="{{ value.0 }}">{{ value.1 }}</option>
-                            {% endfor %}
-                        </select>
+                        <label for="wilayah_nama" class="form-label">Nama Wilayah</label>
+                        <input type="text" name="wilayah_nama" id="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required>
                     </div>
+                
                     <div class="mb-3">
-                        <label class="form-label">Wilayah Parent (Optional)</label>
-                        <select name="wilayah_parent" class="form-select">
-                            <option value="" disabled selected>Pilih Wilayah Parent</option>
-                            {% for parent_wilayah in dt_wilayah %}
-
-                                <option value="{{ parent_wilayah.wilayah_id }}">{{ parent_wilayah.wilayah_nama }}</option>
-                            {% endfor %}
+                        <label for="wilayah_level" class="form-label">Level</label>
+                        <select name="wilayah_level" id="wilayah_level" class="form-select" required>
+                            <option value="" disabled selected>Pilih Level Wilayah</option>
+                            <option value="1">Provinsi</option>
+                            <option value="2">Kabupaten</option>
+                            <option value="3">Kecamatan/distrik</option>
+                            <option value="4">Kampung</option>
                         </select>
-                    </div> -->
-
-                    <div class="mb-3 col-6">
-                        <label class="form-label">Nama Wilayah</label>
-                        <input type="text" name="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required />
                     </div>
-                    <div class="mb-3 col-6">
-                        <label class="form-label">Level</label>
-                        <select name="wilayah_level" class="form-select" required>
-                            <option value="" disabled selected>Pilih Level</option>
-                            {% for value in level %}
-                            <option value="{{ value.0 }}">{{ value.1 }}</option>
+                
+                    <div class="mb-3" id="parent_provinsi" style="display: none;">
+                        <label for="wilayah_parent_provinsi" class="form-label">Pilih Provinsi</label>
+                        <select name="wilayah_parent_provinsi" id="wilayah_parent_provinsi" class="form-select">
+                            <option value="" disabled selected>Pilih Provinsi</option>
+                            {% for provinsi in provinsi_choices %}
+                            <option value="{{ provinsi.wilayah_id }}">{{ provinsi.wilayah_nama }}</option>
                             {% endfor %}
                         </select>
                     </div>
+                
+                    <div class="mb-3" id="parent_kabupaten" style="display: none;">
+                        <label for="wilayah_parent_kabupaten" class="form-label">Pilih Kabupaten</label>
+                        <select name="wilayah_parent_kabupaten" id="wilayah_parent_kabupaten" class="form-select">
+                            <option value="" disabled selected>Pilih Kabupaten</option>
+                            {% for kabupaten in kabupaten_choices %}
+                            <option value="{{ kabupaten.wilayah_id }}">{{ kabupaten.wilayah_nama }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                
+                    <div class="mb-3" id="parent_kecamatan" style="display: none;">
+                        <label for="wilayah_parent_kecamatan" class="form-label">Pilih Kecamatan</label>
+                        <select name="wilayah_parent_kecamatan" id="wilayah_parent_kecamatan" class="form-select">
+                            <option value="" disabled selected>Pilih Kecamatan</option>
+                            {% for kecamatan in kecamatan_choices %}
+                            <option value="{{ kecamatan.wilayah_id }}">{{ kecamatan.wilayah_nama }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="wilayah_status" id="wilayah_status" class="form-check-input" checked>
+                        <label for="wilayah_status" class="form-check-label">Status Aktif</label>
+                    </div>
+                
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<form method="post" action="{% url 'admin_setori:add_wilayah' %}">
-    {% csrf_token %}
 
-    <div class="row">
-        <!-- Input Nama Wilayah -->
-        <div class="mb-3 col-md-6">
-            <label class="form-label">Nama Wilayah</label>
-            <input type="text" name="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required />
-        </div>
-
-        <!-- Input Level -->
-        <!-- <div class="mb-3 col-md-6">
-            <label class="form-label">Level</label>
-            <select name="wilayah_level" class="form-select" required>
-                <option value="" disabled selected>Pilih Level</option>
-                {% for value in level %}
-                <option value="{{ value.0 }}">{{ value.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        
-        <div class="mb-3 col-md-6">
-            <label class="form-label">Wilayah Parent (Optional)</label>
-            <select name="wilayah_parent" class="form-select">
-                <option value="" disabled selected>Pilih Wilayah Parent</option>
-                {% for parent_wilayah in dt_wilayah %}
-
-                    <option value="{{ parent_wilayah.wilayah_id }}">{{ parent_wilayah.wilayah_nama }}</option>
-                {% endfor %}
-            </select>
-        </div>  -->
- <!-- Input Level -->
- <div class="mb-3 col-md-6">
-    <label class="form-label">Level</label>
-    <select name="wilayah_level" class="form-select" id="wilayah_level" required>
-        <option value="" disabled selected>Pilih Level</option>
-        {% for value in level %}
-        <option value="{{ value.0 }}">{{ value.1 }}</option>
-        {% endfor %}
-    </select>
-</div>
-
-<div class="mb-3 col-md-6">
-    <label class="form-label">Wilayah Parent (Optional)</label>
-    <select name="wilayah_parent" class="form-select" id="wilayah_parent">
-        <option value="" disabled selected>Pilih Wilayah Parent</option>
-        {% for parent_wilayah in dt_wilayah %}
-            <option value="{{ parent_wilayah.wilayah_id }}" data-level="{{ parent_wilayah.level }}">
-                {{ parent_wilayah.wilayah_nama }}
-            </option>
-        {% endfor %}
-    </select>
-</div>
 
 <script>
-document.getElementById('wilayah_level').addEventListener('change', function() {
-    const selectedLevel = parseInt(this.value);
-    const wilayahParentSelect = document.getElementById('wilayah_parent');
-    
-    Array.from(wilayahParentSelect.options).forEach(option => {
-        if (option.getAttribute('data-level') == '1' || option.value === "") {
-            option.hidden = selectedLevel === 2 && option.getAttribute('data-level') != '1';
-        } else {
-            option.hidden = selectedLevel === 2;
-        }
+    document.getElementById("wilayah_level").addEventListener("change", function() {
+        var level = this.value;
+        document.getElementById("parent_provinsi").style.display = level == "2" ? "block" : "none";
+        document.getElementById("parent_kabupaten").style.display = level == "3" ? "block" : "none";
+        document.getElementById("parent_kecamatan").style.display = level == "4" ? "block" : "none";
     });
-});
 </script>
-
-
-  
-
-    </div>
-
-    <!-- Button Submit -->
-    <div class="row">
-        <div class="col-md-12 text-end">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-    </div>
-</form>
-
 {% endblock main %}
 {% block js %}
 <!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->

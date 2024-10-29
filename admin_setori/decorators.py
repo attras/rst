@@ -8,7 +8,8 @@ def role_required(allowed_roles=[]):
             if request.user.is_staff or request.user.role in allowed_roles:
                 return  view_function(request, *args, **kwargs)
             else:
-                raise PermissionDenied
+                return redirect('admin_setori:halaman_login')
+                # raise PermissionDenied
         return wrapper
     return decorator
 

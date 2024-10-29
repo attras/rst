@@ -1,0 +1,66 @@
+{% extends 'admin/base_layout/index.html' %}
+{% block css %}
+ 
+{% endblock css %}
+{% block main %}
+
+<form method="post" action="{% url 'admin_setori:add_info_wilayah' %}">
+    {% csrf_token %}
+    <div class="row">
+
+   
+    <div class="mb-3">
+        <label for="visi" class="form-label">Visi</label>
+        <textarea name="visi" id="visi" class="form-control" rows="3" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="misi" class="form-label">Misi</label>
+        <textarea name="misi" id="misi" class="form-control" rows="3" required></textarea>
+    </div>
+
+    <div class="mb-3 col-6 ">
+        <label for="nama_info_wilayah" class="form-label">Nama Kelurahan</label>
+        <input type="text" name="nama_info_wilayah" id="nama_info_wilayah" class="form-control" placeholder="Masukkan Nama Kelurahan" required>
+    </div>
+
+    <div class="mb-3 col-6 ">
+        <label for="kode_info_wilayah" class="form-label">Kode Info Wilayah</label>
+        <input type="text" name="kode_info_wilayah" id="kode_info_wilayah" class="form-control" placeholder="Masukkan Kode Wilayah" required>
+    </div>
+
+    <div class="mb-3 col-6">
+        <label for="dasar_hukum_pembentukan" class="form-label">Dasar Hukum Pembentukan</label>
+        <input name="dasar_hukum_pembentukan" id="dasar_hukum_pembentukan" class="form-control" rows="3" required></input>
+    </div>
+    <div class="mb-3 col-6" >
+        <label for="tahun_pembentukan" class="form-label">Tahun Pembentukan</label>
+        <input type="number" name="tahun_pembentukan" id="tahun_pembentukan" class="form-control" placeholder="Masukkan Tahun Pembentukan" required>
+    </div>
+    <div class="mb-3 col-6">
+        <label for="kode_pos" class="form-label">Kode Pos</label>
+        <input type="text" name="kode_pos" id="kode_pos" class="form-control" placeholder="Masukkan Kode Pos" required>
+    </div>
+
+    <div class="mb-3 col-6">
+        <label for="wilayah" class="form-label">Wilayah</label>
+        <select name="wilayah" id="wilayah" class="form-select" required>
+            <option value="" disabled selected>Pilih Wilayah</option>
+            {% for wilayah in pilih_wilayah %}
+            <option value="{{ wilayah.wilayah_id }}">{{ wilayah.wilayah_nama }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary col-6">Save</button>
+    </div>
+</div>
+</form>
+
+
+
+{% endblock main %}
+{% block js %}
+
+{% endblock js %}

@@ -16,50 +16,57 @@ from django.utils.decorators import method_decorator
 class Master_wilayahViews(View):
     def get(self, request):
         dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True)
+        provinsi_choices = MasterWilayah.objects.filter(wilayah_level='1')
+        kabupaten_choices = MasterWilayah.objects.filter(wilayah_level='2')
+        kecamatan_choices = MasterWilayah.objects.filter(wilayah_level='3')
+        
         data = {
             'dt_wilayah': dt_wilayah,
-            'level':LEVEL_WILAYAH
+            'provinsi_choices': provinsi_choices,
+            'kabupaten_choices': kabupaten_choices,
+            'kecamatan_choices': kecamatan_choices,
+            'LEVEL_WILAYAH': LEVEL_WILAYAH,
+            
         }
         return render(request, 'admin/master_wilayah/index.html',data)
     
 class AddWilayah(View):
-     def post(self, request):
+ 
+
+    def post(self, request):
         wilayah_nama = request.POST.get('wilayah_nama')
         wilayah_level = request.POST.get('wilayah_level')
-        wilayah_parent_id = request.POST.get('wilayah_parent')
+        wilayah_status = request.POST.get('wilayah_status') == 'on'
 
-        # Validasi manual
-        wilayah_parent = MasterWilayah.objects.filter(wilayah_id=wilayah_parent_id).first()
-        
-        if wilayah_level == '3':  # Jika level adalah 'Kampung'
-            if not wilayah_parent or wilayah_parent.wilayah_level != '2':
-                messages.error(request, "Kampung harus dipilih dari Kecamatan yang sudah ada.")
-                return redirect('admin_setori:master_wilayah')
+        # Tentukan wilayah_parent sesuai dengan aturan level
+        wilayah_parent = None
+        if wilayah_level == '2':  # Kabupaten
+            wilayah_parent_id = request.POST.get('wilayah_parent_provinsi')
+            wilayah_parent = MasterWilayah.objects.get(wilayah_id=wilayah_parent_id)
+        elif wilayah_level == '3':  # Kecamatan
+            wilayah_parent_id = request.POST.get('wilayah_parent_kabupaten')
+            wilayah_parent = MasterWilayah.objects.get(wilayah_id=wilayah_parent_id)
+        elif wilayah_level == '4':  # Kampung
+            wilayah_parent_id = request.POST.get('wilayah_parent_kecamatan')
+            wilayah_parent = MasterWilayah.objects.get(wilayah_id=wilayah_parent_id)
 
-        elif wilayah_level == '2':  # Jika level adalah 'Kecamatan'
-            if not wilayah_parent or wilayah_parent.wilayah_level != '1':
-                messages.error(request, "Kecamatan harus dipilih dari Kabupaten yang sudah ada.")
-                return redirect('admin_setori:master_wilayah')
-        else:
-             if  wilayah_parent is not None :
-                 messages.error(request, "Level wilayah tidak valid.")
-                 return redirect('admin_setori:master_wilayah')
-        # Jika validasi lolos, simpan data
         try:
             with transaction.atomic():
-                insert_wilayah = MasterWilayah()
-                insert_wilayah.wilayah_nama = wilayah_nama
-                insert_wilayah.wilayah_level = wilayah_level
-                insert_wilayah.wilayah_parent = wilayah_parent
-                insert_wilayah.wilayah_id = uuid.uuid4()  # Generate new UUID
-                insert_wilayah.save()
+                master_wilayah = MasterWilayah(
+                    wilayah_nama=wilayah_nama,
+                    wilayah_level=wilayah_level,
+                    wilayah_status=wilayah_status,
+                    wilayah_parent=wilayah_parent
+                )
+                master_wilayah.save()
 
-                messages.success(request, "Data berhasil ditambahkan")
-                return redirect('admin_setori:master_wilayah')
+                messages.success(request, "Data Wilayah berhasil ditambahkan.")
+                return redirect('admin_setori:master_wilayah')  # Ubah dengan nama URL yang sesuai
+
         except Exception as e:
-            print('Error Data:', e)
-            messages.error(request, "Gagal menambahkan data")
-            return redirect('admin_setori:master_wilayah')
+            print("Error Data:", e)
+            messages.error(request, "Gagal menambahkan data Wilayah.")
+            return redirect('admin_setori:master_wilayah')  # Ubah dengan nama URL yang sesuai
         
 class DeleteWilayah(View):
     def get(self, request, wilayah_id):

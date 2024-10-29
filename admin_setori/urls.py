@@ -10,11 +10,6 @@ urlpatterns = [
 
     path('dashboard/',admin_index.Admin_indexViews.as_view(), name = 'dashboard'),
     
-     path('coba_wilayah/',coba_wilayah.Coba_wilayahViews.as_view(), name = 'coba_wilayah'),
-     path('add_coba_wilayah/',coba_wilayah.AddCobaWilayah.as_view(), name = 'add_coba_wilayah'),
-    path('delete/<str:wilayah_id>/', coba_wilayah.DeleteCobaWilayah.as_view(), name='delete_coba_wilayah'),
-
-     
     
      path('master_user/',include([
          path('', master_user.Master_userViews.as_view(), name = 'master_user'),
@@ -79,4 +74,9 @@ urlpatterns = [
         ])),
 
     # path('add_slider',master_slider.Addslider.as_view(),name='add_slider'),
+
+    path('info_wilayah/',include([
+        path('',admin_info_wilayah.Info_wilayahViews.as_view(),name='admin_info_wilayah'),
+        path('add_info_wilayah',admin_info_wilayah.AddInfoWilayah.as_view(),name='add_info_wilayah'),
+        ])),
 ]
