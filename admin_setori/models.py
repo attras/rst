@@ -173,6 +173,7 @@ class Layanan(CreateUpdateTime):
     syarat = models.TextField()
 
 
+
 class News(CreateUpdateTime):
 	title = models.CharField(max_length=255)
 	thumbnail = models.ImageField(upload_to='artikel', validators=[validate_file_gambar, validate_file_size_gambar], default='artikel/defaultartikel.jpeg')
