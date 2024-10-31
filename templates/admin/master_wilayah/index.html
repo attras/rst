@@ -121,10 +121,9 @@
                         <label for="wilayah_level" class="form-label">Level</label>
                         <select name="wilayah_level" id="wilayah_level" class="form-select" required>
                             <option value="" disabled selected>Pilih Level Wilayah</option>
-                            <option value="1">Provinsi</option>
-                            <option value="2">Kabupaten</option>
-                            <option value="3">Kecamatan/distrik</option>
-                            <option value="4">Kampung</option>
+                            {% for value, label in LEVEL_WILAYAH %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 

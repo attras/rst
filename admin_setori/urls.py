@@ -5,7 +5,7 @@ from .views import *
 
 app_name = 'admin_setori'
 urlpatterns = [
-    path('login', auth.LoginViews.as_view(), name = 'halaman_login'),
+    path('', auth.LoginViews.as_view(), name = 'halaman_login'),
     path('logout', auth.LogoutViews.as_view(), name = 'logout_admin'),
 
     path('dashboard/',admin_index.Admin_indexViews.as_view(), name = 'dashboard'),
@@ -79,4 +79,15 @@ urlpatterns = [
         path('',admin_info_wilayah.Info_wilayahViews.as_view(),name='admin_info_wilayah'),
         path('add_info_wilayah',admin_info_wilayah.AddInfoWilayah.as_view(),name='add_info_wilayah'),
         ])),
+
+    path('data_kesehatan/',include([
+         path('',admin_data_kesehatan.Admin_data_kesehatanViews.as_view(),name='data_kesehatan'),
+         
+         ])),
+
+    path('data_penduduk/',include([
+         path('',admin_data_penduduk.Admin_data_pendudukViews.as_view(),name='data_penduduk'),
+         path('add/',admin_data_penduduk.Add_data_penduduk.as_view(),name='add_data_penduduk'),
+         
+         ])),
 ]

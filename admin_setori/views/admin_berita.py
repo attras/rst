@@ -51,6 +51,7 @@ class AddBerita(View):
                 insert_news.last_updated_by = None
                 insert_news.seen = 0
                 insert_news.jenis = request.POST.get('jenis')
+                insert_news.created_at =  timezone.now()
 
                 # Save the News object
                 insert_news.save()

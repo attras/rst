@@ -5,7 +5,7 @@
 <!-- PAGE-HEADER -->
 <div class="page-header">
     <div>
-        <h1 class="page-title">FAQ</h1>
+        <h1 class="page-title">penduduk</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
@@ -17,7 +17,7 @@
                 <i class="fe fe-plus"></i>
             </span> Add kategori
         </a>
-        <a href="{% url 'admin_setori:histori_faq' %}" class="btn btn-success btn-icon text-white">
+        <a href="#" class="btn btn-success btn-icon text-white">
             <span>
                 <i class="fe fe-log-in"></i>
             </span> Histori
@@ -29,7 +29,7 @@
     <div class="col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title mb-0">FAQ</h3>
+                <h3 class="card-title mb-0">penduduk</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -37,28 +37,35 @@
                         <thead class="border-top">
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Pertanyaan</th>
-                                <th class="bg-transparent border-bottom-0">Jawaban</th>
+                                <th class="bg-transparent border-bottom-0">Identitas </th>
+                                <th class="bg-transparent border-bottom-0">Wilayah </th>
+                                <th class="bg-transparent border-bottom-0">Pria </th>
+                                <th class="bg-transparent border-bottom-0">Wanita</th>
+                                <th class="bg-transparent border-bottom-0">Jumlah KK</th>
+                                <th class="bg-transparent border-bottom-0">Total Penduduk</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
-                          {% for faq in dt_faq %}
+                          {% for penduduk in dt_data_penduduk %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ faq.pertanyaan }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ faq.jawaban }}</td>
-                             
-                                <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.get_identitas_display }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.wilayah.wilayah_nama }} </td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.pria }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.wanita}}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_kk }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_penduduk }}</td>
+                    
                                 <td class="text-muted fs-15 fw-semibold">
                                     <a class="btn btn-primary btn-sm rounded-11 me-2" 
                                         href="#" 
                                         data-bs-toggle="modal" 
-                                        data-bs-target="#editFaqModal" 
-                                        data-bs-id="{{ faq.faq_id }}" 
-                                        data-bs-pertanyaan="{{ faq.pertanyaan }}" 
-                                        data-bs-jawaban="{{ faq.jawaban }}">
+                                        data-bs-target="#editpendudukModal" 
+                                        data-bs-id="{{ penduduk.penduduk_id }}" 
+                                        data-bs-pertanyaan="{{ penduduk.pertanyaan }}" 
+                                        data-bs-jawaban="{{ penduduk.jawaban }}">
                                          <i>
                                              <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                                  <path d="M0 0h24v24H0V0z" fill="none" />
@@ -69,12 +76,12 @@
                                          </i>
                                      </a>
                                      
-                                        <!-- <a class="btn btn-danger btn-sm rounded-11"
+                                        <a class="btn btn-danger btn-sm rounded-11"
                                          data-bs-toggle="modal" 
                                          data-bs-target="#deleteUserModal" 
                                          data-bs-original-title="Delete"
-                                         data-bs-id="{{ faq.faq_id }}" 
-                                         data-bs-pertanyaan="{{ faq.pertanyaan }}" 
+                                         data-bs-id="{{ penduduk.penduduk_id }}" 
+                                         data-bs-pertanyaan="{{ penduduk.pertanyaan }}" 
                                          >
                                          
                                             <i>
@@ -83,13 +90,6 @@
                                                     <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
                                                 </svg>
                                             </i>
-                                        </a> -->
-
-                                        <a >
-                                            <button type="button" class="btn btn-danger" onclick="Hapus_faq('{{faq.faq_id }}')">
-                                                <i class="fe fe-trash"></i> Hapus
-                                            </button>
-                                            
                                         </a>
                                         
                                         
@@ -102,30 +102,63 @@
             </div>
         </div>
     </div>
-    <!-- COL END -->
+    
 </div>
+
+
 
 <!-- Add User Modal -->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">FAQ</h5>
+                <h5 class="modal-title" id="addUserModalLabel">Data Penduduk</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_faq' %}">
-                  {% csrf_token %}
+                <form method="post" action="{% url 'admin_setori:add_data_penduduk' %}">
+                    {% csrf_token %}
+                    
                     <div class="mb-3">
-                        <label  class="form-label">Pertanyaan</label>
-                        <input type="text" name="pertanyaan" class="form-control"  placeholder="Masukan Pertanyaan" />
+                        <label for="identitas" class="form-label">Identitas</label>
+                        <select name="identitas" id="identitas" class="form-select" required>
+                            <option value="" disabled selected>Pilih identitas Wilayah</option>
+                            {% for value, label in identitas_choices %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <div class="mb-3"></div>
-                        <label  class="form-label">Jawaban</label>
-                        <textarea type="text" name="jawaban" class="form-control"  placeholder="Masukan Jawaban"></textarea>
+                    
+                    <div class="mb-3">
+                        <label for="wilayah" class="form-label">Wilayah</label>
+                        <select name="wilayah" id="wilayah" class="form-select" required>
+                            <option value="" disabled selected>Pilih Wilayah</option>
+                            {% for wilayah in pilih_wilayah %}
+                                <option value="{{ wilayah.wilayah_id }}">{{ wilayah.wilayah_nama }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Pria</label>
+                        <input type="number" name="pria" class="form-control" placeholder="Masukan jumlah pria" min="0" required />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Wanita</label>
+                        <input type="number" name="wanita" class="form-control" placeholder="Masukan jumlah wanita" min="0" required />
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Jumlah KK</label>
+                        <input type="number" name="kk" class="form-control" placeholder="Masukan jumlah kk" min="0" required />
+                    </div>
+                    
+                    <div class="mb-3 text-center">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
                 </form>
+                
             </div>
         </div>
     </div>
@@ -156,13 +189,13 @@
 </div>
 
 <!-- edit User Modal -->
-<!-- Edit FAQ Modal -->
+<!-- Edit penduduk Modal -->
 
-<div class="modal fade" id="editFaqModal" tabindex="-1" aria-labelledby="editFaqModalLabel" aria-hidden="true">
+<div class="modal fade" id="editpendudukModal" tabindex="-1" aria-labelledby="editpendudukModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editFaqModalLabel">Edit FAQ</h5>
+                <h5 class="modal-title" id="editpendudukModalLabel">Edit penduduk</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -176,7 +209,7 @@
                         <label class="form-label">Jawaban</label>
                         <textarea name="jawaban" id="edit-jawaban" class="form-control" placeholder="Masukan Jawaban" required ></textarea>
                     </div>
-                    <button type="submit" class="btn btn-warning">Update FAQ</button>
+                    <button type="submit" class="btn btn-warning">Update penduduk</button>
                 </form>
             </div>
         </div>
@@ -184,91 +217,45 @@
 </div>
 
 <script>
-    var editFaqModal = document.getElementById('editFaqModal');
-    editFaqModal.addEventListener('show.bs.modal', function (event) {
+    var editpendudukModal = document.getElementById('editpendudukModal');
+    editpendudukModal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal
         var button = event.relatedTarget;
 
         // Extract info from data-bs-* attributes
-        var faqId = button.getAttribute('data-bs-id');
+        var pendudukId = button.getAttribute('data-bs-id');
         var pertanyaan = button.getAttribute('data-bs-pertanyaan');
         var jawaban = button.getAttribute('data-bs-jawaban');
 
         // Update the modal's form fields
-        var modalTitle = editFaqModal.querySelector('.modal-title');
-        var inputPertanyaan = editFaqModal.querySelector('#edit-pertanyaan');
-        var inputJawaban = editFaqModal.querySelector('#edit-jawaban');
-        var form = editFaqModal.querySelector('form');
+        var modalTitle = editpendudukModal.querySelector('.modal-title');
+        var inputPertanyaan = editpendudukModal.querySelector('#edit-pertanyaan');
+        var inputJawaban = editpendudukModal.querySelector('#edit-jawaban');
+        var form = editpendudukModal.querySelector('form');
 
         modalTitle.textContent = 'Edit pertanyaan ' + pertanyaan;
         inputPertanyaan.value = pertanyaan;
         inputJawaban.value = jawaban;
 
-        // Update form action URL dynamically with the correct FAQ ID
-        form.action = "{% url 'admin_setori:edit_faq' 'holder' %}".replace('holder', faqId);
-        
+        // Update form action URL dynamically with the correct penduduk ID
+      
     });
 
           //delete
-    var deleteFaqModal = document.getElementById('deleteUserModal');
-    deleteFaqModal.addEventListener('show.bs.modal', function (event) {
+    var deletependudukModal = document.getElementById('deleteUserModal');
+    deletependudukModal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal
         var button = event.relatedTarget;
-        var faqId = button.getAttribute('data-bs-id');
+        var pendudukId = button.getAttribute('data-bs-id');
 
         // Extract info from data-bs-* attributes
         var pertanyaan = button.getAttribute('data-bs-pertanyaan');
-        var modalTitle = deleteFaqModal.querySelector('.modal-title');
-        var link = deleteFaqModal.querySelector('#del')
+        var modalTitle = deletependudukModal.querySelector('.modal-title');
+        var link = deletependudukModal.querySelector('#del')
         modalTitle.textContent = 'hapus ' + pertanyaan;
       
-        // Update form action URL dynamically with the correct FAQ ID
-        link.href = "{% url 'admin_setori:delete_at_faq' 'holder' %}".replace('holder', faqId);
-    });
-    
-    function Hapus_faq(id) {
-       
-    // Show confirmation dialog
-    Swal.fire({
-        title: 'Apakah kamu yakin ingin menghapus?',
-        showCancelButton: true,
-        confirmButtonText: 'Konfirmasi',
-        cancelButtonText: 'Batal',
-        confirmButtonColor: '#d33',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: `delete_at/${id}`,
-                dataType: "html",
-                timeout: 10000,
-                beforeSend: function() {
-                    Swal.fire({
-                        title: 'Memproses...',
-                        allowEscapeKey: false,
-                        allowOutsideClick: false,
-                        showCancelButton: false,
-                        showConfirmButton: false,
-                    });
-                    Swal.showLoading();
-                },
-                success: function(response) {
-                    Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 2000); 
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
-                }
-            });
-        }
-    });
-
-};
-
-
-
-
+        // Update form action URL dynamically with the correct penduduk ID
+   });
     
 </script>
 

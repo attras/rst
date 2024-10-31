@@ -28,8 +28,8 @@ class Addfaq(View) :
         try:
             with transaction.atomic():
                 insert_faq = Faq()
-                insert_faq.pertanyaan = jawaban
-                insert_faq.jawaban = pertanyaan
+                insert_faq.pertanyaan = pertanyaan
+                insert_faq.jawaban = jawaban
                 insert_faq.created_at = timezone.now()
                 insert_faq.save()
 
@@ -49,8 +49,8 @@ class Editfaq(View) :
         try:
             with transaction.atomic():
                 insert_faq = get_object_or_404(Faq, faq_id=id_faq)
-                insert_faq.pertanyaan = jawaban
-                insert_faq.jawaban = pertanyaan
+                insert_faq.pertanyaan = pertanyaan
+                insert_faq.jawaban = jawaban
                 insert_faq.created_at = timezone.now()
                 insert_faq.save()
 

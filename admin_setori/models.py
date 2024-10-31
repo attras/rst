@@ -211,6 +211,20 @@ def generate_unique_slug(instance, new_slug=None, counter=0):
     
     return slug
 
+IDENTITAS_CHOICE = (
+    (1, 'OAP'),
+    (2, 'Non-OAP')
+)
+
+class Data_peduduk(CreateUpdateTime):
+    data_penduduk_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    identitas = models.CharField(max_length=1, choices=IDENTITAS_CHOICE, default=None )
+    pria = models.IntegerField(default=0)
+    wanita = models.IntegerField(default=0)
+    jumlah_kk = models.IntegerField(default=0)
+    jumlah_penduduk = models.IntegerField(default=0, null=True)
+    wilayah = models.ForeignKey(MasterWilayah, on_delete=models.CASCADE)
+    
 
 
 class Info_wilayah(CreateUpdateTime):
@@ -223,3 +237,5 @@ class Info_wilayah(CreateUpdateTime):
     dasar_hukum_pembentukan = models.TextField(help_text="Dasar hukum pembentukan kelurahan")
     kode_pos = models.CharField(max_length=10, help_text="Kode pos kelurahan")
     wilayah = models.ForeignKey(MasterWilayah, on_delete=models.RESTRICT)
+
+

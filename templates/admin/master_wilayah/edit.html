@@ -1,0 +1,88 @@
+{% extends 'admin/base_layout/index.html' %}
+{% block css %} {% endblock css %}
+{% block main %}
+
+<!-- Add Wilayah Modal -->
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addWilayahModalLabel">Tambah Wilayah</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'admin_setori:add_wilayah' %}">
+                    {% csrf_token %}
+                
+                    <div class="mb-3">
+                        <label for="wilayah_nama" class="form-label">Nama Wilayah</label>
+                        <input type="text" name="wilayah_nama" id="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required>
+                    </div>
+                
+                    <div class="mb-3">
+                        <label for="wilayah_level" class="form-label">Level</label>
+                        <select name="wilayah_level" id="wilayah_level" class="form-select" required>
+                            <option value="" disabled selected>Pilih Level Wilayah</option>
+                            {% for level in dt_wilayah %}
+                            <option value="{{level.wilayah_level}}">{{ level.get_level_display }}</option>
+                            {% endfor %}
+                            
+                        </select>
+                    </div>
+                
+                    <div class="mb-3" id="parent_provinsi" style="display: none;">
+                        <label for="wilayah_parent_provinsi" class="form-label">Pilih Provinsi</label>
+                        <select name="wilayah_parent_provinsi" id="wilayah_parent_provinsi" class="form-select">
+                            <option value="" disabled selected>Pilih Provinsi</option>
+                            {% for provinsi in provinsi_choices %}
+                            <option value="{{ provinsi.wilayah_id }}">{{ provinsi.wilayah_nama }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                
+                    <div class="mb-3" id="parent_kabupaten" style="display: none;">
+                        <label for="wilayah_parent_kabupaten" class="form-label">Pilih Kabupaten</label>
+                        <select name="wilayah_parent_kabupaten" id="wilayah_parent_kabupaten" class="form-select">
+                            <option value="" disabled selected>Pilih Kabupaten</option>
+                            {% for kabupaten in kabupaten_choices %}
+                            <option value="{{ kabupaten.wilayah_id }}">{{ kabupaten.wilayah_nama }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                
+                    <div class="mb-3" id="parent_kecamatan" style="display: none;">
+                        <label for="wilayah_parent_kecamatan" class="form-label">Pilih Kecamatan</label>
+                        <select name="wilayah_parent_kecamatan" id="wilayah_parent_kecamatan" class="form-select">
+                            <option value="" disabled selected>Pilih Kecamatan</option>
+                            {% for kecamatan in kecamatan_choices %}
+                            <option value="{{ kecamatan.wilayah_id }}">{{ kecamatan.wilayah_nama }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="wilayah_status" id="wilayah_status" class="form-check-input" checked>
+                        <label for="wilayah_status" class="form-check-label">Status Aktif</label>
+                    </div>
+                
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+<script>
+    document.getElementById("wilayah_level").addEventListener("change", function() {
+        var level = this.value;
+        document.getElementById("parent_provinsi").style.display = level == "2" ? "block" : "none";
+        document.getElementById("parent_kabupaten").style.display = level == "3" ? "block" : "none";
+        document.getElementById("parent_kecamatan").style.display = level == "4" ? "block" : "none";
+    });
+</script>
+{% endblock main %}
+{% block js %}
+<!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->
+
+{% endblock js %}

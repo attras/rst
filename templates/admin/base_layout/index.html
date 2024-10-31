@@ -103,81 +103,44 @@
 								<li><a href="{% url 'admin_setori:master_wilayah' %}" class="slide-item"> Master wilayah</a></li>
 								<li><a href="{% url 'admin_setori:master_slider' %}" class="slide-item"> Master Slider</a></li>
 								<li><a href="#" class="slide-item"> Master Jenis data kesehatan</a></li>
-								<a class="slide-item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">Master Indikator</span><i class="angle fa fa-angle-right"></i></a>
-									<ul class="slide-menu">
-									
-									</ul>	
+								<li><a href="#" class="slide-item"> Master Indikator</a></li>
+								
 							</ul>
 						</li>
-						<li><h3>Display utama</h3></li>
+
 						<li>
-							<a class="side-menu__item" href="{%  url 'admin_setori:admin_berita' %}"><i class="side-menu__icon fa-solid fa-newspaper"></i><span class="side-menu__label">Berita</span></a>
+							<a class="side-menu__item" href="{% url 'admin_setori:data_kesehatan' %}"><i class="side-menu__icon fa-solid fa-notes-medical"></i><span class="side-menu__label"> Data Kesehatan</span></a>
+						</li>
+						<li>
+							<a class="side-menu__item" href="{% url 'admin_setori:data_penduduk' %}"><i class="side-menu__icon fa-solid fa-users"></i><span class="side-menu__label">Data Penduduk</span></a>
 						</li>
 						<li>
 							<a class="side-menu__item" href="{% url 'admin_setori:admin_info_wilayah' %}"><i class="side-menu__icon fa-solid fa-map"></i><span class="side-menu__label">Info wilayah</span></a>
 						</li>
+						
 						<li>
-							<a class="side-menu__item" href="#"><i class="side-menu__icon fa-solid fa-users"></i><span class="side-menu__label">Data Penduduk</span></a>
+							<a class="side-menu__item" href="{%  url 'admin_setori:admin_berita' %}"><i class="side-menu__icon fa-solid fa-newspaper"></i><span class="side-menu__label">Berita</span></a>
 						</li>
 						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">Sarana dan Prasarana</span><i class="angle fa fa-angle-right"></i></a>
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">Setting Aplikasi</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
-								<li><a href="maps1.html" class="slide-item">Desa Di Supiori Selatan</a></li>
-								<li><a href="maps2.html" class="slide-item">Desa Di Supiori Utara</a></li>
-								<li><a href="maps.html" class="slide-item">Desa Di Supiori Timur </a></li>
-								<li><a href="maps1.html" class="slide-item">Desa Di Supiori Barat</a></li>
-								<li><a href="maps2.html" class="slide-item">Desa Di Kepulauan Aruri</a></li>
-								<li><a href="maps2.html" class="slide-item">Dst</a></li>
+								<li>
+									<a class="slide-item" href="{% url 'admin_setori:admin_faq' %}"><span class="side-menu__label">FAQ</span></a>
+								</li>
+								<li>
+									<a class="slide-item" href="{% url 'admin_setori:admin_kontak' %}"><span class="side-menu__label">Kontak</span></a>
+								</li>
+								<li>
+									<a class="slide-item" href="{% url 'admin_setori:admin_layanan' %}"><span class="side-menu__label">Layanan</span></a>
+								</li>
+								<li>
+									<a class="slide-item" href="#"><span class="side-menu__label">Tentang Kami</span></a>
+								</li>
 							</ul>
 						</li>
 
-						<li class="slide"></li>
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">Info wilayah</span><i class="angle fa fa-angle-right"></i></a>
-							<ul class="slide-menu">
-								<li><a href="maps1.html" class="slide-item">Desa Di Supiori Selatan</a></li>
-								<li><a href="maps2.html" class="slide-item">Desa Di Supiori Utara</a></li>
-								<li><a href="maps.html" class="slide-item">Desa Di Supiori Timur </a></li>
-								<li><a href="maps1.html" class="slide-item">Desa Di Supiori Barat</a></li>
-								<li><a href="maps2.html" class="slide-item">Desa Di Kepulauan Aruri</a></li>
-								<li><a href="maps2.html" class="slide-item">Dst</a></li>
-							</ul>
-						</li>
 
-						<li class="slide"></li>
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">Data Kesehatan</span><i class="angle fa fa-angle-right"></i></a>
-							<ul class="slide-menu">
-								<li><a href="maps1.html" class="slide-item">data air bersih</a></li>
-								<li><a href="maps2.html" class="slide-item">Jenis data kesehatan2</a></li>
-								<li><a href="maps.html" class="slide-item">Jenis data kesehatan3 </a></li>
-								<li><a href="maps1.html" class="slide-item">Jenis data kesehatan4</a></li>
-								<li><a href="maps2.html" class="slide-item">DST</a></li>
-							</ul>
-						</li>
-						<li>
-							<a class="side-menu__item" href="{% url 'admin_setori:admin_faq' %}"><i class="side-menu__icon fa-solid fa-house"></i><span class="side-menu__label">FAQ</span></a>
-						</li>
-						<li>
-							<a class="side-menu__item" href="{% url 'admin_setori:admin_kontak' %}"><i class="side-menu__icon fa-solid fa-phone"></i><span class="side-menu__label">Kontak</span></a>
-						</li>
-						<li>
-							<a class="side-menu__item" href="{% url 'admin_setori:admin_layanan' %}"><i class="side-menu__icon fa-solid fa-print"></i><span class="side-menu__label">Layanan</span></a>
-						</li>
-						<li>
-							<a class="side-menu__item" href="#"><i class="side-menu__icon fa-solid fa-circle-info"></i><span class="side-menu__label">Tentang Kami</span></a>
-						</li>
-						<li>
-							<a class="side-menu__item" href="#"><i class="side-menu__icon fa-solid fa-mountain-sun"></i><span class="side-menu__label">Info Wilayah</span></a>
-						</li>
-						
-						
-						
-						<li><h3>preview</h3></li>
-						<li>
-							<a class="side-menu__item" href="widgets.html"><i class="side-menu__icon fe fe-grid"></i><span class="side-menu__label">Data Penduduk Total</span></a>
-						</li>
-						<li>
-							<a class="side-menu__item" href="widgets.html"><i class="side-menu__icon fe fe-grid"></i><span class="side-menu__label">Data Sarpras Total</span></a>
-						</li>
+
 					</ul>
 				</aside>
 				<!--/APP-SIDEBAR-->
@@ -328,6 +291,8 @@
 		<div class="alert alert-primary" role="alert">
 			A simple primary alert—check it out! {{message}}
 		  </div>
+		  
+		 
 	
         {% endfor %}
         {% endif %}
@@ -456,6 +421,8 @@
 			if (messages.length > 0) {
 				showMessages();
 			}
+		
+		
 		</script>
 		<!-- BACK-TO-TOP -->
 		<a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
