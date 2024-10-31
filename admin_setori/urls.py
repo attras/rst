@@ -70,7 +70,9 @@ urlpatterns = [
         path('',layanan.LayananViews.as_view(),name='admin_layanan'),
         path('add_layanan/',layanan.Addlayanan.as_view(),name='add_layanan'),
         path('edit_layanan/<str:id_layanan>/',layanan.Editlayanan.as_view(),name='edit_layanan'),
-        path('delete/<str:layanan_id>/',layanan.Deletelayanan.as_view(),name='delete_layanan')
+        path('delete_at/<str:id_layanan>/',layanan.Delete_at.as_view(),name='delete_layanan'),
+        path('histori/',layanan.Historilayanan.as_view(),name='histori_layanan'),
+        path('restore/<str:id_layanan>/',layanan.Restorelayanan.as_view(),name='restore_layanan'),
         ])),
 
     # path('add_slider',master_slider.Addslider.as_view(),name='add_slider'),

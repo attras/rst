@@ -19,7 +19,7 @@ class LayananViews(View):
         data = {
             'dt_layanan' : dt_layanan
         }
-        return render(request, 'admin/layanan.html',data)
+        return render(request, 'admin/admin_layanan/index.html',data)
 
 class Addlayanan(View) :
     def post(self, request):
@@ -66,3 +66,43 @@ class Editlayanan(View) :
             print('Error Data', e)
             messages.error(request,"gagal edit")
             return redirect(reverse('admin_setori:admin_layanan'))
+
+
+class Delete_at(View):
+    def get(self, request, id_layanan):
+        try:
+            with transaction.atomic():
+                del_layanan = get_object_or_404(Layanan,id_layanan=id_layanan)
+                del_layanan.deleted_at = timezone.now()
+                del_layanan.save()
+                messages.success(request, f"data berhasil dihapus")
+                return redirect('admin_setori:admin_layanan')
+                
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:admin_layanan')
+
+
+class Historilayanan(View):
+    def get(self, request):
+        dt_layanan = Layanan.objects.filter(deleted_at__isnull = False)
+        data = {
+            'dt_layanan' : dt_layanan
+        }
+        return render(request, 'admin/admin_layanan/histori.html',data)
+    
+class Restorelayanan(View):
+    def get(self, request, id_layanan):
+        try:
+            with transaction.atomic():
+                del_layanan = get_object_or_404(layanan,layanan_id=id_layanan)
+                del_layanan.deleted_at = None
+                del_layanan.save()
+                messages.success(request, f"data berhasil dipulihkan")
+                return redirect('admin_setori:histori_layanan')
+                
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:histori_layanan')

@@ -9,11 +9,6 @@
         <i class="fa-solid fa-arrow-left"></i>
          Kembali
      </button>
-
-     <button class="btn btn-danger" id="delete-selected">
-        <i class="fa-solid fa-trash"></i>
-        Hapus Terpilih
-    </button>
  </a>
 
 <!-- User Table -->
@@ -33,33 +28,33 @@
                                 <th class="bg-transparent border-bottom-0">Jawaban</th>
                                 <th class="bg-transparent border-bottom-0">Tanggal Dihapus</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
-                                <th class="bg-transparent border-bottom-0 text-center">
-                                    <input type="checkbox" id="select-all">
-                                </th>
+                                
                             </tr>
                         </thead>
                         <tbody>
-                            {% for faq in dt_faq %}
+                          {% for faq in dt_faq %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ faq.pertanyaan|slice:":60" }}...</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ faq.jawaban|slice:":60" }}...</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ faq.deleted_at|date:"Y-m-d" }}</td>
+                             
+                                <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
                                 <td class="text-muted fs-15 fw-semibold">
                                     <a onclick="pulih_faq('{{faq.faq_id }}')">
                                         <button class="btn btn-success">
                                             <i class="fa-solid fa-rotate-right"></i>
                                             Restore</button>
-                                    </a>
-                                    <a onclick="Hapus_faq_permanen('{{faq.faq_id }}')">
-                                        <button class="btn btn-danger">
+                                     </a>
+                                     
+                                        <a onclick="Hapus_faq_permanen('{{faq.faq_id }}')">
+                                         <button class="btn btn-danger">
                                             <i class="fa-solid fa-trash"></i>
                                             Hapus permanen</button>
-                                    </a>
-                                </td>
-                                <td class="text-center">
-                                    <input type="checkbox" class="faq-checkbox" value="{{ faq.faq_id }}">
-                                </td>
+                                        </a>
+                                        
+                                        
+                                    </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -189,47 +184,8 @@
             }
         });
     }
-
     
     
-     // Pilih semua checkbox
-     document.getElementById('select-all').addEventListener('change', function() {
-        const checkboxes = document.querySelectorAll('.faq-checkbox');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = this.checked;
-        });
-    });
-
-    // Hapus FAQ yang terpilih
-    document.getElementById('delete-selected').addEventListener('click', function() {
-        const selectedIds = [];
-        const checkboxes = document.querySelectorAll('.faq-checkbox:checked');
-        checkboxes.forEach(checkbox => {
-            selectedIds.push(checkbox.value);
-        });
-
-        if (selectedIds.length > 0) {
-            // Gantikan URL dan method sesuai kebutuhan
-            fetch('/your-delete-endpoint/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}' // Pastikan CSRF token disertakan jika menggunakan Django
-                },
-                body: JSON.stringify({ ids: selectedIds })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Lakukan tindakan setelah penghapusan berhasil, seperti memuat ulang halaman
-                window.location.reload();
-            })
-            .catch(error => console.error('Error:', error));
-        } else {
-            alert('Pilih setidaknya satu item untuk dihapus.');
-        }
-    });
-
-
 </script>
 
 
