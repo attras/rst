@@ -35,7 +35,7 @@
                     <article>
                         <div class="card border-0">
                             <div class="card-body z-index-1 p-0">
-                                <p class="text-uppercase text-3 font-weight-semibold mb-3 text-color-secondary"><time pubdate datetime="2024-01-10">10 Jan 2024</time> <span class="opacity-3 d-inline-block px-2">|</span> 3 Comments <span class="opacity-3 d-inline-block px-2">|</span> John Doe</p>
+                                <p class="text-uppercase text-3 font-weight-semibold mb-3 text-color-secondary"><time pubdate datetime="2024-01-10">10 Jan 2024</time> <span class="opacity-3 d-inline-block px-2">|</span> 3 Comments <span class="opacity-3 d-inline-block px-2">|</span>{{ berita.category.name }}</p>
 
                                 <h1 class="read__title">Pemkab Supiori bersama dengan warga Kampung Aruri melakukan aksi penanganan DB</h1>
 
@@ -44,10 +44,7 @@
                                 </div>
 
                                 <div class="card-body p-0">
-                                    <p>Pemkab Supiori bersama warga Kampung Aruri telah meluncurkan sebuah program komprehensif untuk menangani dan mencegah penyebaran Demam Berdarah (DB) di daerah mereka. Program ini adalah hasil dari kolaborasi yang erat antara pemerintah daerah, tenaga medis, dan masyarakat setempat, dengan tujuan utama untuk mengurangi risiko dan dampak penyakit tersebut. Kegiatan dimulai dengan penyuluhan intensif yang diadakan oleh pihak kesehatan setempat, yang menjelaskan pentingnya menjaga kebersihan lingkungan dan mengenali gejala awal DB. Selain itu, program ini juga mencakup pelatihan kepada warga mengenai cara-cara efektif untuk menghindari gigitan nyamuk, penyemprotan insektisida, serta pengelolaan dan pembuangan limbah rumah tangga yang benar.</p>
-                                    <p>Untuk mendukung upaya tersebut, dilakukan penyemprotan insektisida secara rutin di area yang diketahui memiliki risiko tinggi, seperti tempat-tempat yang sering kali menjadi tempat berkembang biaknya nyamuk, termasuk genangan air dan saluran air yang tidak terawat. Warga Kampung Aruri juga aktif berpartisipasi dalam kegiatan pembersihan lingkungan dengan membersihkan area sekitar rumah dan menghilangkan genangan air yang dapat menjadi tempat berkembang biaknya nyamuk. Program ini tidak hanya fokus pada penanganan jangka pendek, tetapi juga berusaha membangun kesadaran jangka panjang tentang pentingnya sanitasi dan kebersihan pribadi.</p>
-                                    <p>Pemkab Supiori berkomitmen untuk terus mendukung dan memperluas program ini agar dapat menjangkau seluruh komunitas dengan lebih efektif. Dukungan dari pemerintah daerah mencakup penyediaan alat dan bahan untuk penyemprotan, serta pengadaan edukasi kesehatan yang berkelanjutan. Dengan adanya kerjasama yang solid antara pemerintah dan masyarakat, diharapkan Kampung Aruri dapat mengatasi tantangan DB dengan lebih baik dan menjadi model sukses dalam upaya pencegahan dan penanganan penyakit di tingkat lokal. Keberhasilan program ini akan menjadi langkah positif dalam meningkatkan kualitas hidup masyarakat serta mempromosikan kesehatan dan kesejahteraan yang lebih baik di seluruh wilayah Supiori.</p>
-
+                                    {{ berita.content|safe}}
                                     <!-- Go to www.addtoany.com to customize -->
                                     <!-- AddToAny BEGIN -->
                                     <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
@@ -62,7 +59,7 @@
                                     <hr class="my-5">
 
                                     <div class="post-block post-author">
-                                        <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3">Penulis</h3>
+                                        <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3">{{ berita.created_by.username }}</h3>
                                         <div class="img-thumbnail img-thumbnail-no-borders d-block pb-3">
                                             <a href="blog-post.html">
                                                 <img src="d:\xampp\htdocs\Setori\img\demos\accounting-1\Desain tanpa judul\1.jpg" class="rounded-circle" alt="">

@@ -1,0 +1,137 @@
+{% extends 'setori/base_layout/base_layout.html' %} 
+{% load static %}
+
+{% block css %}
+<style>
+    .read__title {
+        font-family: 'Lexend', sans-serif;
+        font-weight: 500;
+    }
+    .isi-berita {
+    font-size: 250%;
+    }
+    .recent-post {
+        border: 1px solid #ddd; /* Garis batas kotak */
+        border-radius: 8px; /* Sudut melengkung */
+        overflow: hidden; /* Menghindari gambar yang meluap */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+        transition: transform 0.3s; /* Efek transisi saat hover */
+    }
+
+    .recent-post:hover {
+        transform: translateY(-5px); /* Efek saat hover */
+    }
+
+    img {
+        object-fit: cover; /* Mengatur gambar agar sesuai kotak */
+    }
+    .grow img{
+        transition: 1s ease;
+    }
+
+    .grow img:hover{
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+        transition: 1s ease;
+    }
+</style>
+{% endblock css %}
+
+
+{% block main %} 
+<div class="body">
+    
+        <div class="body">
+            <div class="page-header" style="position: relative; margin-bottom: 0; overflow: hidden;">
+                <img src="{% static 'img/header/atasan.jpg' %}" alt="Header Background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+                <div class="container p-relative z-index-1 py-2">
+                    <div class="row mh-200px mh-lg-300px align-items-center py-4">
+                        <div class="col">
+                            <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                                <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">Detail Berita</h1>
+                            </div>
+                            <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
+                                <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
+                                    <li><a href="{% url 'app_setori:index_home' %}" class="text-light text-decoration-none">Beranda</a></li>
+                                    <li class="active text-color-light opacity-7">Detail Berita</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div role="main" class="main px-3 px-lg-5"> 
+        <div class="container mt-lg-5 pt-5">
+
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+
+                    <article>
+                        <div class="card border-0">
+                            <div class="card-body p-0">
+                                <h1 class="read__title">{{ detail_berita.title }}</h1>
+                                <p class="text-uppercase text-3 font-weight-semibold mb-3 text-color-secondary d-flex justify-content-between">
+                                    <span>Penulis: {{ detail_berita.created_by.username }}</span>
+                                    <span>Tanggal Terbit: {{ detail_berita.created_at }}</span>
+                                </p>
+                                
+         
+                                <div class="post-image pb-4">
+                                    <img class="card-img-top border-radius-2" src="{{ detail_berita.thumbnail.url }}" alt="Card Image">
+                                </div>
+
+                                <div class="card-body p-0">
+                                    {{ berita.content|safe}}
+                                    <!-- Go to www.addtoany.com to customize -->
+                                    <!-- AddToAny BEGIN -->
+                                    <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                                        <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                                        <a class="a2a_button_facebook"></a>
+                                        <a class="a2a_button_x"></a>
+                                        <a class="a2a_button_copy_link"></a>
+                                    </div>
+                                    <script async src="https://static.addtoany.com/menu/page.js"></script>
+                                    <!-- AddToAny END -->
+
+                                    <hr class="my-5">
+
+                                    <div class="isi berita">
+                                        <p>{{ detail_berita.content|safe }}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+                <div class="blog-sidebar col-lg-4 pt-4 pt-lg-0">
+                    <aside class="sidebar">
+                        <div class="px-3 mt-4">
+                            <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3">Recent Posts</h3>
+                            <div class="pb-2 mb-1">
+                                {% for berita in dt_berita %}
+                                <div class="recent-post" style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                                    <img src="{{ berita.thumbnail.url }}" style="width: 100%; height: 150px; margin-bottom: 10px;">
+                                    <a href="{% url 'app_setori:detail_berita' berita.slug %}" class="text-color-dark text-hover-primary font-weight-bold text-3 d-block pb-3 line-height-4" style="padding: 10px 15px; display: block;">
+                                        {{ berita.title }}
+                                    </a>
+                                </div>                                
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock main %} 

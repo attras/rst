@@ -40,27 +40,41 @@
 						<div class="owl-stage">
 
 							<!-- Carousel Slide 1 -->
+							{% for slider in dt_slider %}
+
+							{% if forloop.counter > 1 %}
+							<!-- Carousel Slide 2-->
 							<div class="owl-item p-relative border-radius-0 overflow-hidden">
 								<div class="image-wrapper p-absolute z-index-1 top-0 left-0 right-0 bottom-0 overlay overlay-color-dark overlay-show overlay-op-6" data-carousel-onchange-show>
-									<img src="{% static 'img/slider/slider_home/1.jpg' %}" alt="Slider Image" class="background-image" style="width: 100%; height: 100%; object-fit: cover;">
+									<img src="{{ slider.foto.url }}" alt="Slider Image" class="background-image" style="width: 100%; height: 100%; object-fit: cover;">
 								</div>
 								<div class="container text-color-light p-relative z-index-2">
 									<div class="row justify-content-center align-items-center mh-750px py-5">
 										<div class="col-lg-6 text-center">
-											<div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
-												<div class="rotate-animation">
-													<img width="90" height="90" src="img/demos/accounting-1/icons/icon-shape-1.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary mb-4'}" />
-												</div>
+											<div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="300" data-appear-animation-duration="0.5s">
+												<h2 class="text-10 text-lg-12 font-weight-semibold text-color-light line-height-1">{{ slider.text}}</h2>
 											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% else %}
+							<div class="owl-item p-relative border-radius-0 overflow-hidden">
+								<div class="image-wrapper p-absolute z-index-1 top-0 left-0 right-0 bottom-0 overlay overlay-color-dark overlay-show overlay-op-6" data-carousel-onchange-show>
+									<img src="{{ slider.foto.url }}" alt="Slider Image" class="background-image" style="width: 100%; height: 100%; object-fit: cover;">
+								</div>
+								<div class="container text-color-light p-relative z-index-2">
+									<div class="row justify-content-center align-items-center mh-750px py-5">
+										<div class="col-lg-6 text-center">
 											<div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
 												<h4 class="text-6 text-lg-7 text-color-light font-weight-regular mb-4">
 													<span class="d-inline-flex p-relative top-7">
-														<img class="larger-image" width="80" height="80" src="{% static 'img/icons/logo_supiori.png' %}" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light d-inline-flex'}" alt="">
+														<img class="larger-image" width="80" height="80" src="{{ slider.logo.url }}" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light d-inline-flex'}" alt="">
 													</span>
 												</h4>
 											</div>
 											<div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
-												<h2 class="text-10 text-lg-12 font-weight-semibold text-color-light line-height-1">Menuju Kesehatan Masyarakat yang Lebih Baik</h2>
+												<h2 class="text-10 text-lg-12 font-weight-semibold text-color-light line-height-1">{{ slider.text}}</h2>
 											</div>
 											<div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="800">
 												<a href="{% url 'app_setori:data' %}" data-hash data-hash-offset="0" data-hash-offset-lg="0" class="btn btn-light btn-effect-2 transition-3ms border-0 btn-rounded btn-medium text-3 py-3 btn-with-arrow-solid mt-2">
@@ -72,41 +86,8 @@
 									</div>
 								</div>
 							</div>
-							
-
-							<!-- Carousel Slide 2-->
-							<div class="owl-item p-relative border-radius-0 overflow-hidden">
-								<div class="image-wrapper p-absolute z-index-1 top-0 left-0 right-0 bottom-0 overlay overlay-color-dark overlay-show overlay-op-6" data-carousel-onchange-show>
-									<img src="{% static 'img/slider/slider_home/2.jpg' %}" alt="Slider Image" class="background-image" style="width: 100%; height: 100%; object-fit: cover;">
-								</div>
-								<div class="container text-color-light p-relative z-index-2">
-									<div class="row justify-content-center align-items-center mh-750px py-5">
-										<div class="col-lg-6 text-center">
-											<div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="300" data-appear-animation-duration="0.5s">
-												<h2 class="text-10 text-lg-12 font-weight-semibold text-color-light line-height-1">Melindungi hingga ke ujung desa</h2>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							 
-
-							<!-- Carousel Slide 3 -->
-							<div class="owl-item p-relative border-radius-0 overflow-hidden">
-								<div class="image-wrapper p-absolute z-index-1 top-0 left-0 right-0 bottom-0 overlay overlay-color-dark overlay-show overlay-op-6" data-carousel-onchange-show>
-									<img src="{% static 'img/slider/slider_home/3.jpg' %}" alt="Slider Image" class="background-image" style="width: 100%; height: 100%; object-fit: cover;">
-								</div>
-								<div class="container text-color-light p-relative z-index-2">
-									<div class="row justify-content-center align-items-center mh-750px py-5">
-										<div class="col-lg-6 text-center">
-											<div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600" data-appear-animation-duration="0.5s">
-												<h2 class="text-10 text-lg-12 font-weight-semibold text-color-light line-height-1">Data kesehatan paling baru, paling rinci, dan paling lengkap</h2>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
+							{% endif %}
+							{% endfor %}
 						</div>
 					</div>
 					<div class="owl-nav">

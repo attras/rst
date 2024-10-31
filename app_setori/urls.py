@@ -15,7 +15,6 @@ app_name = 'app_setori'
 
 urlpatterns = [
      path('', beranda.HomeViews.as_view(), name = 'index_home'),
-     path('berita', berita.BeritaViews.as_view(), name = 'berita'),
      path('data', data_pokok.Data_pokokViews.as_view(), name = 'data'),
      path('detail_data', data_pokok.DetaildataViews.as_view(), name = 'detail_data'),
      path('potensi', potensi.PotensiViews.as_view(), name = 'potensi'),
@@ -26,5 +25,9 @@ urlpatterns = [
      path('faq', faq.FaqViews.as_view(), name = 'faq'),
      path('tentang', tentang.TentangViews.as_view(), name = 'tentang'),
      path('kontak', kontak.KontakViews.as_view(), name = 'kontak'),
-     path('detail_berita', berita.DetailberitaViews.as_view(), name = 'detail_berita'),
+
+     path('berita/',include([
+     path('', berita.BeritaViews.as_view(), name = 'berita'),
+     path('detail/<slug:slug>/', berita.DetailberitaViews.as_view(), name='detail_berita'),
+     ])),
 ]

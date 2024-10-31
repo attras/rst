@@ -78,11 +78,11 @@
                                     </a>
 
                                     <a class="btn btn-danger btn-sm rounded-11"
-                                       data-bs-toggle="modal" 
-                                       data-bs-target="#deleteNewsModal" 
-                                       data-bs-original-title="Delete"
-                                       data-bs-id="{{ berita.id }}" 
-                                       data-bs-title="{{ berita.title }}">
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#deleteNewsModal" 
+                                        data-bs-original-title="Delete"
+                                        data-bs-slug="{{ berita.slug }}" 
+                                        data-bs-title="{{ berita.title }}">
                                         <i>
                                             <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                                 <path d="M0 0h24v24H0V0z" fill="none" />
@@ -150,6 +150,115 @@
     </div>
 </div>
 
+<!--edit news-->
+<div class="modal fade" id="editNewsModal" tabindex="-1" aria-labelledby="editNewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editNewsModalLabel">Edit Berita</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Pertanyaan</label>
+                        <input type="text" name="pertanyaan" id="edit-pertanyaan" class="form-control" placeholder="Masukan Pertanyaan" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Jawaban</label>
+                        <textarea name="jawaban" id="edit-jawaban" class="form-control" placeholder="Masukan Jawaban" required ></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Update FAQ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--delete news-->
+<div class="modal fade" id="deleteNewsModal" tabindex="-1" aria-labelledby="deleteNewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteNewsModalLabel">Hapus Berita</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah anda yakin ingin menghapus berita ini?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a id="del" href="">
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var editNewsModal = document.getElementById('editNewsModal');
+    editNewsModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Extract info from data-bs-* attributes
+        var faqId = button.getAttribute('data-bs-id');
+        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
+        var jawaban = button.getAttribute('data-bs-jawaban');
+
+        // Update the modal's form fields
+        var modalTitle = editNewsModal.querySelector('.modal-title');
+        var inputPertanyaan = editNewsModal.querySelector('#edit-pertanyaan');
+        var inputJawaban = editNewsModal.querySelector('#edit-jawaban');
+        var form = editNewsModal.querySelector('form');
+
+        modalTitle.textContent = 'Edit pertanyaan ' + pertanyaan;
+        inputPertanyaan.value = pertanyaan;
+        inputJawaban.value = jawaban;
+
+        // Update form action URL dynamically with the correct FAQ ID
+        form.action = "{% url 'admin_setori:edit_faq' 'holder' %}".replace('holder', faqId);
+        
+    });
+
+    var deleteNewsModal = document.getElementById('deleteNewsModal');
+    deleteNewsModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var newsSlug = button.getAttribute('data-bs-slug');
+        var newsTitle = button.getAttribute('data-bs-title');
+
+        var modalTitle = deleteNewsModal.querySelector('.modal-title');
+        var link = deleteNewsModal.querySelector('#del');
+        modalTitle.textContent = 'Hapus ' + newsTitle;
+
+        link.href = "{% url 'admin_setori:delete_berita' 'holder' %}".replace('holder', newsSlug);
+    });
+
+
+          //delete
+    var deleteFaqModal = document.getElementById('deleteUserModal');
+    deleteFaqModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+        var faqId = button.getAttribute('data-bs-id');
+
+        // Extract info from data-bs-* attributes
+        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
+        var modalTitle = deleteFaqModal.querySelector('.modal-title');
+        var link = deleteFaqModal.querySelector('#del')
+        modalTitle.textContent = 'hapus ' + pertanyaan;
+      
+        // Update form action URL dynamically with the correct FAQ ID
+        link.href = "{% url 'admin_setori:delete_at_faq' 'holder' %}".replace('holder', faqId);
+    });
+    
+</script>
+
+
+<!--ck editor-->
 <script type="importmap">
     {
         "imports": {

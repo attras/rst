@@ -50,6 +50,10 @@
 		<link rel="stylesheet" href="{% static 'setori/css/custom.css' %}">
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 
+		<!-- ckeditor -->
+		<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css" />
+
+
 			{% block css %} {% endblock css %} 
 		
 	</head>
@@ -84,6 +88,15 @@
 
 	<!-- Current Page Vendor and Views -->
 	<script src="{% static 'setori/js/views/view.contact.js' %}"></script>
+
+	<script type="importmap">
+		{
+			"imports": {
+				"ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+				"ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+			}
+		}
+	</script>
 
 	
 </body>
