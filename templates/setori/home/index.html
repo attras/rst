@@ -233,70 +233,25 @@
 							</div>
 						</div>
 						<div class="row pb-5">
+							{% for berita in dt_berita %}
 							<div class="col-lg-4 mb-4 mb-lg-0">
 								<article class="post">
 									<div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
 										<div class="p-relative rounded-3 overflow-hidden">
-											<div class="post-date p-absolute top-20 left-20">
-												<span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
-												<span class="month bg-secondary">Jan</span>
-											</div>
-											<a href="demo-accounting-1-news-post.html" class="text-decoration-none">
-												<img class="card-img-top" src="{% static 'img/berita/1.jpg' %}" loading="lazy" alt="Card Image">
+											<a href="{% url 'app_setori:detail_berita' berita.slug %}" class="text-decoration-none">
+												<img class="card-img-top" src="{{ berita.thumbnail.url }}" loading="lazy" alt="Card Image">
 											</a>
 											<div class="card-body bg-light p-4">
-												<span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
-												<h4 class="my-2"><a href="demo-accounting-1-news-post.html" class="text-decoration-none text-dark text-color-hover-primary">Pemkab Supiori bersama dengan warga Kampung Aruri melakukan aksi penanganan DB</a></h4>
-												<p class="card-text text-3-5 mb-1">Pemkab Supiori bersama warga Kampung Aruri telah meluncurkan sebuah program komprehensif untuk...</p>
-												<a href="demo-accounting-1-news-post.html" class="read-more text-color-secondary font-weight-semibold text-2">Selengkapnya <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
+												<span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">{{ berita.category.name }}</span>
+												<h4 class="my-2"><a href="demo-accounting-1-news-post.html" class="text-decoration-none text-dark text-color-hover-primary">{{ berita.title }}</a></h4>
+												<p class="card-text text-3-5 mb-1">{{ berita.content|safe|slice:":97" }}...</p>
+												<a href="{% url 'app_setori:detail_berita' berita.slug %}" class="read-more text-color-secondary font-weight-semibold text-2">Selengkapnya <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
 											</div>
 										</div>
 									</div>
 								</article>
 							</div>
-							<div class="col-lg-4 mb-4 mb-lg-0">
-								<article class="post">
-									<div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
-										<div class="p-relative rounded-3 overflow-hidden">
-											<div class="post-date p-absolute top-20 left-20">
-												<span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
-												<span class="month bg-secondary">Jan</span>
-											</div>
-											<a href="demo-accounting-1-news-post.html" class="text-decoration-none">
-												<img class="card-img-top" src="{% static 'img/berita/2.jpg' %}" loading="lazy" alt="Card Image">
-											</a>
-											<div class="card-body bg-light p-4">
-												<span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
-												<h4 class="my-2"><a href="demo-accounting-1-news-post.html" class="text-decoration-none text-dark text-color-hover-primary">Pemkab Supiori bersama dengan warga Kampung Aruri melakukan aksi penanganan DB</a></h4>
-												<p class="card-text text-3-5 mb-1">Pemkab Supiori bersama warga Kampung Aruri telah meluncurkan sebuah program komprehensif untuk...</p>
-												<a href="demo-accounting-1-news-post.html" class="read-more text-color-secondary font-weight-semibold text-2">Selengkapnya <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-
-											</div>
-										</div>
-									</div>
-								</article>
-							</div>
-							<div class="col-lg-4 mb-4 mb-lg-0">
-								<article class="post">
-									<div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
-										<div class="p-relative rounded-3 overflow-hidden">
-											<div class="post-date p-absolute top-20 left-20">
-												<span class="day py-1 text-4 font-weight-bold text-secondary">15</span>
-												<span class="month bg-secondary">Jan</span>
-											</div>
-											<a href="demo-accounting-1-news-post.html" class="text-decoration-none">
-												<img class="card-img-top" src="{% static 'img/berita/3.jpg' %}" loading="lazy" alt="Card Image">
-											</a>
-											<div class="card-body bg-light p-4">
-												<span class="badge badge-dark badge-sm rounded-pill text-uppercase me-1">business</span>
-												<h4 class="my-2"><a href="demo-accounting-1-news-post.html" class="text-decoration-none text-dark text-color-hover-primary">Pemkab Supiori bersama dengan warga Kampung Aruri melakukan aksi penanganan DB</a></h4>
-												<p class="card-text text-3-5 mb-1">Pemkab Supiori bersama warga Kampung Aruri telah meluncurkan sebuah program komprehensif untuk...</p>
-												<a href="demo-accounting-1-news-post.html" class="read-more text-color-secondary font-weight-semibold text-2">Read More <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
-											</div>
-										</div>
-									</div>
-								</article>
-							</div>
+							{% endfor %}
 						</div>
 					</div>
 				</div>
