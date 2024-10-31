@@ -34,8 +34,8 @@
                           {% for faq in dt_faq %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ faq.pertanyaan }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ faq.jawaban }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ faq.pertanyaan|slice:":60" }}...</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ faq.jawaban|slice:":60" }}...</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ faq.deleted_at|date:"Y-m-d" }}</td>
                              
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
@@ -50,14 +50,7 @@
                                         <button class="btn btn-success">Restore</button>
                                      </a>
                                      
-                                        <a class=""
-                                         data-bs-toggle="modal" 
-                                         data-bs-target="#deleteUserModal" 
-                                         data-bs-original-title="Delete"
-                                         data-bs-id="{{ faq.faq_id }}" 
-                                         data-bs-pertanyaan="{{ faq.pertanyaan }}" 
-                                         >
-                                         
+                                        <a onclick="Hapus_faq_permanen('{{faq.faq_id }}')">
                                          <button class="btn btn-danger">Hapus permanen</button>
                                         </a>
                                         
@@ -72,31 +65,6 @@
         </div>
     </div>
     <!-- COL END -->
-</div>
-
-
-<!-- delete -->
-<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteUserModalLabel">hapus permanen</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah anda yakin?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cancel
-                </button>
-                <a id="del" href="">
-                    <button type="button" class="btn btn-danger">Delete</button>
-                </a>
-            
-            </div>
-        </div>
-    </div>
 </div>
 
 <!--  Restore Modal -->
@@ -141,22 +109,45 @@
         link.href = "{% url 'admin_setori:restore_faq' 'holder' %}".replace('holder', faqId);
     });
 
-          //delete
-    var deleteFaqModal = document.getElementById('deleteUserModal');
-    deleteFaqModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-        var faqId = button.getAttribute('data-bs-id');
-
-        // Extract info from data-bs-* attributes
-        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
-        var modalTitle = deleteFaqModal.querySelector('.modal-title');
-        var link = deleteFaqModal.querySelector('#del')
-        modalTitle.textContent = 'hapus ' + pertanyaan;
-      
-        // Update form action URL dynamically with the correct FAQ ID
-        link.href = "{% url 'admin_setori:delete_faq' 'holder' %}".replace('holder', faqId);
-    });
+    
+    function Hapus_faq_permanen(id_hapus_faq){
+    // Show confirmation dialog
+    Swal.fire({
+            title: 'Apakah kamu yakin ingin menghapus?',
+            showCancelButton: true,
+            confirmButtonText: 'Konfirmasi',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{% url 'admin_setori:delete_faq' 'holder' %}".replace('holder', id_hapus_faq),
+                    dataType: "html",
+                    timeout: 10000,
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Memproses...',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false,
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                        });
+                        Swal.showLoading();
+                    },
+                    success: function(response) {
+                        Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000); 
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
+                    }
+                });
+            }
+        });
+    }
+    
     
 </script>
 

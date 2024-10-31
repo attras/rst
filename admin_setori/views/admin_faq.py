@@ -23,8 +23,8 @@ class Admin_faqViews(View):
 
 class Addfaq(View) :
     def post(self, request):
-        jawaban = request.POST.get('pertanyaan')
-        pertanyaan = request.POST.get('jawaban')
+        pertanyaan = request.POST.get('pertanyaan')
+        jawaban = request.POST.get('jawaban')
         try:
             with transaction.atomic():
                 insert_faq = Faq()
@@ -44,8 +44,8 @@ class Addfaq(View) :
 
 class Editfaq(View) :
     def post(self, request,id_faq):
-        jawaban = request.POST.get('pertanyaan')
-        pertanyaan = request.POST.get('jawaban')
+        pertanyaan = request.POST.get('pertanyaan')
+        jawaban = request.POST.get('jawaban')
         try:
             with transaction.atomic():
                 insert_faq = get_object_or_404(Faq, faq_id=id_faq)
@@ -105,10 +105,10 @@ class Restorefaq(View):
     
 
 class Deletefaq(View):
-    def get(self, request, id_faq):
+    def get(self, request, faq_id):
         try:
             with transaction.atomic():
-                del_faq = get_object_or_404(Faq,faq_id=id_faq)
+                del_faq = get_object_or_404(Faq,faq_id=faq_id)
                 del_faq.delete()
                 messages.success(request, f"data berhasil dihapus")
                 return redirect('admin_setori:histori_faq')

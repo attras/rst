@@ -47,8 +47,8 @@
                           {% for faq in dt_faq %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ faq.pertanyaan }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ faq.jawaban }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ faq.pertanyaan|slice:":60" }}...</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ faq.jawaban|slice:":60" }}...</td>
                              
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
                                 <td class="text-muted fs-15 fw-semibold">
@@ -131,30 +131,6 @@
     </div>
 </div>
 
-<!-- delete -->
-<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this user?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cancel
-                </button>
-                <a id="del" href="">
-                    <button type="button" class="btn btn-danger">Delete</button>
-                </a>
-            
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- edit User Modal -->
 <!-- Edit FAQ Modal -->
 
@@ -207,23 +183,6 @@
         // Update form action URL dynamically with the correct FAQ ID
         form.action = "{% url 'admin_setori:edit_faq' 'holder' %}".replace('holder', faqId);
         
-    });
-
-          //delete
-    var deleteFaqModal = document.getElementById('deleteUserModal');
-    deleteFaqModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-        var faqId = button.getAttribute('data-bs-id');
-
-        // Extract info from data-bs-* attributes
-        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
-        var modalTitle = deleteFaqModal.querySelector('.modal-title');
-        var link = deleteFaqModal.querySelector('#del')
-        modalTitle.textContent = 'hapus ' + pertanyaan;
-      
-        // Update form action URL dynamically with the correct FAQ ID
-        link.href = "{% url 'admin_setori:delete_at_faq' 'holder' %}".replace('holder', faqId);
     });
     
     function Hapus_faq(id) {

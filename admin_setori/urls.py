@@ -35,7 +35,7 @@ urlpatterns = [
         path('add_faq',admin_faq.Addfaq.as_view(),name='add_faq'),
         path('edit_faq/<str:id_faq>',admin_faq.Editfaq.as_view(),name='edit_faq'),
         path('delete_at/<str:id_faq>',admin_faq.DeleteAt.as_view(),name='delete_at_faq'),
-        path('hapus_faq/<str:id_faq>',admin_faq.Deletefaq.as_view(),name='delete_faq'),
+        path('delete_faq/<str:faq_id>',admin_faq.Deletefaq.as_view(),name='delete_faq'),
         path('histori/',admin_faq.Historifaq.as_view(),name='histori_faq'),
         path('restore/<str:id_faq>',admin_faq.Restorefaq.as_view(),name='restore_faq'),
       
