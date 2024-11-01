@@ -41,11 +41,11 @@ class Addlayanan(View) :
             return redirect('admin_setori:admin_layanan')
         
 class Deletelayanan(View):
-    def get(self, request, layanan_id):
-        del_layanan = get_object_or_404(Layanan,id_layanan=layanan_id)
+    def get(self, request, id_layanan):
+        del_layanan = get_object_or_404(Layanan,id_layanan=id_layanan)
         del_layanan.delete()
         messages.success(request, f"data berhasil dihapus")
-        return redirect('admin_setori:admin_layanan')
+        return redirect('admin_setori:histori_layanan')
     
 
 class Editlayanan(View) :
@@ -96,7 +96,7 @@ class Restorelayanan(View):
     def get(self, request, id_layanan):
         try:
             with transaction.atomic():
-                del_layanan = get_object_or_404(layanan,layanan_id=id_layanan)
+                del_layanan = get_object_or_404(Layanan,id_layanan=id_layanan)
                 del_layanan.deleted_at = None
                 del_layanan.save()
                 messages.success(request, f"data berhasil dipulihkan")

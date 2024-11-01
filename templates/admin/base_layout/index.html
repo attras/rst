@@ -287,16 +287,21 @@
 				<div class="app-content">
 					<div class="side-app">
 						
-		{% if messages %}
-        {% for message in messages%}
-		<div class="alert alert-primary" role="alert">
-			A simple primary alert—check it out! {{message}}
-		  </div>
-		  
-		 
-	
+		<!-- {% if messages %}
+    <div id="messages-container" style="display:none;">
+        {% for message in messages %}
+            <span class="message">{{ message }}</span>
         {% endfor %}
-        {% endif %}
+    </div>
+{% endif %} -->
+
+				{% if messages %}
+					<div id="messages-container" style="display:none;">
+						{% for message in messages %}
+							<span class="message">{{ message }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
 
 					{% block main %} {% endblock main %}
 
@@ -328,29 +333,27 @@
 
         
 		<script>
-			// Mengumpulkan pesan Django ke dalam array
-			
-	
-			// Fungsi untuk menampilkan semua pesan
-			function showMessages() {
-				messages.forEach(msg => {
-					Swal.fire({
-						icon: msg.icon,
-						title: msg.title,
-						text: msg.text,
-						showConfirmButton: false,
-						timer: 3000  // Optional: alert will disappear after 3 seconds
-					});
-				});
-			}
-	
-			// Panggil fungsi untuk menampilkan pesan
-			if (messages.length > 0) {
-				showMessages();
-			}
-		
-		
+			document.addEventListener("DOMContentLoaded", function() {
+				// Cek apakah elemen container pesan ada
+				var messagesContainer = document.getElementById('messages-container');
+				if (messagesContainer) {
+					// Ambil semua elemen span dengan class message
+					var messages = messagesContainer.getElementsByClassName('message');
+					// Tampilkan SweetAlert2 untuk setiap pesan
+					for (var i = 0; i < messages.length; i++) {
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: messages[i].textContent,
+							showConfirmButton: false,
+							timer: 3000
+						});
+						
+					}
+				}
+			});
 		</script>
+
 		<!-- BACK-TO-TOP -->
 		<a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
 

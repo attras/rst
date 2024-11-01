@@ -70,7 +70,7 @@
                                  </a>
                                  
                                  <a >
-                                    <button type="button" class="btn btn-danger" onclick="Hapus_layanan('{{layanan }}')">
+                                    <button type="button" class="btn btn-danger" onclick="Hapus_layanan('{{ layanan.id_layanan }}')">
                                         <i class="fe fe-trash"></i> Hapus
                                     </button>     
                                 </a>    
@@ -236,7 +236,7 @@
 
 
 
-    function Hapus_faq(id) {
+    function Hapus_layanan(id) {
        // Show confirmation dialog
        Swal.fire({
            title: 'Apakah kamu yakin ingin menghapus?',
