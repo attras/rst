@@ -239,4 +239,8 @@ class Info_wilayah(CreateUpdateTime):
     kode_pos = models.CharField(max_length=10, help_text="Kode pos kelurahan")
     wilayah = models.ForeignKey(MasterWilayah, on_delete=models.RESTRICT)
 
-
+class Tentang(CreateUpdateTime):
+    id_tentang = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
+    gambar = models.ImageField(upload_to='tentang')
+    nama_tokoh = models.CharField(max_length=255)
+    deskripsi_tokoh = models.TextField()
