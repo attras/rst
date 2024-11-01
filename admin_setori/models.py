@@ -225,6 +225,11 @@ class Data_peduduk(CreateUpdateTime):
     jumlah_penduduk = models.IntegerField(default=0, null=True)
     wilayah = models.ForeignKey(MasterWilayah, on_delete=models.CASCADE)
     
+    def get_identitas_display(self):
+        for key, value in IDENTITAS_CHOICE:
+            if str(key) == self.identitas:
+                return value
+        return None
 
 
 class Info_wilayah(CreateUpdateTime):

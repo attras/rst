@@ -54,6 +54,11 @@
 		<!-- ckeditor -->
 		<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+		<!-- FILE UPLODE CSS -->
+		<link href="{% static 'admin/assets/plugins/fileuploads/css/fileupload.css' %}" rel="stylesheet" type="text/css"/>
+			
+
+
 
 		<style>	
 			.side-header{
@@ -103,7 +108,7 @@
 								<li><a href="{% url 'admin_setori:master_wilayah' %}" class="slide-item"> Master wilayah</a></li>
 								<li><a href="{% url 'admin_setori:master_slider' %}" class="slide-item"> Master Slider</a></li>
 								<li><a href="#" class="slide-item"> Master Jenis data kesehatan</a></li>
-								<li><a href="#" class="slide-item"> Master Indikator</a></li>
+								<!-- <li><a href="#" class="slide-item"> Master Indikator</a></li> -->
 								
 							</ul>
 						</li>
@@ -202,11 +207,7 @@
 										</a>
 									</div>
 								</div>
-								<div class="dropdown d-none d-md-flex header-settings">
-									<a href="#" class="nav-link icon " data-bs-toggle="sidebar-right" data-target=".sidebar-right">
-										<i class="fe fe-menu"></i>
-									</a>
-								</div><!-- SIDE-MENU -->
+							
 							</div>
 						</div>
 					</div>
@@ -306,81 +307,7 @@
 				<!-- CONTAINER END -->
             </div>
 
-			<!-- Sidebar-right -->
-			<div class="sidebar sidebar-right sidebar-animate">
-				<div class="panel panel-primary card mb-0 shadow-none border-0">
-					<div class="tab-menu-heading border-0 d-flex p-3">
-						<div class="card-title mb-0">Notifications</div>
-						<div class="card-options ms-auto">
-							<a href="#" class="sidebar-icon text-end float-end me-1" data-bs-toggle="sidebar-right" data-target=".sidebar-right"><i class="fe fe-x text-white"></i></a>
-						</div>
-					</div>
-					<div class="panel-body tabs-menu-body latest-tasks p-0 border-0">
-						<div class="tabs-menu border-bottom">
-							<!-- Tabs -->
-							<ul class="nav panel-tabs">
-								<li class=""><a href="#side1" class="active" data-bs-toggle="tab"><i class="fe fe-user me-1"></i> Profile</a></li>
-							</ul>
-						</div>
-						<div class="tab-content">
-							<div class="tab-pane active" id="side1">
-								<div class="card-body text-center">
-									<div class="dropdown user-pro-body">
-										<div class="">
-											<img alt="user-img" class="avatar avatar-xl brround mx-auto text-center" src="{% static '' %}admin/assets/images/faces/6.jpg"><span class="avatar-status profile-status bg-green"></span>
-										</div>
-										<div class="user-info mg-t-20">
-											<h6 class="fw-semibold  mt-2 mb-0">Mintrona Pechon</h6>
-											<span class="mb-0 text-muted fs-12">Premium Member</span>
-										</div>
-									</div>
-								</div>
-								<a class="dropdown-item d-flex border-bottom border-top" href="profile.html">
-									<div class="d-flex"><i class="fe fe-user me-3 tx-20 text-muted"></i>
-										<div class="pt-1">
-											<h6 class="mb-0">My Profile</h6>
-											<p class="tx-12 mb-0 text-muted">Profile Personal information</p>
-										</div>
-									</div>
-								</a>
-								<a class="dropdown-item d-flex border-bottom" href="chat.html">
-									<div class="d-flex"><i class="fe fe-message-square me-3 tx-20 text-muted"></i>
-										<div class="pt-1">
-											<h6 class="mb-0">My Messages</h6>
-											<p class="tx-12 mb-0 text-muted">Person message information</p>
-										</div>
-									</div>
-								</a>
-								<a class="dropdown-item d-flex border-bottom" href="emailservices.html">
-									<div class="d-flex"><i class="fe fe-mail me-3 tx-20 text-muted"></i>
-										<div class="pt-1">
-											<h6 class="mb-0">My Mails</h6>
-											<p class="tx-12 mb-0 text-muted">Persons mail information</p>
-										</div>
-									</div>
-								</a>
-								<a class="dropdown-item d-flex border-bottom" href="editprofile.html">
-									<div class="d-flex"><i class="fe fe-settings me-3 tx-20 text-muted"></i>
-										<div class="pt-1">
-											<h6 class="mb-0">Account Settings</h6>
-											<p class="tx-12 mb-0 text-muted">Settings Information</p>
-										</div>
-									</div>
-								</a>
-								<a class="dropdown-item d-flex border-bottom" href="login.html">
-									<div class="d-flex"><i class="fe fe-power me-3 tx-20 text-muted"></i>
-										<div class="pt-1">
-											<h6 class="mb-0">Sign Out</h6>
-											<p class="tx-12 mb-0 text-muted">Account Signout</p>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--/Sidebar-right-->
+		
 
 			<!-- FOOTER -->
 			<footer class="footer ">
@@ -482,6 +409,11 @@
         
 		<!-- SWALL ALERT JS -->
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+		<!-- FILE UPLOADES JS -->
+		<script src="{% static 'admin/assets/plugins/fileuploads/js/fileupload.js' %}"></script>
+		<script src="{% static 'admin/assets/plugins/fileuploads/js/file-upload.js' %}"></script>
+		
 
 	</body>
 </html>
