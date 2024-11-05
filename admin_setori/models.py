@@ -252,3 +252,15 @@ class Tentang(CreateUpdateTime):
     gambar = models.ImageField(upload_to='tentang')
     nama_tokoh = models.CharField(max_length=255)
     deskripsi_tokoh = models.TextField()
+
+class Kontak(CreateUpdateTime):
+    maps = models.TextField(blank=True, null=True)
+    link_ig = models.URLField(blank=True, null=True)
+    link_twitter = models.URLField(blank=True, null=True)
+    link_facebook = models.URLField(blank=True, null=True)
+    alamat = models.TextField(blank=True, null=True)
+    email_pengaduan = models.EmailField(blank=True, null=True)
+    email_cs = models.EmailField(blank=True, null=True)
+    no_pengaduan = models.CharField(max_length=15, blank=True, null=True)
+    nama_instansi = models.CharField(max_length=100)
+    status = models.BooleanField(default=True)
