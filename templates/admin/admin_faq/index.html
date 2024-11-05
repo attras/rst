@@ -183,10 +183,10 @@
         form.action = "{% url 'admin_setori:edit_faq' 'holder' %}".replace('holder', faqId);
         
     });
+           
     
-    function Hapus_faq(id) {
-       
     // Show confirmation dialog
+    function Hapus_faq(id) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',
         showCancelButton: true,
