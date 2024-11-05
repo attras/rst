@@ -105,9 +105,9 @@
                     <div class="mb-3"></div>
                         <label  class="form-label">Persyaratan</label>
                        
-                        <textarea type="text" name="syarat" class="form-control"  placeholder="Masukan syarat" id="editor"></textarea>
+                        <textarea type="text" name="syarat" class="form-control edit"  placeholder="Masukan syarat" id="editor"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary ">Save</button>
                 </form>
             </div>
         </div>
@@ -158,7 +158,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">syarat</label>
-                        <textarea type="text" name="editsyarat" class="form-control"  placeholder="Masukan syarat" id="editor"></textarea>
+                        <textarea type="text" name="editsyarat" class="form-control "  placeholder="Masukan syarat" id="editor2"></textarea>
                     </div>
                     <button type="submit" class="btn btn-warning">Update layanan</button>
                 </form>
@@ -166,6 +166,76 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+    var editLayananModal = document.getElementById('editLayananModal');
+   editLayananModal.addEventListener('show.bs.modal', function (event) {
+       // Button that triggered the modal
+       var button = event.relatedTarget;
+
+       // Extract info from data-bs-* attributes
+       var layananId = button.getAttribute('data-bs-id');
+       var surat = button.getAttribute('data-bs-surat');
+       var syarat = button.getAttribute('data-bs-syarat');
+
+       // Update the modal's form fields
+       var modalTitle = editLayananModal.querySelector('.modal-title');
+       var inputsurat = editLayananModal.querySelector('#edit-surat');
+       var inputsyarat = editLayananModal.querySelector('#editor2');
+       var form = editLayananModal.querySelector('form');
+
+       modalTitle.textContent = 'Edit surat ' + surat;
+       inputsurat.value = surat;
+       inputsyarat.value = syarat;
+
+       // Update form action URL dynamically with the correct layanan ID
+       form.action = "{% url 'admin_setori:edit_layanan' 'holder' %}".replace('holder', layananId);
+       
+   });
+
+
+
+   function Hapus_layanan(id) {
+      // Show confirmation dialog
+      Swal.fire({
+          title: 'Apakah kamu yakin ingin menghapus?',
+          showCancelButton: true,
+          confirmButtonText: 'Konfirmasi',
+          cancelButtonText: 'Batal',
+          confirmButtonColor: '#d33',
+      }).then((result) => {
+          if (result.isConfirmed) {
+              $.ajax({
+                  url: `delete_at/${id}`,
+                  dataType: "html",
+                  timeout: 10000,
+                  beforeSend: function() {
+                      Swal.fire({
+                          title: 'Memproses...',
+                          allowEscapeKey: false,
+                          allowOutsideClick: false,
+                          showCancelButton: false,
+                          showConfirmButton: false,
+                      });
+                      Swal.showLoading();
+                  },
+                  success: function(response) {
+                      Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
+                      setTimeout(function() {
+                          window.location.reload();
+                      }, 2000); 
+                  },
+                  error: function(xhr, ajaxOptions, thrownError) {
+                      Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
+                  }
+              });
+          }
+      });
+  
+  };
+</script>
 
 
 <script type="importmap">
@@ -188,7 +258,7 @@
     } from 'ckeditor5';
 
     ClassicEditor
-        .create( document.querySelector( '#editor' ), {
+        .create( document.querySelector( '.edit' ), {
             plugins: [ Essentials, Bold, Italic, Font, Paragraph ],
             toolbar: [
                 'undo', 'redo', '|', 'bold', 'italic', '|',
@@ -207,73 +277,8 @@
         .catch(error => {
             console.error(error);
         });
-</script>
-<script>
-     var editLayananModal = document.getElementById('editLayananModal');
-    editLayananModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-
-        // Extract info from data-bs-* attributes
-        var layananId = button.getAttribute('data-bs-id');
-        var surat = button.getAttribute('data-bs-surat');
-        var syarat = button.getAttribute('data-bs-syarat');
-
-        // Update the modal's form fields
-        var modalTitle = editLayananModal.querySelector('.modal-title');
-        var inputsurat = editLayananModal.querySelector('#edit-surat');
-        var inputsyarat = editLayananModal.querySelector('#editor');
-        var form = editLayananModal.querySelector('form');
-
-        modalTitle.textContent = 'Edit surat ' + surat;
-        inputsurat.value = surat;
-        inputsyarat.value = syarat;
-
-        // Update form action URL dynamically with the correct layanan ID
-        form.action = "{% url 'admin_setori:edit_layanan' 'holder' %}".replace('holder', layananId);
-        
-    });
 
 
-
-    function Hapus_layanan(id) {
-       // Show confirmation dialog
-       Swal.fire({
-           title: 'Apakah kamu yakin ingin menghapus?',
-           showCancelButton: true,
-           confirmButtonText: 'Konfirmasi',
-           cancelButtonText: 'Batal',
-           confirmButtonColor: '#d33',
-       }).then((result) => {
-           if (result.isConfirmed) {
-               $.ajax({
-                   url: `delete_at/${id}`,
-                   dataType: "html",
-                   timeout: 10000,
-                   beforeSend: function() {
-                       Swal.fire({
-                           title: 'Memproses...',
-                           allowEscapeKey: false,
-                           allowOutsideClick: false,
-                           showCancelButton: false,
-                           showConfirmButton: false,
-                       });
-                       Swal.showLoading();
-                   },
-                   success: function(response) {
-                       Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
-                       setTimeout(function() {
-                           window.location.reload();
-                       }, 2000); 
-                   },
-                   error: function(xhr, ajaxOptions, thrownError) {
-                       Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
-                   }
-               });
-           }
-       });
-   
-   };
 </script>
 
 
