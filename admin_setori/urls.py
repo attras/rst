@@ -19,7 +19,7 @@ urlpatterns = [
     path('admin_berita/', include([
         path('', admin_berita.Admin_beritaViews.as_view(), name='admin_berita'),
         path('add', admin_berita.AddBerita.as_view(), name='add_berita'),
-        path('delete/<str:news_slug>/', admin_berita.Deleteberita.as_view(), name='delete_berita'),
+        path('delete/<slug:news_slug>/', admin_berita.Deleteberita.as_view(), name='delete_berita'),
     ])),
 
     path('kategori/',include([

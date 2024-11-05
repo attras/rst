@@ -58,7 +58,7 @@
                                 <td class="">
                                    
                                     <a >
-                                        <button type="button" class="btn btn-danger" onclick="Hapus_slider('{{slider.id}}')">
+                                        <button type="button" class="btn btn-danger" onclick="Hapus_slider('{{slider.id_slider }}')">
                                             <i class="fe fe-trash"></i> Hapus
                                         </button>     
                                     </a>
@@ -144,7 +144,7 @@
 <script>
 
     // Show confirmation dialog
-    function Hapus_slider(id) {
+    function Hapus_slider(id_hapus_sl) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',
         showCancelButton: true,
@@ -154,7 +154,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `delete_slider/${id}`,
+                url: `delete_slider/${id_hapus_sl}`,
                 dataType: "html",
                 timeout: 10000,
                 beforeSend: function() {

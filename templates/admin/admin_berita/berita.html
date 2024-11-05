@@ -77,19 +77,11 @@
                                         </i>
                                     </a>
 
-                                    <a class="btn btn-danger btn-sm rounded-11"
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#deleteNewsModal" 
-                                        data-bs-original-title="Delete"
-                                        data-bs-slug="{{ berita.slug }}" 
-                                        data-bs-title="{{ berita.title }}">
-                                        <i>
-                                            <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
-                                                <path d="M0 0h24v24H0V0z" fill="none" />
-                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
-                                            </svg>
-                                        </i>
-                                    </a>
+                                    <a >
+                                        <button type="button" class="btn btn-danger" onclick="Hapus_berita('{{ berita.slug }}')">
+                                            <i class="fe fe-trash"></i> Hapus
+                                        </button>     
+                                    </a> 
                                 </td>
                             </tr>
                           {% endfor %}
@@ -238,22 +230,44 @@
     });
 
 
-          //delete
-    var deleteFaqModal = document.getElementById('deleteUserModal');
-    deleteFaqModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-        var faqId = button.getAttribute('data-bs-id');
-
-        // Extract info from data-bs-* attributes
-        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
-        var modalTitle = deleteFaqModal.querySelector('.modal-title');
-        var link = deleteFaqModal.querySelector('#del')
-        modalTitle.textContent = 'hapus ' + pertanyaan;
-      
-        // Update form action URL dynamically with the correct FAQ ID
-        link.href = "{% url 'admin_setori:delete_at_faq' 'holder' %}".replace('holder', faqId);
-    });
+    function Hapus_berita(slug_hapus) {
+       // Show confirmation dialog
+       Swal.fire({
+           title: 'Apakah kamu yakin ingin menghapus?',
+           showCancelButton: true,
+           confirmButtonText: 'Konfirmasi',
+           cancelButtonText: 'Batal',
+           confirmButtonColor: '#d33',
+       }).then((result) => {
+           if (result.isConfirmed) {
+               $.ajax({
+                   url: `delete/${slug_hapus}`,
+                   dataType: "html",
+                   timeout: 10000,
+                   beforeSend: function() {
+                       Swal.fire({
+                           title: 'Memproses...',
+                           allowEscapeKey: false,
+                           allowOutsideClick: false,
+                           showCancelButton: false,
+                           showConfirmButton: false,
+                       });
+                       Swal.showLoading();
+                   },
+                   success: function(response) {
+                       Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
+                       setTimeout(function() {
+                           window.location.reload();
+                       }, 2000); 
+                   },
+                   error: function(xhr, ajaxOptions, thrownError) {
+                       Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
+                   }
+               });
+           }
+       });
+   
+   };
     
 </script>
 
