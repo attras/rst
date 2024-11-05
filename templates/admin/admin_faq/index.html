@@ -143,7 +143,6 @@
     });
 
     function Tambah_faq(){
-        var editFaqModal = document.getElementById('editFaqModal');
         var form = editFaqModal.querySelector('form');
         document.getElementById('editFaqModalLabel').textContent = 'Tambahkan FAQ';
         form.action = "{% url 'admin_setori:add_faq' %}";

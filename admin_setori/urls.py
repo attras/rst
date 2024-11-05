@@ -25,7 +25,9 @@ urlpatterns = [
     path('kategori/',include([
         path('', master_kategori.Master_kategoriViews.as_view(), name = 'master_kategori'),
         path('add', master_kategori.AddCategory.as_view(), name = 'add_kategori'),
-        path('del/<uuid:category_id>', master_kategori.DeleteCategory.as_view(), name = 'del_kategori'),
+        path('edit/<str:categori_id>', master_kategori.EditCategory.as_view(), name = 'edit_kategori'),
+        path('del/<str:category_id>', master_kategori.DeleteCategory.as_view(), name = 'del_kategori'),
+        
         ])),
     
     # path('add_kategori',master_kategori.Addkategori.as_view(),name='add_kategori'),
