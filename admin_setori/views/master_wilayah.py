@@ -15,7 +15,7 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Master_wilayahViews(View):
     def get(self, request):
-        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True)
+        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True).order_by('wilayah_level')
         provinsi_choices = MasterWilayah.objects.filter(wilayah_level='1')
         kabupaten_choices = MasterWilayah.objects.filter(wilayah_level='2')
         kecamatan_choices = MasterWilayah.objects.filter(wilayah_level='3')

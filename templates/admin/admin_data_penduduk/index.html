@@ -43,9 +43,11 @@
                                 <th class="bg-transparent border-bottom-0">Wanita</th>
                                 <th class="bg-transparent border-bottom-0">Jumlah KK</th>
                                 <th class="bg-transparent border-bottom-0">Total Penduduk</th>
+                              
                                 <th class="bg-transparent border-bottom-0">Action</th>
                                 
                             </tr>
+                           
                         </thead>
                         <tbody>
                           {% for penduduk in dt_data_penduduk %}
@@ -57,7 +59,7 @@
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.wanita}}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_kk }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_penduduk }}</td>
-                    
+
                                 <td class="text-muted fs-15 fw-semibold">
                                     <a class="btn btn-primary btn-sm rounded-11 me-2" 
                                         href="#" 
@@ -94,10 +96,51 @@
                                         
                                         
                                     </td>
+                                    
+                            </tr>
+                           
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Wilayah</th>
+                                <th>Total Pria</th>
+                                <th>Total wanita</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in total_pria_per_wilayah %}
+                            <tr>
+                                <td>{{ item.wilayah__wilayah_nama }}</td>
+                                <td>{{ item.total_pria }}</td>
+                                <td>{{ item.total_wanita }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Wilayah Parent</th>
+                                <th>Total Pria</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in total_pria_per_wilayah_parent %}
+                            <tr>
+                                <td>{{ item.wilayah__wilayah_parent__wilayah_nama }}</td>
+                                <td>{{ item.total_pria }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <p>Jumlah total pria di semua wilayah {{ total_pria }}</p>
+
+                  
                 </div>
             </div>
         </div>
@@ -119,7 +162,7 @@
                 <form method="post" action="{% url 'admin_setori:add_data_penduduk' %}">
                     {% csrf_token %}
                     
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="identitas" class="form-label">Identitas</label>
                         <select name="identitas" id="identitas" class="form-select" required>
                             <option value="" disabled selected>Pilih identitas Wilayah</option>
@@ -127,7 +170,9 @@
                                 <option value="{{ value }}">{{ label }}</option>
                             {% endfor %}
                         </select>
-                    </div>
+                    </div> -->
+                    <input type="hidden" name="identitas-oap"  value="1">
+                    <input type="hidden" name="identitas-non" value="2">
                     
                     <div class="mb-3">
                         <label for="wilayah" class="form-label">Wilayah</label>
@@ -140,18 +185,32 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label class="form-label">Pria</label>
-                        <input type="number" name="pria" class="form-control" placeholder="Masukan jumlah pria" min="0" required />
+                        <label class="form-label">Pria OAP</label>
+                        <input type="number" name="pria-oap" class="form-control" placeholder="Masukan jumlah pria" min="0" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Wanita OAP</label>
+                        <input type="number" name="wanita-oap" class="form-control" placeholder="Masukan jumlah wanita" min="0" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Jumlah KK OAP</label>
+                        <input type="number" name="kk-oap" class="form-control" placeholder="Masukan jumlah kk" min="0" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Pria NON-OAP</label>
+                        <input type="number" name="pria-non" class="form-control" placeholder="Masukan jumlah pria" min="0" required />
                     </div>
                     
-                    <div class="mb-3">
-                        <label class="form-label">Wanita</label>
-                        <input type="number" name="wanita" class="form-control" placeholder="Masukan jumlah wanita" min="0" required />
-                    </div>
                     
                     <div class="mb-3">
-                        <label class="form-label">Jumlah KK</label>
-                        <input type="number" name="kk" class="form-control" placeholder="Masukan jumlah kk" min="0" required />
+                        <label class="form-label">Wanita NON-OAP</label>
+                        <input type="number" name="wanita-non" class="form-control" placeholder="Masukan jumlah wanita" min="0" required />
+                    </div>
+                    
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Jumlah KK NON-OAP</label>
+                        <input type="number" name="kk-non" class="form-control" placeholder="Masukan jumlah kk" min="0" required />
                     </div>
                     
                     <div class="mb-3 text-center">

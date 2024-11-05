@@ -4,10 +4,11 @@
 {% endblock css %}
 {% block main %}
 
-<!-- <form method="post" action="{% url 'admin_setori:add_info_wilayah' %}">
+<form method="post" action="{% url 'admin_setori:add_info_wilayah' %}">
     {% csrf_token %}
     <div class="row">
 
+    
    
     <div class="mb-3">
         <label for="visi" class="form-label">Visi</label>
@@ -56,35 +57,8 @@
         <button type="submit" class="btn btn-primary col-6">Save</button>
     </div>
 </div>
-</form> -->
-
-<form method="post" class="card">
-    <div class="card-header">
-        <h3 class="card-title">File Upload</h3>
-    </div>
-    <div class=" card-body">
-        <div class="row mb-5">
-            <div class="col-lg-4 col-sm-12 mb-4 mb-lg-0">
-                <input type="file" class="dropify" data-bs-height="180" />
-            </div>
-            <div class="col-lg-4 col-sm-12 mb-4 mb-lg-0">
-                <input type="file" class="dropify" data-bs-default-file="../../assets/images/media/1.jpg" data-bs-height="180"  />
-            </div>
-            <div class="col-lg-4 col-sm-12">
-                <input type="file" class="dropify" disabled="disabled"  />
-            </div>
-        </div>
-        <div class="input-group mb-5 file-browser">
-            <input type="text" class="form-control browse-file" placeholder="Choose" readonly>
-            <label class="input-group-text btn btn-primary">
-                Browse <input type="file" class="file-browserinput" style="display: none;" multiple>
-            </label>
-        </div>
-        <div class="form-group mb-0">
-            <input id="demo" type="file" name="files" accept=".jpg, .png, image/jpeg, image/png" multiple>
-        </div>
-    </div>
 </form>
+
 
 
 {% endblock main %}

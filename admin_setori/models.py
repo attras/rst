@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 import random,string
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
+from django.db.models import Sum, Q
 # Create your models here.
 
 def validate_file_gambar(value):
@@ -231,6 +232,8 @@ class Data_peduduk(CreateUpdateTime):
             if str(key) == self.identitas:
                 return value
         return None
+    
+   
 
 
 class Info_wilayah(CreateUpdateTime):
@@ -242,7 +245,7 @@ class Info_wilayah(CreateUpdateTime):
     tahun_pembentukan = models.IntegerField(help_text="Tahun pembentukan kelurahan")
     dasar_hukum_pembentukan = models.TextField(help_text="Dasar hukum pembentukan kelurahan")
     kode_pos = models.CharField(max_length=10, help_text="Kode pos kelurahan")
-    wilayah = models.ForeignKey(MasterWilayah, on_delete=models.RESTRICT)
+    wilayah = models.ForeignKey(MasterWilayah, on_delete=models.CASCADE)
 
 class Tentang(CreateUpdateTime):
     id_tentang = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
