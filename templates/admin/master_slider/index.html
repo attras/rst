@@ -87,19 +87,18 @@
             <div class="modal-body">
                 <form method="post" action="{% url 'admin_setori:add_slider' %}" enctype="multipart/form-data">
                     {% csrf_token %}
-                    
-                    <div class="mb-3">
+                    <div class="col-lg-4 col-sm-12 mb-3 mb-lg-0">
                         <label class="form-label" for="id_logo">Logo</label>
-                        <input type="file" name="logo" id="id_logo" class="form-control" accept="image/*"  />
+                        <input type="file" name="logo" id="id_logo" class="dropify" data-bs-height="180" accept="image/*" required/>
                         <div class="form-text">Unggah logo slider (format gambar).</div>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="col-lg-4 col-sm-12 mb-3 mb-lg-0">
                         <label class="form-label" for="id_foto">Background Foto</label>
-                        <input type="file" name="foto" id="id_foto" class="form-control" accept="image/*" required />
+                        <input type="file" name="foto" id="id_foto" class="dropify" data-bs-height="180" accept="image/*" required/>
                         <div class="form-text">Unggah background foto slider (format gambar).</div>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label class="form-label" for="id_text">Teks Slider</label>
                         <input type="text" name="text" id="id_text" class="form-control" maxlength="255" placeholder="Masukkan teks slider"  />
