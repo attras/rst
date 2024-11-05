@@ -21,4 +21,4 @@ class FaqViews(View):
         data = {
             'dt_faq' : dt_faq
         }
-        return render(request, 'setori/faq/index.html',data)
+        return render(request, 'setori/faq/index.html', data)

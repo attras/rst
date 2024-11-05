@@ -3,14 +3,32 @@
 
 {% block css %}
 <style>
-    .social-icons .fab {
-    font-size: 2em; /* Mengatur ukuran ikon, dapat disesuaikan */
+.sosmed-icons {
+    display: flex;
+    justify-content: center; /* Memusatkan ikon */
+    list-style-type: none; /* Menghilangkan bullet point */
+    padding: 0; /* Menghilangkan padding */
 }
 
-/* Contoh penyesuaian tambahan */
-.social-icons a {
-    display: inline-block;
-    margin: 10px; /* Jarak antar ikon */
+.social-icon {
+    margin: 0 15px; /* Spasi antar ikon */
+    transition: background-color 0.3s; /* Efek transisi pada hover */
+    border-radius: 50%; /* Membuat sudut bulat pada background */
+    width: 70px; /* Ganti sesuai ukuran yang diinginkan */
+    height: 70px; /* Ganti sesuai ukuran yang diinginkan */
+    display: flex; /* Membuat flex container untuk ikon */
+    align-items: center; /* Memusatkan ikon secara vertikal */
+    justify-content: center; /* Memusatkan ikon secara horizontal */
+}
+
+.social-icon a {
+    text-decoration: none; /* Menghilangkan garis bawah */
+    color: #000; /* Warna ikon */
+    font-size: 50px; /* Ukuran ikon 50px */
+}
+
+.social-icon:hover {
+    background-color: rgba(0, 123, 255, 0.2); /* Ganti dengan warna custom */
 }
 
 </style>
@@ -44,93 +62,88 @@
             <!-- Intro -->
             <div class="container pt-4 pt-lg-5 pb-4" id="intro">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 mb-5 mb-lg-0">
-                        <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
-                            <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-2">Hubungi</h2>
+                        <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                            <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Hubungi</h2>
                         </div>
-                    </div>
                 </div>
                 <div class="p-relative">
-                    <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+                    <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                         <p class="mb-0">
                             Apakah Anda memiliki pertanyaan mengenai fitur layanan kami, atau ingin melaporkan tindak pidana berkaitan dengan kesehatan? tim profesional kami yang berpengalaman siap membantu Anda.</p>
                     </div>
                 </div>
 
+
                 <!--isi kontak-->
-                <div class="row mt-5 pt-2">
-                    <div class="col-lg-3 mb-3 mb-lg-0">
-                        <div class="feature-box feature-box-secondary">
-                            <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                                <img src="{% static 'img/img/icons/pin-light.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': ''}" />
-                            </div>
-                            <div class="feature-box-info ps-3">
-                                <strong class="d-block text-4-5 text-dark mb-1">Dinas Kesehatan Kab Supiori</strong>
-                                <p class="mb-0 text-3-5 line-height-7">Marsram, Kec. Supiori Tim.</p>
-                                <p class="mb-0 text-3-5 line-height-7">Kabupaten Supiori, Papua 98161</p>
-                                <p class="mb-0 text-3-5 line-height-7"><a href="https://www.google.com/maps" target="_blank" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">Get Directions</a></p>
+                {% for kontak in dt_kontak %}
+                    <div class="row mt-5 pt-2">
+                        <div class="col-lg-4 mb-3 mb-lg-0">
+                            <div class="feature-box feature-box-secondary">
+                                <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                                    <img src="{% static 'img/img/icons/pin-light.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': ''}" />
+                                </div>
+                                <div class="feature-box-info ps-3">
+                                    <strong class="d-block text-4-5 text-dark mb-1">{{ kontak.nama_instansi }}</strong>
+                                    <p class="mb-0 text-3-5 line-height-7">{{ kontak.alamat }}</p>
+                                    <p class="mb-0 text-3-5 line-height-7"><a href="{{ kontak.maps }}" target="_blank" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">Lihat di Maps</a></p>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-lg-4">
+                            <div class="feature-box feature-box-secondary">
+                                <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                                    <img src="{% static 'img/img/icons/email.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                                </div>
+                                <div class="feature-box-info ps-3">
+                                    <strong class="d-block text-4-5 text-dark mb-1">Alamat E-mail</strong>
+                                    <p class="mb-0 text-3-5 line-height-7">Alamat Pengaduan:</p>
+                                    <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="{{ kontak.email_pengaduan }}" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ kontak.email_pengaduan }}</a></p>
+                                    <p class="mb-0 text-3-5 line-height-7">Customer Servise:</p>
+                                    <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="{{ kontak.email_cs }}" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ kontak.email_cs }}</a></p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4">
+
+                            <div class="feature-box feature-box-secondary">
+                                <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
+                                    <img src="{% static 'img/img/icons/phone-2.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                                </div>
+                                <div class="feature-box-info ps-3">
+                                    <strong class="d-block text-4-5 text-dark mb-1">Nomor Handphone</strong>
+                                    <p class="mb-0 text-3-5 line-height-7">Nomor Pengaduan: <a href="https://wa.me/{{ kontak.no_pengaduan }}" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">{{ kontak.no_pengaduan }}</a></p>
+                                </div>
+                            </div>
+                        </div>                   
+                        <p></p>
+                            <div class="feature-box feature-box-secondary">
+                                <div class="feature-box-info ps-3">
+                                    <strong class="d-block text-4-5 text-dark mb-1 text-center">Sosial Media</strong>
+                                    <p></p>
+                                        <div class="text-center">
+                                            <ul class="sosmed-icons">
+                                                <li class="social-icon">
+                                                    <a href="{{ kontak.link_ig }}" title="Instagram">
+                                                        <i class="fa-brands fa-instagram"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="social-icon">
+                                                    <a href="{{ kontak.link_twitter }}" title="X">
+                                                        <i class="fa-brands fa-x-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="social-icon">
+                                                    <a href="{{ kontak.link_facebook }}" title="Facebook">
+                                                        <i class="fa-brands fa-facebook-f"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>                                                                
+                                </div>
+                            </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="feature-box feature-box-secondary">
-                            <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                                <img src="{% static 'img/img/icons/email.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
-                            </div>
-                            <div class="feature-box-info ps-3">
-                                <strong class="d-block text-4-5 text-dark mb-1">Alamat E-mail</strong>
-                                <p class="mb-0 text-3-5 line-height-7">Alamat Pengaduan:</p>
-                                <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:info@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">pengaduansupiori@gmail.com</a></p>
-                                <p class="mb-0 text-3-5 line-height-7">Customer Servise:</p>
-                                <p class="mb-0 text-3-5 line-height-7 pb-3"><a href="mailto:support@youraccountingfirm.com" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">cssupiori@gmail.com</a></p>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-3">
-
-                        <div class="feature-box feature-box-secondary">
-                            <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                                <img src="{% static 'img/img/icons/phone-2.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
-                            </div>
-                            <div class="feature-box-info ps-3">
-                                <strong class="d-block text-4-5 text-dark mb-1">Nomor Handphone</strong>
-                                <p class="mb-0 text-3-5 line-height-7">Nomor Pengaduan: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
-                                <p class="mb-0 text-3-5 line-height-7">Hotline: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
-                                <p class="mb-0 text-3-5 line-height-7">Customer Servise: <a href="tel:1234567890" class="text-color-secondary text-color-hover-primary font-weight-semi-bold text-decoration-underline">800 123 4567</a></p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-lg-3">
-                        <div class="feature-box feature-box-secondary">
-                            <div class="feature-box-icon feature-box-icon-lg p-static box-shadow-7">
-                                <img src="{% static 'img/img/icons/phone-2.svg' %}" width="30" height="30" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
-                            </div>
-                            <div class="feature-box-info ps-3">
-                                <strong class="d-block text-4-5 text-dark mb-1">Sosial Media</strong>
-                                <ul class="social-icons social-icons-clean social-icons-medium">
-                                    <li class="social-icons-instagram">
-                                        <a href="http://www.instagram.com/" target="_blank" title="Instagram">
-                                            <i class="fab fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                    <li class="social-icons-x">
-                                        <a href="http://www.x.com/" target="_blank" title="X">
-                                            <i class="fab fa-x-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li class="social-icons-facebook">
-                                        <a href="http://www.facebook.com/" target="_blank" title="Facebook">
-                                            <i class="fab fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                </ul>    
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
+                {% endfor %}
 
                 <div class="row pt-4">
                     <div class="col pt-4">
