@@ -50,8 +50,8 @@ class AddUser(View):
         
 
 class DeleteUser(View):
-    def get(self, request, id_user):
-        del_user = get_object_or_404(Account,id=id_user)
+    def get(self, request, id):
+        del_user = get_object_or_404(Account,id=id)
         del_user.delete()
         messages.success(request, f"data berhasil dihapus")
         return redirect('admin_setori:master_user')

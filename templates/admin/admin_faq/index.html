@@ -186,7 +186,7 @@
            
     
     // Show confirmation dialog
-    function Hapus_faq(id) {
+    function Hapus_faq(id_hapus_faq) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',
         showCancelButton: true,
@@ -196,7 +196,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `delete_at/${id}`,
+                url: "{% url 'admin_setori:delete_at_faq' 'holder' %}".replace('holder', id_hapus_faq),
                 dataType: "html",
                 timeout: 10000,
                 beforeSend: function() {
