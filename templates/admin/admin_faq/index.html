@@ -12,9 +12,9 @@
         </ol>
     </div>
     <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#editFaqModal" onclick="Tambah_faq()">
             <span>
-                <i class="fe fe-plus"></i>
+                <i class="fe fe-plus" ></i>
             </span> Add kategori
         </a>
         <a href="{% url 'admin_setori:histori_faq' %}" class="btn btn-success btn-icon text-white">
@@ -69,22 +69,6 @@
                                          </i> 
                                      </a>
                                      
-                                        <!-- <a class="btn btn-danger btn-sm rounded-11"
-                                         data-bs-toggle="modal" 
-                                         data-bs-target="#deleteUserModal" 
-                                         data-bs-original-title="Delete"
-                                         data-bs-id="{{ faq.faq_id }}" 
-                                         data-bs-pertanyaan="{{ faq.pertanyaan }}" 
-                                         >
-                                         
-                                            <i>
-                                                <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
-                                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
-                                                </svg>
-                                            </i>
-                                        </a> -->
-
                                         <a >
                                             <button type="button" class="btn btn-danger" onclick="Hapus_faq('{{faq.faq_id }}')">
                                                 <i class="fe fe-trash"></i> Hapus
@@ -104,34 +88,8 @@
     <!-- COL END -->
 </div>
 
-<!-- Add User Modal -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">FAQ</h5>
-                <button type="button" class="btn-close fa fa-search" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_faq' %}">
-                  {% csrf_token %}
-                    <div class="mb-3">
-                        <label  class="form-label">Pertanyaan</label>
-                        <input type="text" name="pertanyaan" class="form-control"  placeholder="Masukan Pertanyaan" />
-                    </div>
-                    <div class="mb-3"></div>
-                        <label  class="form-label">Jawaban</label>
-                        <textarea type="text" name="jawaban" class="form-control"  placeholder="Masukan Jawaban"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- edit User Modal -->
-<!-- Edit FAQ Modal -->
+<!-- Add dan Edit FAQ Modal -->
 
 <div class="modal fade" id="editFaqModal" tabindex="-1" aria-labelledby="editFaqModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -151,7 +109,7 @@
                         <label class="form-label">Jawaban</label>
                         <textarea name="jawaban" id="edit-jawaban" class="form-control" placeholder="Masukan Jawaban" required ></textarea>
                     </div>
-                    <button type="submit" class="btn btn-warning">Update FAQ</button>
+                    <button type="submit" class="btn btn-primary">Update FAQ</button>
                 </form>
             </div>
         </div>
@@ -183,6 +141,14 @@
         form.action = "{% url 'admin_setori:edit_faq' 'holder' %}".replace('holder', faqId);
         
     });
+
+    function Tambah_faq(){
+        var editFaqModal = document.getElementById('editFaqModal');
+        var form = editFaqModal.querySelector('form');
+        document.getElementById('editFaqModalLabel').textContent = 'Tambahkan FAQ';
+        form.action = "{% url 'admin_setori:add_faq' %}";
+
+    };
            
     
     // Show confirmation dialog
