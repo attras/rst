@@ -12,7 +12,7 @@
         </ol>
     </div>
     <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addKategoriModal">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addKategoriModal" onclick="Tambah_kat_berita()">
             <span>
                 <i class="fe fe-plus"></i>
             </span> Add kategori
@@ -46,7 +46,22 @@
                             <tr class="border-bottom" >
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ kategori.name }}</td>
-                                <td class="">
+                                <td class="text-muted fs-15 fw-semibold">
+                                        <a class="btn btn-primary btn-sm rounded-11 me-2" 
+                                            href="#" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#addKategoriModal" 
+                                            data-bs-id="{{ kategori.categori_id }}" 
+                                            data-bs-nama="{{ kategori.name }}" >
+                                            <i>
+                                                <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
+                                                    <path d="M0 0h24v24H0V0z" fill="none" />
+                                                    <path
+                                                        d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"
+                                                    />
+                                                </svg>
+                                            </i> 
+                                        </a>
                                         <!--delete kategori-->
                                         <a >
                                             <button type="button" class="btn btn-danger" onclick="Hapus_kat_berita('{{kategori.categori_id }}')">
@@ -73,11 +88,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_kategori' %}">
+                <form method="post">
                   {% csrf_token %}
                     <div class="mb-3">
                         <label class="form-label">Kategori</label>
-                        <input type="text" name="name" class="form-control" placeholder="Masukkan Nama Kategori" required />
+                        <input type="text" name="name" id="nama" class="form-control" placeholder="Masukkan Nama Kategori" required />
                     </div>
                     <button type="submit"  onclick="" class="btn btn-primary">Simpan</button>
                 </form>
@@ -85,43 +100,41 @@
         </div>
     </div>
 </div>
-{% for kategori in dt_category %}
-   <!-- Delete Identitas Modal -->
-<div class="modal fade" id="deleteKategoriModal_{{ kategori.categori_id }}" tabindex="-1" aria-labelledby="deleteKategoriModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteKategoriModalLabel">Delete Identitas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah Anda yakin ingin menghapus identitas ini?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <a href="{% url 'admin_setori:del_kategori' category_id=kategori.categori_id %}">
-                    <button type="button" class="btn btn-danger">Hapus</button>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-{% endfor %}
+
 {% endblock main %}
 {% block js %}
 <!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->
 <script>
-//          function showAlert() {
-//             Swal.fire({
-//                 position: "top",
-//   icon: "success",
-//   title: "Your work has been saved",
-//   showConfirmButton: false,
-//   timer: 6000
-//             });
-//         }
+    var editKategoriModal = document.getElementById('addKategoriModal');
+    editKategoriModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
 
-    // Show confirmation dialog
+        // Extract info from data-bs-* attributes
+        var KategoriId = button.getAttribute('data-bs-id');
+        var nama = button.getAttribute('data-bs-nama');
+
+        // Update the modal's form fields
+        var modalTitle = editKategoriModal.querySelector('.modal-title');
+        var inputnama = editKategoriModal.querySelector('#nama');
+        var form = editKategoriModal.querySelector('form');
+
+        modalTitle.textContent = 'Edit  ' + nama;
+        inputnama.value = nama;
+
+        // Update form action URL dynamically with the correct FAQ ID
+        form.action = "{% url 'admin_setori:edit_kategori' 'holder' %}".replace('holder', KategoriId);
+       
+       
+    });
+
+    function Tambah_kat_berita(){
+        var form = editKategoriModal.querySelector('form');
+        document.getElementById('addKategoriModalLabel').textContent = 'Tambahkan Kategori';
+        form.action = "{% url 'admin_setori:add_kategori' %}";
+
+    };
+
     function Hapus_kat_berita(id_hapus_kat_berita) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',

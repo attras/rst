@@ -21,7 +21,7 @@ class Master_kategoriViews(View):
             'dt_category': dt_category
         }
         return render(request, 'admin/master_kategori/index.html',data)
-    
+
 class AddCategory(View):
     def post(self, request):
         category_name = request.POST.get('name')  # Fetch the name field from POST request
@@ -38,6 +38,27 @@ class AddCategory(View):
             print('Error while adding category', e)
             messages.error(request, "Failed to add category")
             return redirect('admin_setori:master_kategori')
+
+    
+class EditCategory(View):
+    def post(self, request, categori_id):
+        name = request.POST.get('name')  # Fetch the name field from POST request
+        try:
+            with transaction.atomic():
+                
+                insert_category = get_object_or_404(Category,categori_id=categori_id)
+                insert_category.name = name
+                insert_category.updated_at = timezone.now()
+                insert_category.save()  # Save new category in the database
+
+                messages.success(request, "Category edit successfully!")
+                return redirect('admin_setori:master_kategori')  # Redirect to the list view
+                
+        except Exception as e:
+            print('Error while editing category', e)
+            messages.error(request, "Failed to edit category")
+            return redirect(reverse('admin_setori:master_kategori'))
+        
 
 
 # Delete a Category (DeleteCategory)
