@@ -384,6 +384,61 @@
             ]
         });
 
+        Highcharts.chart('penyakit_menular', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {        
+                    text: 'Data Penyakit menular',
+                    align: 'middle',
+                },
+
+                    subtitle: {
+                        text: 'Source: Data Spreadsheet',
+                        align: 'middle'
+                    },
+                    xAxis: {
+                        categories: [
+                            'Tuberkulosis',
+                            'Malaria',
+                            'DBD',
+                            'HIV',
+                            'Hepatitis'
+                            
+                        ],
+                        crosshair: true,
+                        accessibility: {
+                            description: 'Jenis penyakit menular'
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Jumlah Penderita'
+                        }
+                    },
+                    tooltip: {
+                        shared: true,
+                        valueSuffix: ' orang'
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
+                            borderWidth: 0,
+                            groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'OAP',
+                            data: [960, 742, 520, 133, 290]
+                        },
+                        {   
+                            name: 'non-OAP',
+                            data: [562, 932, 690, 530, 300]
+                        }
+                    ]
+                });
 
 
 
