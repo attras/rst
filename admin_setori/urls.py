@@ -68,6 +68,15 @@ urlpatterns = [
         path('delete_slider/<uuid:id>',master_slider.Delete_slider.as_view(),name='delete_slider'),
         ])),
 
+    path('master_jenis_kesehatan/',include([
+        path('',master_jenis_kesehatan.Master_jenis_kesehatanView.as_view(),name='master_jenis_kesehatan'),
+        path('add_jenis_kesehatan',master_jenis_kesehatan.Add_jenis_kesehatan.as_view(),name='add_jenis_kesehatan'),
+        path('delete/<str:jenis_kesehatan_id>',master_jenis_kesehatan.Deletejenis_kesehatan.as_view(),name='delete_jenis_kesehatan'),
+
+
+        ])),
+
+
     path('admin_layanan/',include([
         path('',layanan.LayananViews.as_view(),name='admin_layanan'),
         path('add_layanan/',layanan.Addlayanan.as_view(),name='add_layanan'),
@@ -93,6 +102,7 @@ urlpatterns = [
     path('data_penduduk/',include([
          path('',admin_data_penduduk.Admin_data_pendudukViews.as_view(),name='data_penduduk'),
          path('add/',admin_data_penduduk.Add_data_penduduk.as_view(),name='add_data_penduduk'),
+         
          
          ])),
 

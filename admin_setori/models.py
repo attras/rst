@@ -90,7 +90,7 @@ class Account(AbstractBaseUser):
     last_login = models.DateTimeField(null=True)
     phone = models.CharField(max_length=15)
     date_of_birth = models.DateField(blank=True, null=True)
-    #avatar = models.ImageField(blank=True, null=True, upload_to='profile/images/avatar/', validators=[validate_file_gambar, validate_file_size_gambar],)
+    avatar = models.ImageField(blank=True, null=True, upload_to='profile/', validators=[validate_file_gambar, validate_file_size_gambar],)
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='posting')
     email_verification_token = models.CharField(max_length=100, default='')
     
@@ -264,3 +264,8 @@ class Kontak(CreateUpdateTime):
     no_pengaduan = models.CharField(max_length=15, blank=True, null=True)
     nama_instansi = models.CharField(max_length=100)
     status = models.BooleanField(default=True)
+
+class Jenis_kesehatan(CreateUpdateTime):
+    jenis_kesehatan_id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
+    nama_jenis = models.CharField(max_length=255)
+

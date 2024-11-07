@@ -13,4 +13,5 @@ from .admin_berita import *
 from .admin_info_wilayah import *
 from .admin_data_kesehatan import *
 from .admin_data_penduduk import *
+from .master_jenis_kesehatan import *
 

@@ -107,7 +107,7 @@
 								<li><a href="{% url 'admin_setori:master_kategori' %}" class="slide-item"> Master Kategori Berita</a></li>
 								<li><a href="{% url 'admin_setori:master_wilayah' %}" class="slide-item"> Master wilayah</a></li>
 								<li><a href="{% url 'admin_setori:master_slider' %}" class="slide-item"> Master Slider</a></li>
-								<li><a href="#" class="slide-item"> Master Jenis data kesehatan</a></li>
+								<li><a href="{%  url 'admin_setori:master_jenis_kesehatan' %}" class="slide-item"> Master Jenis data kesehatan</a></li>
 								<!-- <li><a href="#" class="slide-item"> Master Indikator</a></li> -->
 								
 							</ul>
@@ -154,25 +154,26 @@
 				<div class="app-header header">
 					<div class="container-fluid">
 						<div class="d-flex">
-							<a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
-							<a class="header-brand1 d-flex d-md-none" href="index.html">
-								<img src="{% static 'admin/assets/images/brand/logo.png' %}" class="header-brand-img desktop-logo" alt="logo">
-								<img src="{% static 'admin/assets/images/brand/logo-1.png' %}" class="header-brand-img toggle-logo" alt="logo">
-								<img src="{% static 'admin/assets/images/brand/logo-2.png' %}" class="header-brand-img light-logo" alt="logo">
-								<img src="{% static 'admin/assets/images/brand/logo-3.png' %}" class="header-brand-img light-logo1" alt="logo">
-							</a><!-- LOGO -->
+							<a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" ></a><!-- sidebar-toggle-->
+							<!-- <a class="header-brand1 d-flex d-md-none" href="index.html">
+							<img src="{% static 'admin/assets/images/brand/supiorilogo.png' %}" class="header-brand-img light-logo1" alt="logo">
+							</a> -->
+							<!-- LOGO -->
 							
 							<div class="d-flex order-lg-2 ms-auto header-right-icons">
-								<!-- SEARCH -->
-								<button class="navbar-toggler navresponsive-toggler d-md-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-									<span class="navbar-toggler-icon fe fe-more-vertical text-dark"></span>
-								</button>
-								<div class="dropdown d-none d-md-flex">
+							
+								<div class="navbar-toggler navresponsive-toggler d-md-none ms-auto">
+									<a href="#" class="nav-link icon " data-bs-toggle="sidebar-right" data-target=".sidebar-right">
+										<i class="fe fe-menu"></i>
+									</a>
+								</div>
+								<!-- <div class="dropdown d-none d-md-flex">
 									<a class="nav-link icon theme-layout nav-link-bg layout-setting">
 										<span class="dark-layout" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Dark Theme"><i class="fe fe-moon"></i></span>
 										<span class="light-layout" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Light Theme"><i class="fe fe-sun"></i></span>
 									</a>
-								</div><!-- Theme-Layout -->
+								</div> -->
+								<!-- Theme-Layout -->
 								
 								
 								<div class="dropdown d-none d-md-flex profile-1">
@@ -192,18 +193,14 @@
 										<a class="dropdown-item" href="profile.html">
 											<i class="dropdown-icon fe fe-user"></i> Profile
 										</a>
-										<a class="dropdown-item" href="email.html">
-											<i class="dropdown-icon fe fe-mail"></i> Inbox
-											<span class="badge bg-primary float-end">3</span>
-										</a>
-										<a class="dropdown-item" href="emailservices.html">
-											<i class="dropdown-icon fe fe-settings"></i> Settings
-										</a>
-										<a class="dropdown-item" href="faq.html">
-											<i class="dropdown-icon fe fe-alert-triangle"></i> Need help??
-										</a>
 										<a class="dropdown-item" href="{% url 'admin_setori:logout_admin' %}">
 											<i class="dropdown-icon fe fe-alert-circle"></i> Sign out
+										</a>
+										
+									</div>
+									<div class="dropdown d-md-flex header-settings">
+										<a href="#" class="nav-link icon " data-bs-toggle="sidebar-right" data-target=".sidebar-right">
+											<i class="fe fe-menu"></i>
 										</a>
 									</div>
 								</div>
@@ -212,93 +209,82 @@
 						</div>
 					</div>
 				</div>
-				<div class="mb-1 navbar navbar-expand-lg  responsive-navbar navbar-dark d-md-none bg-white">
-					<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-						<div class="d-flex order-lg-2 ms-auto">
-							<div class="dropdown d-sm-flex">
-								<a href="#" class="nav-link icon" data-bs-toggle="dropdown">
-									<i class="fe fe-search"></i>
-								</a>
-								<div class="dropdown-menu header-search dropdown-menu-start">
-									<div class="input-group w-100 p-2">
-										<input type="text" class="form-control" placeholder="Search....">
-										<div class="input-group-text btn btn-primary">
-											<i class="fa fa-search" aria-hidden="true"></i>
+				
+				
+				<!-- /Mobile Header -->
+
+
+
+				<!-- Sidebar-right -->
+			<div class="sidebar sidebar-right sidebar-animate">
+				<div class="panel panel-primary card mb-0 shadow-none border-0">
+					<div class="tab-menu-heading border-0 d-flex p-3">
+						<div class="card-title mb-0">Admin</div>
+						<div class="card-options ms-auto">
+							<a href="#" class="sidebar-icon text-end float-end me-1" data-bs-toggle="sidebar-right" data-target=".sidebar-right"><i class="fe fe-x text-white"></i></a>
+						</div>
+					</div>
+					<div class="panel-body tabs-menu-body latest-tasks p-0 border-0">
+						
+						<div class="tab-content">
+							<div class="tab-pane active" id="side1">
+								<div class="card-body text-center">
+									<div class="dropdown user-pro-body">
+										<div class="">
+											<img alt="user-img" class="avatar avatar-xl brround mx-auto text-center" src="../../assets/images/faces/6.jpg"><span class="avatar-status profile-status bg-green"></span>
+										</div>
+										<div class="user-info mg-t-20">
+											<h6 class="fw-semibold  mt-2 mb-0">Mintrona Pechon</h6>
+											<span class="mb-0 text-muted fs-12">Premium Member</span>
 										</div>
 									</div>
 								</div>
-							</div><!-- SEARCH -->
-							<div class="dropdown d-md-flex">
-								<a class="nav-link icon theme-layout nav-link-bg layout-setting">
-									<span class="dark-layout" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Dark Theme"><i class="fe fe-moon"></i></span>
-									<span class="light-layout" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Light Theme"><i class="fe fe-sun"></i></span>
-								</a>
-							</div><!-- Theme-Layout -->
-							<div class="dropdown d-md-flex">
-								<a class="nav-link icon full-screen-link nav-link-bg">
-									<i class="fe fe-minimize fullscreen-button"></i>
-								</a>
-							</div><!-- FULL-SCREEN -->
-							<!-- NOTIFICATIONS -->
-							<!-- MESSAGE-BOX -->
-							<div class="dropdown d-md-flex profile-1">
-								<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
-									<span>
-										<img src="{% static '' %}admin/assets/images/users/8.jpg" alt="profile-user" class="avatar  profile-user brround cover-image">
-									</span>
-								</a>
-								<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-									<div class="drop-heading">
-										<div class="text-center">
-											<h5 class="text-dark mb-0">Elizabeth Dyer</h5>
-											<small class="text-muted">Administrator</small>
+								<a class="dropdown-item d-flex border-bottom border-top" href="profile.html">
+									<div class="d-flex"><i class="fe fe-user me-3 tx-20 text-muted"></i>
+										<div class="pt-1">
+											<h6 class="mb-0">My Profile</h6>
+											<p class="tx-12 mb-0 text-muted">Profile Personal information</p>
 										</div>
 									</div>
-									<div class="dropdown-divider m-0"></div>
-									<a class="dropdown-item" href="#">
-										<i class="dropdown-icon fe fe-user"></i> Profile
-									</a>
-									<a class="dropdown-item" href="#">
-										<i class="dropdown-icon fe fe-mail"></i> Inbox
-										<span class="badge bg-primary float-end">3</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<i class="dropdown-icon fe fe-settings"></i> Settings
-									</a>
-									<a class="dropdown-item" href="#">
-										<i class="dropdown-icon fe fe-alert-triangle"></i> Need help?
-									</a>
-									<a class="dropdown-item" href="{% url 'admin_setori:logout_admin' %}">
-										<i class="dropdown-icon fe fe-alert-circle"></i> Sign out
-									</a>
-								</div>
+								</a>
+								<a class="dropdown-item d-flex border-bottom" href="{% url 'admin_setori:logout_admin' %}">
+									<div class="d-flex"><i class="fe fe-power me-3 tx-20 text-muted"></i>
+										<div class="pt-1">
+											<h6 class="mb-0">Sign Out</h6>
+											<p class="tx-12 mb-0 text-muted">Account Signout</p>
+										</div>
+									</div>
+								</a>
 							</div>
-							<div class="dropdown d-md-flex header-settings">
-								<a href="#" class="nav-link icon " data-bs-toggle="sidebar-right" data-target=".sidebar-right">
-									<i class="fe fe-menu"></i>
-								</a>
-							</div><!-- SIDE-MENU -->
+							
 						</div>
 					</div>
 				</div>
-				<!-- /Mobile Header -->
+			</div>
+			<!--/Sidebar-right-->
 
+			
                 <!--app-content open-->
 				<div class="app-content">
 					<div class="side-app">
 						
-		<!-- {% if messages %}
-    <div id="messages-container" style="display:none;">
-        {% for message in messages %}
-            <span class="message">{{ message }}</span>
-        {% endfor %}
-    </div>
-{% endif %} -->
+
+				<!-- {% if messages %}
+					<div id="messages-container" style="display:none;">
+						{% for message in messages %}
+							<span class="message">{{ message }}</span>
+						{% endfor %}
+					</div>
+				{% endif %} -->
 
 				{% if messages %}
 					<div id="messages-container" style="display:none;">
 						{% for message in messages %}
-							<span class="message">{{ message }}</span>
+							{% if message.tags == "success" %}
+								<span class="message success-message" data-message="{{ message }}">{{ message }}</span>
+							{% elif message.tags == "error" %}
+								<span class="message error-message" data-message="{{ message }}">{{ message }}</span>
+							{% endif %}
 						{% endfor %}
 					</div>
 				{% endif %}
@@ -333,23 +319,29 @@
 
         
 		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				// Cek apakah elemen container pesan ada
-				var messagesContainer = document.getElementById('messages-container');
-				if (messagesContainer) {
-					// Ambil semua elemen span dengan class message
-					var messages = messagesContainer.getElementsByClassName('message');
-					// Tampilkan SweetAlert2 untuk setiap pesan
-					for (var i = 0; i < messages.length; i++) {
-						Swal.fire({
-							position: 'center',
-							icon: 'success',
-							title: messages[i].textContent,
-							showConfirmButton: false,
-							timer: 3000
-						});
-						
-					}
+			 document.addEventListener('DOMContentLoaded', function() {
+        // Success message
+				let successMessage = document.querySelector('.success-message');
+				if (successMessage) {
+					Swal.fire({
+						icon: 'success',
+						title: 'Berhasil!',
+						text: successMessage.getAttribute('data-message'),
+						timer: 2000,
+						showConfirmButton: false
+					});
+				}
+
+				// Error message
+				let errorMessage = document.querySelector('.error-message');
+				if (errorMessage) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Gagal!',
+						text: errorMessage.getAttribute('data-message'),
+						timer: 2000,
+						showConfirmButton: false
+					});
 				}
 			});
 		</script>
