@@ -52,6 +52,24 @@ class Add_jenis_kesehatan(View):
                 insert_jenis_kesehatan.nama_jenis = jenis
                 insert_jenis_kesehatan.save()  # Save new category in the database
 
+                messages.success(request, "data Jenis kesehatan berhasil tambahkan")
+                return redirect('admin_setori:master_jenis_kesehatan')  # Redirect to the list view
+                
+        except Exception as e:
+            print('gagal menambahkan', e)
+            messages.error(request, "gagal menambahkan")
+            return redirect('admin_setori:master_jenis_kesehatan')
+        
+class Edit_jenis_kesehatan(View):
+     def post(self, request):
+        
+        jenis= request.POST.get('jenis_kesehatan')  # Fetch the name field from POST request
+        try:
+            with transaction.atomic():
+                insert_jenis_kesehatan = Jenis_kesehatan()
+                insert_jenis_kesehatan.nama_jenis = jenis
+                insert_jenis_kesehatan.save()  # Save new category in the database
+
                 messages.success(request, "data Jenis kesehatan berhasil diedit")
                 return redirect('admin_setori:master_jenis_kesehatan')  # Redirect to the list view
                 

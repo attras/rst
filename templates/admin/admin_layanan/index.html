@@ -105,7 +105,7 @@
                     <div class="mb-3"></div>
                         <label  class="form-label">Persyaratan</label>
                        
-                        <textarea type="text" name="syarat" class="form-control edit"  placeholder="Masukan syarat" id="editor"></textarea>
+                        <textarea type="text" name="syarat" class="form-control edit"  placeholder="Masukan syarat" id="editor1"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary ">Save</button>
                 </form>
@@ -257,8 +257,49 @@
         Paragraph
     } from 'ckeditor5';
 
+    // Fungsi untuk inisialisasi editor
+    function initializeEditor(editorSelector) {
+        ClassicEditor
+            .create(document.querySelector(editorSelector), {
+                plugins: [Essentials, Bold, Italic, Font, Paragraph],
+                toolbar: [
+                    'undo', 'redo', '|', 'bold', 'italic', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                ],
+                height: '500px'
+            })
+            .then(editor => {
+                // Mendengarkan perubahan data pada setiap editor
+                editor.model.document.on('change:data', () => {
+                    const data = editor.getData();
+                    document.querySelector(`textarea[name="${editorSelector.replace('#', '')}"]`).value = data;
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    // Inisialisasi semua editor yang diperlukan
+    document.addEventListener("DOMContentLoaded", () => {
+        initializeEditor('#editor1'); // Editor pertama
+        initializeEditor('#editor2'); // Editor kedua
+        // Tambahkan lebih banyak editor jika diperlukan
+    });
+</script>
+
+<!-- <script type="module">
+    import {
+        ClassicEditor,
+        Essentials,
+        Bold,
+        Italic,
+        Font,
+        Paragraph
+    } from 'ckeditor5';
+
     ClassicEditor
-        .create( document.querySelector( '.edit' ), {
+        .create( document.querySelector( '#editor' ), {
             plugins: [ Essentials, Bold, Italic, Font, Paragraph ],
             toolbar: [
                 'undo', 'redo', '|', 'bold', 'italic', '|',
@@ -279,7 +320,7 @@
         });
 
 
-</script>
-
+</script> -->
+ 
 
 {% endblock main %}
