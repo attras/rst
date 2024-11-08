@@ -50,7 +50,13 @@ class Add_indikator(View):
             messages.error(request, "gagal menambahkan")
             return redirect(reverse('admin_setori:master_indikator',args=[jenis_kesehatan_id])) 
         
-
+class Delete_indikator(View):
+    def get(self, request, id_indikator):
+       
+        del_indikator = get_object_or_404(Indikator_kesehatan, id_indikator=id_indikator) 
+        del_indikator.delete()  
+        messages.success(request, "berhasil dihapus")
+        return redirect('admin_setori:master_jenis_kesehatan')
 
 
 

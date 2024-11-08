@@ -66,11 +66,11 @@
                                         </a>
                                         
                                         <!--delete kategori-->
-                                        <a >
-                                            <button type="button" class="btn btn-danger" onclick="Hapus_jenis('{{indikator.jenis_kesehatan_id }}')">
-                                                <i class="fe fe-trash"></i> Hapus
-                                            </button>     
-                                        </a>
+                                            <a >
+                                                <button type="submit" class="btn btn-danger" onclick="Hapus_indikator('{{indikator.id_indikator }}')">
+                                                    <i class="fe fe-trash"></i> Hapus
+                                                </button>     
+                                            </a>
 
                                 </td>
                             </tr>
@@ -119,7 +119,7 @@
         form.action = "{% url 'admin_setori:add_indikator' %}";
     };
 
-    function Hapus_jenis(jenis_kesehatan_id) {
+    function Hapus_indikator(id_indikator) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',
         showCancelButton: true,
@@ -129,7 +129,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `delete/${jenis_kesehatan_id}`,
+                url: `delete_indikator/${id_indikator}`,
                 dataType: "html",
                 timeout: 10000,
                 beforeSend: function() {

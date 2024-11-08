@@ -74,6 +74,7 @@ urlpatterns = [
         path('delete/<str:jenis_kesehatan_id>',master_jenis_kesehatan.Deletejenis_kesehatan.as_view(),name='delete_jenis_kesehatan'),
         path('indikator/<str:jenis_kesehatan_id>',master_indikator.Master_indikator.as_view(),name='master_indikator'),
         path('add_indikator',master_indikator.Add_indikator.as_view(),name='add_indikator'),
+        path('delete_indikator/indikator/<str:id_indikator>',master_indikator.Delete_indikator.as_view(),name='delete_indikator'),
 
         ])),
     
