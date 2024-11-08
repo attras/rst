@@ -72,9 +72,11 @@ urlpatterns = [
         path('',master_jenis_kesehatan.Master_jenis_kesehatanView.as_view(),name='master_jenis_kesehatan'),
         path('add_jenis_kesehatan',master_jenis_kesehatan.Add_jenis_kesehatan.as_view(),name='add_jenis_kesehatan'),
         path('delete/<str:jenis_kesehatan_id>',master_jenis_kesehatan.Deletejenis_kesehatan.as_view(),name='delete_jenis_kesehatan'),
-
+        path('indikator/<str:jenis_kesehatan_id>',master_indikator.Master_indikator.as_view(),name='master_indikator'),
 
         ])),
+    
+
 
 
     path('admin_layanan/',include([
@@ -96,6 +98,7 @@ urlpatterns = [
 
     path('data_kesehatan/',include([
          path('',admin_data_kesehatan.Admin_data_kesehatanViews.as_view(),name='data_kesehatan'),
+         path('detail',admin_data_kesehatan.Detail_data_kesehatanViews.as_view(),name='detail_data_kesehatan'),
          
          ])),
 

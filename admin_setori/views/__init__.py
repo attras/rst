@@ -14,4 +14,5 @@ from .admin_info_wilayah import *
 from .admin_data_kesehatan import *
 from .admin_data_penduduk import *
 from .master_jenis_kesehatan import *
+from .master_indikator import *
 

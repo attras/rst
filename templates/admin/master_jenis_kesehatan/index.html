@@ -5,6 +5,7 @@
 <!-- PAGE-HEADER -->
 <div class="page-header">
     <div>
+        
         <h1 class="page-title">Dashboard 01</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Jenis Data Kesehatan</a></li>
@@ -47,11 +48,10 @@
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ kesehatan.nama_jenis }}</td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                            <a href="" class="btn btn-primary">
+                                            <a href="{% url 'admin_setori:master_indikator' kesehatan.jenis_kesehatan_id %}" class="btn btn-primary">
                                                     
                                                 detail
-                                            
-                                        </a>
+                                             </a>
                                         <a class="btn btn-primary btn-sm rounded-11 me-2" 
                                             href="#" 
                                             data-bs-toggle="modal" 
