@@ -214,7 +214,7 @@ def generate_unique_slug(instance, new_slug=None, counter=0):
     return slug
 
 
-class Data_penduduk(models.Model):
+class Data_penduduk(CreateUpdateTime):
     data_penduduk_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     wilayah = models.ForeignKey(MasterWilayah, on_delete=models.CASCADE)
     pria_oap = models.IntegerField(default=0)
