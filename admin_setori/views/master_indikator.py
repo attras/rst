@@ -16,7 +16,7 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Master_indikator(View):
     def get(self, request,jenis_kesehatan_id):
-        dt_kesehatan = Jenis_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
+        dt_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
         dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
 
         data = {
@@ -27,6 +27,31 @@ class Master_indikator(View):
         
 
         return render(request, 'admin/master_indikator/index.html',data)
-    
-    
+
+class Add_indikator(View):
+     def post(self, request):
+        
+        nama_indikator = request.POST.get("nama_indikator")
+        jenis_kesehatan_id = request.POST.get("jenis_kesehatan")
+        
+        try:
+            with transaction.atomic():
+                
+                insert_indikator = Indikator_kesehatan()
+                insert_indikator.jenis_kesehatan =  Master_jenis_kesehatan.objects.get(jenis_kesehatan_id=jenis_kesehatan_id)
+                insert_indikator.nama_indikator = nama_indikator
+                insert_indikator.save()
+             
+
+                messages.success(request, "Indikator kesehatan berhasil ditambahkan.")
+                return redirect(reverse('admin_setori:master_indikator',args=[jenis_kesehatan_id]))    
+        except Exception as e:
+            print('gagal menambahkan', e)
+            messages.error(request, "gagal menambahkan")
+            return redirect(reverse('admin_setori:master_indikator',args=[jenis_kesehatan_id])) 
+        
+
+
+
+
  

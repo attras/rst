@@ -15,7 +15,7 @@
         {% endfor %}
     </div>
     <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_jenis_kesehatan()">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_indikator()">
             <span>
                 <i class="fe fe-plus"></i>
             </span> Tambah data 
@@ -39,27 +39,22 @@
                         <thead class="border-top">
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Jenis Data Kesehatan</th>
+                                <th class="bg-transparent border-bottom-0">Indikator</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for kesehatan in dt_kesehatan %}
+                          {% for indikator in dt_indikator %}
                           
                             <tr class="border-bottom" >
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kesehatan.nama_jenis }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ indikator.nama_indikator }}</td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                            <a href="" class="btn btn-primary">
-                                                    
-                                                detail
-                                            
-                                        </a>
                                         <a class="btn btn-primary btn-sm rounded-11 me-2" 
                                             href="#" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#addModal" 
-                                            data-bs-id="{{ kesehatan.nama_jenis }}" >
+                                            data-bs-id="{{ indikator.nama_jenis }}" >
                                             <i>
                                                 <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                                     <path d="M0 0h24v24H0V0z" fill="none" />
@@ -72,7 +67,7 @@
                                         
                                         <!--delete kategori-->
                                         <a >
-                                            <button type="button" class="btn btn-danger" onclick="Hapus_jenis('{{kesehatan.jenis_kesehatan_id }}')">
+                                            <button type="button" class="btn btn-danger" onclick="Hapus_jenis('{{indikator.jenis_kesehatan_id }}')">
                                                 <i class="fe fe-trash"></i> Hapus
                                             </button>     
                                         </a>
@@ -100,9 +95,14 @@
                 <form method="post">
                   {% csrf_token %}
                     <div class="mb-3">
-                        <label class="form-label"></label>
-                        <input type="text" name="jenis_kesehatan" id="jenis_kesehatan" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                        <label class="form-label">Indikator</label>
+                        <input type="text" name="nama_indikator" id="nama_indikator" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
                     </div>
+                    {% for kesehatan in dt_kesehatan %}
+                    <div class="mb-3">
+                        <input type="hidden" name="jenis_kesehatan" id="nama_indikator" value="{{ kesehatan.jenis_kesehatan_id }}" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                    </div>
+                    {% endfor %}
                     <button type="submit"  class="btn btn-primary">Simpan</button>
                 </form>
             </div>
@@ -111,12 +111,12 @@
 </div>
 
 <script>
-    var editJenisKesehatanModal = document.getElementById('addModal');
+    var KesehatanModal = document.getElementById('addModal');
 
-    function Tambah_jenis_kesehatan(){
-        var form = editJenisKesehatanModal.querySelector('form');
-        document.getElementById('addModalLabel').textContent = 'Tambahkan Jenis data kesehatan';
-        form.action = "{% url 'admin_setori:add_jenis_kesehatan' %}";
+    function Tambah_indikator(){
+        var form = KesehatanModal.querySelector('form');
+        document.getElementById('addModalLabel').textContent = 'Tambahkan Indikator kesehatan';
+        form.action = "{% url 'admin_setori:add_indikator' %}";
     };
 
     function Hapus_jenis(jenis_kesehatan_id) {

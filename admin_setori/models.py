@@ -274,14 +274,14 @@ class Kontak(CreateUpdateTime):
     nama_instansi = models.CharField(max_length=100)
     status = models.BooleanField(default=True)
 
-class Jenis_kesehatan(CreateUpdateTime):
+class Master_jenis_kesehatan(CreateUpdateTime):
     jenis_kesehatan_id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
     nama_jenis = models.CharField(max_length=255)
 
 class Indikator_kesehatan(CreateUpdateTime):
     id_indikator = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
     nama_indikator = models.CharField(max_length=255)
-    jenis_kesehatan = models.ForeignKey(Jenis_kesehatan, on_delete=models.CASCADE)
+    jenis_kesehatan = models.ForeignKey(Master_jenis_kesehatan, on_delete=models.CASCADE)
 
 class Data_kesehatan(CreateUpdateTime):
     data_kesehatan_id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
