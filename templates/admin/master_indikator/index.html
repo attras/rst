@@ -5,15 +5,17 @@
 <!-- PAGE-HEADER -->
 <div class="page-header">
     <div>
+        {% for kesehatan in dt_kesehatan %}
+        <h1 class="page-title">Detail {{ kesehatan.nama_jenis }}</h1>
         
-        <h1 class="page-title">Dashboard 01</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Jenis Data Kesehatan</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+            <li class="breadcrumb-item"><a href="{% url 'admin_setori:master_jenis_kesehatan' %}">Jenis Data Kesehatan</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ kesehatan.nama_jenis }}</li>
         </ol>
+        {% endfor %}
     </div>
     <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_jenis_kesehatan()">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_indikator()">
             <span>
                 <i class="fe fe-plus"></i>
             </span> Tambah data 
@@ -37,26 +39,22 @@
                         <thead class="border-top">
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Jenis Data Kesehatan</th>
+                                <th class="bg-transparent border-bottom-0">Indikator</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for kesehatan in dt_kesehatan %}
+                          {% for indikator in dt_indikator %}
                           
                             <tr class="border-bottom" >
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kesehatan.nama_jenis }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ indikator.nama_indikator }}</td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                            <a href="{% url 'admin_setori:master_indikator' kesehatan.jenis_kesehatan_id %}" class="btn btn-primary">
-                                                    
-                                                detail
-                                             </a>
                                         <a class="btn btn-primary btn-sm rounded-11 me-2" 
                                             href="#" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#addModal" 
-                                            data-bs-id="{{ kesehatan.nama_jenis }}" >
+                                            data-bs-id="{{ indikator.nama_jenis }}" >
                                             <i>
                                                 <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                                     <path d="M0 0h24v24H0V0z" fill="none" />
@@ -68,11 +66,11 @@
                                         </a>
                                         
                                         <!--delete kategori-->
-                                        <a >
-                                            <button type="button" class="btn btn-danger" onclick="Hapus_jenis('{{kesehatan.jenis_kesehatan_id }}')">
-                                                <i class="fe fe-trash"></i> Hapus
-                                            </button>     
-                                        </a>
+                                            <a >
+                                                <button type="submit" class="btn btn-danger" onclick="Hapus_indikator('{{indikator.id_indikator }}')">
+                                                    <i class="fe fe-trash"></i> Hapus
+                                                </button>     
+                                            </a>
 
                                 </td>
                             </tr>
@@ -97,9 +95,14 @@
                 <form method="post">
                   {% csrf_token %}
                     <div class="mb-3">
-                        <label class="form-label"></label>
-                        <input type="text" name="jenis_kesehatan" id="jenis_kesehatan" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                        <label class="form-label">Indikator</label>
+                        <input type="text" name="nama_indikator" id="nama_indikator" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
                     </div>
+                    {% for kesehatan in dt_kesehatan %}
+                    <div class="mb-3">
+                        <input type="hidden" name="jenis_kesehatan" id="nama_indikator" value="{{ kesehatan.jenis_kesehatan_id }}" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                    </div>
+                    {% endfor %}
                     <button type="submit"  class="btn btn-primary">Simpan</button>
                 </form>
             </div>
@@ -108,15 +111,15 @@
 </div>
 
 <script>
-    var editJenisKesehatanModal = document.getElementById('addModal');
+    var KesehatanModal = document.getElementById('addModal');
 
-    function Tambah_jenis_kesehatan(){
-        var form = editJenisKesehatanModal.querySelector('form');
-        document.getElementById('addModalLabel').textContent = 'Tambahkan Jenis data kesehatan';
-        form.action = "{% url 'admin_setori:add_jenis_kesehatan' %}";
+    function Tambah_indikator(){
+        var form = KesehatanModal.querySelector('form');
+        document.getElementById('addModalLabel').textContent = 'Tambahkan Indikator kesehatan';
+        form.action = "{% url 'admin_setori:add_indikator' %}";
     };
 
-    function Hapus_jenis(jenis_kesehatan_id) {
+    function Hapus_indikator(id_indikator) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',
         showCancelButton: true,
@@ -126,7 +129,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `delete/${jenis_kesehatan_id}`,
+                url: `delete_indikator/${id_indikator}`,
                 dataType: "html",
                 timeout: 10000,
                 beforeSend: function() {

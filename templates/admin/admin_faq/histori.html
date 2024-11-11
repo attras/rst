@@ -3,18 +3,23 @@
 {% block main %}
 
 <!-- Button to Add New User -->
- <a href="{% url 'admin_setori:admin_faq' %}">
+<div class="page-header">
+    <div>
+        <a href="{% url 'admin_setori:admin_faq' %}">
 
-     <button type="button" class="btn btn-primary mb-3" >
-        <i class="fa-solid fa-arrow-left"></i>
-         Kembali
-     </button>
-
-     <button class="btn btn-danger" id="delete-selected">
-        <i class="fa-solid fa-trash"></i>
-        Hapus Terpilih
-    </button>
- </a>
+            <button type="button" class="btn btn-primary mb-3" >
+               <i class="fa-solid fa-arrow-left"></i>
+                Kembali
+            </button>
+        </a>
+    </div>
+    <div class="ms-auto pageheader-btn">
+        <button class="btn btn-danger" id="delete-selected">
+            <i class="fa-solid fa-trash"></i>
+            Hapus Terpilih
+        </button>
+    </div>
+</div>
 
 <!-- User Table -->
 <div class="row">

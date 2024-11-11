@@ -213,27 +213,35 @@ def generate_unique_slug(instance, new_slug=None, counter=0):
     
     return slug
 
-IDENTITAS_CHOICE = (
-    (1, 'OAP'),
-    (2, 'Non-OAP')
-)
 
-class Data_peduduk(CreateUpdateTime):
+class Data_penduduk(CreateUpdateTime):
     data_penduduk_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    identitas = models.CharField(max_length=1, choices=IDENTITAS_CHOICE, default=None )
-    pria = models.IntegerField(default=0)
-    wanita = models.IntegerField(default=0)
-    jumlah_kk = models.IntegerField(default=0)
-    jumlah_penduduk = models.IntegerField(default=0, null=True)
     wilayah = models.ForeignKey(MasterWilayah, on_delete=models.CASCADE)
-    
-    def get_identitas_display(self):
-        for key, value in IDENTITAS_CHOICE:
-            if str(key) == self.identitas:
-                return value
-        return None
+    pria_oap = models.IntegerField(default=0)
+    pria_non_oap = models.IntegerField(default=0)
+    wanita_oap = models.IntegerField(default=0)
+    wanita_non_oap = models.IntegerField(default=0)
+    jumlah_penduduk_oap = models.IntegerField(default=0, null=True, editable=False)
+    jumlah_penduduk_non_oap = models.IntegerField(default=0, null=True, editable=False)
+    jumlah_kk_oap = models.IntegerField(default=0)
+    jumlah_kk_non_oap = models.IntegerField(default=0)
+    total_kk = models.IntegerField(default=0, null=True, editable=False)
+    total_penduduk = models.IntegerField(default=0, null=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        # Menghitung jumlah_penduduk_oap sebagai jumlah dari pria_oap dan wanita_oap
+        self.jumlah_penduduk_oap = self.pria_oap + self.wanita_oap
+        # Menghitung jumlah_penduduk_non_oap sebagai jumlah dari pria_non_oap dan wanita_non_oap
+        self.jumlah_penduduk_non_oap = self.pria_non_oap + self.wanita_non_oap
+        # Menghitung total_penduduk sebagai jumlah dari jumlah_penduduk_oap dan jumlah_penduduk_non_oap
+        self.total_penduduk = self.jumlah_penduduk_oap + self.jumlah_penduduk_non_oap
+        # Menghitung total_kk sebagai jumlah dari jumlah_kk_oap dan jumlah_kk_non_oap
+        self.total_kk = self.jumlah_kk_oap + self.jumlah_kk_non_oap
+
+        super().save(*args, **kwargs)
     
    
+    
 
 
 class Info_wilayah(CreateUpdateTime):
@@ -246,6 +254,7 @@ class Info_wilayah(CreateUpdateTime):
     dasar_hukum_pembentukan = models.TextField(help_text="Dasar hukum pembentukan kelurahan")
     kode_pos = models.CharField(max_length=10, help_text="Kode pos kelurahan")
     wilayah = models.ForeignKey(MasterWilayah, on_delete=models.CASCADE)
+    
 
 class Tentang(CreateUpdateTime):
     id_tentang = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
@@ -265,7 +274,20 @@ class Kontak(CreateUpdateTime):
     nama_instansi = models.CharField(max_length=100)
     status = models.BooleanField(default=True)
 
-class Jenis_kesehatan(CreateUpdateTime):
+class Master_jenis_kesehatan(CreateUpdateTime):
     jenis_kesehatan_id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
     nama_jenis = models.CharField(max_length=255)
+
+class Indikator_kesehatan(CreateUpdateTime):
+    id_indikator = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
+    nama_indikator = models.CharField(max_length=255)
+    jenis_kesehatan = models.ForeignKey(Master_jenis_kesehatan, on_delete=models.CASCADE)
+
+class Data_kesehatan(CreateUpdateTime):
+    data_kesehatan_id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
+    wilayah = models.ForeignKey(MasterWilayah,on_delete=models.CASCADE)
+    indikator = models.ForeignKey(Indikator_kesehatan,on_delete=models.CASCADE)
+    oap = models.IntegerField(default=0)
+    non_oap = models.IntegerField(default=0)
+
 

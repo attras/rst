@@ -14,12 +14,12 @@
         </ol>
     </div>
     <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_faq()">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_info()">
             <span>
                 <i class="fe fe-plus" ></i>
             </span> Add 
         </a>
-        <a href="{% url 'admin_setori:histori_faq' %}" class="btn btn-success btn-icon text-white">
+        <a href="" class="btn btn-success btn-icon text-white">
             <span>
                 <i class="fa-solid fa-rotate-right"></i>
             </span> Histori
@@ -31,7 +31,7 @@
     <div class="col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title mb-0">FAQ</h3>
+                <h3 class="card-title mb-0">info</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -39,28 +39,31 @@
                         <thead class="border-top">
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Pertanyaan</th>
-                                <th class="bg-transparent border-bottom-0">Jawaban</th>
+                                <th class="bg-transparent border-bottom-0">visi</th>
+                                <th class="bg-transparent border-bottom-0">Misi</th>
+                                
+                                <th class="bg-transparent border-bottom-0">wilayah</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
-                          {% for faq in dt_faq %}
+                          {% for info in dt_info_wilayah %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ faq.pertanyaan|slice:":60" }}...</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ faq.jawaban|slice:":60" }}...</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ info.visi|slice:":60" }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ info.visi|slice:":60" }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ info.wilayah.wilayah_nama|slice:":60" }}</td>
                              
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
                                 <td class="text-muted fs-15 fw-semibold">
                                     <a class="btn btn-primary btn-sm rounded-11 me-2" 
                                         href="#" 
                                         data-bs-toggle="modal" 
-                                        data-bs-target="#editFaqModal" 
-                                        data-bs-id="{{ faq.faq_id }}" 
-                                        data-bs-pertanyaan="{{ faq.pertanyaan }}" 
-                                        data-bs-jawaban="{{ faq.jawaban }}">
+                                        data-bs-target="#editinfoModal" 
+                                        data-bs-id="{{ info.info_id }}" 
+                                        data-bs-pertanyaan="{{ info.pertanyaan }}" 
+                                        data-bs-jawaban="{{ info.jawaban }}">
                                          <i>
                                              <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
                                                  <path d="M0 0h24v24H0V0z" fill="none" />
@@ -72,7 +75,7 @@
                                      </a>
                                      
                                         <a >
-                                            <button type="button" class="btn btn-danger" onclick="Hapus_faq('{{faq.faq_id }}')">
+                                            <button type="button" class="btn btn-danger" onclick="Hapus_info('{{info.info_id }}')">
                                                 <i class="fe fe-trash"></i> Hapus
                                             </button>     
                                         </a>
@@ -90,7 +93,7 @@
     <!-- COL END -->
 </div>
 
-<!-- Add dan Edit FAQ Modal -->
+<!-- Add dan Edit info Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog col-10">
         <div class="modal-content">

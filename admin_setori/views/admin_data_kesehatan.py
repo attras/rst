@@ -17,3 +17,8 @@ class Admin_data_kesehatanViews(View):
     def get(self, request):
       
         return render(request, 'admin/data_kesehatan/index.html')
+
+class Detail_data_kesehatanViews(View):
+    def get(self,request):
+
+        return render(request,'admin/data_kesehatan/detail.html')

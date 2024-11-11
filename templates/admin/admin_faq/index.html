@@ -45,6 +45,7 @@
                         </thead>
                         <tbody>
                           {% for faq in dt_faq %}
+                             
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ faq.pertanyaan|slice:":60" }}...</td>

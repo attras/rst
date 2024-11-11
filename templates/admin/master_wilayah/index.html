@@ -171,6 +171,33 @@
 
 
 <script>
+    var editFaqModal = document.getElementById('editFaqModal');
+    editFaqModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Extract info from data-bs-* attributes
+        var faqId = button.getAttribute('data-bs-id');
+        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
+        var jawaban = button.getAttribute('data-bs-jawaban');
+
+        // Update the modal's form fields
+        var modalTitle = editFaqModal.querySelector('.modal-title');
+        var inputPertanyaan = editFaqModal.querySelector('#edit-pertanyaan');
+        var inputJawaban = editFaqModal.querySelector('#edit-jawaban');
+        var form = editFaqModal.querySelector('form');
+
+        modalTitle.textContent = 'Edit pertanyaan ' + pertanyaan;
+        inputPertanyaan.value = pertanyaan;
+        inputJawaban.value = jawaban;
+
+        // Update form action URL dynamically with the correct FAQ ID
+        form.action = "{% url 'admin_setori:edit_faq' 'holder' %}".replace('holder', faqId);
+        
+    });
+
+
+
     document.getElementById("wilayah_level").addEventListener("change", function() {
         var level = this.value;
         document.getElementById("parent_provinsi").style.display = level == "2" ? "block" : "none";

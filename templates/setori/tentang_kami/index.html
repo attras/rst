@@ -33,6 +33,33 @@
     }
 }
 
+.center-content {
+  display: flex;
+  flex-direction: column;   /* Mengatur elemen anak dalam kolom (vertikal) */
+  justify-content: center;  /* Menyelaraskan elemen secara vertikal di tengah */
+  align-items: center;      /* Menyelaraskan elemen secara horizontal di tengah */
+  height: 100%;             /* Membuat div memiliki tinggi penuh untuk penggunaan flexbox */
+}
+
+.nama_team {
+  color: #000; /* Warna default, sesuaikan dengan kebutuhan Anda */
+  display: block; /* Agar elemen <a> dapat diatur dengan text-align */
+  text-align: center; /* Menyelaraskan teks ke tengah */
+  font-weight: bold; /* Membuat teks menjadi bold */
+  pointer-events: none; /* Menonaktifkan aksi hover */
+}
+
+.jobdesk {
+  text-align: center; /* Menyelaraskan teks ke tengah */
+}
+
+.custom-spacing {
+    margin-left: 20px;  /* Tambahkan jarak kiri */
+    margin-right: 20px; /* Tambahkan jarak kanan */
+}
+
+
+
 </style>
 {% endblock css %} 
 
@@ -60,22 +87,165 @@
     </div>
 </div> 
 
-<div class="bg-grey-100 px-3 px-xl-0 border-radius-2-bottom p-relative overflow-hidden">
-<br>
-<!-- Tentang Kami -->
+<div class="container pt-4 pb-5 pt-lg-5">
+    <div class="row align-items-center py-5">
+        <div class="col-lg-12 mb-5 mb-lg-0 pe-lg-5">
+            <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Tentang Kami</h2>
+            </div>							
+            <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+                <p>
+                    <p>Akses terhadap data kesehatan yang terstruktur dan dapat dipercaya sangat penting untuk meningkatkan pelayanan kesehatan, penelitian, dan pengambilan keputusan berdasarkan data yang akurat. Namun, sistem kesehatan sering menghadapi masalah seperti data yang terpisah, kurangnya aksesibilitas, dan tantangan dalam mengintegrasikan informasi dari berbagai sumber. Sebagai contoh, data pasien sering kali hanya tersimpan di arsip lembaga kesehatan tertentu, sehingga menyulitkan untuk mendapatkan gambaran lengkap tentang riwayat kesehatan suatu daerah akibat tidak adanya pengumpulan data yang terpadu.</p>
+                    <p>Dalam upaya mewujudkan hal ini, pemerintah Papua mempercayakan proyek pengembangan sistem informasi kesehatan kepada PT RST, sebuah perusahaan pengembangan perangkat lunak yang berlokasi di Yogyakarta. PT RST fokus pada pengembangan sistem informasi, aplikasi web, dan solusi e-government. Dengan dukungan tenaga ahli profesional yang berpengalaman di bidang teknologi informasi, PT RST memiliki pengalaman tinggi dalam memenuhi kebutuhan sektor pemerintahan dan swasta di seluruh Indonesia.</p>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center overflow-hidden w-100">
+    <div class="appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="200">
+        <h2 class="text-resp-150 ws-nowrap font-weight-semi-bold text-overflow-center text-color-grey-100 n-ls-5 mb-5">Tim Setori</h2>
+    </div>
+</div>
+<div class="bg-grey-100 px-3 px-xl-0 border-radius-2 p-relative overflow-hidden custom-pos-3">
+    <div class="container">
+        <div class="d-flex justify-content-center row pt-5">
+            <!-- <div class="col-lg-3 mb-4 pb-1 custom-spacing center-content">
+                <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                <h2 class="text-5 text-lg-9 font-weight-semibold line-height-1 mb-4">Tim Kami</h2>
+                </div>							
+                <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
+                <p class="team">
+                    Inilah tim dibalik pembuatan Website Setori, singkatan dari Dataset Supiori. Sebuah Website kesehatan yang menjangkau hingga kepelosok desa
+                </p>
+                </div>
+            </div> -->
+            
+            <div class="col-lg-3 mb-4 pb-1 custom-spacing">
+                <article class="post">
+                    <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                        <div class="p-relative rounded-3 overflow-hidden">
+                            <img src="{% static 'img/tentang/contoh.jpg' %}" alt="Deskripsi Gambar" loading="lazy" alt="Card Image" width="100%" height="auto" object-fit="cover">
+                            <div class="card-body bg-light p-4">
+                                <h4 class="my-2">
+                                    <a class="nama_team">
+                                        Nama Orang
+                                      </a>                                      
+                                </h4>                                          
+                                <p class="jobdesk">Jobdesk</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-3 mb-4 pb-1 custom-spacing">
+                <article class="post">
+                    <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                        <div class="p-relative rounded-3 overflow-hidden">
+                            <img src="{% static 'img/tentang/1.jpg' %}" alt="Deskripsi Gambar" loading="lazy" alt="Card Image" width="100%" height="auto" object-fit="cover">
+                            <div class="card-body bg-light p-4">
+                                <h4 class="my-2">
+                                    <a class="nama_team">
+                                        Drs. Yan Imbab
+                                      </a>                                      
+                                </h4>                                          
+                                <p class="jobdesk">Bupati Supiori</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-3 mb-4 pb-1 custom-spacing">
+                <article class="post">
+                    <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                        <div class="p-relative rounded-3 overflow-hidden">
+                            <img src="{% static 'img/tentang/2.jpg' %}" alt="Deskripsi Gambar" loading="lazy" alt="Card Image" width="100%" height="auto" object-fit="cover">
+                            <div class="card-body bg-light p-4">
+                                <h4 class="my-2">
+                                    <a class="nama_team">
+                                        Ahmad Bastiar
+                                      </a>                                      
+                                </h4>                                          
+                                <p class="jobdesk">Founder & CEO PT RST</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-3 mb-4 pb-1 custom-spacing">
+                <article class="post">
+                    <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                        <div class="p-relative rounded-3 overflow-hidden">
+                            <img src="{% static 'img/tentang/3.jpg' %}" alt="Deskripsi Gambar" loading="lazy" alt="Card Image" width="100%" height="auto" object-fit="cover">
+                            <div class="card-body bg-light p-4">
+                                <h4 class="my-2">
+                                    <a class="nama_team">
+                                        Anang Pratama S.
+                                      </a>                                      
+                                </h4>                                          
+                                <p class="jobdesk">Frontend Developer</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-3 mb-4 pb-1 custom-spacing">
+                <article class="post">
+                    <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                        <div class="p-relative rounded-3 overflow-hidden">
+                            <img src="{% static 'img/tentang/4.jpg' %}" alt="Deskripsi Gambar" loading="lazy" alt="Card Image" width="100%" height="auto" object-fit="cover">
+                            <div class="card-body bg-light p-4">
+                                <h4 class="my-2">
+                                    <a class="nama_team">
+                                        Attras Hafidz Maruf
+                                      </a>                                      
+                                </h4>                                          
+                                <p class="jobdesk">Backend Developer</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-3 mb-4 pb-1 custom-spacing">
+                <article class="post">
+                    <div class="card rounded-3 border-0 bg-transparent box-shadow-10 box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                        <div class="p-relative rounded-3 overflow-hidden">
+                            <img src="{% static 'img/tentang/5.jpg' %}" alt="Deskripsi Gambar" loading="lazy" alt="Card Image" width="100%" height="auto" object-fit="cover">
+                            <div class="card-body bg-light p-4">
+                                <h4 class="my-2">
+                                    <a class="nama_team">
+                                        M. Aziz Farheza
+                                      </a>                                      
+                                </h4>                                          
+                                <p class="jobdesk">Data Analyst</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- 
+
 <div class="container-fluid">
     <div class="row">
        <div class="container-fluid">
     <div class="row">
-        <!-- Carousel section (Kiri) -->
+
         <div class="col-lg-6 col-md-12 p-0">
             <div id="carouselExampleDark" class="carousel slide h-100">
                 <div class="carousel-inner h-100">
-                    <!-- Slide 1 -->
+
                     <div class="carousel-item active h-100">
                         <img src="{% static 'img/tentang_kami/bupati.png' %}" class="d-block mx-auto" alt="Slide 1 Image">
                     </div>
-                    <!-- Slide 2 -->
+
                     <div class="carousel-item h-100">
                         <img src="{% static 'img/tentang_kami/wabup.png' %}" class="d-block mx-auto" alt="Slide 2 Image">
                     </div>
@@ -91,14 +261,14 @@
             </div>
         </div>
 
-        <!-- Teks section (Kanan) -->
+
         <div class="col-lg-6 d-flex flex-column justify-content-center p-4">
-            <!-- Bagian Bupati -->
+
             <div class="mb-4">
                 <h2 class="font-weight-semibold">Bupati Supiori</h2>
                 <p>Drs. Yan Imbab (lahir 20 Juni 1953) adalah Bupati Supiori periode 2021-2024.</p>
             </div>
-            <!-- Bagian Wakil Bupati -->
+
             <div>
                 <h2 class="font-weight-semibold">Wakil Bupati Supiori</h2>
                 <p>Nichodemus Ronsumbre terpilih sebagai wakil bupati.</p>
@@ -140,6 +310,5 @@
     </div>
 </div>
 
-    </div>   
-</div>
+    </div>    -->
 {% endblock main %}
