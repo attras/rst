@@ -10,7 +10,6 @@
         <h1 class="page-title">Dashboard 01</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
         </ol>
     </div>
     <div class="ms-auto pageheader-btn">
@@ -186,5 +185,28 @@
     });
 };
 
+
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+    const wilayahSelect = document.getElementById("wilayah");
+    const indikatorSelect = document.getElementById("indikator");
+    
+    form.addEventListener("submit", function(event) {
+        const selectedWilayah = wilayahSelect.value;
+        const selectedIndikator = indikatorSelect.value;
+
+        // Cek apakah kombinasi wilayah dan indikator sudah ada di tabel
+        const isDuplicate = Array.from(document.querySelectorAll("tbody tr")).some(row => {
+            const wilayah = row.getAttribute("data-wilayah");
+            const indikator = row.getAttribute("data-indikator");
+            return wilayah === selectedWilayah && indikator === selectedIndikator;
+        });
+
+        if (isDuplicate) {
+            event.preventDefault(); // Hentikan pengiriman form
+            alert("Data dengan kombinasi Wilayah dan Indikator ini sudah ada.");
+        }
+    });
+});
 </script>
 {% endblock js %}

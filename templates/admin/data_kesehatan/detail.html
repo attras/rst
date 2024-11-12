@@ -46,8 +46,8 @@
                             {% for data in  dt_kesehatan %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ data.wilayah.wilayah_nama }} </td>
-                                <td class="text-muted fs-15 fw-semibold">{{ data.indikator.nama_indikator }}</td>
+                                <td class="text-muted fs-15 fw-semibold wilayah">{{ data.wilayah.wilayah_nama }} </td>
+                                <td class="text-muted fs-15 fw-semibold indikator">{{ data.indikator.nama_indikator }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ data.oap }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ data.non_oap }}</td>
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
@@ -82,7 +82,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_data_kesehatan' %}">
+                <form method="post" action="{% url 'admin_setori:add_data_kesehatan' %}" id="tambah_kesehatan">
                   {% csrf_token %}
                     
                     {% for kesehatan in jenis_kesehatan %}
@@ -122,6 +122,31 @@
     </div>
 </div>
 
+<script>
+    document.getElementById("tambah_kesehatan").addEventListener("submit", function(event) {
+    const selectedWilayah = document.getElementById("wilayah").value;
+    const selectedIndikator = document.getElementById("indikator").value;
+    
+
+    // Get all table rows
+    const rows = document.querySelectorAll("#data-table tbody tr");
+
+    for (const row of rows) {
+        const wilayahCell = row.querySelector(".wilayah").innerText.trim();
+        const indikatorCell = row.querySelector(".indikator").innerText.trim();
+        
+        if (wilayahCell === selectedWilayah && indikatorCell === selectedIndikator) {
+            alert("Data with the same Wilayah and Indikator already exists!");
+            event.preventDefault(); // Prevent form submission
+            return; // Exit the function
+        }
+        else {
+
+        }
+    }
+   
+});
+</script>
 
 
 {% endblock main %}
