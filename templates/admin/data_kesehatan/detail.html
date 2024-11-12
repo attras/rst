@@ -11,7 +11,7 @@
         </ol>
     </div>
     <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addWilayahModal">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal">
             <span>
                 <i class="fe fe-plus"></i>
             </span> Tambah Data Kesehatan
@@ -34,22 +34,37 @@
                             <tr>
                                 
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Nama data kesehatan</th>
+                                <th class="bg-transparent border-bottom-0">Wilayah</th>
+                                <th class="bg-transparent border-bottom-0">Indikator</th>
+                                <th class="bg-transparent border-bottom-0">oap</th>
+                                <th class="bg-transparent border-bottom-0">non-oap</th>
                                 <th class="bg-transparent border-bottom-0">aksi</th>
                                
                             </tr>
                         </thead>
                         <tbody>
+                            {% for data in  dt_kesehatan %}
                             <tr class="border-bottom">
-                                <td class="text-muted fs-15 fw-semibold"></td>
-                                <td class="text-muted fs-15 fw-semibold text-center"></td>
-                                <td class="text-muted fs-15 fw-semibold">
-                                    <a href="">
-                                        <button>detail</button>
+                                <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ data.wilayah.wilayah_nama }} </td>
+                                <td class="text-muted fs-15 fw-semibold">{{ data.indikator.nama_indikator }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ data.oap }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ data.non_oap }}</td>
+                                <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
+                                <td class="">
+                                    <a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="modal" data-bs-target="#editUserModal" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
+                                    <!-- Delete User Modal -->
+                                    <a >
+                                        <button type="button" class="btn btn-danger" onclick="Hapus_user('{{user.id }}')">
+                                            <i class="fe fe-trash"></i> Hapus
+                                        </button>     
                                     </a>
                                 </td>
-                            
+                               
+                                
+                                
                             </tr>
+                            {% endfor %}
                         
                         </tbody>
                     </table>
@@ -59,6 +74,53 @@
     </div>
 </div>
 
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Tambah data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'admin_setori:add_data_kesehatan' %}">
+                  {% csrf_token %}
+                    
+                    {% for kesehatan in jenis_kesehatan %}
+                        <input type="hidden" name="jenis_kesehatan" id="nama_indikator" value="{{ kesehatan.jenis_kesehatan_id }}" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                    {% endfor %}
+                    <div class="mb-3">
+                        <label for="wilayah">Wilayah:</label>
+                        <select name="wilayah" id="wilayah" class="form-select" required>
+                            <option value="" disabled selected>Pilih Wilayah</option>
+                            {% for wilayah in wilayah_list %} 
+                                <option value="{{ wilayah.wilayah_id  }}">{{ wilayah.wilayah_nama }}</option>
+                            {% endfor %}
+                        </select>
+                   </div>
+                   <div class="mb-3">
+                    <label for="wilayah">Indikator:</label>
+                    <select name="indikator" id="indikator" class="form-select"  required>
+                        <option value="" disabled selected>Pilih indikator</option>
+                        {% for indikator in dt_indikator %} 
+                            <option value="{{indikator.id_indikator }}">{{ indikator.nama_indikator  }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">OAP</label>
+                        <input type="text" name="oap" id="oap" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">NON-OAP</label>
+                        <input type="text" name="non_oap" id="non_oap" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                    </div>
+                   
+                    <button type="submit"  class="btn btn-primary">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

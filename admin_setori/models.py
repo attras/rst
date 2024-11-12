@@ -286,8 +286,11 @@ class Indikator_kesehatan(CreateUpdateTime):
 class Data_kesehatan(CreateUpdateTime):
     data_kesehatan_id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
     wilayah = models.ForeignKey(MasterWilayah,on_delete=models.CASCADE)
+    fk_jenis = models.ForeignKey(Master_jenis_kesehatan, on_delete=models.CASCADE, null=True, blank=True)
     indikator = models.ForeignKey(Indikator_kesehatan,on_delete=models.CASCADE)
     oap = models.IntegerField(default=0)
     non_oap = models.IntegerField(default=0)
+
+
 
 

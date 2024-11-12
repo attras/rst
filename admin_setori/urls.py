@@ -74,7 +74,7 @@ urlpatterns = [
         path('delete/<str:jenis_kesehatan_id>',master_jenis_kesehatan.Deletejenis_kesehatan.as_view(),name='delete_jenis_kesehatan'),
         path('indikator/<str:jenis_kesehatan_id>',master_indikator.Master_indikator.as_view(),name='master_indikator'),
         path('add_indikator',master_indikator.Add_indikator.as_view(),name='add_indikator'),
-        path('delete_indikator/indikator/<str:id_indikator>',master_indikator.Delete_indikator.as_view(),name='delete_indikator'),
+        path('indikator/delete_indikator/<str:id_indikator>',master_indikator.Delete_indikator.as_view(),name='delete_indikator'),
 
         ])),
     
@@ -100,8 +100,12 @@ urlpatterns = [
 
     path('data_kesehatan/',include([
          path('',admin_data_kesehatan.Admin_data_kesehatanViews.as_view(),name='data_kesehatan'),
-         path('detail',admin_data_kesehatan.Detail_data_kesehatanViews.as_view(),name='detail_data_kesehatan'),
+   
+         path('detail/<str:jenis_kesehatan_id>',admin_data_kesehatan.Detail_data_kesehatanViews.as_view(),name='detail_data_kesehatan'),
+               
+         path('add',admin_data_kesehatan.Add_data_kesehatan.as_view(),name='add_data_kesehatan'),
          
+        
          ])),
 
     path('data_penduduk/',include([

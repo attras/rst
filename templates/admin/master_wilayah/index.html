@@ -5,7 +5,7 @@
 
 <div class="page-header">
     <div>
-        <h1 class="page-title">Dashboard 01</h1>
+        <h1 class="page-title">Master wilayah</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
@@ -171,30 +171,6 @@
 
 
 <script>
-    var editFaqModal = document.getElementById('editFaqModal');
-    editFaqModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-
-        // Extract info from data-bs-* attributes
-        var faqId = button.getAttribute('data-bs-id');
-        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
-        var jawaban = button.getAttribute('data-bs-jawaban');
-
-        // Update the modal's form fields
-        var modalTitle = editFaqModal.querySelector('.modal-title');
-        var inputPertanyaan = editFaqModal.querySelector('#edit-pertanyaan');
-        var inputJawaban = editFaqModal.querySelector('#edit-jawaban');
-        var form = editFaqModal.querySelector('form');
-
-        modalTitle.textContent = 'Edit pertanyaan ' + pertanyaan;
-        inputPertanyaan.value = pertanyaan;
-        inputJawaban.value = jawaban;
-
-        // Update form action URL dynamically with the correct FAQ ID
-        form.action = "{% url 'admin_setori:edit_faq' 'holder' %}".replace('holder', faqId);
-        
-    });
 
 
 
@@ -204,6 +180,8 @@
         document.getElementById("parent_kabupaten").style.display = level == "3" ? "block" : "none";
         document.getElementById("parent_kecamatan").style.display = level == "4" ? "block" : "none";
     });
+
+    
 
     
 </script>
