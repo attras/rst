@@ -35,7 +35,13 @@
                                     <li><a href="{% url 'app_setori:index_home' %}" class="nav-link" style="color:white;">Beranda</a></li>
                                     <li><a class="nav-link" href="{% url 'app_setori:data' %}" style="color:white;">Data Pokok</a></li>
                                     <li><a class="nav-link" href="{% url 'app_setori:berita' %}" style="color:white;">Berita</a></li>
-                                    <li><a class="nav-link" href="{% url 'app_setori:potensi' %}" style="color:white;">Potensi Daerah</a></li>
+                                    <li class="dropdown">
+                                        <a href="{% url 'app_setori:distrik' %}" class="nav-link dropdown-toggle" style="color:white;">Potensi Daerah</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{% url 'app_setori:distrik' %}" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Potensi Daerah Distrik</a></li>
+                                            <li><a href="{% url 'app_setori:distrik' %}" class="dropdown-item anim-hover-translate-right-5px transition-3ms bg-transparent text-color-hover-primary text-lg-2 py-lg-2">Potensi Daerah Kampung</a></li>
+                                        </ul>
+                                    </li>
                                     <li><a class="nav-link" href="{% url 'app_setori:tentang' %}" style="color:white;">Tentang Kami</a></li>
                                     <li><a class="nav-link" href="{% url 'app_setori:layanan' %}" style="color:white;">Layanan</a></li>
                                     <li><a class="nav-link" href="{% url 'app_setori:faq' %}" style="color:white;">FAQ</a></li>
