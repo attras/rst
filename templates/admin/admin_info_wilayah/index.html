@@ -39,6 +39,7 @@
                         <thead class="border-top">
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
+                                <th class="bg-transparent border-bottom-0">profil</th>
                                 <th class="bg-transparent border-bottom-0">visi</th>
                                 <th class="bg-transparent border-bottom-0">Misi</th>
                                 
@@ -51,6 +52,9 @@
                           {% for info in dt_info_wilayah %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
+                                <td class="text-muted fs-15 fw-semibold">
+                                    <img src="{{ info.image_profile.url }}" alt="logo" style="width: 50px; height: auto;">
+                                </td>
                                 <td class="text-muted fs-15 fw-semibold">{{ info.visi|slice:":60" }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ info.visi|slice:":60" }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ info.wilayah.wilayah_nama|slice:":60" }}</td>
@@ -102,12 +106,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_info_wilayah' %}">
+                <form method="post" action="{% url 'admin_setori:add_info_wilayah' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
-                
-                    
-                   
+                        <div class="col-lg-4 col-sm-12 mb-3 mb-lg-0">
+                            <label class="form-label" for="profil">profil</label>
+                            <input type="file" name="profil" id="profil" class="dropify" data-bs-height="180" accept="image/*"  required/>
+                        <div class="form-text">Unggah foto profil daerah (format gambar).</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="map" class="form-label">map</label>
+                        <textarea name="map" id="map" class="form-control" rows="3" required></textarea>
+                    </div>
                     <div class="mb-3">
                         <label for="visi" class="form-label">Visi</label>
                         <textarea name="visi" id="visi" class="form-control" rows="3" required></textarea>

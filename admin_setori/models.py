@@ -248,12 +248,14 @@ class Info_wilayah(CreateUpdateTime):
     info_wilayah_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     visi = models.TextField(help_text="Visi kelurahan")
     misi = models.TextField(help_text="Misi kelurahan")
+    image_profile = models.ImageField(upload_to='daerah',default='artikel/defaultartikel.jpeg')
+    link_maps = models.TextField(blank=True, null=True)
     nama_info_wilayah = models.CharField(max_length=255, help_text="Nama Kelurahan")
     kode_info_wilayah = models.CharField(max_length=50, unique=True, help_text="Kode unik untuk Kelurahan")
-    tahun_pembentukan = models.IntegerField(help_text="Tahun pembentukan kelurahan")
+    tahun_pembentukan = models.CharField(max_length=100,help_text="Tahun pembentukan kelurahan")
     dasar_hukum_pembentukan = models.TextField(help_text="Dasar hukum pembentukan kelurahan")
     kode_pos = models.CharField(max_length=10, help_text="Kode pos kelurahan")
-    wilayah = models.ForeignKey(MasterWilayah, on_delete=models.CASCADE)
+    wilayah = models.ForeignKey(MasterWilayah, on_delete=models.CASCADE,blank=True, null=True)
     
 
 class Tentang(CreateUpdateTime):

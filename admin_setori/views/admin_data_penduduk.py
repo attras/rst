@@ -60,6 +60,8 @@ class Add_data_penduduk(View):
                 )
                 data_penduduk.save()
 
+                
+
                 messages.success(request, "Data penduduk berhasil ditambahkan.")
                 return redirect("admin_setori:data_penduduk")  # Kembali ke form jika berhasil
             
