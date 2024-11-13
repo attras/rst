@@ -96,6 +96,7 @@ urlpatterns = [
     path('info_wilayah/',include([
         path('',admin_info_wilayah.Info_wilayahViews.as_view(),name='admin_info_wilayah'),
         path('add_info_wilayah',admin_info_wilayah.AddInfoWilayah.as_view(),name='add_info_wilayah'),
+        path('delete/<str:wilayah_id>', master_wilayah.DeleteWilayah.as_view(), name = 'delete_wilayah'),
         ])),
 
     path('data_kesehatan/',include([
@@ -110,7 +111,7 @@ urlpatterns = [
     path('data_penduduk/',include([
          path('',admin_data_penduduk.Admin_data_pendudukViews.as_view(),name='data_penduduk'),
          path('add/',admin_data_penduduk.Add_data_penduduk.as_view(),name='add_data_penduduk'),
-         
+         path('delete/<str:data_penduduk_id>', admin_data_penduduk.DeletePenduduk.as_view(), name = 'delete_penduduk'),
          
          ])),
 
