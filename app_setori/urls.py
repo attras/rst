@@ -24,14 +24,15 @@ urlpatterns = [
      path('kontak', kontak.KontakViews.as_view(), name = 'kontak'),
 
      path('berita/',include([
-          path('', berita.BeritaViews.as_view(), name = 'berita'),
-          path('detail/<slug:slug>/', berita.DetailberitaViews.as_view(), name='detail_berita'),
+     path('', berita.BeritaViews.as_view(), name = 'berita'),
+     path('detail/<slug:slug>/', berita.DetailberitaViews.as_view(), name='detail_berita'),
      ])),
 
      path('potensi/',include([
-          path('kampung/<str:info_wilayah_id>', potensi.PotensiViews.as_view(), name = 'kampung'),
-          path('distrik', potensi.DistrikpotensiViews.as_view(), name = 'distrik'),
+          path('potensi', potensi.PotensiViews.as_view(), name = 'kampung'),
           path('detail_potensi', potensi.DetailpotensikampungViews.as_view(), name = 'detail_potensi'),
+          path('distrik', potensi.DistrikpotensiViews.as_view(), name = 'distrik'),
+          path('detail_distrik', potensi.DetailpotensidistrikViews.as_view(), name = 'detail_distrik'),
      ])),
      
 ]

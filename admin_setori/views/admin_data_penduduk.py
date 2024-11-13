@@ -70,3 +70,16 @@ class Add_data_penduduk(View):
             messages.error(request, "Gagal menambahkan data penduduk.")
             return redirect("admin_setori:data_penduduk")  # Kembali ke form jika gagal
   
+class DeletePenduduk(View):
+    def get(self, request, data_penduduk_id):
+        del_penduduk = get_object_or_404(Data_penduduk, data_penduduk_id=data_penduduk_id)
+        
+        try:
+            with transaction.atomic():
+                del_penduduk.delete()
+                messages.success(request, "Data berhasil dihapus")
+        except Exception as e:
+            print('Error Data:', e)
+            messages.error(request, "Gagal menghapus data")
+        
+        return redirect("admin_setori:data_penduduk")
