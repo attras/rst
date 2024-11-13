@@ -15,10 +15,59 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Admin_data_kesehatanViews(View):
     def get(self, request):
+        dt_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = True)
+    
+        data = {
+            'dt_kesehatan': dt_kesehatan
+        }
+        
       
-        return render(request, 'admin/data_kesehatan/index.html')
+        return render(request, 'admin/data_kesehatan/index.html',data)
 
 class Detail_data_kesehatanViews(View):
-    def get(self,request):
+    def get(self,request,jenis_kesehatan_id):
+        dt_kesehatan = Data_kesehatan.objects.filter(deleted_at__isnull = True,fk_jenis=jenis_kesehatan_id)
+        jenis_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
+        dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
+        wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_level='4')
+        data = {
+            'dt_indikator': dt_indikator,
+            'jenis_kesehatan': jenis_kesehatan,
+            'wilayah_list': wilayah_list,
+            'dt_kesehatan': dt_kesehatan
+        }
+        
 
-        return render(request,'admin/data_kesehatan/detail.html')
+        return render(request,'admin/data_kesehatan/detail.html',data)
+    
+class Add_data_kesehatan(View) :
+    def post(self, request):
+        fk_jenis_id = request.POST.get('jenis_kesehatan')
+        wilayah_id = request.POST.get('wilayah')
+        indikator_id = request.POST.get('indikator')
+        oap = request.POST.get('oap')
+        non_oap = request.POST.get('non_oap')
+
+        wilayah = MasterWilayah.objects.get(wilayah_id=wilayah_id)
+        fk_jenis = Master_jenis_kesehatan.objects.get(jenis_kesehatan_id=fk_jenis_id)
+        indikator = Indikator_kesehatan.objects.get(id_indikator=indikator_id)
+
+        try:
+            with transaction.atomic():
+                input_kesehatan = Data_kesehatan(
+                    wilayah = wilayah,
+                    fk_jenis = fk_jenis,
+                    indikator = indikator,
+                    oap = oap,
+                    non_oap = non_oap,
+                )
+               
+                input_kesehatan.save()
+                
+
+                messages.success(request, f"data berhasil Ditambahkan")
+                return redirect('admin_setori:detail_data_kesehatan',jenis_kesehatan_id=fk_jenis_id)
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menambahkan")
+            return redirect('admin_setori:data_kesehatan',jenis_kesehatan_id=fk_jenis_id)

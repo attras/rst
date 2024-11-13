@@ -17,4 +17,4 @@ class DetailpotensidistrikViews(View):
 
 class DetailpotensikampungViews(View):
     def get(self, request):
-        return render(request, 'setori/potensidaerah/detailkampung.html')
+        return render(request, 'setori/potensidaerah/detail.html')

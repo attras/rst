@@ -1,5 +1,7 @@
 {% extends 'admin/base_layout/index.html' %}
-{% block css %} {% endblock css %}
+{% block css %} 
+
+{% endblock css %}
 {% block main %}
 
 <!-- PAGE-HEADER -->
@@ -8,7 +10,6 @@
         <h1 class="page-title">Dashboard 01</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
         </ol>
     </div>
     <div class="ms-auto pageheader-btn">
@@ -57,7 +58,7 @@
                                 <td class="text-muted fs-15 fw-semibold">{{ slider.status}}</td>
                                 <td class="">
                                    
-                                    <a class="btn btn-primary btn-sm rounded-11 me-2" 
+                                    <a class="btn btn-primary btn-md rounded-11 me-2" 
                                     data-bs-toggle="modal" 
                                     data-bs-logo="{{ slider.logo.url }}" 
                                     data-bs-target="#addModal"
@@ -66,14 +67,7 @@
                                     data-bs-status="{{ slider.status }}"
                                     onclick="editSlider('{{ slider.id_slider }}')"
                                     >
-                                     <i>
-                                         <svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
-                                             <path d="M0 0h24v24H0V0z" fill="none" />
-                                             <path
-                                                 d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"
-                                             />
-                                         </svg>
-                                     </i> 
+                                    <i class="fa-solid fa-pen-to-square"></i>Edit  
                                     </a>
 
                                     <a >
@@ -184,5 +178,28 @@
     });
 };
 
+
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+    const wilayahSelect = document.getElementById("wilayah");
+    const indikatorSelect = document.getElementById("indikator");
+    
+    form.addEventListener("submit", function(event) {
+        const selectedWilayah = wilayahSelect.value;
+        const selectedIndikator = indikatorSelect.value;
+
+        // Cek apakah kombinasi wilayah dan indikator sudah ada di tabel
+        const isDuplicate = Array.from(document.querySelectorAll("tbody tr")).some(row => {
+            const wilayah = row.getAttribute("data-wilayah");
+            const indikator = row.getAttribute("data-indikator");
+            return wilayah === selectedWilayah && indikator === selectedIndikator;
+        });
+
+        if (isDuplicate) {
+            event.preventDefault(); // Hentikan pengiriman form
+            alert("Data dengan kombinasi Wilayah dan Indikator ini sudah ada.");
+        }
+    });
+});
 </script>
 {% endblock js %}

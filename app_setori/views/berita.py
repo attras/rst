@@ -17,17 +17,6 @@ from admin_setori.decorators import role_required
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator
 
-# class BeritaViews(View):
-#     def get(self, request):
-#         dt_berita = News.objects.filter(deleted_at__isnull = True)
-#         dt_kategori = Category.objects.filter(deleted_at__isnull = True)
-#         data = {
-#             'dt_berita' : dt_berita,
-#             'dt_kategori' : dt_kategori
-
-#         }
-#         return render(request, 'setori/berita/index.html', data)
-
 class BeritaViews(View):
     def get(self, request):
         dt_berita = News.objects.filter(deleted_at__isnull=True).order_by('-created_at')  # Ambil semua berita yang tidak dihapus

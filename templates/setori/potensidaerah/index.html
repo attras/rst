@@ -143,30 +143,6 @@
 
 
 <div class="bg-grey-100 px-3 px-xl-0 border-radius-2-bottom p-relative overflow-hidden">
-    <div class="container">
-        <div class="row pt-5 d-flex align-items-center">
-            <!-- Dropdown -->
-            <div class="col-lg-6 mb-4">
-                <div class="dropdown">
-                    <button class="dropbtn">Filter Area<i class="fas fa-caret-down"></i></button>
-                    <div class="dropdown-content">
-                        <a href="{% url 'app_setori:distrik' %}">Distrik</a>
-                        <a href="{% url 'app_setori:potensi' %}">Kampung</a>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Search Container -->
-            <div class="col-lg-6 mb-4 d-flex justify-content-end">
-                <div class="search-container">
-                    <input type="text" placeholder="Cari..." class="search-input">
-                    <button class="search-button">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!--Potensi-->
     <div class="container">
@@ -190,76 +166,7 @@
                 </div>
                 </a>
             </div>
-            <div class="col-lg-6 mb-4">
-                <div class="border-radius-2 overflow-hidden">
-                    <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
-                        <span class="thumb-info-wrapper border-radius-0 rounded-top">
-                            <img src="{% static 'img/potensi/2.jpg' %}" loading="lazy" class="img-fluid" alt="">
-                        </span>
-                        <span class="thumb-info-content">
-                        <span class="thumb-info-content-inner bg-light p-4">
-                                <h4 class="text-5 mb-1">Yamnaisu</h4>
-                                <p class="line-height-7 text-3 mb-0">Distrik: Kepulauan Aruri</p>
-                                <p class="line-height-7 text-3 mb-0">Kepala Desa: Drs. Yan Imbab</p>
-                                <p class="line-height-7 text-3 mb-0">Perkiraan jumlah keluarga: 51</p>
-                            </span>
-                        </span>
-                    </span>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="border-radius-2 overflow-hidden">
-                    <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
-                        <span class="thumb-info-wrapper border-radius-0 rounded-top">
-                            <img src="{% static 'img/potensi/3.jpg' %}" loading="lazy" class="img-fluid" alt="">
-                        </span>
-                        <span class="thumb-info-content">
-                        <span class="thumb-info-content-inner bg-light p-4">
-                                <h4 class="text-5 mb-1">Kobari Jaya</h4>
-                                <p class="line-height-7 text-3 mb-0">Distrik: Supiori Utara</p>
-                                <p class="line-height-7 text-3 mb-0">Kepala Desa: Drs. Yan Imbab</p>
-                                <p class="line-height-7 text-3 mb-0">Perkiraan jumlah keluarga: 36</p>
-                            </span>
-                            <span class="thumb-info-content-inner-hidden p-absolute d-block w-100 py-3">
-                                                                <ul class="social-icons social-icons-clean social-icons-medium">
-                                                                    <li class="social-icons-instagram">
-                                                                        <a href="http://www.instagram.com/" target="_blank" title="Instagram">
-                                                                            <i class="fab fa-instagram"></i>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="social-icons-x">
-                                                                        <a href="http://www.x.com/" target="_blank" title="X">
-                                                                            <i class="fab fa-x-twitter"></i>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="social-icons-facebook">
-                                                                        <a href="http://www.facebook.com/" target="_blank" title="Facebook">
-                                                                            <i class="fab fa-facebook-f"></i>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-															</span>
-                        </span>
-                    </span>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="border-radius-2 overflow-hidden">
-                    <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
-                        <span class="thumb-info-wrapper border-radius-0 rounded-top">
-                            <img src="{% static 'img/potensi/4.jpg' %}" loading="lazy" class="img-fluid" alt="">
-                        </span>
-                        <span class="thumb-info-content">
-                        <span class="thumb-info-content-inner bg-light p-4">
-                                <h4 class="text-5 mb-1">Waryei</h4>
-                                <p class="line-height-7 text-3 mb-0">Distrik: Supiori Barat</p>
-                                <p class="line-height-7 text-3 mb-0">Kepala Desa: Drs. Yan Imbab</p>
-                                <p class="line-height-7 text-3 mb-0">Perkiraan jumlah keluarga: 786</p>
-                            </span>
-                        </span>
-                    </span>
-                </div>
-            </div>
+            
             <div class="pt-3 pb-5">
                 <ul class="pagination pagination-rounded pagination-md justify-content-center">
 					<li class="page-item"><a class="page-link bg-transparent text-dark" href="#" data-cursor-effect-hover="fit"><i class="fas fa-angle-left"></i></a></li>

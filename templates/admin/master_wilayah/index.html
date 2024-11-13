@@ -5,7 +5,7 @@
 
 <div class="page-header">
     <div>
-        <h1 class="page-title">Dashboard 01</h1>
+        <h1 class="page-title">Master wilayah</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
@@ -54,41 +54,22 @@
                                 {% endif %}
                                 </td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                    <a class="btn btn-danger btn-sm rounded-11"
+                                    <!-- <a class="btn btn-primary btn-md rounded-11"
                                          data-bs-toggle="modal" 
                                          data-bs-target="#deleteWilayahModal_{{ wilayah.wilayah_id }}" 
                                          data-bs-original-title="Delete"
                                          data-bs-id="{{ wilayah.wilayah_id }}" 
                                          >
                                          
-                                            <i>
-                                                <svg class="table-delete" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16">
-                                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" />
-                                                </svg>
-                                            </i>
-                                        </a>
+                                         <i class="fa-solid fa-pen-to-square"></i>Edit 
+                                        </a> -->
 
                                     <!-- Delete Wilayah Modal -->
-                                    <div class="modal fade" id="deleteWilayahModal_{{ wilayah.wilayah_id }}" tabindex="-1" aria-labelledby="deleteWilayahModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteWilayahModalLabel">Delete Wilayah</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Apakah Anda yakin ingin menghapus wilayah ini?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                    <a href="{% url 'admin_setori:delete_wilayah' wilayah_id=wilayah.wilayah_id %}">
-                                                        <button type="button" class="btn btn-danger">Hapus</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <a >
+                                        <button type="button" class="btn btn-danger" onclick="Hapus_wilayah('{{wilayah.wilayah_id }}')">
+                                            <i class="fe fe-trash"></i> Hapus
+                                        </button>     
+                                    </a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -171,30 +152,44 @@
 
 
 <script>
-    var editFaqModal = document.getElementById('editFaqModal');
-    editFaqModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
+    // Show confirmation dialog
+    function Hapus_wilayah(id_hapus_wilayah) {
+        Swal.fire({
+            title: 'Apakah kamu yakin ingin menghapus?',
+            showCancelButton: true,
+            confirmButtonText: 'Konfirmasi',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `delete/${id_hapus_wilayah}`,
+                    dataType: "html",
+                    timeout: 10000,
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Memproses...',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false,
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                        });
+                        Swal.showLoading();
+                    },
+                    success: function(response) {
+                        Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000); 
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
+                    }
+                });
+            }
+        });
 
-        // Extract info from data-bs-* attributes
-        var faqId = button.getAttribute('data-bs-id');
-        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
-        var jawaban = button.getAttribute('data-bs-jawaban');
-
-        // Update the modal's form fields
-        var modalTitle = editFaqModal.querySelector('.modal-title');
-        var inputPertanyaan = editFaqModal.querySelector('#edit-pertanyaan');
-        var inputJawaban = editFaqModal.querySelector('#edit-jawaban');
-        var form = editFaqModal.querySelector('form');
-
-        modalTitle.textContent = 'Edit pertanyaan ' + pertanyaan;
-        inputPertanyaan.value = pertanyaan;
-        inputJawaban.value = jawaban;
-
-        // Update form action URL dynamically with the correct FAQ ID
-        form.action = "{% url 'admin_setori:edit_faq' 'holder' %}".replace('holder', faqId);
-        
-    });
+    };
 
 
 
@@ -204,6 +199,8 @@
         document.getElementById("parent_kabupaten").style.display = level == "3" ? "block" : "none";
         document.getElementById("parent_kecamatan").style.display = level == "4" ? "block" : "none";
     });
+
+    
 
     
 </script>
