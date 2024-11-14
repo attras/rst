@@ -87,6 +87,7 @@
     </div>
 </div> 
 
+
 <div class="container pt-4 pb-5 pt-lg-5">
     <div class="row align-items-center py-5">
         <div class="col-lg-12 mb-5 mb-lg-0 pe-lg-5">
@@ -94,8 +95,9 @@
                 <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Tentang Kami</h2>
             </div>							
             <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                    <p align="justify">Akses terhadap data kesehatan yang terstruktur dan dapat dipercaya sangat penting untuk meningkatkan pelayanan kesehatan, penelitian, dan pengambilan keputusan berdasarkan data yang akurat. Namun, sistem kesehatan sering menghadapi masalah seperti data yang terpisah, kurangnya aksesibilitas, dan tantangan dalam mengintegrasikan informasi dari berbagai sumber. Sebagai contoh, data pasien sering kali hanya tersimpan di arsip lembaga kesehatan tertentu, sehingga menyulitkan untuk mendapatkan gambaran lengkap tentang riwayat kesehatan suatu daerah akibat tidak adanya pengumpulan data yang terpadu.</p>
-                    <p align="justify">Dalam upaya mewujudkan hal ini, pemerintah Papua mempercayakan proyek pengembangan sistem informasi kesehatan kepada PT RST, sebuah perusahaan pengembangan perangkat lunak yang berlokasi di Yogyakarta. PT RST fokus pada pengembangan sistem informasi, aplikasi web, dan solusi e-government. Dengan dukungan tenaga ahli profesional yang berpengalaman di bidang teknologi informasi, PT RST memiliki pengalaman tinggi dalam memenuhi kebutuhan sektor pemerintahan dan swasta di seluruh Indonesia.</p>
+                {% for tentang in dt_tentang|slice:'1' %}
+                    <p align="justify">{{ tentang.pengantar }}</p>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -105,29 +107,31 @@
     <div class="container">
         <div class="d-flex justify-content-center row pt-5">
             <div class="row pb-5">
+                {% for tentang in dt_tentang %}
                 <div class="col-lg-4">
-                    <img class="card-img-top rounded-3" src="{% static 'img/tentang/1.jpg'%}" alt="">
+                    <img class="card-img-top rounded-3" src="{{ tentang.foto_kepala.url }}" alt="">
                 </div>
                 <div class="col-lg-8">
-                    <h4>DRS. Yan Imbab</h4>
-                    <h5>Bupati Kabupaten Supiori</h5>
+                    <h4>{{ tentang.nama_kepala_dinas }}</h4>
+                    <h5>{{ tentang.jabatan_kepala }}</h5>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum debitis adipisci, unde magni tenetur aliquid incidunt perferendis eligendi dolor, officiis impedit fugit voluptatibus reprehenderit quae saepe illo porro molestiae!
+                    {{ tentang.kata_kepala }}
                     </p>
                 </div>
             </div>
             <hr>
             <div class="row pt-lg-5 pb-5">
                 <div class="col-lg-8 ">
-                    <h4 align="right">DRS. Yan Imbab</h4>
-                    <h5 align="right">Bupati Kabupaten Supiori</h5>
+                    <h4 align="right">{{ tentang.nama_sekretaris }}</h4>
+                    <h5 align="right">{{ jabatan_sekretaris }}</h5>
                     <p align="right">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum debitis adipisci, unde magni tenetur aliquid incidunt perferendis eligendi dolor, officiis impedit fugit voluptatibus reprehenderit quae saepe illo porro molestiae!
+                    {{ tentang.kata_sekretaris }}    
                     </p>
                 </div>
                 <div class="col-lg-4">
-                    <img class="card-img-top rounded-3" src="{% static 'img/tentang/1.jpg'%}" alt="">
+                    <img class="card-img-top rounded-3" src="{{ tentang.foto_sekretaris.url }}" alt="">
                 </div>
+                {% endfor %}
             </div>
             
             
