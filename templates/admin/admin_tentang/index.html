@@ -2,23 +2,11 @@
 {% block main %}
 <div class="page-header">
     <div>
-        <h1 class="page-title">Daftar Tokoh Penting</h1>
+        <h1 class="page-title">Setting tentang kami</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Daftar Tokoh</li>
+            <li class="breadcrumb-item"><a href="#">Setting</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tentang kami</li>
         </ol>
-    </div>
-    <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addNewsModal">
-            <span>
-                <i class="fe fe-plus"></i>
-            </span> Tambah Orang
-        </a>
-        <a href="#" class="btn btn-success btn-icon text-white">
-            <span>
-                <i class="fe fe-log-in"></i>
-            </span> History
-        </a>
     </div>
 </div>
 
@@ -26,279 +14,54 @@
     <div class="col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title mb-0">News</h3>
+                <h3 class="card-title mb-0">Setting tentang kami</h3>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
-                        <thead class="border-top">
-                            <tr>
-                                <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Foto</th>
-                                <th class="bg-transparent border-bottom-0">Nama</th>
-                                <th class="bg-transparent border-bottom-0">jabatan</th>
-                                
-                                <th class="bg-transparent border-bottom-0">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          {% for tentang in dt_tentang %}
-                            <tr class="border-bottom">
-                                <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">
-                                    <img src="{{ tentang.gambar.url }}" alt="logo" style="width: 50px; height: auto;">
-                                </td>
-                                <td class="text-muted fs-15 fw-semibold">{{ tentang.nama }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ tentang.jabatan }}</td>
-                              
-                                <td class="text-muted fs-15 fw-semibold">
-                                    <a class="btn btn-primary btn-md rounded-11 me-2" 
-                                       href="#" 
-                                       data-bs-toggle="modal" 
-                                       data-bs-target="#editNewsModal" 
-                                       data-bs-id="{{ tentang.id }}" 
-                                       data-bs-title="{{ tentang.title }}" 
-                                       data-bs-category="{{ tentang.category.name }}" 
-                                       data-bs-content="{{ tentang.content }}">
-                                       <i class="fa-solid fa-pen-to-square"></i>Edit 
-                                    </a>
-
-                                    <a >
-                                        <button type="button" class="btn btn-danger" onclick="Hapus_berita('{{ berita.slug }}')">
-                                            <i class="fe fe-trash"></i> Hapus
-                                        </button>     
-                                    </a> 
-                                </td>
-                            </tr>
-                          {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- COL END -->
-</div>
-
-
-<!-- addd -->
-
-<div class="modal fade" id="addNewsModal" tabindex="-1" aria-labelledby="addNewsModalLabel" aria-hidden="true">
-    <div class="modal-dialog col-10">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addNewsModalLabel">Add News</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_berita' %}" enctype="multipart/form-data">
+                <form action="{% url 'admin_setori:add_tentang' %}" enctype="multipart/form-data" method="post">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label">Title</label>
-                        <input type="text" name="title" class="form-control" placeholder="Enter Title" required />
+                    <div class="row row-sm">
+                        <div class="col-6">
+                            <div class="col-lg">
+                                <label for="">Kata Pengantar</label>
+                                <textarea name="pengantar_tentang" id="" class="form-control form-control-sm  mb-4" required></textarea>
+                                <label for="">Nama Bupati</label>
+                                <input name="nama_kepala" class="form-control  mb-4" placeholder="Input box" type="text" required>
+                                <label for="">Jabatan</label>
+                                <input name="jabatan_kepala" class="form-control form-control-lg" placeholder="Input lg box" type="text" required>
+                                <label for="">Nama Wakil Bupati</label>
+                                <input name="nama_sekretaris" class="form-control form-control-sm  mb-4" placeholder="Input sm box" type="text" required>
+                                <label for="">Jabatan</label>
+                                <input name="jabatan_sekretaris" class="form-control form-control-sm  mb-4" placeholder="Input sm box" type="text" required>
+                                <label for="">Deskripsi Singkat</label>
+                                <textarea name="deskripsi_singkat_tentang" id="" class="form-control form-control-sm  mb-4" required></textarea>
+                                <label for="">Sambutan Bupati</label>
+                                <textarea name="kata_kepala" id="" class="form-control form-control-sm  mb-4" required></textarea>
+                                <label for="">Sambutan Wakil Bupati</label>
+                                <textarea name="kata_sekretaris" id="" class="form-control form-control-sm  mb-4" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg">
+                                <label for="">Foto Bupati</label>
+                                <input name="foto_kepala" class="form-control form-control-sm  mb-4 dropify" placeholder="Input sm box" type="file" required>
+                                <label for="">Foto Wakil Bupati</label>
+                                <input name="foto_sekretaris" class="form-control  mb-4 dropify" placeholder="Input box" type="file" required>
+                                <label for="">Thumbnail Profil</label>
+                                <input name="thumbnail_profil" class="form-control  mb-4 dropify" placeholder="Input box" type="file" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Category</label>
-                        <select name="category" class="form-select" required>
-                            <option value="">Select Category</option>
-                            {% for kategori in dt_kategori %}
-                                <option value="{{ kategori.categori_id }}">{{ kategori.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Thumbnail</label>
-                        <input type="file" name="thumbnail" class="form-control" accept="image/*" required />
-                    </div>
-                    <div class="mb-3">
-                        <input type="hidden" name="username" value="{{ user.username }}" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Content</label>
-                        <textarea  name="content_berita" id="editor" class="form-control ck-editor" placeholder="Enter Content" required></textarea>
-                    </div>
-                   
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary col-6">Save</button>
+                        <button class="btn btn-primary" type="submit">
+                            Simpan Data
+                        </button>
                     </div>
                     
                 </form>
             </div>
         </div>
     </div>
+    <!-- COL END -->
 </div>
-
-<!--edit news-->
-<div class="modal fade" id="editNewsModal" tabindex="-1" aria-labelledby="editNewsModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editNewsModalLabel">Edit Berita</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label">Pertanyaan</label>
-                        <input type="text" name="pertanyaan" id="edit-pertanyaan" class="form-control" placeholder="Masukan Pertanyaan" required />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Jawaban</label>
-                        <textarea name="jawaban" id="edit-jawaban" class="form-control" placeholder="Masukan Jawaban" required ></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-warning">Update FAQ</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--delete news-->
-<div class="modal fade" id="deleteNewsModal" tabindex="-1" aria-labelledby="deleteNewsModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteNewsModalLabel">Hapus Berita</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah anda yakin ingin menghapus berita ini?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a id="del" href="">
-                    <button type="button" class="btn btn-danger">Delete</button>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    var editNewsModal = document.getElementById('editNewsModal');
-    editNewsModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-
-        // Extract info from data-bs-* attributes
-        var faqId = button.getAttribute('data-bs-id');
-        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
-        var jawaban = button.getAttribute('data-bs-jawaban');
-
-        // Update the modal's form fields
-        var modalTitle = editNewsModal.querySelector('.modal-title');
-        var inputPertanyaan = editNewsModal.querySelector('#edit-pertanyaan');
-        var inputJawaban = editNewsModal.querySelector('#edit-jawaban');
-        var form = editNewsModal.querySelector('form');
-
-        modalTitle.textContent = 'Edit pertanyaan ' + pertanyaan;
-        inputPertanyaan.value = pertanyaan;
-        inputJawaban.value = jawaban;
-
-        // Update form action URL dynamically with the correct FAQ ID
-        form.action = "{% url 'admin_setori:edit_faq' 'holder' %}".replace('holder', faqId);
-        
-    });
-
-    var deleteNewsModal = document.getElementById('deleteNewsModal');
-    deleteNewsModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var newsSlug = button.getAttribute('data-bs-slug');
-        var newsTitle = button.getAttribute('data-bs-title');
-
-        var modalTitle = deleteNewsModal.querySelector('.modal-title');
-        var link = deleteNewsModal.querySelector('#del');
-        modalTitle.textContent = 'Hapus ' + newsTitle;
-
-        link.href = "{% url 'admin_setori:delete_berita' 'holder' %}".replace('holder', newsSlug);
-    });
-
-
-    function Hapus_berita(slug_hapus) {
-       // Show confirmation dialog
-       Swal.fire({
-           title: 'Apakah kamu yakin ingin menghapus?',
-           showCancelButton: true,
-           confirmButtonText: 'Konfirmasi',
-           cancelButtonText: 'Batal',
-           confirmButtonColor: '#d33',
-       }).then((result) => {
-           if (result.isConfirmed) {
-               $.ajax({
-                   url: `delete/${slug_hapus}`,
-                   dataType: "html",
-                   timeout: 10000,
-                   beforeSend: function() {
-                       Swal.fire({
-                           title: 'Memproses...',
-                           allowEscapeKey: false,
-                           allowOutsideClick: false,
-                           showCancelButton: false,
-                           showConfirmButton: false,
-                       });
-                       Swal.showLoading();
-                   },
-                   success: function(response) {
-                       Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
-                       setTimeout(function() {
-                           window.location.reload();
-                       }, 2000); 
-                   },
-                   error: function(xhr, ajaxOptions, thrownError) {
-                       Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
-                   }
-               });
-           }
-       });
-   
-   };
-    
-</script>
-
-
-<!--ck editor-->
-<script type="importmap">
-    {
-        "imports": {
-            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
-            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
-        }
-    }
-</script>
-<script type="module">
-    import {
-        ClassicEditor,
-        Essentials,
-        Bold,
-        Italic,
-        Font,
-        Paragraph
-    } from 'ckeditor5';
-
-    ClassicEditor
-        .create(document.querySelector('#editor'), {
-            plugins: [Essentials, Bold, Italic, Font, Paragraph],
-            toolbar: [
-                'undo', 'redo', '|', 'bold', 'italic', '|',
-                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
-            ],
-        })
-        .then(editor => {
-            // Optionally listen for changes to update the hidden textarea
-            editor.model.document.on('change:data', () => {
-                const data = editor.getData();
-                document.querySelector('textarea[name="content_berita"]').value = data;
-            });
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script>
-
-
-
-
 
 {% endblock main %}

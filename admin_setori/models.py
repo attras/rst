@@ -260,9 +260,18 @@ class Info_wilayah(CreateUpdateTime):
 
 class Tentang(CreateUpdateTime):
     id_tentang = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
-    gambar = models.ImageField(upload_to='tentang')
-    nama_tokoh = models.CharField(max_length=255)
-    deskripsi_tokoh = models.TextField()
+    pengantar = models.TextField()
+    kata_kepala = models.TextField()
+    kata_sekretaris = models.TextField()
+    foto_pegantar = models.ImageField(upload_to='tentang')
+    nama_kepala_dinas = models.CharField(max_length=255)
+    jabatan_kepala = models.CharField(max_length=255)
+    nama_sekretaris = models.CharField(max_length=255)
+    jabatan_sekretaris = models.CharField(max_length=255)
+    deskripsi_singkat = models.TextField()
+    foto_kepala = models.ImageField(upload_to='tentang')
+    foto_sekretaris = models.ImageField(upload_to='tentang')
+   
 
 class Kontak(CreateUpdateTime):
     maps = models.TextField(blank=True, null=True)
@@ -295,4 +304,4 @@ class Data_kesehatan(CreateUpdateTime):
 
 
 
-
+  

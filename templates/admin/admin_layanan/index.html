@@ -89,7 +89,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_layanan' %}">
+                <form method="post" action="{% url 'admin_setori:add_layanan' %}" enctype="multipart/form-data">
                   {% csrf_token %}
                     <div class="mb-3">
                         <label  class="form-label">Nama Surat</label>
@@ -259,7 +259,7 @@
                     'undo', 'redo', '|', 'bold', 'italic', '|',
                     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
                 ],
-                height: '500px'
+                
             })
             .then(editor => {
                 // Mendengarkan perubahan data pada setiap editor
