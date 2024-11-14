@@ -15,7 +15,45 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Admin_tetang_kami(View):
     def get(self, request):
-      
+    
 
         return render(request, 'admin/admin_tentang/index.html')
+
+class Add_tentang(View):
+    def post(self, request):
+        pengantar_tentang = request.POST.get('pengantar_tentang')
+        nama_kepala = request.POST.get('nama_kepala')
+        jabatan_kepala = request.POST.get('jabatan_kepala')
+        nama_sekretaris = request.POST.get('nama_sekretaris')
+        jabatan_sekretaris = request.POST.get('jabatan_sekretaris')
+        deskripsi_singkat_tentang = request.POST.get('deskripsi_singkat_tentang')
+        kata_kepala = request.POST.get('kata_kepala')
+        kata_sekretaris = request.POST.get('kata_sekretaris')
+
+        foto_kepala = request.FILES.get('foto_kepala')
+        foto_sekretaris = request.FILES.get('foto_sekretaris')
+        thumbnail_profil = request.FILES.get('thumbnail_profil')
+
+        try :
+            with transaction.atomic():
+                insert_tentang = Tentang()
+                insert_tentang.pengantar = pengantar_tentang
+                insert_tentang.foto_pegantar = thumbnail_profil
+                insert_tentang.nama_kepala_dinas = nama_kepala
+                insert_tentang.jabatan_kepala = jabatan_kepala
+                insert_tentang.nama_sekretaris = nama_sekretaris
+                insert_tentang.jabatan_sekretaris = jabatan_sekretaris
+                insert_tentang.deskripsi_singkat = deskripsi_singkat_tentang
+                insert_tentang.foto_kepala = foto_kepala
+                insert_tentang.foto_sekretaris = foto_sekretaris
+                insert_tentang.kata_kepala = kata_kepala
+                insert_tentang.kata_sekretaris = kata_sekretaris
+                insert_tentang.save()
+                messages.success(request, " added successfully!")
+                return redirect('admin_setori:admin_tentang') 
+
+        except Exception as e:
+            print('Error while adding category', e)
+            messages.error(request, "Failed to add ")
+            return redirect('admin_setori:admin_tentang')
  

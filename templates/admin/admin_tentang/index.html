@@ -17,32 +17,37 @@
                 <h3 class="card-title mb-0">Setting tentang kami</h3>
             </div>
             <div class="card-body">
-                <form action="" enctype="multipart/form-data">
+                <form action="{% url 'admin_setori:add_tentang' %}" enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
                     <div class="row row-sm">
                         <div class="col-6">
                             <div class="col-lg">
                                 <label for="">Kata Pengantar</label>
-                                <textarea name="" id="" class="form-control form-control-sm  mb-4"></textarea>
-                                <label for="">Nama Kepala Dinas</label>
-                                <input class="form-control  mb-4" placeholder="Input box" type="text">
+                                <textarea name="pengantar_tentang" id="" class="form-control form-control-sm  mb-4" required></textarea>
+                                <label for="">Nama Bupati</label>
+                                <input name="nama_kepala" class="form-control  mb-4" placeholder="Input box" type="text" required>
                                 <label for="">Jabatan</label>
-                                <input class="form-control form-control-lg" placeholder="Input lg box" type="text">
-                                <label for="">Nama Sekretaris Dinas</label>
-                                <input class="form-control form-control-sm  mb-4" placeholder="Input sm box" type="text">
+                                <input name="jabatan_kepala" class="form-control form-control-lg" placeholder="Input lg box" type="text" required>
+                                <label for="">Nama Wakil Bupati</label>
+                                <input name="nama_sekretaris" class="form-control form-control-sm  mb-4" placeholder="Input sm box" type="text" required>
                                 <label for="">Jabatan</label>
-                                <input class="form-control form-control-sm  mb-4" placeholder="Input sm box" type="text">
+                                <input name="jabatan_sekretaris" class="form-control form-control-sm  mb-4" placeholder="Input sm box" type="text" required>
                                 <label for="">Deskripsi Singkat</label>
-                                <textarea name="" id="" class="form-control form-control-sm  mb-4"></textarea>
+                                <textarea name="deskripsi_singkat_tentang" id="" class="form-control form-control-sm  mb-4" required></textarea>
+                                <label for="">Sambutan Bupati</label>
+                                <textarea name="kata_kepala" id="" class="form-control form-control-sm  mb-4" required></textarea>
+                                <label for="">Sambutan Wakil Bupati</label>
+                                <textarea name="kata_sekretaris" id="" class="form-control form-control-sm  mb-4" required></textarea>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="col-lg">
-                                <label for="">Foto Kepala Dinas</label>
-                                <input class="form-control form-control-sm  mb-4" placeholder="Input sm box" type="file">
-                                <label for="">Foto Sekretaris</label>
-                                <input class="form-control  mb-4" placeholder="Input box" type="file">
+                                <label for="">Foto Bupati</label>
+                                <input name="foto_kepala" class="form-control form-control-sm  mb-4" placeholder="Input sm box" type="file" required>
+                                <label for="">Foto Wakil Bupati</label>
+                                <input name="foto_sekretaris" class="form-control  mb-4" placeholder="Input box" type="file" required>
                                 <label for="">Thumbnail Profil</label>
-                                <input class="form-control  mb-4" placeholder="Input box" type="file">
+                                <input name="thumbnail_profil" class="form-control  mb-4" placeholder="Input box" type="file" required>
                             </div>
                         </div>
                     </div>
