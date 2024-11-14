@@ -230,10 +230,14 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <p><strong>Puskesmas:</strong> -</p>
-                                            <p><strong>Posyandu:</strong> -</p>
-                                            <p><strong>Pondok Bersalin:</strong> -</p>
-                                            <p><strong>Rumah Sakit:</strong> -</p>
+                                                <p><strong>Puskesmas:</strong> -</p>
+                                                <p><strong>Posyandu:</strong> -</p>
+                                                <p><strong>Apotek:</strong> -</p>
+                                                <p><strong>Pondok Bersalin:</strong> -</p>
+                                                <p><strong>Klinik:</strong> -</p>
+                                                <p><strong>Rumah Sakit Umum Daerah:</strong> -</p>
+                                                <p><strong>Rumah Sakit Swasta:</strong> -</p>
+                                                <p><strong>Rumah Sakit Jiwa:</strong> -</p>
                                         </div>
                                     </div>
                                 </div>
@@ -280,8 +284,12 @@
                                             <div class="col-md-3">
                                                 <p><strong>Puskesmas:</strong> -</p>
                                                 <p><strong>Posyandu:</strong> -</p>
+                                                <p><strong>Apotek:</strong> -</p>
                                                 <p><strong>Pondok Bersalin:</strong> -</p>
-                                                <p><strong>Rumah Sakit:</strong> -</p>
+                                                <p><strong>Klinik:</strong> -</p>
+                                                <p><strong>Rumah Sakit Umum Daerah:</strong> -</p>
+                                                <p><strong>Rumah Sakit Swasta:</strong> -</p>
+                                                <p><strong>Rumah Sakit Jiwa:</strong> -</p>
                                             </div>
                                         </div>
                                     </div>
@@ -343,6 +351,37 @@
         </div>
     </div>
 
+    <style>
+        /* Styling untuk iframe */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Optional: Wrapper untuk menjaga aspek rasio 16:9 */
+        .iframe-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .iframe-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

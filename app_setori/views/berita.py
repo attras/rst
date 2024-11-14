@@ -1,8 +1,4 @@
 from django.shortcuts import render, redirect
-
-from django.views import View
-
-from django.shortcuts import render, redirect
 from django.db import transaction 
 from django.views import View
 from admin_setori.models import *

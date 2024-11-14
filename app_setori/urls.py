@@ -29,10 +29,10 @@ urlpatterns = [
      ])),
 
      path('potensi/',include([
-          path('potensi', potensi.PotensiViews.as_view(), name = 'kampung'),
-          path('detail_potensi', potensi.DetailpotensikampungViews.as_view(), name = 'detail_potensi'),
+          path('', potensi.PotensiViews.as_view(), name = 'kampung'),
+          path('detail_potensi/', potensi.DetailpotensikampungViews.as_view(), name = 'detail_potensi'),
           path('distrik', potensi.DistrikpotensiViews.as_view(), name = 'distrik'),
-          path('detail_distrik', potensi.DetailpotensidistrikViews.as_view(), name = 'detail_distrik'),
+          path('detail_distrik/', potensi.DetailpotensidistrikViews.as_view(), name = 'detail_distrik'),
      ])),
      
 ]
