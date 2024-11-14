@@ -258,11 +258,18 @@ class Info_wilayah(CreateUpdateTime):
     wilayah = models.ForeignKey(MasterWilayah, on_delete=models.CASCADE,blank=True, null=True)
     
 
-class Tentang(CreateUpdateTime):
+class Tentang_kami(CreateUpdateTime):
     id_tentang = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
-    gambar = models.ImageField(upload_to='tentang')
-    nama_tokoh = models.CharField(max_length=255)
-    deskripsi_tokoh = models.TextField()
+    pengatar = models.CharField(max_length=255)
+    foto_pegantar = models.ImageField(upload_to='tentang')
+    nama_kepala_dinas = models.CharField(max_length=255)
+    jabatan_kepala = models.CharField(max_length=255)
+    nama_sekretaris = models.CharField(max_length=255)
+    jabatan_sekretaris = models.CharField(max_length=255)
+    deskripsi_singkat = models.TextField()
+    foto_kepala = models.ImageField(upload_to='tentang')
+    foto_sekretaris = models.ImageField(upload_to='tentang')
+   
 
 class Kontak(CreateUpdateTime):
     maps = models.TextField(blank=True, null=True)
