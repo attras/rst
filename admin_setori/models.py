@@ -260,7 +260,7 @@ class Info_wilayah(CreateUpdateTime):
 
 class Tentang(CreateUpdateTime):
     id_tentang = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False, unique=True)
-    pengantar = models.CharField(max_length=255)
+    pengantar = models.TextField()
     kata_kepala = models.TextField()
     kata_sekretaris = models.TextField()
     foto_pegantar = models.ImageField(upload_to='tentang')
