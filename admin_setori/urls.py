@@ -122,4 +122,9 @@ urlpatterns = [
       
         ])),
 
+    path('tentang_kami/',include([
+
+         path('',admin_tentang.Admin_tetang_kami.as_view(),name='admin_tentang'),
+        ])),
+
 ]
