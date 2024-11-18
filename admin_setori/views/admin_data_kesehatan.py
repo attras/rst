@@ -71,3 +71,18 @@ class Add_data_kesehatan(View) :
             print('Error Data', e)
             messages.error(request,"gagal menambahkan")
             return redirect('admin_setori:data_kesehatan',jenis_kesehatan_id=fk_jenis_id)
+
+
+class DeleteKesehatan(View):
+    def get(self, request, data_kesehatan_id):
+        del_kesehatan = get_object_or_404(Data_kesehatan, data_kesehatan_id=data_kesehatan_id)
+        
+        try:
+            with transaction.atomic():
+                del_kesehatan.delete()
+                messages.success(request, "Data berhasil dihapus")
+        except Exception as e:
+            print('Error Data:', e)
+            messages.error(request, "Gagal menghapus data")
+        
+        return redirect("admin_setori:data_kesehatan")

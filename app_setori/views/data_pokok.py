@@ -44,6 +44,7 @@ class Data_pokokViews(View):
         # total non oap
         total_non_oap = total_wanita_non_oap + total_pria_non_oap
 
+        
         data={
             'dt_penduduk': dt_penduduk,
             'total_kk_semua': total_kk_semua,
@@ -52,7 +53,7 @@ class Data_pokokViews(View):
             'total_penduduk_semua': total_penduduk_semua,
             'total_oap': total_oap,
             'total_non_oap': total_non_oap,
-            'wilayah_list': wilayah_list
+            'wilayah_list': wilayah_list,
         }
         return render(request, 'setori/data_pokok/index.html', data)
 

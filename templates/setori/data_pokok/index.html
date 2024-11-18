@@ -102,19 +102,22 @@
                             </a>
                         </div>
                         <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                            <a href="{% url 'app_setori:detail_data' %}">
-                                <div class="shadow-sm" id="air_bersih" style="width:100%; height:600px;"></div>
-                            </a>
+                                <a href="{% url 'app_setori:detail_data' %}">
+                                    <div id="air_bersih"></div>
+                                </a>
+                        </div>
                         <p></p>
                         <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                             <a href="{% url 'app_setori:detail_data' %}">
                                 <div class="shadow-sm" id="tenaga_kesehatan" style="width:100%; height:600px;"></div>
                             </a>
+                        </div>
                         <p></p>
                         <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                             <a href="{% url 'app_setori:detail_data' %}">
                                 <div class="shadow-sm" id="sarana_kesehatan" style="width:100%; height:600px;"></div>
                             </a>
+                        </div>
                         <p></p>
                         <div class="shadow-sm" id="penyakit_menular" style=" width:100%; height:600px;"></div>
                         <p></p>
@@ -200,10 +203,7 @@
                             }],
                             showInLegend: true,
                             animation: {
-                                duration: 2000 // Durasi animasi dalam milidetik
-                            },
-                            animation: {
-                                duration: 2000 // Durasi animasi dalam milidetik
+                                duration: 2000 // Durasi animasi dalam milidetik (contoh 2 detik)
                             }
                         }
                     },
@@ -298,10 +298,7 @@
                                     fontSize: '0.9em'
                                 }
                             }],
-                            showInLegend: true,
-                            animation: {
-                                duration: 2000 // Durasi animasi dalam milidetik
-                            }
+                            showInLegend: true
                         }
                     },
                     series: [{
@@ -572,10 +569,7 @@
             
             
             
-            </script>
+                </script>
 
-</div>
-</div>
-</div>
 </div>
 {% endblock main %} 
