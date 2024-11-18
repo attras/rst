@@ -13,12 +13,22 @@
             <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
         </ol>
     </div>
-    <div class="ms-auto pageheader-btn">
+    <div class="ms-auto pageheader-btn" data-bs-toggle="modal" data-bs-target="#addUserModal" >
+        {% if dt_penduduk %}
+        <a href="#" class="btn btn-primary btn-icon text-white">
+            <span>
+                <i class="fa-solid fa-pen-to-square"></i>Edit 
+            </span> Edit
+        </a>
+        
+        {% else %}
         <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
             <span>
                 <i class="fe fe-plus"></i>
-            </span> Add kategori
+            </span> Add data penduduk
         </a>
+       
+        {% endif %}
         <a href="#" class="btn btn-success btn-icon text-white">
             <span>
                 <i class="fe fe-log-in"></i>
@@ -31,7 +41,7 @@
     <div class="col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title mb-0">penduduk </h3>
+                <h3 class="card-title mb-0">penduduk {{ data_penduduk.pria_oap }} </h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -55,6 +65,7 @@
                            
                         </thead>
                         <tbody>
+
                           {% for penduduk in dt_penduduk %}
                             <tr class="border-bottom">
                                 <!-- <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td> -->
@@ -73,9 +84,8 @@
                                         href="#" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#editpendudukModal" 
-                                        data-bs-id="{{ penduduk.penduduk_id }}" 
-                                        data-bs-pertanyaan="{{ penduduk.pertanyaan }}" 
-                                        data-bs-jawaban="{{ penduduk.jawaban }}">
+                                        data-bs-id="{{ penduduk.data_penduduk_id }}"
+                                         >
                                         <i class="fa-solid fa-pen-to-square"></i>Edit 
                                      </a>
                                      
@@ -113,36 +123,43 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_data_penduduk' %}">
+                
+                <form method="post" action="{% if dt_penduduk %} {% url 'admin_setori:edit_data_penduduk' data_penduduk.data_penduduk_id %} {% else %} {% url 'admin_setori:add_data_penduduk' %} {% endif %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for wilayah in wilayah_list %}
                     <input value="{{ wilayah.pk }}" type="hidden" name="wilayah" id="wilayah" class="form-control" required>
                     {% endfor %}
-                
+                    
+                    
+                    <div class="mb-3">
+                        <label for="id_penduduk" class="form-label">id penduduk</label>
+                        <input type="hidden" name="id_penduduk" id="id_penduduk" value="{{ data_penduduk.data_penduduk_id }}" class="form-control" >
+                    </div>
                     <div class="mb-3">
                         <label for="pria_oap" class="form-label">Pria OAP</label>
-                        <input type="number" name="pria_oap" id="pria_oap" class="form-control" required>
+                        <input type="number" name="pria_oap" id="pria_oap" value="{{  data_penduduk.pria_oap }}" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="pria_non_oap" class="form-label">Pria Non-OAP</label>
-                        <input type="number" name="pria_non_oap" id="pria_non_oap" class="form-control" required>
+                        <input type="number" name="pria_non_oap" id="pria_non_oap" value="{{  data_penduduk.pria_non_oap }}" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="wanita_oap" class="form-label">Wanita OAP</label>
-                        <input type="number" name="wanita_oap" id="wanita_oap" class="form-control" required>
+                        <input type="number" name="wanita_oap" id="wanita_oap" value="{{  data_penduduk.wanita_oap }}" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="wanita_non_oap" class="form-label">Wanita Non-OAP</label>
-                        <input type="number" name="wanita_non_oap" id="wanita_non_oap" class="form-control" required>
+                        <input type="number" name="wanita_non_oap" id="wanita_non_oap" value="{{  data_penduduk.wanita_non_oap }}"  class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="jumlah_kk_oap" class="form-label">Jumlah KK OAP</label>
-                        <input type="number" name="jumlah_kk_oap" id="jumlah_kk_oap" class="form-control" required>
+                        <input type="number" name="jumlah_kk_oap" id="jumlah_kk_oap" value="{{  data_penduduk.jumlah_kk_oap }}" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="jumlah_kk_non_oap" class="form-label">Jumlah KK Non-OAP</label>
-                        <input type="number" name="jumlah_kk_non_oap" id="jumlah_kk_non_oap" class="form-control" required>
+                        <input type="number" name="jumlah_kk_non_oap" id="jumlah_kk_non_oap" value="{{  data_penduduk.jumlah_kk_non_oap }}" class="form-control" required>
                     </div>
+                  
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -151,33 +168,7 @@
 </div>
 
 
-<!-- edit User Modal -->
-<!-- Edit penduduk Modal -->
 
-<div class="modal fade" id="editpendudukModal" tabindex="-1" aria-labelledby="editpendudukModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editpendudukModalLabel">Edit penduduk</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label">Pertanyaan</label>
-                        <input type="text" name="pertanyaan" id="edit-pertanyaan" class="form-control" placeholder="Masukan Pertanyaan" required />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Jawaban</label>
-                        <textarea name="jawaban" id="edit-jawaban" class="form-control" placeholder="Masukan Jawaban" required ></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-warning">Update penduduk</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
@@ -234,6 +225,7 @@
     </div><!-- COL END -->
 </div>
 <script>
+    console.log(data-bs-id)
     var editpendudukModal = document.getElementById('editpendudukModal');
     editpendudukModal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal

@@ -12,6 +12,7 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Sum
 from admin_setori.decorators import role_required
 from django.utils.decorators import method_decorator
+from django.core.exceptions import ObjectDoesNotExist
 
 @method_decorator(login_required(), name='dispatch')
 class Admin_data_pendudukViews(View):
@@ -31,10 +32,17 @@ class Detail_penduduk(View):
     def get(self, request,wilayah_id):
         wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
         dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull = True,wilayah=wilayah_id)
+        try:
+            data_penduduk = Data_penduduk.objects.get(wilayah=wilayah_id, deleted_at__isnull=True)
+        # Jika ada data penduduk, ambil semua field
+        except ObjectDoesNotExist:
+            data_penduduk = None  # Atau menangani error sesuai kebutuhan
 
         data={
             'dt_penduduk': dt_penduduk,
-            'wilayah_list': wilayah_list
+            'wilayah_list': wilayah_list,
+            'data_penduduk':data_penduduk,
+            
         }
 
         return render(request,'admin/admin_data_penduduk/detail.html',data)
@@ -81,13 +89,8 @@ class Add_data_penduduk(View):
 
 
 class edit_data_penduduk(View):
-    def post(self, request):
+    def post(self, request,data_penduduk_id):
         wilayah_id = request.POST.get("wilayah")
-         # Cek apakah wilayah sudah ada di model Data_penduduk
-        if Data_penduduk.objects.filter(wilayah_id=wilayah_id).exists():
-            messages.error(request, "Data untuk wilayah ini sudah ada.")
-            return redirect("admin_setori:data_penduduk")
-        
         pria_oap = int(request.POST.get("pria_oap", 0))
         pria_non_oap = int(request.POST.get("pria_non_oap", 0))
         wanita_oap = int(request.POST.get("wanita_oap", 0))
@@ -97,27 +100,27 @@ class edit_data_penduduk(View):
 
         try:
             with transaction.atomic():
-                wilayah = MasterWilayah.objects.get(pk=wilayah_id)
-                data_penduduk = Data_penduduk(
-                    wilayah=wilayah,
-                    pria_oap=pria_oap,
-                    pria_non_oap=pria_non_oap,
-                    wanita_oap=wanita_oap,
-                    wanita_non_oap=wanita_non_oap,
-                    jumlah_kk_oap=jumlah_kk_oap,
-                    jumlah_kk_non_oap=jumlah_kk_non_oap
-                )
+                data_penduduk =  get_object_or_404(Data_penduduk,data_penduduk_id=data_penduduk_id)
+                data_penduduk.pria_oap=pria_oap
+                data_penduduk.pria_non_oap=pria_non_oap
+                data_penduduk.wanita_oap=wanita_oap
+                data_penduduk.wanita_non_oap=wanita_non_oap
+                data_penduduk.jumlah_kk_oap=jumlah_kk_oap
+                data_penduduk.jumlah_kk_non_oap=jumlah_kk_non_oap
+                
                 data_penduduk.save()
 
                 
 
-                messages.success(request, "Data penduduk berhasil ditambahkan.")
-                return redirect("admin_setori:data_penduduk")  # Kembali ke form jika berhasil
+                messages.success(request, "Data penduduk berhasil diedit.")
+                return redirect("admin_setori:detail_data_penduduk",wilayah_id=wilayah_id)  # Kembali ke form jika gagal
+  # Kembali ke form jika berhasil
             
         except Exception as e:
             print("Gagal menambahkan data:", e)
-            messages.error(request, "Gagal menambahkan data penduduk.")
-            return redirect("admin_setori:data_penduduk")
+            messages.error(request, "Gagal mengedit data penduduk.")
+            return redirect("admin_setori:detail_data_penduduk",wilayah_id=wilayah_id)  # Kembali ke form jika gagal
+
 
 class DeletePenduduk(View):
     def get(self, request, data_penduduk_id):

@@ -114,8 +114,9 @@ urlpatterns = [
     path('data_penduduk/',include([
          path('',admin_data_penduduk.Admin_data_pendudukViews.as_view(),name='data_penduduk'),
          path('add/',admin_data_penduduk.Add_data_penduduk.as_view(),name='add_data_penduduk'),
-         path('detail/<str:wilayah_id>',admin_data_penduduk.Detail_penduduk.as_view(),name='detail_data_penduduk'),
-         path('delete/<str:data_penduduk_id>', admin_data_penduduk.DeletePenduduk.as_view(), name = 'delete_penduduk'),
+         path('detail/<str:wilayah_id>/',admin_data_penduduk.Detail_penduduk.as_view(),name='detail_data_penduduk'),
+         path('edit/<str:data_penduduk_id>/', admin_data_penduduk.edit_data_penduduk.as_view(), name = 'edit_data_penduduk'),
+         path('delete/<str:data_penduduk_id>/', admin_data_penduduk.DeletePenduduk.as_view(), name = 'delete_penduduk'),
          
          ])),
 
