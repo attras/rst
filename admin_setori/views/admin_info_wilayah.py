@@ -22,9 +22,8 @@ class Info_wilayahViews(View):
         }
 
         return render(request, 'admin/admin_info_wilayah/index.html',data)
-    
+
 class AddInfoWilayah(View):
-  
     def post(self, request):
         visi = request.POST.get('visi')
         misi = request.POST.get('misi')

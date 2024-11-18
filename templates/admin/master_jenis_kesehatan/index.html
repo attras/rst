@@ -56,7 +56,11 @@
                                             href="#" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#addModal" 
-                                            data-bs-id="{{ kesehatan.nama_jenis }}" >
+                                            data-bs-id="{{ kesehatan.jenis_kesehatan_id }}"
+                                            data-bs-jenis="{{ kesehatan.nama_jenis }}"
+                                            onclick="edit_Jenis_kesehatan()"
+                                            >
+                                            
                                             <i class="fa-solid fa-pen-to-square"></i>Edit  
                                         </a>
                                         
@@ -87,7 +91,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post">
+                <form method="post" action="#">
                   {% csrf_token %}
                     <div class="mb-3">
                         <label class="form-label"></label>
@@ -109,6 +113,31 @@
         form.action = "{% url 'admin_setori:add_jenis_kesehatan' %}";
     };
 
+    var editJenis_kesehatanModal = document.getElementById('addModal');
+    editJenis_kesehatanModal.addEventListener('show.bs.modal', function edit_Jenis_kesehatan() {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Extract info from data-bs-* attributes
+        var Jenis_kesehatanId = button.getAttribute('data-bs-id');
+        var Jenis_kesehatan = button.getAttribute('data-bs-jenis');
+        
+       
+        // Update the modal's form fields
+        var modalTitle = editJenis_kesehatanModal.querySelector('.modal-title');
+        var inputJenis_kesehatan = editJenis_kesehatanModal.querySelector('#jenis_kesehatan');
+   
+        var form = editJenis_kesehatanModal.querySelector('form');
+
+        modalTitle.textContent = 'Edit ' + Jenis_kesehatan;
+        inputJenis_kesehatan.value = Jenis_kesehatan;
+       
+
+        // Update form action URL dynamically with the correct Jenis_kesehatan ID
+        form.action = "{% url 'admin_setori:edit_jenis_kesehatan' 'holder' %}".replace('holder',  Jenis_kesehatanId);
+        
+    });
+    
     function Hapus_jenis(jenis_kesehatan_id) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',

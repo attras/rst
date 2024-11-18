@@ -59,7 +59,9 @@
                                         data-bs-target="#editFaqModal" 
                                         data-bs-id="{{ faq.faq_id }}" 
                                         data-bs-pertanyaan="{{ faq.pertanyaan }}" 
-                                        data-bs-jawaban="{{ faq.jawaban }}">
+                                        data-bs-jawaban="{{ faq.jawaban }}"
+                                        onclick="Edit_faq()"
+                                        >
                                         <i class="fa-solid fa-pen-to-square"></i>Edit 
                                      </a>
                                      
@@ -112,7 +114,7 @@
 
 <script>
     var editFaqModal = document.getElementById('editFaqModal');
-    editFaqModal.addEventListener('show.bs.modal', function (event) {
+    editFaqModal.addEventListener('show.bs.modal', function Edit_faq() {
         // Button that triggered the modal
         var button = event.relatedTarget;
 

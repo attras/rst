@@ -54,7 +54,10 @@
                                             href="#" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#addModal" 
-                                            data-bs-id="{{ indikator.nama_jenis }}" >
+                                            data-bs-id="{{ indikator.id_indikator }}" 
+                                            data-bs-indikator="{{ indikator.nama_indikator }}"
+                                            onclick="edit_Indikator()"
+                                            >
                                             <i class="fa-solid fa-pen-to-square"></i>Edit 
                                         </a>
                                         
@@ -93,7 +96,7 @@
                     </div>
                     {% for kesehatan in dt_kesehatan %}
                     <div class="mb-3">
-                        <input type="hidden" name="jenis_kesehatan" id="nama_indikator" value="{{ kesehatan.jenis_kesehatan_id }}" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                        <input type="hidden" name="jenis_kesehatan" id="jenis_kesehatan" value="{{ kesehatan.jenis_kesehatan_id }}" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
                     </div>
                     {% endfor %}
                     <button type="submit"  class="btn btn-primary">Simpan</button>
@@ -111,6 +114,32 @@
         document.getElementById('addModalLabel').textContent = 'Tambahkan Indikator kesehatan';
         form.action = "{% url 'admin_setori:add_indikator' %}";
     };
+
+    var editIndikatorModal = document.getElementById('addModal');
+    editIndikatorModal.addEventListener('show.bs.modal', function edit_Indikator() {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Extract info from data-bs-* attributes
+        var IndikatorId = button.getAttribute('data-bs-id');
+        var Indikator = button.getAttribute('data-bs-indikator');
+        
+       
+        // Update the modal's form fields
+        var modalTitle = editIndikatorModal.querySelector('.modal-title');
+        var inputIndikator = editIndikatorModal.querySelector('#nama_indikator');
+   
+        var form = editIndikatorModal.querySelector('form');
+
+        modalTitle.textContent = 'Edit ' + Indikator;
+        inputIndikator.value = Indikator;
+       
+
+       
+        form.action = "{% url 'admin_setori:edit_idikator' 'holder' %}".replace('holder', IndikatorId);
+        
+    });
+
 
     function Hapus_indikator(id_indikator) {
     Swal.fire({

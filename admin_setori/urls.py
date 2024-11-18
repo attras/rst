@@ -50,8 +50,9 @@ urlpatterns = [
     
     path('master_wilayah/',include([
         path('', master_wilayah.Master_wilayahViews.as_view(), name = 'master_wilayah'),
-        path('add', master_wilayah.AddWilayah.as_view(), name = 'add_wilayah'),
-        path('delete/<str:wilayah_id>', master_wilayah.DeleteWilayah.as_view(), name = 'delete_wilayah'),
+        path('add/', master_wilayah.AddWilayah.as_view(), name = 'add_wilayah'),
+        path('edit/<str:wilayah_id>/',master_wilayah.EditWilayah.as_view(), name='edit_wilayah'),
+        path('delete/<str:wilayah_id>/', master_wilayah.DeleteWilayah.as_view(), name = 'delete_wilayah'),
        
         ])),
     
@@ -71,9 +72,11 @@ urlpatterns = [
     path('master_jenis_kesehatan/',include([
         path('',master_jenis_kesehatan.Master_jenis_kesehatanView.as_view(),name='master_jenis_kesehatan'),
         path('add_jenis_kesehatan',master_jenis_kesehatan.Add_jenis_kesehatan.as_view(),name='add_jenis_kesehatan'),
+        path('edit/<str:jenis_kesehatan_id>',master_jenis_kesehatan.Edit_jenis_kesehatan.as_view(),name='edit_jenis_kesehatan'),
         path('delete/<str:jenis_kesehatan_id>',master_jenis_kesehatan.Deletejenis_kesehatan.as_view(),name='delete_jenis_kesehatan'),
         path('indikator/<str:jenis_kesehatan_id>',master_indikator.Master_indikator.as_view(),name='master_indikator'),
         path('add_indikator',master_indikator.Add_indikator.as_view(),name='add_indikator'),
+        path('edit_indikator/<str:id_indikator>',master_indikator.Edit_indikator.as_view(),name='edit_idikator'),
         path('indikator/delete_indikator/<str:id_indikator>',master_indikator.Delete_indikator.as_view(),name='delete_indikator'),
 
         ])),
@@ -111,6 +114,7 @@ urlpatterns = [
     path('data_penduduk/',include([
          path('',admin_data_penduduk.Admin_data_pendudukViews.as_view(),name='data_penduduk'),
          path('add/',admin_data_penduduk.Add_data_penduduk.as_view(),name='add_data_penduduk'),
+         path('detail/<str:wilayah_id>',admin_data_penduduk.Detail_penduduk.as_view(),name='detail_data_penduduk'),
          path('delete/<str:data_penduduk_id>', admin_data_penduduk.DeletePenduduk.as_view(), name = 'delete_penduduk'),
          
          ])),

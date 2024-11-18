@@ -16,23 +16,72 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Admin_data_pendudukViews(View):
     def get(self, request):
-        wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True)
-        dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull = True)
+        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True,wilayah_level='4').order_by('wilayah_level')
+
+        data = {
+            'dt_wilayah': dt_wilayah,
+            'LEVEL_WILAYAH': LEVEL_WILAYAH,
+            
+        }
+        
+
+        return render(request, 'admin/admin_data_penduduk/index.html',data)
+    
+class Detail_penduduk(View):
+    def get(self, request,wilayah_id):
+        wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
+        dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull = True,wilayah=wilayah_id)
 
         data={
             'dt_penduduk': dt_penduduk,
             'wilayah_list': wilayah_list
         }
-        
 
-        return render(request, 'admin/admin_data_penduduk/index.html',data)
+        return render(request,'admin/admin_data_penduduk/detail.html',data)
+    
 
 class Add_data_penduduk(View):
     def post(self, request):
-
-         
+        wilayah_id = request.POST.get("wilayah")
+         # Cek apakah wilayah sudah ada di model Data_penduduk
+        if Data_penduduk.objects.filter(wilayah_id=wilayah_id).exists():
+            messages.error(request, "Data untuk wilayah ini sudah ada.")
+            return redirect("admin_setori:detail_data_penduduk",wilayah_id=wilayah_id)
         
-       
+        pria_oap = int(request.POST.get("pria_oap", 0))
+        pria_non_oap = int(request.POST.get("pria_non_oap", 0))
+        wanita_oap = int(request.POST.get("wanita_oap", 0))
+        wanita_non_oap = int(request.POST.get("wanita_non_oap", 0))
+        jumlah_kk_oap = int(request.POST.get("jumlah_kk_oap", 0))
+        jumlah_kk_non_oap = int(request.POST.get("jumlah_kk_non_oap", 0))
+
+        try:
+            with transaction.atomic():
+                wilayah = MasterWilayah.objects.get(pk=wilayah_id)
+                data_penduduk = Data_penduduk(
+                    wilayah=wilayah,
+                    pria_oap=pria_oap,
+                    pria_non_oap=pria_non_oap,
+                    wanita_oap=wanita_oap,
+                    wanita_non_oap=wanita_non_oap,
+                    jumlah_kk_oap=jumlah_kk_oap,
+                    jumlah_kk_non_oap=jumlah_kk_non_oap
+                )
+                data_penduduk.save()
+
+                
+
+                messages.success(request, "Data penduduk berhasil ditambahkan.")
+                return redirect("admin_setori:detail_data_penduduk",wilayah_id=wilayah_id)  # Kembali ke form jika berhasil
+            
+        except Exception as e:
+            print("Gagal menambahkan data:", e)
+            messages.error(request, "Gagal menambahkan data penduduk.")
+            return redirect("admin_setori:detail_data_penduduk",wilayah_id=wilayah_id)  # Kembali ke form jika gagal
+
+
+class edit_data_penduduk(View):
+    def post(self, request):
         wilayah_id = request.POST.get("wilayah")
          # Cek apakah wilayah sudah ada di model Data_penduduk
         if Data_penduduk.objects.filter(wilayah_id=wilayah_id).exists():
@@ -68,8 +117,8 @@ class Add_data_penduduk(View):
         except Exception as e:
             print("Gagal menambahkan data:", e)
             messages.error(request, "Gagal menambahkan data penduduk.")
-            return redirect("admin_setori:data_penduduk")  # Kembali ke form jika gagal
-  
+            return redirect("admin_setori:data_penduduk")
+
 class DeletePenduduk(View):
     def get(self, request, data_penduduk_id):
         del_penduduk = get_object_or_404(Data_penduduk, data_penduduk_id=data_penduduk_id)

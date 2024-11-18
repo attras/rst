@@ -44,12 +44,12 @@ class Add_jenis_kesehatan(View):
         
        
 class Edit_jenis_kesehatan(View):
-     def post(self, request):
+     def post(self, request,jenis_kesehatan_id):
         
         jenis= request.POST.get('jenis_kesehatan')  # Fetch the name field from POST request
         try:
             with transaction.atomic():
-                insert_jenis_kesehatan = Master_jenis_kesehatan()
+                insert_jenis_kesehatan = get_object_or_404(Master_jenis_kesehatan, jenis_kesehatan_id=jenis_kesehatan_id)
                 insert_jenis_kesehatan.nama_jenis = jenis
                 insert_jenis_kesehatan.save()  # Save new category in the database
 
@@ -58,7 +58,7 @@ class Edit_jenis_kesehatan(View):
                 
         except Exception as e:
             print('gagal menambahkan', e)
-            messages.error(request, "gagal menambahkan")
+            messages.error(request, "gagal edit")
             return redirect('admin_setori:master_jenis_kesehatan')
         
 class Deletejenis_kesehatan(View):
