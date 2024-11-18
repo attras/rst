@@ -28,10 +28,13 @@ class HomeViews(View):
 
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
+
+        dt_tentang = Tentang.objects.filter(deleted_at__isnull = True).order_by('created_at')
         data = {
             'dt_slider' : dt_slider,
             'dt_berita': dt_berita,  # Ganti dengan data yang sudah dipaginate
             'dt_kategori': dt_kategori, 
-            'page_obj': page_obj
+            'page_obj': page_obj,
+            'dt_tentang' : dt_tentang,
         }
         return render(request, 'setori/home/index.html', data)

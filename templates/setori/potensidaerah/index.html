@@ -150,7 +150,7 @@
             {% for potensi in page_obj %}
             <div class="col-lg-6 mb-4">
                 <a href="{% url 'app_setori:detail_potensi' %}" class="text-decoration-none">
-                <div class="border-radius-2 overflow-hidden">
+                <div class="border-radius-2 overflow-hidden appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                     <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
                         <span class="thumb-info-wrapper border-radius-0 rounded-top">
                             <img src="{{ potensi.image_profile.url }}" loading="lazy" class="img-fluid" alt="">

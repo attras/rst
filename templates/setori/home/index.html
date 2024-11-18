@@ -37,6 +37,12 @@
     .judul_berita:hover {
     color: #164b85; /* Warna saat di-hover, sesuaikan dengan kebutuhan Anda */
     }
+
+    .img-fluid {
+        width: 80%;
+        height: auto;
+    }
+
 </style>
 {% endblock css %}
 
@@ -107,6 +113,7 @@
 
                 <!-- Tentang Kami -->
                 <div class="container" id="intro">
+                    {% for tentang in dt_tentang %}
                     <div class="row align-items-center">
                         <div class="col-lg-6 mb-5 mt-5 mt-lg-0 py-lg-5">
                             <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
@@ -114,7 +121,7 @@
                             </div>
                             <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                                 <h4 class="pe-lg-5">
-                                    Setori menyediakan infografik data kesehatan Kabupaten Supiori lengkap hingga rinciannya di kampung, serta berita terbaru yang terkait dengan Supiori untuk informasi terkini dan pemahaman data yang mudah. 
+                                    {{ tentang.deskripsi_singkat }}
                                 </h4>
                             </div>
 
@@ -129,21 +136,17 @@
                             </div>
                         </div>
                         <div class="col-lg-6 text-center p-relative py-5">
-                            <div class="opacity-2 p-absolute w-100">
-                                <img src="{% static 'img/img/icons/abstract-bg-1.svg' %}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary w-100'}" />
-                            </div>
-                            <div class="cascading-images-wrapper custom-cascading-images-wrapper-1">
+                            <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                                 <div class="cascading-images p-relative">
                                     <div class="">
-                                        <img class="img-fluid" src="{% static 'img/icons/tentang_kami/2.jpg' %}" loading="lazy" alt="">
+                                        <img class="img-fluid" src="{{ tentang.foto_pegantar.url }}" loading="lazy" alt="">
                                     </div>
-                                    <div class="p-absolute w-100" style="top: 21%; left: -30%;">
-                                        <img src="{% static 'img/icons/tentang_kami/1.jpg' %}" loading="lazy" class="img-fluid" alt="" />
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
 
                 <!-- Kabupaten Supriori deskripsi -->
