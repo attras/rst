@@ -56,8 +56,6 @@
                                 <th class="bg-transparent border-bottom-0">wanita non-oap</th>
                                 <th class="bg-transparent border-bottom-0">Jumlah KK oap </th>
                                 <th class="bg-transparent border-bottom-0">Jumlah KK non-oap </th>
-                                <th class="bg-transparent border-bottom-0">Total Penduduk perwilayah</th>
-                                <th class="bg-transparent border-bottom-0">Total Penduduk non-oap perwilayah</th>
                               
                                 <th class="bg-transparent border-bottom-0">Action</th>
                                 
@@ -76,8 +74,6 @@
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.wanita_non_oap}}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_kk_oap }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_kk_non_oap }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_penduduk_oap }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_penduduk_non_oap }}</td>
 
                                 <td class="text-muted fs-15 fw-semibold">
                                      
@@ -163,15 +159,16 @@
 
 
 <div class="row">
+    {% for penduduk in dt_penduduk %}
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
         <div class="card bg-primary img-card box-primary-shadow">
             <div class="card-body">
                 <div class="d-flex">
                     <div class="text-white">
-                        <h2 class="mb-0 number-font">23,536</h2>
-                        <p class="text-white mb-0">Total Requests </p>
+                        <h2 class="mb-0 number-font">{{ penduduk.jumlah_kk_oap|add:penduduk.jumlah_kk_non_oap }}</h2>
+                        <p class="text-white mb-0">Jumlah Seluruh Keluarga </p>
                     </div>
-                    <div class="ms-auto"> <i class="fa fa-send-o text-white fs-30 me-2 mt-2"></i> </div>
+                    <div class="ms-auto"> <i class="fa fa-solid fa-house text-white fs-30 me-2 mt-2"></i> </div>
                 </div>
             </div>
         </div>
@@ -181,10 +178,10 @@
             <div class="card-body">
                 <div class="d-flex">
                     <div class="text-white">
-                        <h2 class="mb-0 number-font">45,789</h2>
-                        <p class="text-white mb-0">Total Revenue</p>
+                        <h2 class="mb-0 number-font">{{ penduduk.jumlah_penduduk_oap|add:penduduk.jumlah_penduduk_non_oap }}</h2>
+                        <p class="text-white mb-0">Jumlah Seluruh Penduduk</p>
                     </div>
-                    <div class="ms-auto"> <i class="fa fa-bar-chart text-white fs-30 me-2 mt-2"></i> </div>
+                    <div class="ms-auto"> <i class="fa fa-light fa-users text-white fs-30 me-2 mt-2"></i> </div>
                 </div>
             </div>
         </div>
@@ -194,10 +191,10 @@
             <div class="card-body">
                 <div class="d-flex">
                     <div class="text-white">
-                        <h2 class="mb-0 number-font">89,786</h2>
-                        <p class="text-white mb-0">Total Profit</p>
+                        <h2 class="mb-0 number-font">{{ penduduk.jumlah_penduduk_oap }}</h2>
+                        <p class="text-white mb-0">Jumlah OAP</p>
                     </div>
-                    <div class="ms-auto"> <i class="fa fa-dollar text-white fs-30 me-2 mt-2"></i> </div>
+                    <div class="ms-auto"> <i class="fa fa-solid fa-user-check text-white fs-30 me-2 mt-2"></i> </div>
                 </div>
             </div>
         </div>
@@ -207,14 +204,15 @@
             <div class="card-body">
                 <div class="d-flex">
                     <div class="text-white">
-                        <h2 class="mb-0 number-font">43,336</h2>
-                        <p class="text-white mb-0">Monthly Sales</p>
+                        <h2 class="mb-0 number-font">{{ penduduk.jumlah_penduduk_non_oap }}</h2>
+                        <p class="text-white mb-0">Jumlah NON OAP</p>
                     </div>
-                    <div class="ms-auto"> <i class="fa fa-cart-plus text-white fs-30 me-2 mt-2"></i> </div>
+                    <div class="ms-auto"> <i class="fa fa-solid fa-user-xmark text-white fs-30 me-2 mt-2"></i> </div>
                 </div>
             </div>
         </div>
     </div><!-- COL END -->
+    {% endfor %}
 </div>
 <script>
     console.log(data-bs-id)
