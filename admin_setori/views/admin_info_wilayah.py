@@ -14,14 +14,29 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Info_wilayahViews(View):
     def get(self, request):
-        dt_info_wilayah = Info_wilayah.objects.filter(deleted_at__isnull = True)
-        pilih_wilayah = MasterWilayah.objects.filter(deleted_at__isnull = True)
+        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True,wilayah_level='4').order_by('wilayah_level')
+
+        data = {
+            'dt_wilayah': dt_wilayah,
+            'LEVEL_WILAYAH': LEVEL_WILAYAH,
+            
+        }
+
+        return render(request, 'admin/admin_info_wilayah/index.html',data)
+
+class Detail_info_wilayah(View):
+    def get(self, request,wilayah_id):
+        dt_info_wilayah = Info_wilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
+        pilih_wilayah = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
         data = {
             'dt_info_wilayah' : dt_info_wilayah,
             'pilih_wilayah' : pilih_wilayah
         }
+        data_info_wilayah = Info_wilayah.objects.filter(deleted_at__isnull=True, wilayah__wilayah_id=wilayah_id).select_related('wilayah') 
+        for info in data_info_wilayah:
+         print(f"Visi: {info.visi}, Misi: {info.misi}, Nama: {info.nama_info_wilayah}, Wilayah: {info.wilayah}")
+        return render(request, 'admin/admin_info_wilayah/detail.html',data)
 
-        return render(request, 'admin/admin_info_wilayah/index.html',data)
 
 class AddInfoWilayah(View):
     def post(self, request):

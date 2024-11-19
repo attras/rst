@@ -19,6 +19,8 @@ urlpatterns = [
     path('admin_berita/', include([
         path('', admin_berita.Admin_beritaViews.as_view(), name='admin_berita'),
         path('add', admin_berita.AddBerita.as_view(), name='add_berita'),
+        path('detail', admin_berita.Detail_Berita.as_view(), name='detail_berita'),
+       
         path('delete/<slug:news_slug>/', admin_berita.Deleteberita.as_view(), name='delete_berita'),
     ])),
 
@@ -99,6 +101,7 @@ urlpatterns = [
     path('info_wilayah/',include([
         path('',admin_info_wilayah.Info_wilayahViews.as_view(),name='admin_info_wilayah'),
         path('add_info_wilayah',admin_info_wilayah.AddInfoWilayah.as_view(),name='add_info_wilayah'),
+        path('detail/<str:wilayah_id>/',admin_info_wilayah.Detail_info_wilayah.as_view(),name='detail_info_wilayah'),
         path('delete/<str:wilayah_id>', master_wilayah.DeleteWilayah.as_view(), name = 'delete_wilayah'),
         ])),
 

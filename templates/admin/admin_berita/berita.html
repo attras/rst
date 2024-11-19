@@ -4,6 +4,7 @@
     .ck-editor{
         height: 400px;
     }
+    
 </style>
 <div class="page-header">
     <div>
@@ -71,6 +72,13 @@
                                        data-bs-content="{{ berita.content }}">
                                        <i class="fa-solid fa-pen-to-square"></i>Edit 
                                     </a>
+
+                                    <a class="btn btn-primary btn-md rounded-11 me-2" 
+                                       href="{% url 'admin_setori:detail_berita' %}" >
+                                       <i class="fa-solid fa-pen-to-square"></i>detail
+                                    </a>
+
+                                    
 
                                     <a >
                                         <button type="button" class="btn btn-danger" onclick="Hapus_berita('{{ berita.slug }}')">
