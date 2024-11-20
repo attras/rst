@@ -100,7 +100,9 @@ urlpatterns = [
 
     path('info_wilayah/',include([
         path('',admin_info_wilayah.Info_wilayahViews.as_view(),name='admin_info_wilayah'),
-        path('add_info_wilayah',admin_info_wilayah.AddInfoWilayah.as_view(),name='add_info_wilayah'),
+        path('add_info_wilayah/<str:wilayah_id>/',admin_info_wilayah.AddInfoWilayah.as_view(),name='add_info_wilayah'),
+        path('info_wilayah_add',admin_info_wilayah.InfoWilayahAdd.as_view(),name='info_wilayah_add'),
+        
         path('detail/<str:wilayah_id>/',admin_info_wilayah.Detail_info_wilayah.as_view(),name='detail_info_wilayah'),
         path('delete/<str:wilayah_id>', master_wilayah.DeleteWilayah.as_view(), name = 'delete_wilayah'),
         ])),

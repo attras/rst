@@ -5,8 +5,8 @@
 <!-- PAGE-HEADER -->
 <div class="page-header">
     <div>
-        {% for penduduk in dt_penduduk %}
-        <h1 class="page-title">penduduk {{ penduduk.wilayah.wilayah_nama }}</h1>
+        {% for penduduk in wilayah_list %}
+        <h1 class="page-title">Penduduk {{ penduduk.wilayah_nama }}</h1>
         {% endfor %}
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -18,7 +18,7 @@
         <a href="#" class="btn btn-primary btn-icon text-white">
             <span>
                 <i class="fa-solid fa-pen-to-square"></i>Edit 
-            </span> Edit
+            </span> 
         </a>
         
         {% else %}

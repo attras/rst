@@ -20,8 +20,17 @@ class Admin_kontakViews(View):
             'dt_kontak' : dt_kontak
         }
         return render(request, 'admin/admin_kontak/index.html',data)
-    
+
+
+
 class Addkontak(View):
+    def get(self, request):
+        dt_kontak = Kontak.objects.filter(deleted_at__isnull = True)
+        data = {
+            'dt_kontak' : dt_kontak
+        }
+        return render(request, 'admin/admin_kontak/form.html',data)
+
     def post(self, request):
         nama_instansi = request.POST.get('nama_instansi')
         maps = request.POST.get('maps')
