@@ -32,7 +32,7 @@
                         <div class="col-lg-6">
                             <div class="col-lg">
                                 <label for="visi" class="form-label">Visi</label>
-                                <textarea name="visi" id="visi" class="form-control" style="height: 300px; width: 500px;" rows="4" required></textarea>
+                                <textarea name="visi" id="visi" class="form-control" rows="4" required></textarea>
                                 <label for="misi" class="form-label">Misi</label>
                                 <textarea name="misi" id="misi" class="form-control" rows="4" required></textarea>
                                 <label for="map" class="form-label">map</label>
@@ -72,30 +72,30 @@
         Paragraph
     } from 'ckeditor5';
 
-    function initializeEditor(selector) {
-    ClassicEditor
-        .create(document.querySelector(selector), {
-            plugins: [Essentials, Bold, Italic, Font, Paragraph],
-            toolbar: [
-                'undo', 'redo', '|', 'bold', 'italic', '|',
-                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
-                
-            ],
-        })
-        .then(editor => {
-            // Mengatur tinggi dan lebar editor melalui konfigurasi CSS
-            // editor.ui.view.editable.element.style.height = '300px'; 
-            // editor.ui.view.editable.element.style.width = '500px';  
-        })
-        .catch(error => {
-            console.error(`CKEditor error on ${selector}:`, error);
-        });
-}
-['#visi', '#misi'].forEach(selector => initializeEditor(selector));
-
-
-
     // Fungsi untuk menginisialisasi CKEditor
+    function initializeEditor(selector) {
+        ClassicEditor
+            .create(document.querySelector(selector), {
+                plugins: [Essentials, Bold, Italic, Font, Paragraph],
+                toolbar: [
+                    'undo', 'redo', '|', 'bold', 'italic', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                ],
+            })
+            .then(editor => {
+                // Optional: Tangani perubahan data jika diperlukan
+                editor.model.document.on('change:data', () => {
+                    const data = editor.getData();
+                    document.querySelector(`textarea[name="${selector.substring(1)}"]`).value = data;
+                });
+            })
+            .catch(error => {
+                console.error(`CKEditor error on ${selector}:`, error);
+            });
+    }
+
+    // Inisialisasi CKEditor untuk elemen dengan ID 'visi' dan 'misi'
+    ['#visi', '#misi'].forEach(selector => initializeEditor(selector));
 </script>
 
 {% endblock main %}
