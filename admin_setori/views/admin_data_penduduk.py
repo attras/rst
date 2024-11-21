@@ -28,6 +28,26 @@ class Admin_data_pendudukViews(View):
 
         return render(request, 'admin/admin_data_penduduk/index.html',data)
     
+class Semua_data(View):
+    def get(self, request):
+        wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True)
+        dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull = True)
+        
+        used_wilayah = Data_penduduk.objects.values_list('wilayah_id', flat=True)
+        wilayah = MasterWilayah.objects.filter(
+            deleted_at__isnull=True,
+            wilayah_level='4'  # Filter level wilayah = 4
+        ).exclude(wilayah_id__in=used_wilayah).order_by('wilayah_nama')
+
+        data={
+            'dt_penduduk': dt_penduduk,
+            'wilayah_list': wilayah_list,
+            'wilayah': wilayah,
+           
+        }
+
+        return render(request,'admin/admin_data_penduduk/semua.html',data)
+    
 class Detail_penduduk(View):
     def get(self, request,wilayah_id):
         wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
