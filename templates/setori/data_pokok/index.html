@@ -106,7 +106,7 @@
                                     <div id="air_bersih"></div>
                                 </a>
                         </div>
-                        <p></p>
+                        <!-- <p></p>
                         <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                             <a href="{% url 'app_setori:detail_data' %}">
                                 <div class="shadow-sm" id="tenaga_kesehatan" style="width:100%; height:600px;"></div>
@@ -122,454 +122,517 @@
                         <div class="shadow-sm" id="penyakit_menular" style=" width:100%; height:600px;"></div>
                         <p></p>
                         <div class="shadow-sm" id="gizi_anak" style=" width:100%; height:600px;"></div>
-                        <p></p>
+                        <p></p> -->
                     </div>
                 </div>
 
-                <script>
-                    // oap non oap
-                    Highcharts.chart('oap_non_oap', {
-                    chart: {
-                       
-                        type: 'pie',
-                        custom: {},
-                        events: {
-                            render() {
-                                const chart = this,
-                                    series = chart.series[0];
-                                let customLabel = chart.options.chart.custom.label;
+                {% for indikator in dt_array %}
+                <div id="chart_{{ indikator.id }}" style="width: 100%; height: 400px;"></div>
+                {% endfor %}
 
-                                if (!customLabel) {
-                                    customLabel = chart.options.chart.custom.label =
-                                        chart.renderer.label(
-                                            'Total<br/>' +
-                                            '<strong>{{ total_penduduk_semua }}</strong>' // Update total population
-                                        )
-                                        .css({
-                                            color: '#000',
-                                            textAnchor: 'middle'
-                                        })
-                                        .add();
-                                }
-
-                                const x = series.center[0] + chart.plotLeft,
-                                    y = series.center[1] + chart.plotTop -
-                                    (customLabel.attr('height') / 2);
-
-                                customLabel.attr({
-                                    x,
-                                    y
-                                });
-                                customLabel.css({
-                                    fontSize: `${series.center[2] / 12}px`
-                                });
-                            }
-                        }
-                    },
-                    accessibility: {
-                        point: {
-                            valueSuffix: '%'
-                        }
-                    },
-                    title: {
-                        text: 'Population Distribution (OAP dan NON OAP)'
-                    },
-                    subtitle: {
-                        text: 'Source: Dinas Kesehatan Kabupaten Supiori'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.z} ({point.percentage:.0f}%)</b>' // Show both count and percentage
-                    },
-                    legend: {
-                        enabled: true // Enable legend to show OAP and NON OAP
-                    },
-                    colors: ['#0097D2', '#A7E6BD'], // Warna merah dan kuning
-                    plotOptions: {
-                        series: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            borderRadius: 8,
-                            dataLabels: [{
-                                enabled: true,
-                                distance: 20,
-                                format: '{point.name}'
-                            }, {
-                                enabled: true,
-                                distance: -15,
-                                format: '{point.percentage:.0f}%',
-                                style: {
-                                    fontSize: '0.9em'
-                                }
-                            }],
-                            showInLegend: true,
-                            animation: {
-                                duration: 2000 // Durasi animasi dalam milidetik (contoh 2 detik)
-                            }
-                        }
-                    },
-                    series: [{
-                        name: 'Population',
-                        colorByPoint: true,
-                        innerSize: '75%',
-                        data: [{
-                            name: 'OAP',
-                            y: '{{total_oap}}' / '{{total_penduduk_semua}}' * 100, // OAP percentage
-                            z: '{{total_oap}}' // Actual number of OAP
-                        }, {
-                            name: 'NON OAP',
-                            y: '{{total_non_oap}}' / '{{total_penduduk_semua}}' * 100, // NON OAP percentage
-                            z: '{{total_non_oap}}' // Actual number of NON OAP
-                        }]
-                    }]
-                });
-
-
-                    // wanita pria
-                    Highcharts.chart('wanita_pria', {
-                    chart: {
-                       
-                        type: 'pie',
-                        custom: {},
-                        events: {
-                            render() {
-                                const chart = this,
-                                    series = chart.series[0];
-                                let customLabel = chart.options.chart.custom.label;
-
-                                if (!customLabel) {
-                                    customLabel = chart.options.chart.custom.label =
-                                        chart.renderer.label(
-                                            'Total<br/>' +
-                                            '<strong>{{ total_penduduk_semua }}</strong>' // Update total population
-                                        )
-                                        .css({
-                                            color: '#000',
-                                            textAnchor: 'middle'
-                                        })
-                                        .add();
-                                }
-
-                                const x = series.center[0] + chart.plotLeft,
-                                    y = series.center[1] + chart.plotTop -
-                                    (customLabel.attr('height') / 2);
-
-                                customLabel.attr({
-                                    x,
-                                    y
-                                });
-                                customLabel.css({
-                                    fontSize: `${series.center[2] / 12}px`
-                                });
-                            }
-                        }
-                    },
-                    accessibility: {
-                        point: {
-                            valueSuffix: '%'
-                        }
-                    },
-                    title: {
-                        text: 'Gender Distribution (Pria dan Wanita)'
-                    },
-                    subtitle: {
-                        text: 'Source: Dinas Kesehatan Kabupaten Supiori'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.z} ({point.percentage:.0f}%)</b>' // Show both count and percentage
-                    },
-                    legend: {
-                        enabled: true // Enable legend to show OAP and NON OAP
-                    },
-                    colors: ['#0097D2', '#A7E6BD'], // Warna merah dan kuning
-                    plotOptions: {
-                        series: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            borderRadius: 8,
-                            dataLabels: [{
-                                enabled: true,
-                                distance: 20,
-                                format: '{point.name}'
-                            }, {
-                                enabled: true,
-                                distance: -15,
-                                format: '{point.percentage:.0f}%',
-                                style: {
-                                    fontSize: '0.9em'
-                                }
-                            }],
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        name: 'Population',
-                        colorByPoint: true,
-                        innerSize: '75%',
-                        data: [{
-                            name: 'Pria',
-                            y: '{{total_pria_semua}}' / '{{total_penduduk_semua}}' * 100, // OAP percentage
-                            z: '{{total_pria_semua}}' // Actual number of OAP
-                        }, {
-                            name: 'Wanita',
-                            y: '{{total_wanita_semua}}' / '{{total_penduduk_semua}}' * 100, // NON OAP percentage
-                            z: '{{total_wanita_semua}}' // Actual number of NON OAP
-                        }]
-                    }]
-                });
-
-                    //air bersih
-                    Highcharts.chart('air_bersih', {
-                        chart: {
-                            type: 'column'
-                        },
-                        title: {
-                            text: 'Distribusi Sumber Air di Supiori',
-                            align: 'middle'
-                        },
-                        subtitle: {
-                            text: 'Source: Data Spreadsheet',
-                            align: 'middle'
-                        },
-                        xAxis: {
-                            categories: [
-                                'Pam',
-                                'Sumur Bor',
-                                'Sumur Pribadi',
-                                'Sumur Umum',
-                                'Danau',
-                                'Sungai',
-                                'Air Hujan',
-                                'Mata Air',
-                                'Air Isi Ulang'
-                            ],
-                            crosshair: true,
-                            accessibility: {
-                                description: 'Jenis Sumber Air'
-                            }
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Jumlah Penduduk'
-                            }
-                        },
-                        tooltip: {
-                            shared: true,
-                            valueSuffix: ' orang'
-                        },
-                        plotOptions: {
-                            column: {
-                                pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
-                                borderWidth: 0,
-                                groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
-                            }
-                        },
-                        series: [
-                            {
-                                name: 'OAP',
-                                data: [9360, 8742, 5020, 4133, 2940, 4150, 3610, 4090, 4320]
-                            },
-                            {
-                                name: 'non-OAP',
-                                data: [12562, 9832, 6590, 5230, 3800, 4980, 4120, 4560, 4820]
-                            }
-                        ]
-                    });
-
-                    //tenaga kesehatan
-                    Highcharts.chart('tenaga_kesehatan', {
-                        chart: {
-                            type: 'column'
-                        },
-                        title: {
-                            text: 'Distribusi Tenaga Kesehatan di Supiori',
-                            align: 'middle'
-                        },
-                        subtitle: {
-                            text: 'Source: Data Spreadsheet',
-                            align: 'middle'
-                        },
-                        xAxis: {
-                            categories: [
-                                'Dokter Umum',
-                                'Dokter Spesialis',
-                                'Perawat',
-                                'Bidan',
-                                'Apoteker',
-                                'Ahli Gizi',
-                                'Sanitarian',
-                                'Fisioterapis',
-                                'Psikolog',
-                                'Dukun'
-                            ],
-                            crosshair: true,
-                            accessibility: {
-                                description: 'Profesi'
-                            }
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Jumlah Tenaga Kesehatan'
-                            }
-                        },
-                        tooltip: {
-                            shared: true,
-                            valueSuffix: ' orang'
-                        },
-                        plotOptions: {
-                            column: {
-                                pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
-                                borderWidth: 0,
-                                groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
-                            }
-                        },
-                        series: [
-                            {
-                                name: 'OAP',
-                                data: [50, 30, 100, 70, 20, 10, 5, 3, 2, 50]
-                            },
-                            {
-                                name: 'non-OAP',
-                                data: [60, 40, 110, 80, 30, 20, 15, 13, 12, 60]
-                            }
-                        ]
-                    });
-            
-                    //sarana kesehatan
-                    Highcharts.chart('sarana_kesehatan', {
-                        chart: {
-                            type: 'column'
-                        },
-                        title: {
-                            text: 'Distribusi Sarana Kesehatan di Supiori',
-                            align: 'middle'
-                        },
-                        subtitle: {
-                            text: 'Source: Data Spreadsheet',
-                            align: 'middle'
-                        },
-                        xAxis: {
-                            categories: [
-                                'Rumah Sakit',
-                                'Puskesmas',
-                                'Klinik',
-                                'Poliklinik',
-                                'Posyandu',
-                                'Apotek',
-                                'Lab Kesehatan',
-                                'Rumah Bersalin',
-                                'Panti Jompo',
-                                'UGD',
-                                'Klinik Kesehatan Mental'
-                            ],
-                            crosshair: true,
-                            accessibility: {
-                                description: 'Jenis Sarana Kesehatan'
-                            }
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Jumlah Sarana Kesehatan'
-                            }
-                        },
-                        tooltip: {
-                            shared: true,
-                            pointFormat: '<b>{series.name}</b>: {point.y}<br>', // Menampilkan nama distrik dan jumlah
-                            headerFormat: '' // Menghilangkan header format
-                        },
-                        plotOptions: {
-                            column: {
-                                pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
-                                borderWidth: 0,
-                                groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
-                            }
-                        },
-                        series: [
-                            {
-                                name: 'Supiori Utara',
-                                data: [100, 150, 120, 80, 50, 30, 20, 10, 5, 10, 8] // Data untuk Supiori Utara
-                            },
-                            {
-                                name: 'Supiori Selatan',
-                                data: [80, 100, 90, 70, 40, 25, 15, 12, 7, 8, 5] // Data untuk Supiori Selatan
-                            },
-                            {
-                                name: 'Supiori Timur',
-                                data: [120, 200, 150, 100, 60, 40, 25, 20, 10, 15, 12] // Data untuk Supiori Timur
-                            },
-                            {
-                                name: 'Supiori Barat',
-                                data: [90, 130, 110, 90, 70, 35, 30, 15, 5, 10, 7] // Data untuk Supiori Barat
-                            },
-                            {
-                                name: 'Kepulauan Aruri',
-                                data: [110, 160, 140, 95, 75, 45, 35, 25, 15, 20, 10] // Data untuk Kepulauan Aruri
-                            }
-                        ]
-                    });
-                    
-                    //penyakit menular
-                    Highcharts.chart('penyakit_menular', {
-                                chart: {
-                                    type: 'column'
-                                },
-                                title: {        
-                                text: 'Data Penyakit menular',
-                                align: 'middle',
-                            },
-            
-                                subtitle: {
-                                    text: 'Source: Data Spreadsheet',
-                                    align: 'middle'
-                                },
-                                xAxis: {
-                                    categories: [
-                                        'Tuberkulosis',
-                                        'Malaria',
-                                        'DBD',
-                                        'HIV',
-                                        'Hepatitis'
-                                        
-                                    ],
-                                    crosshair: true,
-                                    accessibility: {
-                                        description: 'Jenis penyakit menular'
-                                    }
-                                },
-                                yAxis: {
-                                    min: 0,
-                                    title: {
-                                        text: 'Jumlah Penderita'
-                                    }
-                                },
-                                tooltip: {
-                                    shared: true,
-                                    valueSuffix: ' orang'
-                                },
-                                plotOptions: {
-                                    column: {
-                                        pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
-                                        borderWidth: 0,
-                                        groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
-                                    }
-                                },
-                                series: [
-                                    {
-                                        name: 'OAP',
-                                        data: [960, 742, 520, 133, 290]
-                                    },
-                                    {   
-                                        name: 'non-OAP',
-                                        data: [562, 932, 690, 530, 300]
-                                    }
-                                ]
-                            });
-            
-            
-            
+                <script type="application/json" id="dt_array_data">
+                {{ dt_array|json_script:"dt_array" }}
                 </script>
+
+                <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Get the dt_array from the JSON script
+                    const dtArray = JSON.parse(document.getElementById('dt_array_data').textContent);
+
+                    dtArray.forEach(indikator => {
+                        // Make sure nilai_oap and nilai_non_oap exist or set default values
+                        const nilaiOap = indikator.nilai_oap || 0;
+                        const nilaiNonOap = indikator.nilai_non_oap || 0;
+
+                        Highcharts.chart(`chart_{{ indikator.id }}`, {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: indikator.nama_indikator,
+                                align: 'middle'
+                            },
+                            subtitle: {
+                                text: 'Source: Data Spreadsheet',
+                                align: 'middle'
+                            },
+                            xAxis: {
+                                categories: ['OAP', 'non-OAP'],
+                                crosshair: true,
+                                accessibility: {
+                                    description: indikator.nama_indikator
+                                }
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Jumlah Penduduk'
+                                }
+                            },
+                            tooltip: {
+                                shared: true,
+                                valueSuffix: ' orang'
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0,
+                                    groupPadding: 0.1
+                                }
+                            },
+                            series: [
+                                {
+                                    name: 'OAP',
+                                    data: [nilaiOap]
+                                },
+                                {
+                                    name: 'non-OAP',
+                                    data: [nilaiNonOap]
+                                }
+                            ]
+                        });
+                    });
+                });
+                </script>
+
+
+
+<script>
+    // oap non oap
+    Highcharts.chart('oap_non_oap', {
+    chart: {
+       
+        type: 'pie',
+        custom: {},
+        events: {
+            render() {
+                const chart = this,
+                    series = chart.series[0];
+                let customLabel = chart.options.chart.custom.label;
+
+                if (!customLabel) {
+                    customLabel = chart.options.chart.custom.label =
+                        chart.renderer.label(
+                            'Total<br/>' +
+                            '<strong>{{ total_penduduk_semua }}</strong>' // Update total population
+                        )
+                        .css({
+                            color: '#000',
+                            textAnchor: 'middle'
+                        })
+                        .add();
+                }
+
+                const x = series.center[0] + chart.plotLeft,
+                    y = series.center[1] + chart.plotTop -
+                    (customLabel.attr('height') / 2);
+
+                customLabel.attr({
+                    x,
+                    y
+                });
+                customLabel.css({
+                    fontSize: `${series.center[2] / 12}px`
+                });
+            }
+        }
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    title: {
+        text: 'Population Distribution (OAP dan NON OAP)'
+    },
+    subtitle: {
+        text: 'Source: Dinas Kesehatan Kabupaten Supiori'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.z} ({point.percentage:.0f}%)</b>' // Show both count and percentage
+    },
+    legend: {
+        enabled: true // Enable legend to show OAP and NON OAP
+    },
+    colors: ['#0097D2', '#A7E6BD'], // Warna merah dan kuning
+    plotOptions: {
+        series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            borderRadius: 8,
+            dataLabels: [{
+                enabled: true,
+                distance: 20,
+                format: '{point.name}'
+            }, {
+                enabled: true,
+                distance: -15,
+                format: '{point.percentage:.0f}%',
+                style: {
+                    fontSize: '0.9em'
+                }
+            }],
+            showInLegend: true,
+            animation: {
+                duration: 2000 // Durasi animasi dalam milidetik (contoh 2 detik)
+            }
+        }
+    },
+    series: [{
+        name: 'Population',
+        colorByPoint: true,
+        innerSize: '75%',
+        data: [{
+            name: 'OAP',
+            y: '{{total_oap}}' / '{{total_penduduk_semua}}' * 100, // OAP percentage
+            z: '{{total_oap}}' // Actual number of OAP
+        }, {
+            name: 'NON OAP',
+            y: '{{total_non_oap}}' / '{{total_penduduk_semua}}' * 100, // NON OAP percentage
+            z: '{{total_non_oap}}' // Actual number of NON OAP
+        }]
+    }]
+});
+
+
+    // wanita pria
+    Highcharts.chart('wanita_pria', {
+    chart: {
+       
+        type: 'pie',
+        custom: {},
+        events: {
+            render() {
+                const chart = this,
+                    series = chart.series[0];
+                let customLabel = chart.options.chart.custom.label;
+
+                if (!customLabel) {
+                    customLabel = chart.options.chart.custom.label =
+                        chart.renderer.label(
+                            'Total<br/>' +
+                            '<strong>{{ total_penduduk_semua }}</strong>' // Update total population
+                        )
+                        .css({
+                            color: '#000',
+                            textAnchor: 'middle'
+                        })
+                        .add();
+                }
+
+                const x = series.center[0] + chart.plotLeft,
+                    y = series.center[1] + chart.plotTop -
+                    (customLabel.attr('height') / 2);
+
+                customLabel.attr({
+                    x,
+                    y
+                });
+                customLabel.css({
+                    fontSize: `${series.center[2] / 12}px`
+                });
+            }
+        }
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    title: {
+        text: 'Gender Distribution (Pria dan Wanita)'
+    },
+    subtitle: {
+        text: 'Source: Dinas Kesehatan Kabupaten Supiori'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.z} ({point.percentage:.0f}%)</b>' // Show both count and percentage
+    },
+    legend: {
+        enabled: true // Enable legend to show OAP and NON OAP
+    },
+    colors: ['#0097D2', '#A7E6BD'], // Warna merah dan kuning
+    plotOptions: {
+        series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            borderRadius: 8,
+            dataLabels: [{
+                enabled: true,
+                distance: 20,
+                format: '{point.name}'
+            }, {
+                enabled: true,
+                distance: -15,
+                format: '{point.percentage:.0f}%',
+                style: {
+                    fontSize: '0.9em'
+                }
+            }],
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Population',
+        colorByPoint: true,
+        innerSize: '75%',
+        data: [{
+            name: 'Pria',
+            y: '{{total_pria_semua}}' / '{{total_penduduk_semua}}' * 100, // OAP percentage
+            z: '{{total_pria_semua}}' // Actual number of OAP
+        }, {
+            name: 'Wanita',
+            y: '{{total_wanita_semua}}' / '{{total_penduduk_semua}}' * 100, // NON OAP percentage
+            z: '{{total_wanita_semua}}' // Actual number of NON OAP
+        }]
+    }]
+});
+
+    // //air bersih
+    // Highcharts.chart(' ', {
+    //     chart: {
+    //         type: 'column'
+    //     },
+    //     title: {
+    //         text: ' ',
+    //         align: 'middle'
+    //     },
+    //     subtitle: {
+    //         text: 'Source: Data Spreadsheet',
+    //         align: 'middle'
+    //     },
+    //     xAxis: {
+    //         categories: [
+                
+    //         ],
+    //         crosshair: true,
+    //         accessibility: {
+    //             description: ' '
+    //         }
+    //     },
+    //     yAxis: {
+    //         min: 0,
+    //         title: {
+    //             text: ' '
+    //         }
+    //     },
+    //     tooltip: {
+    //         shared: true,
+    //         valueSuffix: ' '
+    //     },
+    //     plotOptions: {
+    //         column: {
+    //             pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
+    //             borderWidth: 0,
+    //             groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
+    //         }
+    //     },
+    //     series: [
+    //         {
+    //             name: 'OAP',
+    //             data: [ ]
+    //         },
+    //         {
+    //             name: 'non-OAP',
+    //             data: [ ]
+    //         }
+    //     ]
+    // });
+
+    //tenaga kesehatan
+    // Highcharts.chart('tenaga_kesehatan', {
+    //     chart: {
+    //         type: 'column'
+    //     },
+    //     title: {
+    //         text: 'Distribusi Tenaga Kesehatan di Supiori',
+    //         align: 'middle'
+    //     },
+    //     subtitle: {
+    //         text: 'Source: Data Spreadsheet',
+    //         align: 'middle'
+    //     },
+    //     xAxis: {
+    //         categories: [
+    //             'Dokter Umum',
+    //             'Dokter Spesialis',
+    //             'Perawat',
+    //             'Bidan',
+    //             'Apoteker',
+    //             'Ahli Gizi',
+    //             'Sanitarian',
+    //             'Fisioterapis',
+    //             'Psikolog',
+    //             'Dukun'
+    //         ],
+    //         crosshair: true,
+    //         accessibility: {
+    //             description: 'Profesi'
+    //         }
+    //     },
+    //     yAxis: {
+    //         min: 0,
+    //         title: {
+    //             text: 'Jumlah Tenaga Kesehatan'
+    //         }
+    //     },
+    //     tooltip: {
+    //         shared: true,
+    //         valueSuffix: ' orang'
+    //     },
+    //     plotOptions: {
+    //         column: {
+    //             pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
+    //             borderWidth: 0,
+    //             groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
+    //         }
+    //     },
+    //     series: [
+    //         {
+    //             name: 'OAP',
+    //             data: [50, 30, 100, 70, 20, 10, 5, 3, 2, 50]
+    //         },
+    //         {
+    //             name: 'non-OAP',
+    //             data: [60, 40, 110, 80, 30, 20, 15, 13, 12, 60]
+    //         }
+    //     ]
+    // });
+
+    // //sarana kesehatan
+    // Highcharts.chart('sarana_kesehatan', {
+    //     chart: {
+    //         type: 'column'
+    //     },
+    //     title: {
+    //         text: 'Distribusi Sarana Kesehatan di Supiori',
+    //         align: 'middle'
+    //     },
+    //     subtitle: {
+    //         text: 'Source: Data Spreadsheet',
+    //         align: 'middle'
+    //     },
+    //     xAxis: {
+    //         categories: [
+    //             'Rumah Sakit',
+    //             'Puskesmas',
+    //             'Klinik',
+    //             'Poliklinik',
+    //             'Posyandu',
+    //             'Apotek',
+    //             'Lab Kesehatan',
+    //             'Rumah Bersalin',
+    //             'Panti Jompo',
+    //             'UGD',
+    //             'Klinik Kesehatan Mental'
+    //         ],
+    //         crosshair: true,
+    //         accessibility: {
+    //             description: 'Jenis Sarana Kesehatan'
+    //         }
+    //     },
+    //     yAxis: {
+    //         min: 0,
+    //         title: {
+    //             text: 'Jumlah Sarana Kesehatan'
+    //         }
+    //     },
+    //     tooltip: {
+    //         shared: true,
+    //         pointFormat: '<b>{series.name}</b>: {point.y}<br>', // Menampilkan nama distrik dan jumlah
+    //         headerFormat: '' // Menghilangkan header format
+    //     },
+    //     plotOptions: {
+    //         column: {
+    //             pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
+    //             borderWidth: 0,
+    //             groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
+    //         }
+    //     },
+    //     series: [
+    //         {
+    //             name: 'Supiori Utara',
+    //             data: [100, 150, 120, 80, 50, 30, 20, 10, 5, 10, 8] // Data untuk Supiori Utara
+    //         },
+    //         {
+    //             name: 'Supiori Selatan',
+    //             data: [80, 100, 90, 70, 40, 25, 15, 12, 7, 8, 5] // Data untuk Supiori Selatan
+    //         },
+    //         {
+    //             name: 'Supiori Timur',
+    //             data: [120, 200, 150, 100, 60, 40, 25, 20, 10, 15, 12] // Data untuk Supiori Timur
+    //         },
+    //         {
+    //             name: 'Supiori Barat',
+    //             data: [90, 130, 110, 90, 70, 35, 30, 15, 5, 10, 7] // Data untuk Supiori Barat
+    //         },
+    //         {
+    //             name: 'Kepulauan Aruri',
+    //             data: [110, 160, 140, 95, 75, 45, 35, 25, 15, 20, 10] // Data untuk Kepulauan Aruri
+    //         }
+    //     ]
+    // });
+    
+    // //penyakit menular
+    // Highcharts.chart('penyakit_menular', {
+    //             chart: {
+    //                 type: 'column'
+    //             },
+    //             title: {        
+    //             text: 'Data Penyakit menular',
+    //             align: 'middle',
+    //         },
+
+    //             subtitle: {
+    //                 text: 'Source: Data Spreadsheet',
+    //                 align: 'middle'
+    //             },
+    //             xAxis: {
+    //                 categories: [
+    //                     'Tuberkulosis',
+    //                     'Malaria',
+    //                     'DBD',
+    //                     'HIV',
+    //                     'Hepatitis'
+                        
+    //                 ],
+    //                 crosshair: true,
+    //                 accessibility: {
+    //                     description: 'Jenis penyakit menular'
+    //                 }
+    //             },
+    //             yAxis: {
+    //                 min: 0,
+    //                 title: {
+    //                     text: 'Jumlah Penderita'
+    //                 }
+    //             },
+    //             tooltip: {
+    //                 shared: true,
+    //                 valueSuffix: ' orang'
+    //             },
+    //             plotOptions: {
+    //                 column: {
+    //                     pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
+    //                     borderWidth: 0,
+    //                     groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
+    //                 }
+    //             },
+    //             series: [
+    //                 {
+    //                     name: 'OAP',
+    //                     data: [960, 742, 520, 133, 290]
+    //                 },
+    //                 {   
+    //                     name: 'non-OAP',
+    //                     data: [562, 932, 690, 530, 300]
+    //                 }
+    //             ]
+    //         });
+
+
+
+</script>
 
 </div>
 {% endblock main %} 

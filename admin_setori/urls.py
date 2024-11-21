@@ -47,7 +47,7 @@ urlpatterns = [
 
     path('kontak/',include([
         path('',admin_kontak.Admin_kontakViews.as_view(),name='admin_kontak'),
-        # path('add_kontak',admin_kontak.AddContact.as_view(),name='add_kotak'),
+        path('add_kontak/',admin_kontak.Addkontak.as_view(),name='add_kontak'),
         ])),
     
     path('master_wilayah/',include([

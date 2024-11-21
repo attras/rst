@@ -18,11 +18,11 @@ from admin_setori.decorators import role_required
 from django.utils.decorators import method_decorator
 
 class Data_pokokViews(View):
-     def get(self, request):
-        wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True)
-        dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull = True)
+    def get(self, request):
+        wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull=True)
+        dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull=True)
         total_kk_semua = Data_penduduk.objects.aggregate(total=Sum('total_kk'))['total']
-        
+
         # wanita total
         total_wanita_oap = Data_penduduk.objects.aggregate(total_oap=Sum('wanita_oap'))['total_oap']
         total_wanita_non_oap = Data_penduduk.objects.aggregate(total_non_oap=Sum('wanita_non_oap'))['total_non_oap']
@@ -44,8 +44,16 @@ class Data_pokokViews(View):
         # total non oap
         total_non_oap = total_wanita_non_oap + total_pria_non_oap
 
-        
-        data={
+        # kesehatan
+        dt_kesehatan = Data_kesehatan.objects.filter(deleted_at__isnull=True)
+        jenis_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull=True)
+        dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull=True)
+        wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull=True)
+
+        # Membuat array indikator
+        dt_array = list(dt_indikator.values('id_indikator', 'nama_indikator'))  # Sesuaikan dengan field yang ada
+
+        data = {
             'dt_penduduk': dt_penduduk,
             'total_kk_semua': total_kk_semua,
             'total_wanita_semua': total_wanita_semua,
@@ -54,6 +62,10 @@ class Data_pokokViews(View):
             'total_oap': total_oap,
             'total_non_oap': total_non_oap,
             'wilayah_list': wilayah_list,
+            'dt_array': dt_array,
+            'jenis_kesehatan': jenis_kesehatan,
+            'wilayah_list': wilayah_list,
+            'dt_kesehatan': dt_kesehatan
         }
         return render(request, 'setori/data_pokok/index.html', data)
 
