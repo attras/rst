@@ -78,7 +78,7 @@
         <div class="row pt-5">
             {% for potensi in page_obj %}
             <div class="col-lg-6 mb-4">
-                <a href="{% url 'app_setori:detail' %}" class="text-decoration-none">
+                <a href="{% url 'app_setori:detail' potensi.info_wilayah_id %}" class="text-decoration-none">
                 <div class="border-radius-2 overflow-hidden appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                     <span class="thumb-info thumb-info-no-overlay thumb-info-show-hidden-content-hover">
                         <span class="thumb-info-wrapper border-radius-0 rounded-top">

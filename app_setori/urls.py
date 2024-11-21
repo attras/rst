@@ -30,9 +30,8 @@ urlpatterns = [
 
      path('potensi/',include([
           path('kampung', potensi.PotensiViews.as_view(), name = 'kampung'),
-          path('distrik', potensi.DistrikpotensiViews.as_view(), name = 'distrik'),
-          path('detail/<>', potensi.DetailpotensikampungViews.as_view(), name = 'detail'),
-          path('detail_distrik/', potensi.DetailpotensidistrikViews.as_view(), name = 'detail_distrik'),
+          path('distrik', potensi.PotensiDistrikViews.as_view(), name = 'distrik'),
+          path('detail/<str:info_wilayah_id>', potensi.DistridetailViews.as_view(), name = 'detail'),
      ])),
      
 ]
