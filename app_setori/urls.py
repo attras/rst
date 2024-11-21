@@ -29,9 +29,9 @@ urlpatterns = [
      ])),
 
      path('potensi/',include([
-          path('', potensi.PotensiViews.as_view(), name = 'kampung'),
-          path('detail_potensi/', potensi.DetailpotensikampungViews.as_view(), name = 'detail_potensi'),
+          path('kampung', potensi.PotensiViews.as_view(), name = 'kampung'),
           path('distrik', potensi.DistrikpotensiViews.as_view(), name = 'distrik'),
+          path('detail/<>', potensi.DetailpotensikampungViews.as_view(), name = 'detail'),
           path('detail_distrik/', potensi.DetailpotensidistrikViews.as_view(), name = 'detail_distrik'),
      ])),
      
