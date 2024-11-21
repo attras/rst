@@ -119,10 +119,8 @@
                     {% endfor %}
                     
                     
-                    <div class="mb-3">
-                        <label for="id_penduduk" class="form-label">id penduduk</label>
-                        <input type="hidden" name="id_penduduk" id="id_penduduk" value="{{ data_penduduk.data_penduduk_id }}" class="form-control" >
-                    </div>
+                    <input type="hidden" name="id_penduduk" id="id_penduduk" value="{{ data_penduduk.data_penduduk_id }}" class="form-control" >
+                   
                     <div class="mb-3">
                         <label for="pria_oap" class="form-label">Pria OAP</label>
                         <input type="number" name="pria_oap" id="pria_oap" value="{{  data_penduduk.pria_oap }}" class="form-control" required>

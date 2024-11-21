@@ -11,7 +11,7 @@
         </ol>
     </div>
     <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addLayananModal">
+        <a href="{% url 'admin_setori:add_layanan' %}" class="btn btn-primary btn-icon text-white me-2" >
             <span>
                 <i class="fe fe-plus"></i>
             </span> Add Layanan
@@ -29,7 +29,7 @@
     <div class="col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title mb-0">Layaan</h3>
+                <h3 class="card-title mb-0">Layanan</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -53,12 +53,8 @@
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
                                 <td class="text-muted fs-15 fw-semibold">
                                 <a class="btn btn-primary btn-md rounded-11 me-2" 
-                                    href="#" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#editLayananModal" 
-                                    data-bs-id="{{ layanan.id_layanan }}" 
-                                    data-bs-surat="{{ layanan.surat }}" 
-                                    data-bs-syarat="{{ layanan.syarat }}">
+                                    href="{% url 'admin_setori:edit_layanan' layanan.id_layanan %}" 
+                                   >
                                     <i class="fa-solid fa-pen-to-square"></i>Edit 
                                  </a>
                                  
@@ -97,8 +93,8 @@
                     </div>
                     <div class="mb-3"></div>
                         <label  class="form-label">Persyaratan</label>
-                       
-                        <textarea type="text" name="syarat" class="form-control edit"  placeholder="Masukan syarat" id="editor1"></textarea>
+                        <textarea name="tambah_syarat" id="tambah_syarat" class="form-control" rows="4" required></textarea>
+                     
                     </div>
                     <button type="submit" class="btn btn-primary ">Save</button>
                 </form>
@@ -106,33 +102,7 @@
         </div>
     </div>
 </div>
-{% for layanan in dt_layanan %}
-<!-- Delete Layanan Modal -->
-<div class="modal fade" id="deleteLayananModal_{{ layanan.id_layanan }}" tabindex="-1" aria-labelledby="deleteLayananModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteLayananModalLabel">Delete Layanan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this Layanan?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cancel
-                </button>
-                <a href="#">
-                    <button type="button" class="btn btn-danger">Delete</button>
-                </a>
-            
-            </div>
-        </div>
-    </div>
-</div>
 
-
-{% endfor %}
 <!-- edit Layanan Modal -->
 <!-- Edit layanan Modal -->
 <div class="modal fade" id="editLayananModal" tabindex="-1" aria-labelledby="editLayananModalLabel" aria-hidden="true">
@@ -151,8 +121,9 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">syarat</label>
-                        <textarea type="text" name="editsyarat" class="form-control "  placeholder="Masukan syarat" id="editor2"></textarea>
+                        <textarea name="edit_syarat" id="edit_syarat" class="form-control" rows="4" required></textarea>
                     </div>
+                             
                     <button type="submit" class="btn btn-warning">Update layanan</button>
                 </form>
             </div>
@@ -160,6 +131,15 @@
     </div>
 </div>
 
+
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+        }
+    }
+</script>
 
 
 <script>
@@ -176,12 +156,12 @@
        // Update the modal's form fields
        var modalTitle = editLayananModal.querySelector('.modal-title');
        var inputsurat = editLayananModal.querySelector('#edit-surat');
-       var inputsyarat = editLayananModal.querySelector('#editor2');
+       var inputsyarat = editLayananModal.querySelector('#edit_syarat');
        var form = editLayananModal.querySelector('form');
 
        modalTitle.textContent = 'Edit surat ' + surat;
        inputsurat.value = surat;
-       inputsyarat.value = syarat;
+       
 
        // Update form action URL dynamically with the correct layanan ID
        form.action = "{% url 'admin_setori:edit_layanan' 'holder' %}".replace('holder', layananId);
@@ -231,14 +211,7 @@
 </script>
 
 
-<script type="importmap">
-    {
-        "imports": {
-            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
-            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
-        }
-    }
-</script>
+
 
 <script type="module">
     import {
@@ -250,70 +223,32 @@
         Paragraph
     } from 'ckeditor5';
 
-    // Fungsi untuk inisialisasi editor
-    function initializeEditor(editorSelector) {
+    // Fungsi untuk menginisialisasi CKEditor
+    function initializeEditor(selector) {
         ClassicEditor
-            .create(document.querySelector(editorSelector), {
+            .create(document.querySelector(selector), {
                 plugins: [Essentials, Bold, Italic, Font, Paragraph],
                 toolbar: [
                     'undo', 'redo', '|', 'bold', 'italic', '|',
                     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
                 ],
-                
             })
             .then(editor => {
-                // Mendengarkan perubahan data pada setiap editor
+                // Optional: Tangani perubahan data jika diperlukan
                 editor.model.document.on('change:data', () => {
                     const data = editor.getData();
-                    document.querySelector(`textarea[name="${editorSelector.replace('#', '')}"]`).value = data;
+                    document.querySelector(`textarea[name="${selector.substring(1)}"]`).value = data;
                 });
             })
             .catch(error => {
-                console.error(error);
+                console.error(`CKEditor error on ${selector}:`, error);
             });
     }
 
-    // Inisialisasi semua editor yang diperlukan
-    document.addEventListener("DOMContentLoaded", () => {
-        initializeEditor('#editor1'); // Editor pertama
-        initializeEditor('#editor2'); // Editor kedua
-        // Tambahkan lebih banyak editor jika diperlukan
-    });
+    // Inisialisasi CKEditor untuk elemen dengan ID 'visi' dan 'misi'
+    ['#tambah_syarat'].forEach(selector => initializeEditor(selector));
 </script>
 
-<!-- <script type="module">
-    import {
-        ClassicEditor,
-        Essentials,
-        Bold,
-        Italic,
-        Font,
-        Paragraph
-    } from 'ckeditor5';
 
-    ClassicEditor
-        .create( document.querySelector( '#editor' ), {
-            plugins: [ Essentials, Bold, Italic, Font, Paragraph ],
-            toolbar: [
-                'undo', 'redo', '|', 'bold', 'italic', '|',
-                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
-            ],
-            
-            height: '500px'
-        } )
-        .then(editor => {
-            // Optionally listen for changes to update the hidden textarea
-            editor.model.document.on('change:data', () => {
-                const data = editor.getData();
-                document.querySelector('textarea[name="editsyarat"]').value = data;
-            });
-        })
-        .catch(error => {
-            console.error(error);
-        });
-
-
-</script> -->
- 
 
 {% endblock main %}
