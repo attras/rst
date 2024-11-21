@@ -95,3 +95,5 @@ class InfoWilayahAdd(View):
             print("Error Data:", e)
             messages.error(request, "Gagal menambahkan data Info Wilayah.")
             return redirect('admin_setori:admin_info_wilayah',wilayah_id)  # Ubah dengan nama URL yang sesuai
+        
+

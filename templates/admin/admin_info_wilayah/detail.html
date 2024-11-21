@@ -75,7 +75,7 @@
                                 <td class="text-muted fs-15 fw-semibold">
                                     
                                         <a >
-                                            <button type="button" class="btn btn-danger" onclick="Hapus_info('{{info.info_id }}')">
+                                            <button type="button" class="btn btn-danger" onclick="Hapus_info()">
                                                 <i class="fe fe-trash"></i> Hapus
                                             </button>     
                                         </a>
@@ -170,6 +170,46 @@
     </div>
 </div>
 
+
+<script>
+    function Hapus_info() {
+    Swal.fire({
+        title: 'Apakah kamu yakin ingin menghapus?',
+        showCancelButton: true,
+        confirmButtonText: 'Konfirmasi',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "{% url 'admin_setori:delete_penduduk' 'holder' %}".replace('holder', id_hapus_penduduk),
+                dataType: "html",
+                timeout: 10000,
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Memproses...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                    });
+                    Swal.showLoading();
+                },
+                success: function(response) {
+                    Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 2000); 
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
+                }
+            });
+        }
+    });
+
+};
+</script>
 
 
 
