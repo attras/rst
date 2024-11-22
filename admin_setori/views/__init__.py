@@ -16,4 +16,5 @@ from .admin_data_penduduk import *
 from .master_jenis_kesehatan import *
 from .master_indikator import *
 from .admin_tentang import *
+from .master_sarpras import *
 

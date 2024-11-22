@@ -58,6 +58,11 @@ urlpatterns = [
        
         ])),
     
+    path('master_sarpras/',include([
+        path('', master_sarpras.Master_kategoriViews.as_view(), name = 'master_sarpras'),
+       
+        ])),
+
     path('master_identitas/',include([
         path('', master_identitas.Master_identitasViews.as_view(), name = 'master_identitas'),
         path('add_master_identitas', master_identitas.AddIdentitas.as_view(), name = 'add_identitas'),
