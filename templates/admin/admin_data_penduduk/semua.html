@@ -5,7 +5,7 @@
 <!-- PAGE-HEADER -->
 <div class="page-header">
     <div>
-        
+        <h1 class="page-title">penduduk</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
@@ -15,7 +15,7 @@
         {% if dt_penduduk %}
         <a href="#" class="btn btn-primary btn-icon text-white">
             <span>
-                <i class="fa-solid fa-pen-to-square"></i>Edit 
+                <i class="fa-solid fa-pen-to-square"></i>Tambah data 
             </span> 
         </a>
         
@@ -74,6 +74,9 @@
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_kk_non_oap }}</td>
 
                                 <td class="text-muted fs-15 fw-semibold">
+                                    <a class="btn btn-primary btn-md rounded-11" href="{% url 'admin_setori:detail_data_penduduk' penduduk.wilayah.wilayah_id  %}">
+                                        <i class="fa-solid fa-pen-to-square"></i>Detail
+                                   </a>
                                      
                                      <a >
                                         <button type="button" class="btn btn-danger" onclick="Hapus_penduduk('{{penduduk.data_penduduk_id }}')">
@@ -112,13 +115,16 @@
                 
                 <form method="post" action="{% url 'admin_setori:add_data_penduduk' %}" enctype="multipart/form-data">
                     {% csrf_token %}
-                   
-                    <select name="wilayah" id="wilayah" required>
-                        <option value="" disabled selected>Pilih Wilayah</option>
-                        {% for wilayah in wilayah %}
-                            <option value="{{ wilayah.wilayah_id }}">{{ wilayah.wilayah_nama }}</option>
-                        {% endfor %}
-                    </select>
+                    <div class="mb-3">
+                        <label for="wilayah" class="form-label">Wilayah</label>
+                        <select name="wilayah" id="wilayah" required>
+                            <option value="" disabled selected>Pilih Wilayah</option>
+                            {% for wilayah in wilayah %}
+                                <option value="{{ wilayah.wilayah_id }}">{{ wilayah.wilayah_nama }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
                     <div class="mb-3">
                         <label for="pria_oap" class="form-label">Pria OAP</label>
                         <input type="number" name="pria_oap" id="pria_oap" value="{{  data_penduduk.pria_oap }}" class="form-control" required>

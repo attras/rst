@@ -3,7 +3,7 @@
 {% block main %}
 <div class="page-header">
     <div>
-        <h1 class="page-title">Tambah </h1>
+        <h1 class="page-title">{{ title }}{{ dt_layanan.surat }} </h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Setting</a></li>
             <li class="breadcrumb-item active" aria-current="page">Kontak</li>
@@ -15,18 +15,18 @@
     <div class="col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title mb-0">tambah layanan</h3>
+                <h3 class="card-title mb-0">{{ title }}{{ dt_layanan.surat }}</h3>
             </div>
             <div class="card-body">
-                <form action="{% url 'admin_setori:add_layanan' %}"  enctype="multipart/form-data" method="post">
+                <form action="{% if edit %}{% url 'admin_setori:edit_layanan' dt_layanan.id_layanan %}{% else %}{% url 'admin_setori:add_layanan' %} {% endif %}"  enctype="multipart/form-data" method="post">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label  class="form-label">Nama Surat</label>
-                        <input type="text" name="surat" class="form-control"  placeholder="Masukan nama surat" />
+                        <input type="text" name="surat" value="{{ dt_layanan.surat }}" class="form-control"  placeholder="Masukan nama surat" />
                     </div>
                     <div class="mb-3"></div>
                         <label  class="form-label">Persyaratan</label>
-                        <textarea name="syarat" id="syarat" class="form-control" rows="4" required></textarea>
+                        <textarea name="syarat" id="syarat" class="form-control" rows="4" required>{{ dt_layanan.syarat }}</textarea>
                      
                     </div>
                     <div class="text-center mb-3">

@@ -300,7 +300,11 @@ class Data_kesehatan(CreateUpdateTime):
     oap = models.IntegerField(default=0)
     non_oap = models.IntegerField(default=0)
 
-
+class Data_sarpras(CreateUpdateTime):
+    sarpras_id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
+    wilayah = models.ForeignKey(MasterWilayah,on_delete=models.CASCADE)
+    nama_sarpras = models.CharField(max_length=255)
+    jumlah = models.IntegerField(default=0)
 
 
 

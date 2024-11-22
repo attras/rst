@@ -30,24 +30,29 @@ class Detail_info_wilayah(View):
     def get(self, request,wilayah_id):
         dt_info_wilayah = Info_wilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
         pilih_wilayah = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
+        dt_sarpras = Data_sarpras.objects.filter(deleted_at__isnull = True,wilayah=wilayah_id)
+       
         try:
             data_info_wilayah =  Info_wilayah.objects.get(wilayah_id=wilayah_id, deleted_at__isnull=True)
         # Jika ada data penduduk, ambil semua field
         except ObjectDoesNotExist:
             data_info_wilayah = None  # Atau menangani error sesuai kebutuhan
 
-
+        
         data = {
             'dt_info_wilayah' : dt_info_wilayah,
             'pilih_wilayah' : pilih_wilayah,
             'wilayah_id' : wilayah_id,
             'data_info_wilayah' : data_info_wilayah,
+            'dt_sarpras' : dt_sarpras,
         }
         
         return render(request, 'admin/admin_info_wilayah/detail.html',data)
+    
 
 
-class AddInfoWilayah(View):
+
+class FormWilayah(View):
     def get(self, request,wilayah_id):
         dt_info_wilayah = Info_wilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
         pilih_wilayah = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id).first()
@@ -59,6 +64,36 @@ class AddInfoWilayah(View):
         }
         
         return render(request, 'admin/admin_info_wilayah/form.html',data)
+
+
+class Addsarpras(View):
+    def post(self, request):
+        wilayah_id = request.POST.get('wilayah_id')
+        nama_sarpras = request.POST.get('nama_sarpras')
+        jumlah_sarpras = request.POST.get('jumlah')
+
+        try:
+            with transaction.atomic():
+                
+
+                sarpras = Data_sarpras()
+                sarpras.nama_sarpras = nama_sarpras
+                sarpras.jumlah = jumlah_sarpras
+                sarpras.wilayah_id = wilayah_id
+            
+                sarpras.save()
+
+
+                messages.success(request, "Data sarpras berhasil ditambahkan.")
+                return redirect('admin_setori:detail_info_wilayah', wilayah_id)  # Ubah dengan nama URL yang sesuai
+
+        except Exception as e:
+                print("Error Data:", e)
+                messages.error(request, "Gagal menambahkan data sarpras.")
+                return redirect('admin_setori:admin_info_wilayah',wilayah_id)  # Ubah dengan nama URL yang sesuai
+
+
+
 
 class InfoWilayahAdd(View):
     def post(self, request):

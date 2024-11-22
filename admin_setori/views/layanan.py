@@ -17,6 +17,7 @@ class LayananViews(View):
     def get(self, request):
         dt_layanan = Layanan.objects.filter(deleted_at__isnull = True)
         data = {
+            'title' : 'Layanan',
             'dt_layanan' : dt_layanan
         }
         return render(request, 'admin/admin_layanan/index.html',data)
@@ -25,13 +26,14 @@ class Addlayanan(View) :
     def get(self, request):
         dt_layanan = Layanan.objects.filter(deleted_at__isnull = True)
         data = {
+            'title' : 'Tambah data',
             'dt_layanan' : dt_layanan
         }
         return render(request, 'admin/admin_layanan/form.html',data)
 
     def post(self, request):
         surat = request.POST.get('surat')
-        syarat = request.POST.get('tambah_syarat')
+        syarat = request.POST.get('syarat')
         try:
             with transaction.atomic():
                 insert_layanan = Layanan()
@@ -57,18 +59,21 @@ class Deletelayanan(View):
 
 class Editlayanan(View) :
     def get(self, request,id_layanan):
-        dt_layanan = Layanan.objects.filter(deleted_at__isnull = True)
+        
+        dt_layanan = get_object_or_404(Layanan, id_layanan=id_layanan,deleted_at__isnull = True )
         data = {
+            'title' : 'edit ',
+            'edit': True,
             'dt_layanan' : dt_layanan
         }
         return render(request, 'admin/admin_layanan/form.html',data)
 
     def post(self, request,id_layanan):
         surat = request.POST.get('surat')
-        syarat = request.POST.get('edit_syarat')
+        syarat = request.POST.get('syarat')
         try:
             with transaction.atomic():
-                insert_layanan = get_object_or_404(Layanan, id_layanan=id_layanan )
+                insert_layanan = get_object_or_404(Layanan, id_layanan=id_layanan,deleted_at__isnull = True )
                 insert_layanan.surat = surat
                 insert_layanan.syarat = syarat
                 insert_layanan.save()
