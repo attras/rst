@@ -1,0 +1,88 @@
+{% extends 'admin/base_layout/index.html' %}
+{% block css %} {% endblock css %}
+{% block main %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">{{ title }}{{ dt_layanan.surat }} </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Setting</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Kontak</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">{{ title }}{{ dt_layanan.surat }}</h3>
+            </div>
+            <div class="card-body">
+                <form action="{% if edit %}{% url 'admin_setori:edit_layanan' dt_layanan.id_layanan %}{% else %}{% url 'admin_setori:add_layanan' %} {% endif %}"  enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label  class="form-label">Nama Surat</label>
+                        <input type="text" name="surat" value="{{ dt_layanan.surat }}" class="form-control"  placeholder="Masukan nama surat" />
+                    </div>
+                    <div class="mb-3"></div>
+                        <label  class="form-label">Persyaratan</label>
+                        <textarea name="syarat" id="syarat" class="form-control" rows="4" required>{{ dt_layanan.syarat }}</textarea>
+                     
+                    </div>
+                    <div class="text-center mb-3">
+                        <button class="btn btn-primary" type="submit">
+                            Simpan Data
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+        }
+    }
+</script>
+
+<script type="module">
+    import {
+        ClassicEditor,
+        Essentials,
+        Bold,
+        Italic,
+        Font,
+        Paragraph
+    } from 'ckeditor5';
+
+    ClassicEditor
+        .create(document.querySelector('#syarat'), {
+            plugins: [Essentials, Bold, Italic, Font, Paragraph],
+            toolbar: [
+                'undo', 'redo', '|', 'bold', 'italic', '|',
+                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+            ],
+        })
+        .then(editor => {
+            // Optionally listen for changes to update the hidden textarea
+            editor.model.document.on('change:data', () => {
+                const data = editor.getData();
+                document.querySelector('textarea[name="syarat"]').value = data;
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+{% endblock main %}
+
+
+{% block js %}
+
+{% endblock js %}

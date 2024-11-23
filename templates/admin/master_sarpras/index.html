@@ -5,25 +5,22 @@
 <!-- PAGE-HEADER -->
 <div class="page-header">
     <div>
-        {% for kesehatan in dt_kesehatan %}
-        <h1 class="page-title">Detail {{ kesehatan.nama_jenis }}</h1>
-        
+        <h1 class="page-title">Dashboard 01</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'admin_setori:master_jenis_kesehatan' %}">Jenis Data Kesehatan</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ kesehatan.nama_jenis }}</li>
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
         </ol>
-        {% endfor %}
     </div>
     <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_indikator()">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addKategoriModal" onclick="Tambah_kat_berita()">
             <span>
                 <i class="fe fe-plus"></i>
-            </span> Tambah data 
+            </span> Add kategori
         </a>
         <a href="#" class="btn btn-success btn-icon text-white">
             <span>
                 <i class="fe fe-log-in"></i>
-            </span> Riwayat
+            </span> Export
         </a>
     </div>
 </div>
@@ -39,35 +36,31 @@
                         <thead class="border-top">
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Indikator</th>
+                                <th class="bg-transparent border-bottom-0">Kategori</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for indikator in dt_indikator %}
+                          {% for kategori in dt_category %}
                           
                             <tr class="border-bottom" >
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ indikator.nama_indikator }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ kategori.name }}</td>
                                 <td class="text-muted fs-15 fw-semibold">
                                         <a class="btn btn-primary btn-md rounded-11 me-2" 
                                             href="#" 
                                             data-bs-toggle="modal" 
-                                            data-bs-target="#addModal" 
-                                            data-bs-id="{{ indikator.id_indikator }}" 
-                                            data-bs-indikator="{{ indikator.nama_indikator }}"
-                                            onclick="edit_Indikator()"
-                                            >
-                                            <i class="fa-solid fa-pen-to-square"></i>Edit 
+                                            data-bs-target="#addKategoriModal" 
+                                            data-bs-id="{{ kategori.categori_id }}" 
+                                            data-bs-nama="{{ kategori.name }}" >
+                                            <i class="fa-solid fa-pen-to-square"></i>Edit  
                                         </a>
-                                        
                                         <!--delete kategori-->
-                                            <a >
-                                                <button type="submit" class="btn btn-danger" onclick="Hapus_indikator('{{indikator.id_indikator }}')">
-                                                    <i class="fe fe-trash"></i> Hapus
-                                                </button>     
-                                            </a>
-
+                                        <a >
+                                            <button type="button" class="btn btn-danger" onclick="Hapus_kat_berita('{{kategori.categori_id }}')">
+                                                <i class="fe fe-trash"></i> Hapus
+                                            </button>     
+                                        </a>
                                 </td>
                             </tr>
                           {% endfor %}
@@ -80,68 +73,62 @@
 </div>
 
 <!-- Add Identitas Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal fade" id="addKategoriModal" tabindex="-1" aria-labelledby="addKategoriModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Edit jenis Data Kesehatan</h5>
+                <h5 class="modal-title" id="addKategoriModalLabel">Tambah Identitas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="post">
                   {% csrf_token %}
                     <div class="mb-3">
-                        <label class="form-label">Indikator</label>
-                        <input type="text" name="nama_indikator" id="nama_indikator" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                        <label class="form-label">Kategori</label>
+                        <input type="text" name="name" id="nama" class="form-control" placeholder="Masukkan Nama Kategori" required />
                     </div>
-                    {% for kesehatan in dt_kesehatan %}
-                    <div class="mb-3">
-                        <input type="hidden" name="jenis_kesehatan" id="jenis_kesehatan" value="{{ kesehatan.jenis_kesehatan_id }}" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
-                    </div>
-                    {% endfor %}
-                    <button type="submit"  class="btn btn-primary">Simpan</button>
+                    <button type="submit"  onclick="" class="btn btn-primary">Simpan</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+{% endblock main %}
+{% block js %}
+<!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->
 <script>
-    var KesehatanModal = document.getElementById('addModal');
-
-    function Tambah_indikator(){
-        var form = KesehatanModal.querySelector('form');
-        document.getElementById('addModalLabel').textContent = 'Tambahkan Indikator kesehatan';
-        form.action = "{% url 'admin_setori:add_indikator' %}";
-    };
-
-    var editIndikatorModal = document.getElementById('addModal');
-    editIndikatorModal.addEventListener('show.bs.modal', function edit_Indikator() {
+    var editKategoriModal = document.getElementById('addKategoriModal');
+    editKategoriModal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal
         var button = event.relatedTarget;
 
         // Extract info from data-bs-* attributes
-        var IndikatorId = button.getAttribute('data-bs-id');
-        var Indikator = button.getAttribute('data-bs-indikator');
-        
-       
+        var KategoriId = button.getAttribute('data-bs-id');
+        var nama = button.getAttribute('data-bs-nama');
+
         // Update the modal's form fields
-        var modalTitle = editIndikatorModal.querySelector('.modal-title');
-        var inputIndikator = editIndikatorModal.querySelector('#nama_indikator');
-   
-        var form = editIndikatorModal.querySelector('form');
+        var modalTitle = editKategoriModal.querySelector('.modal-title');
+        var inputnama = editKategoriModal.querySelector('#nama');
+        var form = editKategoriModal.querySelector('form');
 
-        modalTitle.textContent = 'Edit ' + Indikator;
-        inputIndikator.value = Indikator;
-       
+        modalTitle.textContent = 'Edit  ' + nama;
+        inputnama.value = nama;
 
+        // Update form action URL dynamically with the correct FAQ ID
+        form.action = "{% url 'admin_setori:edit_kategori' 'holder' %}".replace('holder', KategoriId);
        
-        form.action = "{% url 'admin_setori:edit_idikator' 'holder' %}".replace('holder', IndikatorId);
-        
+       
     });
 
+    function Tambah_kat_berita(){
+        var form = editKategoriModal.querySelector('form');
+        document.getElementById('addKategoriModalLabel').textContent = 'Tambahkan Kategori';
+        form.action = "{% url 'admin_setori:add_kategori' %}";
 
-    function Hapus_indikator(id_indikator) {
+    };
+
+    function Hapus_kat_berita(id_hapus_kat_berita) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',
         showCancelButton: true,
@@ -151,7 +138,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `delete_indikator/${id_indikator}`,
+                url: `del/${id_hapus_kat_berita}`,
                 dataType: "html",
                 timeout: 10000,
                 beforeSend: function() {
@@ -176,9 +163,7 @@
             });
         }
     });
-    };
 
+};
 </script>
-{% endblock main %}
-{% block js %}
 {% endblock js %}

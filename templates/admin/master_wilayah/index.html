@@ -12,7 +12,7 @@
         </ol>
     </div>
     <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addWilayahModal">
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addWilayahModal" onclick="Tambah_wilayah()">
             <span>
                 <i class="fe fe-plus"></i>
             </span> Tambah Wilayah
@@ -54,17 +54,18 @@
                                 {% endif %}
                                 </td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                    <!-- <a class="btn btn-primary btn-md rounded-11"
+                                    <a class="btn btn-primary btn-md rounded-11"
                                          data-bs-toggle="modal" 
-                                         data-bs-target="#deleteWilayahModal_{{ wilayah.wilayah_id }}" 
-                                         data-bs-original-title="Delete"
-                                         data-bs-id="{{ wilayah.wilayah_id }}" 
+                                         data-bs-target="#addWilayahModal" 
+                                         data-bs-id="{{ wilayah.wilayah_id }}"
+                                         data-bs-wilayah = "{{ wilayah.wilayah_nama }}"
+                                         data-bs-level = "{{ wilayah.wilayah_level }}"
+                                         onclick="edit_wilayah()"
                                          >
                                          
                                          <i class="fa-solid fa-pen-to-square"></i>Edit 
-                                        </a> -->
+                                    </a>
 
-                                    <!-- Delete Wilayah Modal -->
                                     <a >
                                         <button type="button" class="btn btn-danger" onclick="Hapus_wilayah('{{wilayah.wilayah_id }}')">
                                             <i class="fe fe-trash"></i> Hapus
@@ -87,10 +88,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addWilayahModalLabel">Tambah Wilayah</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_wilayah' %}">
+                <form method="post" action="#">
                     {% csrf_token %}
                 
                     <div class="mb-3">
@@ -152,6 +153,39 @@
 
 
 <script>
+     
+
+    var editWilayahModal = document.getElementById('addWilayahModal');
+    editWilayahModal.addEventListener('show.bs.modal', function edit_wilayah() {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Extract info from data-bs-* attributes
+        var WilayahId = button.getAttribute('data-bs-id');
+        var Wilayah = button.getAttribute('data-bs-wilayah');
+        
+       
+        // Update the modal's form fields
+        var modalTitle = editWilayahModal.querySelector('.modal-title');
+        var inputWilayah = editWilayahModal.querySelector('#wilayah_nama');
+   
+        var form = editWilayahModal.querySelector('form');
+
+        modalTitle.textContent = 'Edit Wilayah ' + Wilayah;
+        inputWilayah.value = Wilayah;
+       
+
+        // Update form action URL dynamically with the correct Wilayah ID
+        form.action = "{% url 'admin_setori:edit_wilayah' 'holder' %}".replace('holder', WilayahId);
+        
+    });
+
+    function Tambah_wilayah(){
+        var form = editWilayahModal.querySelector('form');
+        document.getElementById('addWilayahModalLabel').textContent = 'Tambahkan Wilayah';
+        form.action = "{% url 'admin_setori:add_wilayah' %}";
+    };
+
     // Show confirmation dialog
     function Hapus_wilayah(id_hapus_wilayah) {
         Swal.fire({

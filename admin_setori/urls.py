@@ -19,6 +19,8 @@ urlpatterns = [
     path('admin_berita/', include([
         path('', admin_berita.Admin_beritaViews.as_view(), name='admin_berita'),
         path('add', admin_berita.AddBerita.as_view(), name='add_berita'),
+        path('detail', admin_berita.Detail_Berita.as_view(), name='detail_berita'),
+       
         path('delete/<slug:news_slug>/', admin_berita.Deleteberita.as_view(), name='delete_berita'),
     ])),
 
@@ -45,16 +47,22 @@ urlpatterns = [
 
     path('kontak/',include([
         path('',admin_kontak.Admin_kontakViews.as_view(),name='admin_kontak'),
-        # path('add_kontak',admin_kontak.AddContact.as_view(),name='add_kotak'),
+        path('add_kontak/',admin_kontak.Addkontak.as_view(),name='add_kontak'),
         ])),
     
     path('master_wilayah/',include([
         path('', master_wilayah.Master_wilayahViews.as_view(), name = 'master_wilayah'),
-        path('add', master_wilayah.AddWilayah.as_view(), name = 'add_wilayah'),
-        path('delete/<str:wilayah_id>', master_wilayah.DeleteWilayah.as_view(), name = 'delete_wilayah'),
+        path('add/', master_wilayah.AddWilayah.as_view(), name = 'add_wilayah'),
+        path('edit/<str:wilayah_id>/',master_wilayah.EditWilayah.as_view(), name='edit_wilayah'),
+        path('delete/<str:wilayah_id>/', master_wilayah.DeleteWilayah.as_view(), name = 'delete_wilayah'),
        
         ])),
     
+    path('master_sarpras/',include([
+        path('', master_sarpras.Master_kategoriViews.as_view(), name = 'master_sarpras'),
+       
+        ])),
+
     path('master_identitas/',include([
         path('', master_identitas.Master_identitasViews.as_view(), name = 'master_identitas'),
         path('add_master_identitas', master_identitas.AddIdentitas.as_view(), name = 'add_identitas'),
@@ -71,9 +79,11 @@ urlpatterns = [
     path('master_jenis_kesehatan/',include([
         path('',master_jenis_kesehatan.Master_jenis_kesehatanView.as_view(),name='master_jenis_kesehatan'),
         path('add_jenis_kesehatan',master_jenis_kesehatan.Add_jenis_kesehatan.as_view(),name='add_jenis_kesehatan'),
+        path('edit/<str:jenis_kesehatan_id>',master_jenis_kesehatan.Edit_jenis_kesehatan.as_view(),name='edit_jenis_kesehatan'),
         path('delete/<str:jenis_kesehatan_id>',master_jenis_kesehatan.Deletejenis_kesehatan.as_view(),name='delete_jenis_kesehatan'),
         path('indikator/<str:jenis_kesehatan_id>',master_indikator.Master_indikator.as_view(),name='master_indikator'),
         path('add_indikator',master_indikator.Add_indikator.as_view(),name='add_indikator'),
+        path('edit_indikator/<str:id_indikator>',master_indikator.Edit_indikator.as_view(),name='edit_idikator'),
         path('indikator/delete_indikator/<str:id_indikator>',master_indikator.Delete_indikator.as_view(),name='delete_indikator'),
 
         ])),
@@ -95,23 +105,29 @@ urlpatterns = [
 
     path('info_wilayah/',include([
         path('',admin_info_wilayah.Info_wilayahViews.as_view(),name='admin_info_wilayah'),
-        path('add_info_wilayah',admin_info_wilayah.AddInfoWilayah.as_view(),name='add_info_wilayah'),
+        path('add_info_wilayah/<str:wilayah_id>/',admin_info_wilayah.FormWilayah.as_view(),name='add_info_wilayah'),
+        path('info_wilayah_add',admin_info_wilayah.InfoWilayahAdd.as_view(),name='info_wilayah_add'),
+        path('add_sarpras',admin_info_wilayah.Addsarpras.as_view(),name='add_sarpras'),
+        
+        path('detail/<str:wilayah_id>/',admin_info_wilayah.Detail_info_wilayah.as_view(),name='detail_info_wilayah'),
         path('delete/<str:wilayah_id>', master_wilayah.DeleteWilayah.as_view(), name = 'delete_wilayah'),
         ])),
 
     path('data_kesehatan/',include([
          path('',admin_data_kesehatan.Admin_data_kesehatanViews.as_view(),name='data_kesehatan'),
-         path('detail/<str:jenis_kesehatan_id>',admin_data_kesehatan.Detail_data_kesehatanViews.as_view(),name='detail_data_kesehatan'),
-               
+         path('detail/<str:jenis_kesehatan_id>',admin_data_kesehatan.Detail_data_kesehatanViews.as_view(),name='detail_data_kesehatan'),      
          path('add',admin_data_kesehatan.Add_data_kesehatan.as_view(),name='add_data_kesehatan'),
-         
+         path('delete/<str:data_kesehatan_id>/', admin_data_kesehatan.DeleteKesehatan.as_view(), name = 'delete_kesehatan'),
         
          ])),
 
     path('data_penduduk/',include([
          path('',admin_data_penduduk.Admin_data_pendudukViews.as_view(),name='data_penduduk'),
          path('add/',admin_data_penduduk.Add_data_penduduk.as_view(),name='add_data_penduduk'),
-         path('delete/<str:data_penduduk_id>', admin_data_penduduk.DeletePenduduk.as_view(), name = 'delete_penduduk'),
+         path('semua/',admin_data_penduduk.Semua_data.as_view(),name='semua_penduduk'),
+         path('detail/<str:wilayah_id>/',admin_data_penduduk.Detail_penduduk.as_view(),name='detail_data_penduduk'),
+         path('edit/<str:data_penduduk_id>/', admin_data_penduduk.edit_data_penduduk.as_view(), name = 'edit_data_penduduk'),
+         path('delete/<str:data_penduduk_id>/', admin_data_penduduk.DeletePenduduk.as_view(), name = 'delete_penduduk'),
          
          ])),
 

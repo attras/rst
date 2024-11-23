@@ -1,0 +1,213 @@
+{% extends 'admin/base_layout/index.html' %}
+{% block css %}
+ 
+{% endblock css %}
+{% block main %}
+
+<!-- PAGE-HEADER -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Info Wilayah {{  data_info_wilayah.wilayah.wilayah_nama }}</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+        </ol>
+    </div>
+    <div class="ms-auto pageheader-btn">
+       
+        {% if data_info_wilayah %}
+        <a href="#" class="btn btn-primary btn-icon text-white">
+            <span>
+                <i class="fa-solid fa-pen-to-square"></i>Edit 
+            </span> 
+        </a>
+        
+        {% else %}
+        <a href="{% url 'admin_setori:add_info_wilayah' wilayah_id %}" class="btn btn-primary btn-icon text-white me-2" >
+            <span>
+                <i class="fe fe-plus" ></i>
+            </span> Add
+        </a>
+       
+        {% endif %}
+        <a href="" class="btn btn-success btn-icon text-white">
+            <span>
+                <i class="fa-solid fa-rotate-right"></i>
+            </span> Histori
+        </a>
+
+    </div>
+</div>
+<!-- User Table -->
+<div class="row">
+    <div class="col-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">info</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th class="bg-transparent border-bottom-0 w-5">No</th>
+                                <th class="bg-transparent border-bottom-0">profil</th>
+                                <th class="bg-transparent border-bottom-0">visi</th>
+                                <th class="bg-transparent border-bottom-0">Misi</th>
+                                
+                                <th class="bg-transparent border-bottom-0">wilayah</th>
+                                <th class="bg-transparent border-bottom-0">Action</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for info in dt_info_wilayah %}
+                            <tr class="border-bottom">
+                                <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
+                                <td class="text-muted fs-15 fw-semibold">
+                                    <img src="{{ info.image_profile.url }}" alt="logo" style="width: 50px; height: auto;">
+                                </td>
+                                <td class="text-muted fs-15 fw-semibold">{{ info.visi|slice:":60" }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ info.misi|slice:":60" }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ info.wilayah.wilayah_nama|slice:":60" }}</td>
+                             
+                                <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
+                                <td class="text-muted fs-15 fw-semibold">
+                                    
+                                        <a >
+                                            <button type="button" class="btn btn-danger" onclick="Hapus_info()">
+                                                <i class="fe fe-trash"></i> Hapus
+                                            </button>     
+                                        </a>
+                                        
+                                        
+                                    </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- COL END -->
+</div>
+
+<a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_jenis_kesehatan()">
+    <span>
+        <i class="fe fe-plus">Tambah data sarpras</i>
+    </span> 
+</a>
+
+<table id="data-table" class="table table-bordered text-nowrap mb-0">
+    <thead class="border-top">
+        <tr>
+            <th class="bg-transparent border-bottom-0 w-5">No</th>
+            <th class="bg-transparent border-bottom-0">Sarana</th>
+            <th class="bg-transparent border-bottom-0">Jumlah</th>
+            <th class="bg-transparent border-bottom-0">Action</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+      {% for info in dt_sarpras %}
+        <tr class="border-bottom">
+            <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
+            <td class="text-muted fs-15 fw-semibold">{{ info.nama_sarpras|slice:":60" }}</td>
+            <td class="text-muted fs-15 fw-semibold">{{ info.jumlah|slice:":60" }}</td>
+         
+            <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
+            <td class="text-muted fs-15 fw-semibold">
+                
+                    <a >
+                        <button type="button" class="btn btn-danger" onclick="Hapus_sarpras()">
+                            <i class="fe fe-trash"></i> Hapus
+                        </button>     
+                    </a>
+                    
+                    
+                </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Add dan Edit info sarpras -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">sarpras</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'admin_setori:add_sarpras' %}">
+                  {% csrf_token %}
+                  <input type="hidden" value="{{data_info_wilayah.wilayah.wilayah_id}}" name="wilayah_id">
+                <div class="mb-3">
+                    <label for="map" class="form-label">Sarpras</label>
+                    <input type="text" id="nama_sarpras" class="form-control" name="nama_sarpras" placeholder="Masukkan nama sarpras" required>
+                </div>
+                <div class="mb-3">
+                    <label for="map" class="form-label">Jumlah</label>
+                    <input type="number" id="jumlah" name="jumlah"  class="form-control" name="nama_sarpras" placeholder="Masukkan jumlah sarpras" required>
+                </div >
+                  <!-- Tombol submit -->
+                  <button class="btn btn-primary" type="submit">Submit</button>   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function Hapus_info() {
+    Swal.fire({
+        title: 'Apakah kamu yakin ingin menghapus?',
+        showCancelButton: true,
+        confirmButtonText: 'Konfirmasi',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "{% url 'admin_setori:delete_penduduk' 'holder' %}".replace('holder', id_hapus_penduduk),
+                dataType: "html",
+                timeout: 10000,
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Memproses...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                    });
+                    Swal.showLoading();
+                },
+                success: function(response) {
+                    Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 2000); 
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
+                }
+            });
+        }
+    });
+
+};
+
+
+
+</script>
+
+
+
+
+{% endblock main %}
+{% block js %}
+
+{% endblock js %}

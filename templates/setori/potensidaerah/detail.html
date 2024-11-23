@@ -142,16 +142,16 @@
                     <div class="col-12">
                         <div class="card">
                             <div style="display: flex; justify-content: center;">
-                                <img src="{% static 'img/potensi/detail_1.jpg' %}" class="card-img-top" style="width: 80%; height: auto;">
+                                <img src="{{ dt_info_wilayah.image_profile.url }}" class="card-img-top" style="width: 80%; height: auto;">
                             </div>
                             <div class="card-body">
                                 <h3>Informasi</h3>
                                 <div class="content-container">
-                                    <p><strong>Wilayah:</strong> Kepulauan Aruri</p>
-                                    <p><strong>Distrik:</strong> Supiori Selatan</p>
-                                    <p><strong>Luas Wilayah:</strong> 1000 km</p>
-                                    <p><strong>Jumlah Penduduk:</strong> 1000 Jiwa</p>
-                                    <p><strong>Kepadatan Penduduk:</strong> 1000 jiwa/km</p>
+                                    <p><strong>Wilayah:</strong> {{ dt_info_wilayah.wilayah.wilayah_nama }}</p>
+                                    <p><strong>Distrik:</strong> {{ dt_info_wilayah.wilayah.wilayah_parent.wilayah_nama }}</p>
+                                    <p><strong>Luas Wilayah:</strong> </p>
+                                    <p><strong>Jumlah Penduduk:</strong> </p>
+                                    <p><strong>Kepadatan Penduduk:</strong> </p>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +163,7 @@
                             <div class="card-body">
                                 <h3>Maps</h3>
                                 <div class="map-container" style="height: 400px;">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.47268893396!2d135.72742674436404!3d-0.7541726980906849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x680171f324b75afb%3A0xc3480285d5705e8e!2sDinas%20Kesehatan!5e0!3m2!1sid!2sid!4v1728291617820!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    {{ dt_info_wilayah.link_maps|safe }}
                                 </div>
                             </div>
                         </div>
@@ -197,25 +197,13 @@
                                     Visi
                                 </div>
                                 <div class="card-body">
-                                    "Menjadikan Kampung XYZ sebagai kampung yang maju, mandiri, dan berbudaya, dengan masyarakat yang sejahtera dan berdaya saing tinggi."
+                                    {{ dt_info_wilayah.visi|safe }}
                                 </div>
                                 <div class="card-header card-header-custom">
                                     Misi
                                 </div>
                                 <div class="card-body">
-                                    <p>1. Peningkatan Kesejahteraan Masyarakat:</p>
-                                    Meningkatkan akses terhadap pendidikan, kesehatan, dan lapangan kerja bagi seluruh warga kampung.
-                                    Mengembangkan program-program pemberdayaan ekonomi berbasis potensi lokal untuk meningkatkan pendapatan masyarakat.
-                                    <p>2. Pengembangan Infrastruktur dan Lingkungan:</p>
-                                    Meningkatkan kualitas dan aksesibilitas infrastruktur kampung, termasuk jalan, air bersih, dan fasilitas umum lainnya.
-                                    Menjaga kelestarian lingkungan dengan mengimplementasikan program penghijauan dan pengelolaan sampah yang efektif.
-                                    <p>3. Pelestarian Budaya dan Kearifan Lokal:</p>
-                                    Melestarikan dan mengembangkan seni budaya lokal melalui berbagai kegiatan dan festival budaya.
-                                    Mendorong partisipasi aktif masyarakat dalam pelestarian nilai-nilai kearifan lokal.
-                                    <p>4. Peningkatan Kualitas Pelayanan Publik:</p>
-                                    Meningkatkan kualitas pelayanan publik dengan memberikan pelayanan yang cepat, tepat, dan transparan.
-                                    Mendorong partisipasi masyarakat dalam proses pengambilan keputusan dan pembangunan kampung.
-        
+                                    {{ dt_info_wilayah.misi|safe }}
                                 </div>
                             </div>
                         </div>
@@ -229,7 +217,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class=" ">
                                                 <p><strong>Puskesmas:</strong> -</p>
                                                 <p><strong>Posyandu:</strong> -</p>
                                                 <p><strong>Apotek:</strong> -</p>
@@ -262,12 +250,17 @@
                                         Info Wilayah
                                     </div>
                                     <div class="card-body">
-                                        <p><strong>Kode Kelurahan:</strong> -</p>
-                                        <p><strong>Total Jiwa:</strong> -</p>
-                                        <p><strong>Laki-laki:</strong> -</p>
-                                        <p><strong>Perempuan:</strong> -</p>
-                                        <p><strong>Total OAP:</strong> -</p>
-                                        <p><strong>Total Non OAP:</strong> -</p>
+                                        <p><strong>Kode Kelurahan:</strong> {{ dt_info_wilayah.kode_info_wilayah }}</p>
+                                        <p><strong>Kode Pos:</strong> {{ dt_info_wilayah.kode_pos }}</p>
+                                        <p><strong>Tahun Pembentukan:</strong> {{ dt_info_wilayah.tahun_pembentukan }}</p>
+
+                                        {% for penduduk in dt_wilayah_penduduk %}
+                                        <p><strong>Total Jiwa:</strong> {{ penduduk.total_penduduk }}</p>
+                                        <p><strong>Laki-laki:</strong> {{ penduduk.pria_oap|add:penduduk.pria_non_oap }}</p>
+                                        <p><strong>Perempuan:</strong> {{ penduduk.wanita_oap|add:penduduk.wanita_non_oap }}</p>
+                                        <p><strong>Total OAP:</strong> {{ penduduk.jumlah_penduduk_oap }}</p>
+                                        <p><strong>Total Non OAP:</strong> {{ penduduk.jumlah_penduduk_non_oap }}</p>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -281,7 +274,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class=" ">
                                                 <p><strong>Puskesmas:</strong> -</p>
                                                 <p><strong>Posyandu:</strong> -</p>
                                                 <p><strong>Apotek:</strong> -</p>

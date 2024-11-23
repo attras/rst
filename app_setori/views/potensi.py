@@ -15,7 +15,7 @@ from django.core.paginator import Paginator
 
 class PotensiViews(View):
     def get(self, request):
-        dt_potensi = Info_wilayah.objects.filter(deleted_at__isnull = True)
+        dt_potensi = Info_wilayah.objects.filter(wilayah__wilayah_level="4", deleted_at__isnull=True)
         paginator = Paginator(dt_potensi, 4)  # Batasi 10 berita per halaman
 
         dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull = True)
@@ -30,14 +30,32 @@ class PotensiViews(View):
         }
         return render(request, 'setori/potensidaerah/index.html', data)
 
-class DistrikpotensiViews(View):
+class PotensiDistrikViews(View):
     def get(self, request):
-        return render(request, 'setori/potensidaerah/distrik_lengkap.html')
+        dt_potensi = Info_wilayah.objects.filter(wilayah__wilayah_level="3", deleted_at__isnull=True)
+        paginator = Paginator(dt_potensi, 4)  # Batasi 10 berita per halaman
 
-class DetailpotensidistrikViews(View):
-    def get(self, request):
-        return render(request, 'setori/potensidaerah/detaildistrik.html')
+        dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull = True)
 
-class DetailpotensikampungViews(View):
-    def get(self, request):
-        return render(request, 'setori/potensidaerah/detail.html')
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        data = {
+            'dt_potensi' : dt_potensi,
+            'page_obj': page_obj,
+            'dt_penduduk': dt_penduduk
+        }
+        return render(request, 'setori/potensidaerah/index.html', data)
+
+class DistridetailViews(View):
+    def get(self, request, info_wilayah_id):
+        dt_info_wilayah = get_object_or_404(Info_wilayah, info_wilayah_id=info_wilayah_id, deleted_at__isnull=True)
+    
+        dt_wilayah_penduduk = Data_penduduk.objects.filter(wilayah=dt_info_wilayah.wilayah)
+
+        data = {
+            'dt_info_wilayah' : dt_info_wilayah,
+            'dt_wilayah_penduduk' : dt_wilayah_penduduk
+        }
+        return render(request, 'setori/potensidaerah/detail.html', data)
+

@@ -1,0 +1,102 @@
+{% extends 'admin/base_layout/index.html' %}
+{% block css %}
+ 
+{% endblock css %}
+
+{% block main %}
+<div class="row">
+    <div class="col-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">info wilayah {{ pilih_wilayah.wilayah_nama }} </h3>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'admin_setori:info_wilayah_add' %}" enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <div class="row row-sm">
+                        <div class="col-6">
+                            <div class="col-lg">
+                                <label class="form-label" for="profil">profil</label>
+                                <input type="file" name="profil" id="profil" class="dropify" data-bs-height="180" accept="image/*"  required/>
+                                <div class="form-text">Unggah foto profil daerah (format gambar).</div>
+                                <label for="kode_info_wilayah" class="form-label">Kode Wilayah Nasional</label>
+                                <input type="text" name="kode_info_wilayah" id="kode_info_wilayah" class="form-control" placeholder="Masukkan Kode Wilayah" required>
+                                <label for="kode_pos" class="form-label">Kode Pos</label>
+                                <input type="text" name="kode_pos" id="kode_pos" class="form-control" placeholder="Masukkan Kode Pos" required>
+                                <label for="tahun_pembentukan" class="form-label">Tahun Pembentukan</label>
+                                <input type="number" name="tahun_pembentukan" id="tahun_pembentukan" class="form-control" placeholder="Masukkan Tahun Pembentukan" required>
+                                <input type="hidden" value="{{ wilayah_id }}" name="wilayah" id="wilayah" class="form-control" placeholder="Masukkan wilayah" required>
+                              
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <div class="col-lg">
+                                <label for="visi" class="form-label">Visi</label>
+                                <textarea name="visi" id="visi" class="form-control" rows="4" required></textarea>
+                                <label for="misi" class="form-label">Misi</label>
+                                <textarea name="misi" id="misi" class="form-control" rows="4" required></textarea>
+                                <label for="map" class="form-label">map</label>
+                                <textarea name="map" id="map" class="form-control" rows="4" required></textarea>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="submit">
+                            Simpan Data
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- COL END -->
+</div>
+
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+        }
+    }
+</script>
+<script type="module">
+    import {
+        ClassicEditor,
+        Essentials,
+        Bold,
+        Italic,
+        Font,
+        Paragraph
+    } from 'ckeditor5';
+
+    // Fungsi untuk menginisialisasi CKEditor
+    function initializeEditor(selector) {
+        ClassicEditor
+            .create(document.querySelector(selector), {
+                plugins: [Essentials, Bold, Italic, Font, Paragraph],
+                toolbar: [
+                    'undo', 'redo', '|', 'bold', 'italic', '|',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                ],
+            })
+            .then(editor => {
+                // Optional: Tangani perubahan data jika diperlukan
+                editor.model.document.on('change:data', () => {
+                    const data = editor.getData();
+                    document.querySelector(`textarea[name="${selector.substring(1)}"]`).value = data;
+                });
+            })
+            .catch(error => {
+                console.error(`CKEditor error on ${selector}:`, error);
+            });
+    }
+
+    // Inisialisasi CKEditor untuk elemen dengan ID 'visi' dan 'misi'
+    ['#visi', '#misi'].forEach(selector => initializeEditor(selector));
+</script>
+
+{% endblock main %}

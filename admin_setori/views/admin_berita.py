@@ -23,7 +23,11 @@ class Admin_beritaViews(View):
 
         }
         return render(request, 'admin/admin_berita/berita.html',data)
+class Detail_Berita(View):
+    def get(self, request):
 
+        return render(request, 'admin/admin_berita/detail.html')
+    
 class AddBerita(View):
     def post(self, request):
         title = request.POST.get('title')

@@ -1,0 +1,252 @@
+{% extends 'admin/base_layout/index.html' %}
+{% block css %} {% endblock css %}
+{% block main %}
+
+<!-- PAGE-HEADER -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">penduduk</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+        </ol>
+    </div>
+    <div class="ms-auto pageheader-btn" data-bs-toggle="modal" data-bs-target="#addUserModal" >
+        {% if dt_penduduk %}
+        <a href="#" class="btn btn-primary btn-icon text-white">
+            <span>
+                <i class="fa-solid fa-pen-to-square"></i>Tambah data 
+            </span> 
+        </a>
+        
+        {% else %}
+        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            <span>
+                <i class="fe fe-plus"></i>
+            </span> Add data penduduk
+        </a>
+       
+        {% endif %}
+        <a href="#" class="btn btn-success btn-icon text-white">
+            <span>
+                <i class="fe fe-log-in"></i>
+            </span> Histori
+        </a>
+    </div>
+</div>
+<!-- User Table -->
+<div class="row">
+    <div class="col-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">penduduk {{ data_penduduk.pria_oap }} </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th class="bg-transparent border-bottom-0 w-5">No</th>
+                                <th class="bg-transparent border-bottom-0">Wilayah </th>
+                                <th class="bg-transparent border-bottom-0">Pria oap</th>
+                                <th class="bg-transparent border-bottom-0">Pria non-oap</th>
+                                <th class="bg-transparent border-bottom-0">wanita oap</th>
+                                <th class="bg-transparent border-bottom-0">wanita non-oap</th>
+                                <th class="bg-transparent border-bottom-0">Jumlah KK oap </th>
+                                <th class="bg-transparent border-bottom-0">Jumlah KK non-oap </th>
+                              
+                                <th class="bg-transparent border-bottom-0">Action</th>
+                                
+                            </tr>
+                           
+                        </thead>
+                        <tbody>
+
+                          {% for penduduk in dt_penduduk %}
+                            <tr class="border-bottom">
+                                <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.wilayah.wilayah_nama }} </td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.pria_oap}}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.pria_non_oap}}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.wanita_oap}}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.wanita_non_oap}}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_kk_oap }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.jumlah_kk_non_oap }}</td>
+
+                                <td class="text-muted fs-15 fw-semibold">
+                                    <a class="btn btn-primary btn-md rounded-11" href="{% url 'admin_setori:detail_data_penduduk' penduduk.wilayah.wilayah_id  %}">
+                                        <i class="fa-solid fa-pen-to-square"></i>Detail
+                                   </a>
+                                     
+                                     <a >
+                                        <button type="button" class="btn btn-danger" onclick="Hapus_penduduk('{{penduduk.data_penduduk_id }}')">
+                                            <i class="fe fe-trash"></i> Hapus
+                                        </button>     
+                                    </a>
+                                        
+                                        
+                                    </td>
+                                    
+                            </tr>
+                           
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+      
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">Data Penduduk</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                
+                <form method="post" action="{% url 'admin_setori:add_data_penduduk' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="wilayah" class="form-label">Wilayah</label>
+                        <select name="wilayah" id="wilayah" class="form-select" aria-placeholder="pilih wilayah" required>
+                            <option value="" disabled selected>Pilih Wilayah</option>
+                            {% for wilayah in wilayah %}
+                            <option value="{{ wilayah.wilayah_id }}">{{ wilayah.wilayah_nama }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="pria_oap" class="form-label">Pria OAP</label>
+                        <input type="number" name="pria_oap" id="pria_oap" value="{{  data_penduduk.pria_oap }}" class="form-control" placeholder="pria oap" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pria_non_oap" class="form-label">Pria Non-OAP</label>
+                        <input type="number" name="pria_non_oap" id="pria_non_oap" value="{{  data_penduduk.pria_non_oap }}" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="wanita_oap" class="form-label">Wanita OAP</label>
+                        <input type="number" name="wanita_oap" id="wanita_oap" value="{{  data_penduduk.wanita_oap }}" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="wanita_non_oap" class="form-label">Wanita Non-OAP</label>
+                        <input type="number" name="wanita_non_oap" id="wanita_non_oap" value="{{  data_penduduk.wanita_non_oap }}"  class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah_kk_oap" class="form-label">Jumlah KK OAP</label>
+                        <input type="number" name="jumlah_kk_oap" id="jumlah_kk_oap" value="{{  data_penduduk.jumlah_kk_oap }}" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah_kk_non_oap" class="form-label">Jumlah KK Non-OAP</label>
+                        <input type="number" name="jumlah_kk_non_oap" id="jumlah_kk_non_oap" value="{{  data_penduduk.jumlah_kk_non_oap }}" class="form-control" required>
+                    </div>
+                  
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    console.log(data-bs-id)
+    var editpendudukModal = document.getElementById('editpendudukModal');
+    editpendudukModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Extract info from data-bs-* attributes
+        var pendudukId = button.getAttribute('data-bs-id');
+        var pertanyaan = button.getAttribute('data-bs-pertanyaan');
+        var jawaban = button.getAttribute('data-bs-jawaban');
+
+        // Update the modal's form fields
+        var modalTitle = editpendudukModal.querySelector('.modal-title');
+        var inputPertanyaan = editpendudukModal.querySelector('#edit-pertanyaan');
+        var inputJawaban = editpendudukModal.querySelector('#edit-jawaban');
+        var form = editpendudukModal.querySelector('form');
+
+        modalTitle.textContent = 'Edit pertanyaan ' + pertanyaan;
+        inputPertanyaan.value = pertanyaan;
+        inputJawaban.value = jawaban;
+
+        // Update form action URL dynamically with the correct penduduk ID
+      
+    });
+
+    function Hapus_penduduk(id_hapus_penduduk) {
+    Swal.fire({
+        title: 'Apakah kamu yakin ingin menghapus?',
+        showCancelButton: true,
+        confirmButtonText: 'Konfirmasi',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "{% url 'admin_setori:delete_penduduk' 'holder' %}".replace('holder', id_hapus_penduduk),
+                dataType: "html",
+                timeout: 10000,
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Memproses...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                    });
+                    Swal.showLoading();
+                },
+                success: function(response) {
+                    Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 2000); 
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
+                }
+            });
+        }
+    });
+
+};
+    
+</script>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectElement = document.getElementById('wilayah');
+        const options = Array.from(selectElement.options);
+
+        // Ambil placeholder (opsi pertama)
+        const placeholder = options.shift();
+
+        // Urutkan sisa opsi berdasarkan abjad
+        const sortedOptions = options.sort((a, b) => a.text.localeCompare(b.text));
+
+        // Masukkan kembali placeholder diikuti oleh opsi yang diurutkan
+        selectElement.replaceChildren(placeholder, ...sortedOptions);
+    });
+</script> -->
+
+
+{% endblock main %}
+
+
+{% block js %}
+<!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->
+
+{% endblock js %}

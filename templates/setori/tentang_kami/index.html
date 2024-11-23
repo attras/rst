@@ -2,63 +2,30 @@
 {% load static %}
 {% block css %} 
 <style>
-/* Carousel Inner Section */
-.carousel-inner {
-    height: 100%;
-}
-
-/* Mengatur ukuran gambar menjadi 50% dari ukuran normal */
-.carousel-item img {
-    width: 50%;   /* Mengurangi ukuran gambar menjadi 50% */
-    height: auto; /* Mempertahankan rasio gambar */
-    display: block;
-    margin: 0 auto; /* Agar gambar tetap berada di tengah */
-}
-
-@media (max-width: 768px) {
-    /* Untuk layar handphone, membuat gambar lebih kecil dan responsif */
-    .carousel-item img {
-        width: 70%; /* Ukuran gambar lebih kecil pada layar handphone */
-    }
-}
-
-@media (max-width: 576px) {
-    /* Layout vertikal untuk layar yang sangat kecil, gambar memenuhi layar */
-    .carousel-item img {
-        width: 90%; /* Ukuran lebih besar untuk layar sangat kecil */
-    }
-
-    .col-lg-6 {
-        text-align: center; /* Pusatkan teks pada layar kecil */
-    }
-}
-
-.center-content {
-  display: flex;
-  flex-direction: column;   /* Mengatur elemen anak dalam kolom (vertikal) */
-  justify-content: center;  /* Menyelaraskan elemen secara vertikal di tengah */
-  align-items: center;      /* Menyelaraskan elemen secara horizontal di tengah */
-  height: 100%;             /* Membuat div memiliki tinggi penuh untuk penggunaan flexbox */
-}
-
-.nama_team {
+.nama_orang {
   color: #000; /* Warna default, sesuaikan dengan kebutuhan Anda */
-  display: block; /* Agar elemen <a> dapat diatur dengan text-align */
-  text-align: center; /* Menyelaraskan teks ke tengah */
-  font-weight: bold; /* Membuat teks menjadi bold */
-  pointer-events: none; /* Menonaktifkan aksi hover */
+  transition: color 0.2s ease; /* Efek transisi */
 }
 
-.jobdesk {
-  text-align: center; /* Menyelaraskan teks ke tengah */
+.nama_orang:hover {
+  color: #164b85; /* Warna saat di-hover, sesuaikan dengan kebutuhan Anda */
 }
 
-.custom-spacing {
-    margin-left: 20px;  /* Tambahkan jarak kiri */
-    margin-right: 20px; /* Tambahkan jarak kanan */
+.grow img {
+    transition: 1s ease;
 }
 
+.grow img:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    transition: 1s ease;
+}
 
+.custom-background {
+    background: linear-gradient(45deg, #f0f0f0, #c0c0c0, #909090);
+    /* Mengubah sudut dan warna sesuai keinginan */
+}
 
 </style>
 {% endblock css %} 
@@ -93,10 +60,10 @@
         <div class="col-lg-12 mb-5 mb-lg-0 pe-lg-5">
             <div class="appear-animation text-center" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                 <h2 class="text-9 text-lg-12 font-weight-semibold line-height-1 mb-4">Tentang Kami</h2>
-            </div>							
+            </div>                          
             <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                 {% for tentang in dt_tentang|slice:'1' %}
-                    <p align="justify">{{ tentang.pengantar }}</p>
+                    <p align="justify" class="text-muted">{{ tentang.pengantar }}</p>
                 {% endfor %}
             </div>
         </div>
@@ -106,35 +73,33 @@
 <div class="bg-grey-100 px-3 px-xl-0 border-radius-2 p-relative overflow-hidden custom-pos-3">
     <div class="container">
         <div class="d-flex justify-content-center row pt-5">
-            <div class="row pb-5">
+            <div class="row pb-5 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="800">
                 {% for tentang in dt_tentang %}
-                <div class="col-lg-4">
-                    <img class="card-img-top rounded-3" src="{{ tentang.foto_kepala.url }}" alt="">
+                <div class="col-lg-4 grow">
+                    <img class="card-img-top rounded-3 shadow-lg" src="{{ tentang.foto_kepala.url }}" alt="">
                 </div>
                 <div class="col-lg-8">
-                    <h4>{{ tentang.nama_kepala_dinas }}</h4>
-                    <h5>{{ tentang.jabatan_kepala }}</h5>
-                    <p>
+                    <h4 class="my-2 nama_orang">{{ tentang.nama_kepala_dinas }}</h4>
+                    <h5 class=" ">{{ tentang.jabatan_kepala }}</h5>
+                    <p class="text-muted">
                     {{ tentang.kata_kepala }}
                     </p>
                 </div>
             </div>
-            <hr>
-            <div class="row pt-lg-5 pb-5">
+            <hr class="my-4">
+            <div class="row pb-5 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="800"">
                 <div class="col-lg-8 ">
-                    <h4 align="right">{{ tentang.nama_sekretaris }}</h4>
-                    <h5 align="right">{{ jabatan_sekretaris }}</h5>
-                    <p align="right">
+                    <h4 align="right" class="my-2 nama_orang">{{ tentang.nama_sekretaris }}</h4>
+                    <h5 align="right" class=" ">{{ tentang.jabatan_sekretaris }}</h5>
+                    <p align="right" class="text-muted">
                     {{ tentang.kata_sekretaris }}    
                     </p>
                 </div>
-                <div class="col-lg-4">
-                    <img class="card-img-top rounded-3" src="{{ tentang.foto_sekretaris.url }}" alt="">
+                <div class="col-lg-4 grow">
+                    <img class="card-img-top rounded-3 shadow-lg" src="{{ tentang.foto_sekretaris.url }}" alt="">
                 </div>
                 {% endfor %}
             </div>
-            
-            
         </div>
     </div>
 </div>

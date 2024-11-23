@@ -17,11 +17,20 @@ class LayananViews(View):
     def get(self, request):
         dt_layanan = Layanan.objects.filter(deleted_at__isnull = True)
         data = {
+            'title' : 'Layanan',
             'dt_layanan' : dt_layanan
         }
         return render(request, 'admin/admin_layanan/index.html',data)
 
 class Addlayanan(View) :
+    def get(self, request):
+        dt_layanan = Layanan.objects.filter(deleted_at__isnull = True)
+        data = {
+            'title' : 'Tambah data',
+            'dt_layanan' : dt_layanan
+        }
+        return render(request, 'admin/admin_layanan/form.html',data)
+
     def post(self, request):
         surat = request.POST.get('surat')
         syarat = request.POST.get('syarat')
@@ -49,15 +58,24 @@ class Deletelayanan(View):
     
 
 class Editlayanan(View) :
+    def get(self, request,id_layanan):
+        
+        dt_layanan = get_object_or_404(Layanan, id_layanan=id_layanan,deleted_at__isnull = True )
+        data = {
+            'title' : 'edit ',
+            'edit': True,
+            'dt_layanan' : dt_layanan
+        }
+        return render(request, 'admin/admin_layanan/form.html',data)
+
     def post(self, request,id_layanan):
         surat = request.POST.get('surat')
-        syarat = request.POST.get('editsyarat')
+        syarat = request.POST.get('syarat')
         try:
             with transaction.atomic():
-                insert_layanan = get_object_or_404(Layanan, id_layanan )
-                insert_layanan.surat = syarat
-                insert_layanan.syarat = surat
-                insert_layanan.created_at = timezone.now()
+                insert_layanan = get_object_or_404(Layanan, id_layanan=id_layanan,deleted_at__isnull = True )
+                insert_layanan.surat = surat
+                insert_layanan.syarat = syarat
                 insert_layanan.save()
 
                 messages.success(request, f"data berhasil diedit")
@@ -65,7 +83,7 @@ class Editlayanan(View) :
         except Exception as e:
             print('Error Data', e)
             messages.error(request,"gagal edit")
-            return redirect(reverse('admin_setori:admin_layanan'))
+            return redirect('admin_setori:admin_layanan')
 
 
 class Delete_at(View):
