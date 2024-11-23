@@ -16,7 +16,7 @@ from django.utils.decorators import method_decorator
 # @method_decorator(admin_only(), name='dispatch')
 class Master_kategoriViews(View):
     def get(self, request):
-        dt_category = Category.objects.all()
+        dt_category = Category.objects.filter(deleted_at__isnull = True)
         data = {
             'dt_category': dt_category
         }
@@ -63,9 +63,48 @@ class EditCategory(View):
 
 # Delete a Category (DeleteCategory)
 class DeleteCategory(View):
-    def get(self, request, category_id):
-        del_category = get_object_or_404(Category, categori_id=category_id)  # Fetch category by UUID
+    def get(self, request, categori_id):
+        del_category = get_object_or_404(Category, categori_id=categori_id)  # Fetch category by UUID
         del_category.delete()  # Delete the category
         messages.success(request, "Category deleted successfully!")
         return redirect('admin_setori:master_kategori')
 
+
+class Delete_at_kategori(View):
+    def get(self, request, categori_id):
+        try:
+            with transaction.atomic():
+                del_category = get_object_or_404(Category,categori_id=categori_id)
+                del_category.deleted_at = timezone.now()
+                del_category.save()
+                messages.success(request, f"data berhasil dihapus")
+                return redirect('admin_setori:master_kategori')
+                
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:master_kategori')
+
+
+class Historikategori(View):
+    def get(self, request):
+        dt_category = Category.objects.filter(deleted_at__isnull = False)
+        data = {
+            'dt_category': dt_category
+        }
+        return render(request, 'admin/master_kategori/histori.html',data)
+    
+class Restorekategori(View):
+    def get(self, request, categori_id):
+        try:
+            with transaction.atomic():
+                del_layanan = get_object_or_404(Category,categori_id=categori_id)
+                del_layanan.deleted_at = None
+                del_layanan.save()
+                messages.success(request, f"data berhasil dipulihkan")
+                return redirect('admin_setori:histori_kategori')
+                
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:histori_kategori')

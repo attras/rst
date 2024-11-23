@@ -28,7 +28,10 @@ urlpatterns = [
         path('', master_kategori.Master_kategoriViews.as_view(), name = 'master_kategori'),
         path('add', master_kategori.AddCategory.as_view(), name = 'add_kategori'),
         path('edit/<str:categori_id>', master_kategori.EditCategory.as_view(), name = 'edit_kategori'),
-        path('del/<str:category_id>', master_kategori.DeleteCategory.as_view(), name = 'del_kategori'),
+        path('del/<str:categori_id>', master_kategori.DeleteCategory.as_view(), name = 'del_kategori'),
+        path('delete_at/<str:categori_id>/',Delete_at_kategori.as_view(),name='delete_at_kategori'),
+        path('histori/',master_kategori.Historikategori.as_view(),name='histori_kategori'),
+        path('restore/<str:categori_id>/',master_kategori.Restorekategori.as_view(),name='restore_kategori'),
         
         ])),
     

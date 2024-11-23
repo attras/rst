@@ -17,10 +17,10 @@
                 <i class="fe fe-plus"></i>
             </span> Add kategori
         </a>
-        <a href="#" class="btn btn-success btn-icon text-white">
+        <a href="{% url 'admin_setori:histori_kategori' %}" class="btn btn-success btn-icon text-white">
             <span>
-                <i class="fe fe-log-in"></i>
-            </span> Export
+                <i class="fa-solid fa-rotate-right"></i>
+            </span> histori
         </a>
     </div>
 </div>
@@ -128,7 +128,7 @@
 
     };
 
-    function Hapus_kat_berita(id_hapus_kat_berita) {
+    function Hapus_kat_berita(id) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',
         showCancelButton: true,
@@ -138,7 +138,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `del/${id_hapus_kat_berita}`,
+                url: `delete_at/${id}`,
                 dataType: "html",
                 timeout: 10000,
                 beforeSend: function() {
