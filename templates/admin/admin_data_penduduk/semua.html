@@ -117,17 +117,17 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="wilayah" class="form-label">Wilayah</label>
-                        <select name="wilayah" id="wilayah" required>
+                        <select name="wilayah" id="wilayah" class="form-select" aria-placeholder="pilih wilayah" required>
                             <option value="" disabled selected>Pilih Wilayah</option>
                             {% for wilayah in wilayah %}
-                                <option value="{{ wilayah.wilayah_id }}">{{ wilayah.wilayah_nama }}</option>
+                            <option value="{{ wilayah.wilayah_id }}">{{ wilayah.wilayah_nama }}</option>
                             {% endfor %}
                         </select>
 
                     </div>
                     <div class="mb-3">
                         <label for="pria_oap" class="form-label">Pria OAP</label>
-                        <input type="number" name="pria_oap" id="pria_oap" value="{{  data_penduduk.pria_oap }}" class="form-control" required>
+                        <input type="number" name="pria_oap" id="pria_oap" value="{{  data_penduduk.pria_oap }}" class="form-control" placeholder="pria oap" required>
                     </div>
                     <div class="mb-3">
                         <label for="pria_non_oap" class="form-label">Pria Non-OAP</label>
@@ -226,6 +226,21 @@
     
 </script>
 
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectElement = document.getElementById('wilayah');
+        const options = Array.from(selectElement.options);
+
+        // Ambil placeholder (opsi pertama)
+        const placeholder = options.shift();
+
+        // Urutkan sisa opsi berdasarkan abjad
+        const sortedOptions = options.sort((a, b) => a.text.localeCompare(b.text));
+
+        // Masukkan kembali placeholder diikuti oleh opsi yang diurutkan
+        selectElement.replaceChildren(placeholder, ...sortedOptions);
+    });
+</script> -->
 
 
 {% endblock main %}
