@@ -4,7 +4,7 @@
 
 <!-- Button to Add New User -->
 <div class="class mt-3">
- <a href="{% url 'admin_setori:master_kategori' %}">
+ <a href="{% url 'admin_setori:master_jenis_kesehatan' %}">
      <button type="button" class="btn btn-primary mb-3" >
         <i class="fa-solid fa-arrow-left"></i>
          Kembali
@@ -25,28 +25,28 @@
                         <thead class="border-top">
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Kategori</th>
+                                <th class="bg-transparent border-bottom-0">Jenis Data Kesehatan</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for kategori in dt_category %}
+                          {% for kesehatan in dt_kesehatan %}
                           
                             <tr class="border-bottom" >
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kategori.name }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ kesehatan.nama_jenis }}</td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                    <a onclick="pulih_kategori('{{kategori.categori_id }}')">
-                                        <button class="btn btn-success">
-                                            <i class="fa-solid fa-rotate-right"></i>
-                                            Restore</button>
-                                    </a>
-                                    <a onclick="Hapus_kategori_permanen('{{kategori.categori_id }}')">
-                                        <button class="btn btn-danger">
-                                            <i class="fa-solid fa-trash"></i>
-                                            Hapus permanen</button>
-                                    </a>  
-                                    
+                                            <a onclick="pulih_jenis_kesehatan('{{kesehatan.jenis_kesehatan_id  }}')">
+                                                <button class="btn btn-success">
+                                                    <i class="fa-solid fa-rotate-right"></i>
+                                                    Restore</button>
+                                            </a>
+                                            <a onclick="hapus_permanen_kesehatan('{{kesehatan.jenis_kesehatan_id  }}')">
+                                                <button class="btn btn-danger">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                    Hapus permanen</button>
+                                            </a> 
+
                                 </td>
                             </tr>
                           {% endfor %}
@@ -103,7 +103,7 @@
 
 
         // Show confirmation dialog hapus
-    function Hapus_kategori_permanen(id_hapus_kategori){
+    function hapus_permanen_kesehatan(id_hapus_jenis_kes){
     Swal.fire({
             title: 'Apakah kamu yakin ingin menghapus?',
             showCancelButton: true,
@@ -113,7 +113,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "{% url 'admin_setori:del_kategori' 'holder' %}".replace('holder', id_hapus_kategori),
+                    url: "{% url 'admin_setori:delete_jenis_kesehatan' 'holder' %}".replace('holder', id_hapus_jenis_kes),
                     dataType: "html",
                     timeout: 10000,
                     beforeSend: function() {
@@ -142,7 +142,7 @@
 
 
         // Show confirmation dialog restore
-    function pulih_kategori(id_pulih_kategori){
+    function pulih_jenis_kesehatan(id_pulih_jenis_kesehatan){
     Swal.fire({
             title: 'Apakah kamu yakin ingin memulihkan data?',
             showCancelButton: true,
@@ -152,7 +152,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "{% url 'admin_setori:restore_kategori' 'holder' %}".replace('holder', id_pulih_kategori),
+                    url: "{% url 'admin_setori:restore_jenis_kesehatan' 'holder' %}".replace('holder', id_pulih_jenis_kesehatan),
                     dataType: "html",
                     timeout: 10000,
                     beforeSend: function() {

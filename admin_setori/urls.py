@@ -76,7 +76,11 @@ urlpatterns = [
     path('master_slider/',include([
         path('',master_slider.Master_sliderViews.as_view(),name='master_slider'),
         path('add_slider/',master_slider.Add_slider.as_view(),name='add_slider'),
-        path('delete_slider/<uuid:id>',master_slider.Delete_slider.as_view(),name='delete_slider'),
+        path('delete_slider/<str:id_slider>',master_slider.Delete_slider.as_view(),name='delete_slider'),
+        path('edit/<str:id_slider>', master_slider.Editslider.as_view(), name = 'edit_slider'),
+        path('delete_at/<str:id_slider>/',Delete_at_slider.as_view(),name='delete_at_slider'),
+        path('histori/',master_slider.Historislider.as_view(),name='histori_slider'),
+        path('restore/<str:id_slider>/',master_slider.Restoreslider.as_view(),name='restore_slider'),
         ])),
 
     path('master_jenis_kesehatan/',include([
@@ -84,6 +88,10 @@ urlpatterns = [
         path('add_jenis_kesehatan',master_jenis_kesehatan.Add_jenis_kesehatan.as_view(),name='add_jenis_kesehatan'),
         path('edit/<str:jenis_kesehatan_id>',master_jenis_kesehatan.Edit_jenis_kesehatan.as_view(),name='edit_jenis_kesehatan'),
         path('delete/<str:jenis_kesehatan_id>',master_jenis_kesehatan.Deletejenis_kesehatan.as_view(),name='delete_jenis_kesehatan'),
+        path('delete_at/<str:jenis_kesehatan_id>/',Delete_at_jenis_kesehatan.as_view(),name='delete_at_jenis_kesehatan'),
+        path('histori/',master_jenis_kesehatan.Historijenis_kesehatan.as_view(),name='histori_jenis_kesehatan'),
+        path('restore/<str:jenis_kesehatan_id>/',master_jenis_kesehatan.Restorejenis_kesehatan.as_view(),name='restore_jenis_kesehatan'),
+
         path('indikator/<str:jenis_kesehatan_id>',master_indikator.Master_indikator.as_view(),name='master_indikator'),
         path('add_indikator',master_indikator.Add_indikator.as_view(),name='add_indikator'),
         path('edit_indikator/<str:id_indikator>',master_indikator.Edit_indikator.as_view(),name='edit_idikator'),

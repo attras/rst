@@ -18,9 +18,9 @@
                 <i class="fe fe-plus"></i>
             </span> Tambah data 
         </a>
-        <a href="#" class="btn btn-success btn-icon text-white">
+        <a href="{% url 'admin_setori:histori_jenis_kesehatan' %}" class="btn btn-success btn-icon text-white">
             <span>
-                <i class="fe fe-log-in"></i>
+                <i class="fa-solid fa-rotate-right"></i>
             </span> Riwayat
         </a>
     </div>
@@ -48,11 +48,12 @@
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ kesehatan.nama_jenis }}</td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                            <a href="{% url 'admin_setori:master_indikator' kesehatan.jenis_kesehatan_id %}" class="btn btn-primary">
-                                                    
-                                                detail
-                                             </a>
-                                        <a class="btn btn-primary btn-md rounded-11 me-2" 
+                                    <a href="{% url 'admin_setori:master_indikator' kesehatan.jenis_kesehatan_id %}">
+                                        <button class="btn btn-primary">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                            detail</button>
+                                    </a>
+                                        <a class="btn btn-primary btn-md rounded-11" 
                                             href="#" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#addModal" 
@@ -148,7 +149,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `delete/${jenis_kesehatan_id}`,
+                url: `delete_at/${jenis_kesehatan_id}`,
                 dataType: "html",
                 timeout: 10000,
                 beforeSend: function() {

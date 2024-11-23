@@ -68,5 +68,44 @@ class Deletejenis_kesehatan(View):
         messages.success(request, "berhasil dihapus")
         return redirect('admin_setori:master_jenis_kesehatan')
 
+class Delete_at_jenis_kesehatan(View):
+    def get(self, request, jenis_kesehatan_id):
+        try:
+            with transaction.atomic():
+                del_jenis_kesehatan = get_object_or_404(Master_jenis_kesehatan, jenis_kesehatan_id=jenis_kesehatan_id)
+                del_jenis_kesehatan.deleted_at = timezone.now()
+                del_jenis_kesehatan.save()
+                messages.success(request, f"data berhasil dihapus")
+                return redirect('admin_setori:master_jenis_kesehatan')
+                
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:master_jenis_kesehatan')
+
+
+class Historijenis_kesehatan(View):
+    def get(self, request):
+        dt_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = False)
+        data = {
+            'dt_kesehatan': dt_kesehatan
+        }
+        return render(request, 'admin/master_jenis_kesehatan/histori.html',data)
+    
+class Restorejenis_kesehatan(View):
+    def get(self, request, jenis_kesehatan_id):
+        try:
+            with transaction.atomic():
+                del_jenis_kesehatan = get_object_or_404(Master_jenis_kesehatan, jenis_kesehatan_id=jenis_kesehatan_id)
+                del_jenis_kesehatan.deleted_at = None
+                del_jenis_kesehatan.save()
+                messages.success(request, f"data berhasil dipulihkan")
+                return redirect('admin_setori:histori_jenis_kesehatan')
+                
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:histori_jenis_kesehatan')
+
 
     

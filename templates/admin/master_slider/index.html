@@ -18,10 +18,10 @@
                 <i class="fe fe-plus"></i>
             </span> Add kategori
         </a>
-        <a href="#" class="btn btn-success btn-icon text-white">
+        <a href="{% url 'admin_setori:histori_slider' %}" class="btn btn-success btn-icon text-white">
             <span>
-                <i class="fe fe-log-in"></i>
-            </span> Export
+                <i class="fa-solid fa-rotate-right"></i>
+            </span> histori
         </a>
     </div>
 </div>
@@ -171,7 +171,7 @@ var editSlider = document.getElementById('addModal');
     });
 
     // Show confirmation dialog
-    function Hapus_slider(id_hapus_sl) {
+    function Hapus_slider(id) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',
         showCancelButton: true,
@@ -181,7 +181,7 @@ var editSlider = document.getElementById('addModal');
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `delete_slider/${id_hapus_sl}`,
+                url: `delete_at/${id}`,
                 dataType: "html",
                 timeout: 10000,
                 beforeSend: function() {
@@ -204,9 +204,10 @@ var editSlider = document.getElementById('addModal');
                     Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
                 }
             });
-            }
+        }
     });
-    };
+
+};
 
 
 document.addEventListener("DOMContentLoaded", function() {
