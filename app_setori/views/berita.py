@@ -34,7 +34,7 @@ class DetailberitaViews(View):
     def get(self, request, slug):
         detail_berita = get_object_or_404(News,slug=slug)
         dt_berita = News.objects.filter(deleted_at__isnull=True).order_by('-created_at')  # Ambil semua berita yang tidak dihapus
-        dt_kategori = Category.objects.filter(deleted_at__isnull=True)  # Ambil semua kategori yang tidak dihapus
+        dt_category = Category.objects.filter(deleted_at__isnull = True)  # Ambil semua kategori yang tidak dihapus
 
         paginator = Paginator(dt_berita, 6)  # Batasi jumlah berita yang ditampilkan per halaman (6 berita)
         page_number = request.GET.get('page')  # Ambil nomor halaman dari query parameter
@@ -43,7 +43,7 @@ class DetailberitaViews(View):
         data = {
             'dt_berita': dt_berita,
             'detail_berita': detail_berita,
-            'dt_kategori': dt_kategori,
+            'dt_category': dt_category,
             'page_obj': page_obj
         }
         return render(request, 'setori/berita/detail_berita.html', data)

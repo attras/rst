@@ -9,19 +9,34 @@
             <li class="breadcrumb-item"><a href="#">Kontak</a></li>
         </ol>
     </div>
-    <div class="ms-auto pageheader-btn">
+
+    <div class="ms-auto pageheader-btn" data-bs-toggle="modal" data-bs-target="#addUserModal" >
+        {% if dt_kontak %}
+        {% for kontak in dt_kontak %}
+        <a href="{% url 'admin_setori:edit_kontak' kontak.id  %}" class="btn btn-primary btn-icon text-white">
+            <span>
+                <i class="fa-solid fa-pen-to-square"></i>Edit 
+            </span> 
+        </a>
+        {% endfor %}
+        {% else %}
         <a href="{% url 'admin_setori:add_kontak' %}" class="btn btn-primary btn-icon text-white me-2" >
             <span>
                 <i class="fe fe-plus"></i>
             </span> Tambah Kontak
         </a>
-        <a href="#" class="btn btn-success btn-icon text-white">
+
+        {% endif %}
+        <a href="" class="btn btn-success btn-icon text-white">
             <span>
                 <i class="fe fe-log-in"></i>
-            </span> Export
+            </span> Histori
         </a>
     </div>
+
 </div>
+
+
 
 <!-- User Table -->
 <div class="row">
@@ -37,14 +52,8 @@
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
                                 <th class="bg-transparent border-bottom-0 w-5">Nama Instansi</th>
-                                <th class="bg-transparent border-bottom-0 w-5">Maps</th>
-                                <th class="bg-transparent border-bottom-0">Instagram</th>
-                                <th class="bg-transparent border-bottom-0">Twitter</th>
-                                <th class="bg-transparent border-bottom-0">Facebook</th>
                                 <th class="bg-transparent border-bottom-0 w-5">Alamat</th>
-                                <th class="bg-transparent border-bottom-0 w-5">Email Pengaduan</th>
-                                <th class="bg-transparent border-bottom-0 w-5">Email CS</th>
-                                <th class="bg-transparent border-bottom-0 w-5">No Pengaduan</th>
+                                <th class="bg-transparent border-bottom-0 w-5">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,14 +61,14 @@
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ kontak.nama_instansi }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kontak.maps }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kontak.link_ig }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kontak.link_twitter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kontak.link_facebook }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ kontak.alamat }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kontak.email_pengaduan }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kontak.email_cs }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kontak.no_pengaduan }}</td>
+                                <td class="text-muted fs-15 fw-semibold">
+                                    <a>
+                                        <button type="button" class="btn btn-danger" onclick="Hapus_kontak('{{ kontak.id }}')">
+                                            <i class="fe fe-trash"></i> Hapus
+                                        </button>     
+                                    </a>    
+                                        
                                 </td>
                             </tr>
                             {% endfor %}
@@ -126,7 +135,46 @@
     </div>
 </div>
 
+<script>
+    function Hapus_kontak(id) {
+        // Show confirmation dialog
+        Swal.fire({
+            title: 'Apakah kamu yakin ingin menghapus?',
+            showCancelButton: true,
+            confirmButtonText: 'Konfirmasi',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `delete/${id}`,
+                    dataType: "html",
+                    timeout: 10000,
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Memproses...',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false,
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                        });
+                        Swal.showLoading();
+                    },
+                    success: function(response) {
+                        Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000); 
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
+                    }
+                });
+            }
+        });
 
+    };
+</script>
 {% endblock main %}
 
 

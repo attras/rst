@@ -19,9 +19,8 @@ class Admin_kontakViews(View):
         data = {
             'dt_kontak' : dt_kontak
         }
+
         return render(request, 'admin/admin_kontak/index.html',data)
-
-
 
 class Addkontak(View):
     def get(self, request):
@@ -65,7 +64,16 @@ class Addkontak(View):
             return redirect('admin_setori:admin_kontak')
 
 class Editkontak(View):
-    def post(self, request):
+    def get(self, request, id):
+        dt_kontak = get_object_or_404(Kontak, id=id)
+        data = {
+            'kontak' : dt_kontak,
+            'edit' : True,
+            'id' : id,
+        }
+        return render(request, 'admin/admin_kontak/form.html',data)
+
+    def post(self, request, id):
         nama_instansi = request.POST.get('nama_instansi')
         maps = request.POST.get('maps')
         link_ig = request.POST.get('link_ig')
@@ -97,3 +105,10 @@ class Editkontak(View):
             print('Error Data', e)
             messages.error(request,"gagal menambahkan")
             return redirect('admin_setori:admin_kontak')
+
+class Deletekontak(View):
+    def get(self, request, id):
+        del_kontak = get_object_or_404(Kontak, id=id)
+        del_kontak.delete()
+        messages.success(request, f"data berhasil dihapus")
+        return redirect('admin_setori:admin_kontak')

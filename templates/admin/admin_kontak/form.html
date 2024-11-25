@@ -12,131 +12,139 @@
 </div>
 
 <div class="row">
-    <div class="col-12 col-sm-12">
+    <div class="col-1 d-flex justify-content-center2 col-sm-12">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title mb-0">Setting kontak</h3>
             </div>
             <div class="card-body">
-                <form action="{% url 'admin_setori:add_kontak' %}"  enctype="multipart/form-data" method="post">
+                <form action="{% if edit %}{% url 'admin_setori:edit_kontak' id %} {% else %} {% url 'admin_setori:add_kontak' %} {% endif %}"  enctype="multipart/form-data" method="post">
                     {% csrf_token %}
                     <div class="row row-sm">
                         <div class="col-6">
                             <div class="col-lg">
                                 <label for="">Nama Instansi</label>
-                                <textarea name="nama_instansi" class="form-control  mb-4" placeholder="Masukan Nama Instansi" required></textarea>
+                                <input name="nama_instansi" class="form-control  mb-4" value="{{kontak.nama_instansi}}" placeholder="Masukan Nama Instansi" required></input>
                                 <label for="">Maps</label>
-                                <input name="maps" class="form-control  mb-4" placeholder="Input box" type="text" required>
+                                <input name="maps" class="form-control  mb-4" value="{{kontak.maps}}" placeholder="Masukan link gmaps" type="text" required>
                                 <label for="">Instagram</label>
-                                <input name="link_ig" class="form-control  mb-4" placeholder="Input lg box" type="text" required>
+                                <input name="link_ig" class="form-control  mb-4" value="{{kontak.link_ig}}" placeholder="Masukan link Instagram" type="text" required>
                                 <label for="">Twitter</label>
-                                <input name="link_twitter" class="form-control  mb-4" placeholder="Input sm box" type="text" required>
+                                <input name="link_twitter" class="form-control  mb-4" value="{{kontak.link_twitter}}" placeholder="Masukan link Twitter" type="text" required>
                                 <label for="">Facebook</label>
-                                <input name="link_facebook" class="form-control  mb-4" placeholder="Input sm box" type="text" required>
+                                <input name="link_facebook" class="form-control  mb-4" value="{{kontak.link_facebook}}" placeholder="Masukan link Facebook" type="text" required>
                                 <label for="">Alamat</label>
-                                <textarea name="alamat" class="form-control  mb-4" required></textarea>
+                                <input type="text" name="alamat" class="form-control mb-4" value="{{kontak.alamat}}" placeholder="Masukan Alamat" required>
                                 <label for="">Nomor Pengaduan</label>
-                                <textarea name="no_pengaduan" class="form-control  mb-4" required></textarea>
+                                <input type="text" name="no_pengaduan" class="form-control mb-4"  value="{{kontak.no_pengaduan}}" placeholder="Masukan Nomor Pengaduan" required>
                                 <label for="">Email Pengaduan</label>
-                                <textarea name="email_pengaduan" class="form-control  mb-4" required></textarea>
+                                <input type="email" name="email_pengaduan" class="form-control mb-4" value="{{kontak.email_pengaduan}}" placeholder="Masukan Email Pengaduan" required>
                                 <label for="">Email CS</label>
-                                <textarea name="email_cs" class="form-control  mb-4" required></textarea>
+                                <input type="email" name="email_cs" class="form-control mb-4" value="{{kontak.email_cs}}" placeholder="Masukan Email Customer Service" required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="col-lg">
                                 <h3>Pratinjau Sebelumnya</h3>
-                                {% for kontak in dt_kontak %}
-                                <div class="row">
-                                    <div class="col-2">
+                                <div class="row align-items-center align-items-center">
+                                    <div class="col-3 d-flex">
                                         <h4>Nama Instansi</h4>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-1 d-flex justify-content-center">
                                         <h4>:</h4>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-8">
                                         <input name="link_facebook" class="form-control  mb-4" value="{{kontak.nama_instansi}}" placeholder="Input sm box" type="text" disabled>
                                     </div>                         
                                 </div>
-                                <div class="row">
-                                    <div class="col-2">
+                                <div class="row align-items-center">
+                                    <div class="col-3 d-flex">
                                         <h4>Maps</h4>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-1 d-flex justify-content-center">
                                         <h4>:</h4>
                                     </div> 
                                     <div class="col-8">
                                         <input name="link_facebook" class="form-control  mb-4" value="{{kontak.maps}}" placeholder="Input sm box" type="text" disabled>
                                     </div>                         
                                 </div>
-                                <div class="row">
-                                    <div class="col-2">
+                                <div class="row align-items-center">
+                                    <div class="col-3 d-flex">
                                         <h4>Instagram</h4>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-1 d-flex justify-content-center">
                                         <h4>:</h4>
                                     </div>
                                     <div class="col-8">
                                         <input name="link_facebook" class="form-control  mb-4" value="{{kontak.link_ig}}" placeholder="Input sm box" type="text" disabled>
                                     </div>                         
                                 </div>
-                                <div class="row">
-                                    <div class="col-2">
+                                <div class="row align-items-center">
+                                    <div class="col-3 d-flex">
                                         <h4>Twitter</h4>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-1 d-flex justify-content-center">
                                         <h4>:</h4>
                                     </div>
                                     <div class="col-8">
                                         <input name="link_facebook" class="form-control  mb-4" value="{{kontak.link_twitter}}" placeholder="Input sm box" type="text" disabled>
                                     </div>                         
                                 </div>
-                                <div class="row">
-                                    <div class="col-2">
+                                <div class="row align-items-center">
+                                    <div class="col-3 d-flex">
                                         <h4>Facebook</h4>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-1 d-flex justify-content-center">
                                         <h4>:</h4>
                                     </div>
                                     <div class="col-8">
                                         <input name="link_facebook" class="form-control  mb-4" value="{{kontak.link_facebook}}" placeholder="Input sm box" type="text" disabled>
                                     </div>                         
                                 </div>
-                                <div class="row">
-                                    <div class="col-2">
+                                <div class="row align-items-center">
+                                    <div class="col-3 d-flex">
                                         <h4>Alamat</h4>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-1 d-flex justify-content-center">
                                         <h4>:</h4>
                                     </div>
                                     <div class="col-8">
                                         <input name="link_facebook" class="form-control  mb-4" value="{{kontak.alamat}}" placeholder="Input sm box" type="text" disabled>
                                     </div>                         
                                 </div>
-                                <div class="row">
-                                    <div class="col-2">
-                                        <h4>Nama Instansi</h4>
+                                <div class="row align-items-center">
+                                    <div class="col-3 d-flex">
+                                        <h4>Nomor Pengaduan</h4>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-1 d-flex justify-content-center">
                                         <h4>:</h4>
                                     </div>
                                     <div class="col-8">
                                         <input name="link_facebook" class="form-control  mb-4" value="{{kontak.no_pengaduan}}" placeholder="Input sm box" type="text" disabled>
                                     </div>                         
                                 </div>
-                                <div class="row">
-                                          
+                                <div class="row align-items-center">
+                                    <div class="col-3 d-flex">
+                                        <h4>Email Pengaduan</h4>
+                                    </div>
+                                    <div class="col-1 d-flex justify-content-center">
+                                        <h4>:</h4>
+                                    </div>
                                     <div class="col-8">
                                         <input name="link_facebook" class="form-control  mb-4" value="{{kontak.email_pengaduan}}" placeholder="Input sm box" type="text" disabled>
                                     </div>                         
                                 </div>
-                                <div class="row">
-                                          
+                                <div class="row align-items-center">
+                                    <div class="col-3 d-flex">
+                                        <h4>Email Cs</h4>
+                                    </div>
+                                    <div class="col-1 d-flex justify-content-center">
+                                        <h4>:</h4>
+                                    </div>  
                                     <div class="col-8">
                                         <input name="link_facebook" class="form-control  mb-4" value="{{kontak.email_cs}}" placeholder="Input sm box" type="text" disabled>
                                     </div>                         
                                 </div>
-                                {% endfor %}
                             </div>
                         </div>
                     </div>

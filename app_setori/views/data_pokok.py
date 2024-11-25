@@ -16,6 +16,9 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Sum
 from admin_setori.decorators import role_required
 from django.utils.decorators import method_decorator
+# from django.shortcuts import render
+# from .models import Master_jenis_kesehatan, Indikator_kesehatan, Data_kesehatan
+# import json
 
 class Data_pokokViews(View):
     def get(self, request):
@@ -27,22 +30,22 @@ class Data_pokokViews(View):
         total_wanita_oap = Data_penduduk.objects.aggregate(total_oap=Sum('wanita_oap'))['total_oap']
         total_wanita_non_oap = Data_penduduk.objects.aggregate(total_non_oap=Sum('wanita_non_oap'))['total_non_oap']
 
-        total_wanita_semua = total_wanita_oap + total_wanita_non_oap
+        total_wanita_semua = total_wanita_oap + total_wanita_non_oap or 0
 
         # pria total
         total_pria_oap = Data_penduduk.objects.aggregate(total_oap=Sum('pria_oap'))['total_oap']
         total_pria_non_oap = Data_penduduk.objects.aggregate(total_non_oap=Sum('pria_non_oap'))['total_non_oap']
 
-        total_pria_semua = total_pria_oap + total_pria_non_oap
+        total_pria_semua = total_pria_oap + total_pria_non_oap or 0
 
         # penduduk total
-        total_penduduk_semua = total_pria_semua + total_wanita_semua
+        total_penduduk_semua = total_pria_semua + total_wanita_semua or 0
 
         # total oap
-        total_oap = total_pria_oap + total_wanita_oap
+        total_oap = total_pria_oap + total_wanita_oap or 0
 
         # total non oap
-        total_non_oap = total_wanita_non_oap + total_pria_non_oap
+        total_non_oap = total_wanita_non_oap + total_pria_non_oap or 0
 
         # kesehatan
         dt_kesehatan = Data_kesehatan.objects.filter(deleted_at__isnull=True)
@@ -68,6 +71,35 @@ class Data_pokokViews(View):
             'dt_kesehatan': dt_kesehatan
         }
         return render(request, 'setori/data_pokok/index.html', data)
+
+
+# def chart_view(request):
+#     jenis_kesehatan_list = Master_jenis_kesehatan.objects.all()
+#     charts = []
+
+#     for jenis in jenis_kesehatan_list:
+#         chart = {
+#             'container_id': f'container_{jenis.jenis_kesehatan_id}',
+#             'title': jenis.nama_jenis,
+#             'categories': [],
+#             'oap_data': [],
+#             'non_oap_data': []
+#         }
+#         indikator_list = jenis.indikator_kesehatan_set.all()
+#         for indikator in indikator_list:
+#             data_kesehatan_list = indikator.data_kesehatan_set.all()
+#             for data in data_kesehatan_list:
+#                 chart['categories'].append(indikator.nama_indikator)
+#                 chart['oap_data'].append(data.oap)
+#                 chart['non_oap_data'].append(data.non_oap)
+#         charts.append(chart)
+
+#     context = {
+#         'charts': json.dumps(charts)
+#     }
+
+#     return render(request, 'your_template.html', context)
+
 
 class DetaildataViews(View):
     def get(self, request):

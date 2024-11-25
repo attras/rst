@@ -57,7 +57,7 @@
                     <div class="row mh-200px mh-lg-300px align-items-center py-4">
                         <div class="col">
                             <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
-                                <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2">Detail Berita</h1>
+                                <h1 class="text-9 text-lg-12 text-color-light font-weight-semibold line-height-1 mb-2" >Detail Berita</h1>
                             </div>
                             <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="200">
                                 <ul class="breadcrumb d-flex text-3-5 font-weight-semi-bold pb-2 mb-3">
@@ -118,32 +118,34 @@
                 <div class="blog-sidebar col-lg-4 pt-4 pt-lg-0">
                     <aside class="sidebar">
                         <div class="px-3 mt-4">
-                            <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3">Kategori Berita</h3>
+                            <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3" style="text-align: center;">Kategori Berita Lainnya</h3>
                             <div class="pb-2 mb-1">
                                 {% for kategori in dt_category %}
-                                <div class="recent-post" style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                                    <a href="{% url 'app_setori:detail_berita' berita.slug %}" class="text-color-dark text-hover-primary font-weight-bold text-3 d-block pb-3 line-height-4" style="padding: 10px 15px; display: block;">
-                                        {{ berita.category.name }}
-                                    </a>
+                                <div class="">
+                                    <h5 class="my-2">
+                                        - {{ kategori.name }}
+                                    </h5>
                                 </div>                                
                                 {% endfor %}
                             </div>
-
-                            <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3">Berita lainnya</h3>
+                
+                            <h3 class="text-color-dark text-capitalize font-weight-bold text-5 m-0 mb-3" style="text-align: center;">Berita lainnya</h3>
                             <div class="pb-2 mb-1">
                                 {% for berita in page_obj %}
                                 <div class="recent-post" style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
                                     <img src="{{ berita.thumbnail.url }}" style="width: 100%; height: 150px; margin-bottom: 10px;">
-                                    <a href="{% url 'app_setori:detail_berita' berita.slug %}" class="judul_berita text-3 d-block pb-3 line-height-4" style="padding: 10px 15px; display: block;">
-                                        {{ berita.title }}
-                                    </a>
+                                    <h5 class="my-2">
+                                        <a href="{% url 'app_setori:detail_berita' berita.slug %}" class="judul_berita text-3 d-block pb-3 line-height-4" style="padding: 10px 15px; display: block;">
+                                            {{ berita.title }}
+                                        </a>
+                                    </h5>
                                 </div>                                
                                 {% endfor %}
                             </div>
                         </div>
                     </aside>
                 </div>
-
+                
             </div>
 
         </div>
