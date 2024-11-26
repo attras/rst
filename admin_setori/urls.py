@@ -20,6 +20,8 @@ urlpatterns = [
         path('', admin_berita.Admin_beritaViews.as_view(), name='admin_berita'),
         path('add', admin_berita.AddBerita.as_view(), name='add_berita'),
         path('detail/<slug:slug>/', admin_berita.Detail_Berita.as_view(), name='detail_berita'),
+        path('edit/<str:id>/', admin_berita.Editberita.as_view(), name='edit_berita'),
+        
         path('delete/<slug:news_slug>/', admin_berita.Deleteberita.as_view(), name='delete_berita'),
     ])),
 

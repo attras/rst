@@ -83,51 +83,6 @@
     </div>
 </div>
 
-<!-- Add Identitas Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Tambah Identitas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{% url 'admin_setori:add_slider' %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="row">
-
-                        <div class="col-lg-6 col-sm-12 mb-3 mb-lg-0">
-                            <label class="form-label" for="id_logo">Logo</label>
-                            <input type="file" name="logo" id="id_logo" class="dropify" data-default-file="" data-bs-height="180" accept="image/*" required/>
-                            <div class="form-text">Unggah logo slider (format gambar).</div>
-                        </div>
-                        
-                        <div class="col-lg-6 col-sm-12 mb-3 mb-lg-0">
-                            <label class="form-label" for="id_foto">Background Foto</label>
-                            <input type="file" name="foto" id="id_foto" class="dropify" data-default-file="" data-bs-height="180" accept="image/*" required/>
-                            <div class="form-text">Unggah background foto slider (format gambar).</div>
-                        </div>
-    
-                        <div class="mb-3 col-" >
-                            <label class="form-label" for="id_text">Teks Slider</label>
-                            <input type="text" name="text" id="id_text" class="form-control"  maxlength="255" placeholder="Masukkan teks slider"  />
-                        </div>
-                        
-                        <div class="mb-3 col-">
-                            <label for="id_status" class="form-label">Status</label>
-                            <select name="status" id="id_status" class="form-select" required>
-                                <option value=1>Aktif</option>
-                                <option value=0>Tidak Aktif</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -135,34 +90,6 @@
 {% block js %}
 <script>
 
-var editSlider = document.getElementById('addModal');
-    editSlider.addEventListener('show.bs.modal', function editslider() {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-
-        // Extract info from data-bs-* attributes
-        var SliderId = button.getAttribute('data-bs-id');
-        var Slider = button.getAttribute('data-bs-text');                                 
-        var Logo = button.getAttribute('data-bs-logo');  
-        console.log(Logo);
-        // Update the modal's form fields
-        var modalTitle = editSlider.querySelector('.modal-title');
-        var inputSlider = editSlider.querySelector('#id_text');
-        var inputLogo = editSlider.querySelector('#id_logo')
-        var form = editSlider.querySelector('form');
-
-        modalTitle.textContent = 'Edit ' + Slider;
-        inputSlider.value = Slider;
-        inputLogo.setAttribute("data-default-file", Logo );
-        console.log("jan");
-        $('.dropify').dropify();
-        
-       
-
-        // Update form action URL dynamically with the correct Jenis_kesehatan ID
-        form.action = "{% url 'admin_setori:edit_jenis_kesehatan' 'holder' %}".replace('holder',  Jenis_kesehatanId);
-        
-    });
 
     // Show confirmation dialog
     function Hapus_slider(id) {
@@ -203,28 +130,5 @@ var editSlider = document.getElementById('addModal');
 
 };
 
-
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.querySelector("form");
-    const wilayahSelect = document.getElementById("wilayah");
-    const indikatorSelect = document.getElementById("indikator");
-    
-    form.addEventListener("submit", function(event) {
-        const selectedWilayah = wilayahSelect.value;
-        const selectedIndikator = indikatorSelect.value;
-
-        // Cek apakah kombinasi wilayah dan indikator sudah ada di tabel
-        const isDuplicate = Array.from(document.querySelectorAll("tbody tr")).some(row => {
-            const wilayah = row.getAttribute("data-wilayah");
-            const indikator = row.getAttribute("data-indikator");
-            return wilayah === selectedWilayah && indikator === selectedIndikator;
-        });
-
-        if (isDuplicate) {
-            event.preventDefault(); // Hentikan pengiriman form
-            alert("Data dengan kombinasi Wilayah dan Indikator ini sudah ada.");
-        }
-    });
-});
 </script>
 {% endblock js %}

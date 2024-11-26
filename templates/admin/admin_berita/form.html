@@ -1,0 +1,112 @@
+{% extends 'admin/base_layout/index.html' %}
+{% block css %} {% endblock css %}
+{% block main %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">{{ title }} berita </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Setting</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Kontak</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">{{ title }}{{ dt_layanan.surat }}</h3>
+            </div>
+            <div class="card-body">
+                <form action="{% if edit %}{% url 'admin_setori:edit_berita' dt_berita.id %}{% else %}{% url 'admin_setori:add_berita' %} {% endif %}"  enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="mb-3">
+                            <input type="hidden" name="username" value="{{ user.username }}" readonly>
+                        </div>
+                        <div class="col-lg-12 col-sm-12 mb-3 mb-lg-0">
+                            <label class="form-label">Thumbnail</label>
+                            <input type="file" name="thumbnail" class="dropify" data-default-file="{{ dt_berita.thumbnail.url }}" accept="image/*" />
+                     
+                            <div class="form-text">Unggah thumbnail (format gambar).</div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label class="form-label">Title</label>
+                            <input type="text" value="{{ dt_berita.title }}" name="title" class="form-control" placeholder="Enter Title" required />
+                       </div>
+                       <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select name="category" class="form-select" required>
+                            <option value="">Select Category</option>
+                            {% for kategori in dt_kategori %}
+                                <option value="{{ kategori.categori_id }}" {%  if dt_berita.category_id ==  kategori.categori_id  %} selected {% endif %} >{{ kategori.name }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                        <div class="mb-3 col-12" >
+                            <label class="form-label">Content</label>
+                            <textarea name="content_berita" id="editor" class="ck-editor" placeholder="Enter Content" required>
+                                {{ dt_berita.content|safe }}
+                            </textarea>
+                       </div>
+                
+                    </div>
+                    
+                    <div class="text-center mb-3">
+                        <button class="btn btn-primary" type="submit">
+                            Simpan Data
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--ck editor-->
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+        }
+    }
+</script>
+<script type="module">
+    import {
+        ClassicEditor,
+        Essentials,
+        Bold,
+        Italic,
+        Font,
+        Paragraph
+    } from 'ckeditor5';
+
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            plugins: [Essentials, Bold, Italic, Font, Paragraph],
+            toolbar: [
+                'undo', 'redo', '|', 'bold', 'italic', '|',
+                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+            ],
+        })
+        .then(editor => {
+            // Optionally listen for changes to update the hidden textarea
+            editor.model.document.on('change:data', () => {
+                const data = editor.getData();
+                document.querySelector('textarea[name="content_berita"]').value = data;
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+{% endblock main %}
+
+
+{% block js %}
+
+{% endblock js %}
