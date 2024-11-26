@@ -182,7 +182,7 @@ class News(CreateUpdateTime):
 	slug = models.SlugField(unique=True, max_length=300)
 	category = models.ForeignKey(Category, on_delete=models.RESTRICT)
 	created_by = models.ForeignKey(Account, on_delete=models.RESTRICT)
-	last_updated_by = models.CharField(max_length=5, null=True, blank=True)
+	last_updated_by = models.CharField(max_length=100, null=True, blank=True)
 	seen = models.SmallIntegerField(default=0)
 	jenis = models.CharField(max_length=255, null=True)
 
