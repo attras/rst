@@ -3,23 +3,24 @@
 {% block main %}
 
 <div class="page-header">
-    <div>
-        <h1 class="page-title">Dashboard 01</h1>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
-        </ol>
-    </div>
+    <div class="class mt-3">
+        <a href="{% url 'admin_setori:data_kesehatan' %}">
+            <button type="button" class="btn btn-primary mb-3" >
+               <i class="fa-solid fa-arrow-left"></i>
+                Kembali
+            </button>
+        </a>
+       </div>
     <div class="ms-auto pageheader-btn">
         <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal">
             <span>
                 <i class="fe fe-plus"></i>
             </span> Tambah Data Kesehatan
         </a>
-        <a href="#" class="btn btn-success btn-icon text-white">
+        <a href="{% url 'admin_setori:histori_kesehatan' %}" class="btn btn-success btn-icon text-white">
             <span>
-                <i class="fe fe-log-in"></i>
-            </span> Histori hapus
+                <i class="fa-solid fa-rotate-right"></i>
+            </span> Riwayat
         </a>
     </div>
 </div>
@@ -55,7 +56,7 @@
                                     <a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="modal" data-bs-target="#editUserModal" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
                                     <!-- Delete User Modal -->
                                     <a >
-                                        <button type="button" class="btn btn-danger" onclick="Hapus_user('{{user.id }}')">
+                                        <button type="button" class="btn btn-danger" onclick="Hapus_kesehatan('{{data.data_kesehatan_id}}')">
                                             <i class="fe fe-trash"></i> Hapus
                                         </button>     
                                     </a>
@@ -145,7 +146,45 @@
         }
     }
    
-});
+    });
+
+    function Hapus_kesehatan(id) {
+    Swal.fire({
+        title: 'Apakah kamu yakin ingin menghapus?',
+        showCancelButton: true,
+        confirmButtonText: 'Konfirmasi',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url:"{% url 'admin_setori:delete_at_kesehatan' 'holder' %}".replace('holder', id),
+                dataType: "html",
+                timeout: 10000,
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Memproses...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                    });
+                    Swal.showLoading();
+                },
+                success: function(response) {
+                    Swal.fire('Berhasil!', 'Data Berhasil Dihapus', 'success');
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 2000); 
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
+                }
+            });
+        }
+    });
+
+};
 </script>
 
 

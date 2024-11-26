@@ -127,12 +127,14 @@ urlpatterns = [
         ])),
 
     path('data_kesehatan/',include([
-         path('',admin_data_kesehatan.Admin_data_kesehatanViews.as_view(),name='data_kesehatan'),
-         path('detail/<str:jenis_kesehatan_id>',admin_data_kesehatan.Detail_data_kesehatanViews.as_view(),name='detail_data_kesehatan'),      
-         path('add',admin_data_kesehatan.Add_data_kesehatan.as_view(),name='add_data_kesehatan'),
-         path('delete/<str:data_kesehatan_id>/', admin_data_kesehatan.DeleteKesehatan.as_view(), name = 'delete_kesehatan'),
-        
-         ])),
+        path('',admin_data_kesehatan.Admin_data_kesehatanViews.as_view(),name='data_kesehatan'),
+        path('detail/<str:jenis_kesehatan_id>',admin_data_kesehatan.Detail_data_kesehatanViews.as_view(),name='detail_data_kesehatan'),    
+        path('add',admin_data_kesehatan.Add_data_kesehatan.as_view(),name='add_data_kesehatan'),
+        path('delete/<str:data_kesehatan_id>/', admin_data_kesehatan.DeleteKesehatan.as_view(), name = 'delete_kesehatan'),
+        path('delete_at/<str:data_kesehatan_id>/',Delete_at_kesehatan.as_view(),name='delete_at_kesehatan'),
+        path('histori/',admin_data_kesehatan.Historikesehatan.as_view(),name='histori_kesehatan'),
+        path('restore/<str:data_kesehatan_id>/',admin_data_kesehatan.Restorekesehatan.as_view(),name='restore_kesehatan'),
+        ])),
 
     path('data_penduduk/',include([
          path('',admin_data_penduduk.Admin_data_pendudukViews.as_view(),name='data_penduduk'),
@@ -152,9 +154,9 @@ urlpatterns = [
         ])),
 
     path('tentang_kami/',include([
-
          path('',admin_tentang.Admin_tetang_kami.as_view(),name='admin_tentang'),
          path('add_tentang/',admin_tentang.Add_tentang.as_view(),name='add_tentang'),
+         path('edit_tentang/<str:id>',admin_kontak.Editkontak.as_view(),name='edit_tentang'),
         ])),
 
 ]

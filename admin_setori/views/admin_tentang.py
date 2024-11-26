@@ -15,8 +15,10 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Admin_tetang_kami(View):
     def get(self, request):
-    
-
+        dt_tentang = Tentang.objects.filter(deleted_at__isnull = True)
+        data = {
+            'dt_tentang' : dt_tentang,
+        }
         return render(request, 'admin/admin_tentang/index.html')
 
 class Add_tentang(View):

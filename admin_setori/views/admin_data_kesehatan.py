@@ -34,7 +34,8 @@ class Detail_data_kesehatanViews(View):
             'dt_indikator': dt_indikator,
             'jenis_kesehatan': jenis_kesehatan,
             'wilayah_list': wilayah_list,
-            'dt_kesehatan': dt_kesehatan
+            'dt_kesehatan': dt_kesehatan,
+            'jenis_kesehatan_id' : jenis_kesehatan_id
         }
         
 
@@ -86,3 +87,49 @@ class DeleteKesehatan(View):
             messages.error(request, "Gagal menghapus data")
         
         return redirect("admin_setori:data_kesehatan")
+
+
+class Delete_at_kesehatan(View):
+    def get(self,request,data_kesehatan_id):
+        try:
+            with transaction.atomic():
+                del_kesehatan = get_object_or_404(Data_kesehatan, data_kesehatan_id=data_kesehatan_id)
+                del_kesehatan.deleted_at = timezone.now()
+                del_kesehatan.save()
+                messages.success(request, f"data berhasil dihapus")
+                return redirect('admin_setori:data_kesehatan')
+                
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:data_kesehatan')
+
+
+class Historikesehatan(View):
+    def get(self,request):
+        dt_kesehatan = Data_kesehatan.objects.filter(deleted_at__isnull = False)
+        jenis_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = False)
+        dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull = False)
+        wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = False,wilayah_level='4')
+        data = {
+            'dt_indikator': dt_indikator,
+            'jenis_kesehatan': jenis_kesehatan,
+            'wilayah_list': wilayah_list,
+            'dt_kesehatan': dt_kesehatan,
+        }
+        return render(request,'admin/data_kesehatan/histori.html',data)
+    
+class Restorekesehatan(View):
+    def get(self, request, data_kesehatan_id):
+        try:
+            with transaction.atomic():
+                del_kesehatan = get_object_or_404(Data_kesehatan,data_kesehatan_id=data_kesehatan_id)
+                del_kesehatan.deleted_at = None
+                del_kesehatan.save()
+                messages.success(request, f"data berhasil dipulihkan")
+                return redirect('admin_setori:histori_kesehatan')
+                
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:histori_kesehatan')
