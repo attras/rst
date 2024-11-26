@@ -48,6 +48,7 @@
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
                                 <th class="bg-transparent border-bottom-0">Wilayah </th>
+                                <th class="bg-transparent border-bottom-0">Wilayah level </th>
                                 <th class="bg-transparent border-bottom-0">Pria oap</th>
                                 <th class="bg-transparent border-bottom-0">Pria non-oap</th>
                                 <th class="bg-transparent border-bottom-0">wanita oap</th>
@@ -66,6 +67,7 @@
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.wilayah.wilayah_nama }} </td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.wilayah.wilayah_level}} </td>
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.pria_oap}}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.pria_non_oap}}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.wanita_oap}}</td>
@@ -156,6 +158,26 @@
         </div>
     </div>
 </div>
+
+
+<h1>Jumlah Pria OAP per Wilayah Parent</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Wilayah Parent</th>
+            <th>Total Pria OAP</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+            <tr>
+                <td>{{ item.wilayah__wilayah_parent__wilayah_nama }}</td>
+                <td>{{ item.total_pria_oap }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 
 
 

@@ -39,14 +39,78 @@ class Semua_data(View):
             wilayah_level='4'  # Filter level wilayah = 4
         ).exclude(wilayah_id__in=used_wilayah).order_by('wilayah_nama')
 
-        data={
+
+      
+        data = (
+            Data_penduduk.objects
+            .values('wilayah__wilayah_parent__wilayah_nama')
+            .annotate(total_pria_oap=Sum('pria_oap'),
+                      total_pria_non_oap=Sum('pria_non_oap'),
+                      total_wanita_oap=Sum('wanita_oap'),
+                      total_wanita_non_oap=Sum('wanita_non_oap'),
+                      total_jumlah_kk_oap=Sum('jumlah_kk_oap'),
+                      total_jumlah_kk_non_oap=Sum('jumlah_kk_non_oap'),
+                      )
+            .order_by('wilayah__wilayah_parent__wilayah_nama')
+        )
+
+        # Mengambil wilayah yang memiliki level '4' untuk digunakan dalam dropdown
+        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True, wilayah_level='4').order_by('wilayah_level')
+
+        # for item in data:
+        #     parent_name = item['wilayah__wilayah_parent__wilayah_nama']
+           
+        #     # Mendapatkan wilayah parent berdasarkan nama wilayah parent
+        #     wilayah_parent = MasterWilayah.objects.filter(wilayah_nama=parent_name).first()
+            
+        #     if not wilayah_parent:
+        #         print(f"Wilayah parent '{parent_name}' tidak ditemukan.")
+        #         continue  # Lewati jika wilayah parent tidak ditemukan
+
+        #     # Cek apakah sudah ada data untuk wilayah yang sama
+        #     existing_data = Data_penduduk.objects.filter(wilayah=wilayah_parent).exists()
+
+        #     if not existing_data:
+        #         # Membuat entri baru di Data_penduduk jika belum ada data untuk wilayah tersebut
+        #         Data_penduduk.objects.create(
+        #             wilayah=wilayah_parent,
+        #             pria_oap=item['total_pria_oap'] or 0,
+        #             pria_non_oap=item['total_pria_non_oap'] or 0,  # Menambahkan nilai sesuai dengan kebutuhan
+        #             wanita_oap=item['total_wanita_oap'] or 0,    # Menambahkan nilai sesuai dengan kebutuhan
+        #             wanita_non_oap=item['total_wanita_non_oap']or 0, # Menambahkan nilai sesuai dengan kebutuhan
+        #             jumlah_kk_oap=item['total_jumlah_kk_oap'] or 0,
+        #             jumlah_kk_non_oap=item['total_jumlah_kk_non_oap']or 0
+        #      )
+               
+        #     else:
+                
+        #         data_penduduk = Data_penduduk.objects.get(wilayah=wilayah_parent)
+        #         data_penduduk.pria_oap = item['total_pria_oap'] or 0
+        #         data_penduduk.pria_non_oap = item['total_pria_non_oap'] or 0  # Menambahkan nilai sesuai dengan kebutuhan
+        #         data_penduduk.wanita_oap = item['total_wanita_oap'] or 0    # Menambahkan nilai sesuai dengan kebutuhan
+        #         data_penduduk.wanita_non_oap = item['total_wanita_non_oap']or 0  # Menambahkan nilai sesuai dengan kebutuhan
+        #         data_penduduk.jumlah_kk_oap = item['total_jumlah_kk_oap'] or 0 # Menambahkan nilai sesuai dengan kebutuhan
+        #         data_penduduk.jumlah_kk_non_oap = item['total_jumlah_kk_non_oap']or 0  # Menambahkan nilai sesuai dengan kebutuhan
+        #         data_penduduk.save()
+        #         print("update")
+               
+        
+        
+                
+
+
+
+        contex={
             'dt_penduduk': dt_penduduk,
             'wilayah_list': wilayah_list,
             'wilayah': wilayah,
-           
+            'data': data,
+            'dt_wilayah': dt_wilayah,
+
+         
         }
 
-        return render(request,'admin/admin_data_penduduk/semua.html',data)
+        return render(request,'admin/admin_data_penduduk/semua.html',contex)
     
 class Detail_penduduk(View):
     def get(self, request,wilayah_id):
@@ -59,8 +123,7 @@ class Detail_penduduk(View):
             data_penduduk = None  # Atau menangani error sesuai kebutuhan
 
 
-    
-
+       
 
 
         data={
@@ -97,14 +160,7 @@ class Add_data_penduduk(View):
 
         try:
             with transaction.atomic():
-                if parent_wilayah_id and Data_penduduk.objects.filter(wilayah_id=parent_wilayah_id).exists():
-                    messages.error(request, "Data penduduk untuk wilayah ini sudah ada.")
-             
-                else:
-                    print(parent_wilayah_id)
-                    print("anjay mabar")  # Cetak pesan jika data sudah ada tetapi tetap melanjutkan eksekusi
-            
-               
+                
                 data_penduduk = Data_penduduk(
                     wilayah_id=wilayah_id,
                     pria_oap=pria_oap,
@@ -116,14 +172,23 @@ class Add_data_penduduk(View):
                 )
                 data_penduduk.save()
 
+                if parent_wilayah_id and Data_penduduk.objects.filter(wilayah_id=parent_wilayah_id).exists():
+                  
+                    print("data_sudah ada")
+                else:
+                    print(parent_wilayah_id)
+                    print("anjay mabar")  # Cetak pesan jika data sudah ada tetapi tetap melanjutkan eksekusi
+            
+               
+
                 
                 messages.success(request, "Data penduduk berhasil ditambahkan.")
-                return redirect("admin_setori:data_penduduk")  # Kembali ke form jika berhasil
+                return redirect("admin_setori:semua_penduduk")  # Kembali ke form jika berhasil
             
         except Exception as e:
             print("Gagal menambahkan data:", e)
             messages.error(request, "Gagal menambahkan data penduduk.")
-            return redirect("admin_setori:data_penduduk")  # Kembali ke form jika gagal
+            return redirect("admin_setori:semua_penduduk")  # Kembali ke form jika gagal
 
 
 class edit_data_penduduk(View):
