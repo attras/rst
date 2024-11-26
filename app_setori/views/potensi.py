@@ -12,6 +12,7 @@ from django.core.exceptions import PermissionDenied
 from admin_setori.decorators import role_required
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator
+from django.db.models import Sum
 
 class PotensiViews(View):
     def get(self, request):
@@ -23,12 +24,28 @@ class PotensiViews(View):
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
+        total = (
+            Data_penduduk.objects
+            .values('wilayah__wilayah_parent__wilayah_nama')
+            .annotate(total_pria_oap=Sum('pria_oap'),
+                      total_pria_non_oap=Sum('pria_non_oap'),
+                      total_wanita_oap=Sum('wanita_oap'),
+                      total_wanita_non_oap=Sum('wanita_non_oap'),
+                      total_jumlah_kk_oap=Sum('jumlah_kk_oap'),
+                      total_jumlah_kk_non_oap=Sum('jumlah_kk_non_oap'),
+                      )
+            .order_by('wilayah__wilayah_parent__wilayah_nama')
+        )
+
         data = {
             'dt_potensi' : dt_potensi,
             'page_obj': page_obj,
-            'dt_penduduk': dt_penduduk
+            'dt_penduduk': dt_penduduk,
+            'total' : total
+
         }
         return render(request, 'setori/potensidaerah/index.html', data)
+
 
 class PotensiDistrikViews(View):
     def get(self, request):

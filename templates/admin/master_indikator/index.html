@@ -4,15 +4,15 @@
 
 <!-- PAGE-HEADER -->
 <div class="page-header">
-    <div>
-        {% for kesehatan in dt_kesehatan %}
-        <h1 class="page-title">Detail {{ kesehatan.nama_jenis }}</h1>
-        
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'admin_setori:master_jenis_kesehatan' %}">Jenis Data Kesehatan</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ kesehatan.nama_jenis }}</li>
-        </ol>
-        {% endfor %}
+    <div class="pageheader-btn">
+        <div>
+            <a href="{% url 'admin_setori:master_jenis_kesehatan' %}">
+                <button type="button" class="btn btn-primary" >
+                   <i class="fa-solid fa-arrow-left"></i>
+                    Kembali
+                </button>
+            </a>
+        </div>
     </div>
     <div class="ms-auto pageheader-btn">
         <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_indikator()">

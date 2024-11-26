@@ -157,7 +157,7 @@ urlpatterns = [
     path('tentang_kami/',include([
          path('',admin_tentang.Admin_tetang_kami.as_view(),name='admin_tentang'),
          path('add_tentang/',admin_tentang.Add_tentang.as_view(),name='add_tentang'),
-         path('edit_tentang/<str:id>',admin_kontak.Editkontak.as_view(),name='edit_tentang'),
+         path('edit_tentang/<str:id_tentang>',admin_tentang.Edittentang.as_view(),name='edit_tentang'),
         ])),
 
 ]

@@ -10,32 +10,16 @@
             <li class="breadcrumb-item active" aria-current="page">Tentang kami</li>
         </ol>
     </div>
-    <div class="ms-auto pageheader-btn" data-bs-toggle="modal" data-bs-target="#addUserModal" >
-        {% if dt_tentang %}
-        {% for tentang in dt_tentang %}
-        <a href="{% url 'admin_setori:edit_tentang' tentang.id_tentang  %}" class="btn btn-primary btn-icon text-white">
-            <span>
-                <i class="fa-solid fa-pen-to-square"></i>Edit 
-            </span> 
-        </a>
-        {% endfor %}
-        {% else %}
-        <a href="{% url 'admin_setori:add_tentang' %}" class="btn btn-primary btn-icon text-white me-2" >
-            <span>
-                <i class="fe fe-plus"></i>
-            </span> Tambah Tentang
-        </a>
-
-        {% endif %}
-    </div>
-
 </div>
 
 <div class="row">
     <div class="col-12 col-sm-12">
         <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Setting tentang kami</h3>
+            </div>
             <div class="card-body">
-                <form action="#" enctype="multipart/form-data" method="post">
+                <form action="{% if edit %}{% url 'admin_setori:edit_tentang' id_tentang %} {% else %} {% url 'admin_setori:add_tentang' %} {% endif %}" enctype="multipart/form-data" method="post">
                     {% csrf_token %}
                     <div class="row row-sm">
                         <div class="col-6">
@@ -69,6 +53,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="submit">
+                            Simpan Data
+                        </button>
+                    </div>
+                    
                 </form>
             </div>
         </div>
