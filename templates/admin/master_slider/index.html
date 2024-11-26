@@ -13,7 +13,7 @@
         </ol>
     </div>
     <div class="ms-auto pageheader-btn">
-        <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal">
+        <a href="{% url 'admin_setori:add_slider' %}" class="btn btn-primary btn-icon text-white me-2" >
             <span>
                 <i class="fe fe-plus"></i>
             </span> Add kategori
@@ -59,13 +59,7 @@
                                 <td class="">
                                    
                                     <a class="btn btn-primary btn-md rounded-11 me-2" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-logo="{{ slider.logo.url }}" 
-                                    data-bs-target="#addModal"
-                                    data-bs-text="{{ slider.text }}"
-                                    data-bs-id="{{ slider.id_slider }}"
-                                    data-bs-status="{{ slider.status }}"
-                                    onclick="editslider()"
+                                    href="{% url 'admin_setori:edit_slider' slider.id_slider %}"
                                     >
                                     <i class="fa-solid fa-pen-to-square"></i>Edit  
                                     </a>

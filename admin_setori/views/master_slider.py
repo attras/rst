@@ -23,6 +23,14 @@ class Master_sliderViews(View):
         return render(request, 'admin/master_slider/index.html',data)
     
 class Add_slider(View):
+    def get(self, request):
+        dt_slider = Slider.objects.filter(deleted_at__isnull = True)
+        data ={
+            'dt_slider':dt_slider,
+        }
+       
+        return render(request, 'admin/master_slider/form.html',data)
+    
     def post(self, request):
         logo = request.FILES.get('logo')
         foto = request.FILES.get('foto')
@@ -46,21 +54,34 @@ class Add_slider(View):
             return redirect('admin_setori:master_slider')
 
 class Editslider(View):
+    def get(self,request,id_slider):
+        dt_slider = get_object_or_404(Slider,id_slider=id_slider,deleted_at__isnull = True)
+        
+        data ={
+            'edit':True,
+            'dt_slider':dt_slider,
+            'id_slider' : id_slider
+        }
+       
+        return render(request, 'admin/master_slider/form.html',data)
+     
     def post(self, request, id_slider):
-        logo = request.FILES.get('logo')
-        foto = request.FILES.get('foto')
+        dt_slider = get_object_or_404(Slider, id_slider=id_slider, deleted_at__isnull=True)
+
+        logo = request.FILES.get('logo') or dt_slider.logo
+        foto = request.FILES.get('foto') or dt_slider.foto
         text = request.POST.get('text')
         status = request.POST.get('status')
         try:
             with transaction.atomic():
                 
-                insert_category = get_object_or_404(Slider,id_slider=id_slider)
+                insert_slider = get_object_or_404(Slider,id_slider=id_slider)
                 insert_slider.logo = logo
                 insert_slider.foto = foto
                 insert_slider.text = text
                 insert_slider.status = status
-                insert_category.updated_at = timezone.now()
-                insert_category.save()  # Save new category in the database
+                insert_slider.updated_at = timezone.now()
+                insert_slider.save()  # Save new category in the database
 
                 messages.success(request, "Category edit successfully!")
                 return redirect('admin_setori:master_slider')  # Redirect to the list view

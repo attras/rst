@@ -1,0 +1,69 @@
+{% extends 'admin/base_layout/index.html' %}
+{% block css %} {% endblock css %}
+{% block main %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">{{ title }} slider </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Setting</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Kontak</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">{{ title }}{{ dt_layanan.surat }}</h3>
+            </div>
+            <div class="card-body">
+                <form action="{% if edit %}{% url 'admin_setori:edit_slider' id_slider %}{% else %}{% url 'admin_setori:add_slider' %} {% endif %}"  enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12 mb-3 mb-lg-0">
+                            <label class="form-label" for="id_logo">Logo</label>
+                            <input type="file" name="logo" id="id_logo" class="dropify" data-default-file="{{ dt_slider.logo.url }}" data-bs-height="180" accept="image/*"/>
+                            <div class="form-text">Unggah logo slider (format gambar).</div>
+                        </div>
+                        
+                        <div class="col-lg-4 col-sm-12 mb-3 mb-lg-0">
+                            <label class="form-label" for="id_foto">Background Foto</label>
+                            <input type="file" name="foto" id="id_foto" class="dropify" data-default-file="{{ dt_slider.foto.url }}" data-bs-height="180" accept="image/*" />
+                            <div class="form-text">Unggah background foto slider (format gambar).</div>
+                        </div>
+    
+                        <div class="mb-3 col-12" >
+                            <label class="form-label" for="id_text">Teks Slider</label>
+                            <input type="text" value="{{ dt_slider.text}}" name="text" id="id_text" class="form-control"  maxlength="255" placeholder="Masukkan teks slider"  />
+                        </div>
+                        
+                        <div class="mb-3 col-12">
+                            <label for="id_status" class="form-label">Status</label>
+                            <select name="status" id="id_status" class="form-select" required>
+                                <option value=1>Aktif</option>
+                                <option value=0>Tidak Aktif</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mb-3">
+                        <button class="btn btn-primary" type="submit">
+                            Simpan Data
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock main %}
+
+
+{% block js %}
+
+{% endblock js %}
