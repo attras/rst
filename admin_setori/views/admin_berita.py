@@ -24,9 +24,17 @@ class Admin_beritaViews(View):
         }
         return render(request, 'admin/admin_berita/berita.html',data)
 class Detail_Berita(View):
-    def get(self, request):
+    def get(self, request, slug):
+        detail_berita = get_object_or_404(News,slug=slug)
+        dt_berita = News.objects.filter(deleted_at__isnull=True).order_by('-created_at')  # Ambil semua berita yang tidak dihapus
+        dt_category = Category.objects.filter(deleted_at__isnull = True)  # Ambil semua kategori yang tidak dihapus
 
-        return render(request, 'admin/admin_berita/detail.html')
+        data = {
+            'dt_berita': dt_berita,
+            'detail_berita': detail_berita,
+            'dt_category': dt_category,
+        }
+        return render(request, 'admin/admin_berita/detail.html', data)
     
 class AddBerita(View):
     def post(self, request):

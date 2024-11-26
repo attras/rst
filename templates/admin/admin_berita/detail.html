@@ -1,101 +1,43 @@
 {% extends 'admin/base_layout/index.html' %}
 {% block main %}
+<div class="page-header">
+    <div>
+        <a href="{% url 'admin_setori:admin_berita' %}">
 
-<style>
-    .read__title {
-        font-family: 'Lexend', sans-serif;
-        font-weight: 500;
-    }
-    .isi-berita {
-    font-size: 250%;
-    }
-    .recent-post {
-        border: 1px solid #ddd; /* Garis batas kotak */
-        border-radius: 8px; /* Sudut melengkung */
-        overflow: hidden; /* Menghindari gambar yang meluap */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Efek bayangan */
-        transition: transform 0.3s; /* Efek transisi saat hover */
-    }
-
-    .recent-post:hover {
-        transform: translateY(-5px); /* Efek saat hover */
-    }
-
-    img {
-        object-fit: cover; /* Mengatur gambar agar sesuai kotak */
-    }
-    .grow img{
-        transition: 1s ease;
-    }
-
-    .grow img:hover{
-        -webkit-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        transform: scale(1.2);
-        transition: 1s ease;
-    }
-    .judul_berita {
-    color: #000; /* Warna default, sesuaikan dengan kebutuhan Anda */
-    transition: color 0.2s ease; /* Efek transisi */
-    }
-
-    .judul_berita:hover {
-    color: #164b85; /* Warna saat di-hover, sesuaikan dengan kebutuhan Anda */
-    }
-</style>
-
-<div role="main" class="main px-3 px-lg-5"> 
-    <div class="container mt-lg-5 pt-5">
-
-        <div class="row">
-            <div class="col-lg-8 mb-5 mb-lg-0">
-
-                <article>
-                    <div class="card border-0">
-                        <div class="card-body p-0">
-                            <h1 class="read__title">youuu</h1>
-                            
-                            <p class="text-uppercase text-3 font-weight-semibold mb-3 text-color-secondary d-flex justify-content-between">
-                                <span>Penulis: {{ detail_berita.created_by.username }}</span>
-                                <span>Tanggal Terbit: {{ detail_berita.created_at }}</span>
-                            </p>
-                            
-     
-                            <div class="post-image pb-4">
-                                <img class="card-img-top border-radius-2" src="{{ detail_berita.thumbnail.url }}" alt="Card Image">
-                            </div>
-
-                            <div class="card-body p-0">
-                               
-                                <!-- AddToAny BEGIN -->
-                                <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-                                    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
-                                    <a class="a2a_button_facebook"></a>
-                                    <a class="a2a_button_x"></a>
-                                    <a class="a2a_button_copy_link"></a>
-                                </div>
-                                <script async src="https://static.addtoany.com/menu/page.js"></script>
-                                <!-- AddToAny END -->
-
-                                <hr class="my-5">
-
-                                <div class="isi berita">
-                                    <p>{{ detail_berita.content|safe }}</p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-
-           
-
-        </div>
-
+            <button type="button" class="btn btn-primary mb-3" >
+               <i class="fa-solid fa-arrow-left"></i>
+                Kembali
+            </button>
+        </a>
     </div>
-
 </div>
 
+
+<div class="card productdesc">
+    <div class="card-body">
+        <div class="container mt-lg-5">
+            <div class="row">
+                <div class="card-body card-body-colored" >
+                    <div class="productdec text-center">
+                        <img alt="gambar_berita" src="{{ detail_berita.thumbnail.url }}">
+                    </div>
+                    <div class="mt-4 mb-4">
+                        <h3>{{ detail_berita.title }}</h3>
+                        <li class=" row">
+                            <div class="col-sm-2 text-muted">Penulis Berita:</div>
+                            <div class="col-sm-2">{{ detail_berita.created_by.username }}</div>
+                        </li>
+                        <li class="p-b-20 row">
+                            <div class="col-sm-2 text-muted">Tanggal Terbit:</div>
+                            <div class="col-sm-2">{{ detail_berita.created_at }}</div>
+                        </li>
+                    </div>
+                    <div class="mt-4 mb-4">
+                        <p>{{ detail_berita.content|safe }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock main %}
