@@ -14,8 +14,8 @@ from django.utils.decorators import method_decorator
 
 @method_decorator(login_required(), name='dispatch')
 class Admin_tetang_kami(View):
-    def get(self, request, id_tentang):
-        dt_tentang = get_object_or_404(Tentang, id_tentang=id_tentang)
+    def get(self, request):
+        dt_tentang = Tentang.objects.filter(deleted_at__isnull = True)
         data = {
             'dt_tentang' : dt_tentang,
         }
