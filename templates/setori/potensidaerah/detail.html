@@ -262,6 +262,15 @@
                                         <p><strong>Total OAP:</strong> {{ penduduk.jumlah_penduduk_oap }}</p>
                                         <p><strong>Total Non OAP:</strong> {{ penduduk.jumlah_penduduk_non_oap }}</p>
                                         {% endfor %}
+                                        {% for item in data %}
+                                        <p><strong>Total Jiwa:</strong> {{ item.total_jiwa }}</p>
+                                        <p><strong>Laki-laki:</strong>  {{ item.total_pria_oap|add:item.total_pria_non_oap }}</p>
+                                        <p><strong>Perempuan:</strong> {{ item.total_wanita_oap|add:item.total_wanita_non_oap }} </p>
+                                        <p><strong>Total OAP:</strong> {{ item.total_oap }} </p>
+                                        <p><strong>Total Non OAP:</strong> {{ item.total_non_oap}}</p>
+                                        {% endfor %}
+
+                                     
                                     </div>
                                 </div>
                             </div>

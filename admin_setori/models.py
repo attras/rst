@@ -239,11 +239,11 @@ class Data_penduduk(CreateUpdateTime):
         self.total_kk = self.jumlah_kk_oap + self.jumlah_kk_non_oap
 
         super().save(*args, **kwargs)
+
     
+
    
-    
-
-
+                    
 class Info_wilayah(CreateUpdateTime):
     info_wilayah_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     visi = models.TextField(help_text="Visi kelurahan")

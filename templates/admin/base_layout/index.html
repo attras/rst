@@ -185,8 +185,8 @@
 									<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
 										<div class="drop-heading">
 											<div class="text-center">
-												<h5 class="text-dark mb-0">Elizabeth Dyer</h5>
-												<small class="text-muted">Administrator</small>
+												<h5 class="text-dark mb-0">{{ user.username }}</h5>
+												<small class="text-muted">{{ user.role}}</small>
 											</div>
 										</div>
 										<div class="dropdown-divider m-0"></div>
@@ -198,11 +198,11 @@
 										</a>
 										
 									</div>
-									<div class="dropdown d-md-flex header-settings">
+									<!-- <div class="dropdown d-md-flex header-settings">
 										<a href="#" class="nav-link icon " data-bs-toggle="sidebar-right" data-target=".sidebar-right">
 											<i class="fe fe-menu"></i>
 										</a>
-									</div>
+									</div> -->
 								</div>
 							
 							</div>
@@ -302,7 +302,7 @@
 
 			<!-- FOOTER -->
 			<footer class="footer ">
-				<div class="container ">
+				<div class="container  ">
 					<div class="row align-items-center flex-row-reverse">
 						<div class="col-md-12 col-sm-12 text-center">
 							 Copyright © 2021 <a href="#">Setori</a>. Designed with <span class="fa fa-heart text-danger"></span> by <a href="#"> RST </a> All rights reserved
@@ -312,6 +312,8 @@
 			</footer>
 			<!-- FOOTER END -->
 		</div>
+
+		
 
 		{% block js %}
 		{% endblock js %}

@@ -48,7 +48,7 @@
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
                                 <th class="bg-transparent border-bottom-0">Wilayah </th>
-                                <th class="bg-transparent border-bottom-0">Wilayah level </th>
+                              
                                 <th class="bg-transparent border-bottom-0">Pria oap</th>
                                 <th class="bg-transparent border-bottom-0">Pria non-oap</th>
                                 <th class="bg-transparent border-bottom-0">wanita oap</th>
@@ -66,8 +66,8 @@
                           {% for penduduk in dt_penduduk %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.wilayah.wilayah_nama }} </td>
-                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.wilayah.wilayah_level}} </td>
+                                <td class="text-muted fs-15 fw-semibold">{{ penduduk.wilayah.wilayah_nama }}-->{{ penduduk.wilayah.wilayah_parent.wilayah_nama }}-->{{ penduduk.wilayah.wilayah_parent.wilayah_parent.wilayah_nama }}-->{{ penduduk.wilayah.wilayah_parent.wilayah_parent.wilayah_parent.wilayah_nama }}</td>
+                 
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.pria_oap}}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.pria_non_oap}}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ penduduk.wanita_oap}}</td>
@@ -122,7 +122,7 @@
                         <select name="wilayah" id="wilayah" class="form-select" aria-placeholder="pilih wilayah" required>
                             <option value="" disabled selected>Pilih Wilayah</option>
                             {% for wilayah in wilayah %}
-                            <option value="{{ wilayah.wilayah_id }}">{{ wilayah.wilayah_nama }}</option>
+                            <option value="{{ wilayah.wilayah_id }}">{{ wilayah.wilayah_nama }}-->{{ wilayah.wilayah_parent.wilayah_nama }}</option>
                             {% endfor %}
                         </select>
 

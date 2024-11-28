@@ -131,4 +131,40 @@ class InfoWilayahAdd(View):
             messages.error(request, "Gagal menambahkan data Info Wilayah.")
             return redirect('admin_setori:admin_info_wilayah',wilayah_id)  # Ubah dengan nama URL yang sesuai
         
+class EditInfoWilayah(View):
+     def post(self, request):
+        visi = request.POST.get('visi')
+        misi = request.POST.get('misi')
+        kode_info_wilayah = request.POST.get('kode_info_wilayah')
+        tahun_pembentukan = request.POST.get('tahun_pembentukan')
+        kode_pos = request.POST.get('kode_pos')
+        link_maps = request.POST.get('map')
+        image_profile = request.FILES.get('profil')
+        wilayah_id = request.POST.get('wilayah')
+       
+        try:
+            with transaction.atomic():
+                
+
+                info_wilayah = get_object_or_404(Info_wilayah,  wilayah_id=wilayah_id, deleted_at__isnull=True)
+                info_wilayah.visi = visi
+                info_wilayah.misi = misi
+                info_wilayah.kode_info_wilayah=kode_info_wilayah
+                info_wilayah.tahun_pembentukan=tahun_pembentukan
+                info_wilayah.kode_pos=kode_pos
+                info_wilayah.wilayah_id = wilayah_id
+                info_wilayah.link_maps=link_maps
+                info_wilayah.image_profile= image_profile
+
+                info_wilayah.save()
+
+
+                messages.success(request, "Data Info Wilayah berhasil ditambahkan.")
+                return redirect('admin_setori:detail_info_wilayah', wilayah_id)  # Ubah dengan nama URL yang sesuai
+
+        except Exception as e:
+            print("Error Data:", e)
+            messages.error(request, "Gagal menambahkan data Info Wilayah.")
+            return redirect('admin_setori:admin_info_wilayah',wilayah_id)  # Ubah dengan nama URL yang sesuai
+       
 

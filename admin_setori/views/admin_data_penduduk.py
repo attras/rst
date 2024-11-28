@@ -39,7 +39,7 @@ class Semua_data(View):
             wilayah_level='4'  # Filter level wilayah = 4
         ).exclude(wilayah_id__in=used_wilayah).order_by('wilayah_nama')
 
-
+        # fungsi tambah
       
         data = (
             Data_penduduk.objects
@@ -94,11 +94,7 @@ class Semua_data(View):
         #         data_penduduk.save()
         #         print("update")
                
-        
-        
-                
-
-
+        # end fungsi tambah
 
         contex={
             'dt_penduduk': dt_penduduk,
@@ -157,7 +153,7 @@ class Add_data_penduduk(View):
         # Ambil parent dari wilayah yang dimaksud
         parent_wilayah_id = wilayah.wilayah_parent.wilayah_id if wilayah.wilayah_parent else None
 
-
+        
         try:
             with transaction.atomic():
                 

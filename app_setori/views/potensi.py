@@ -67,12 +67,27 @@ class PotensiDistrikViews(View):
 class DistridetailViews(View):
     def get(self, request, info_wilayah_id):
         dt_info_wilayah = get_object_or_404(Info_wilayah, info_wilayah_id=info_wilayah_id, deleted_at__isnull=True)
-    
+
         dt_wilayah_penduduk = Data_penduduk.objects.filter(wilayah=dt_info_wilayah.wilayah)
 
+        data = (
+            Data_penduduk.objects
+            .filter(wilayah__wilayah_parent= dt_info_wilayah.wilayah)
+            .values('wilayah__wilayah_parent__wilayah_nama')
+            .annotate(total_jiwa=Sum('total_penduduk'),
+                      total_pria_oap=Sum('pria_non_oap'),
+                      total_pria_non_oap=Sum('pria_non_oap'),
+                      total_wanita_oap=Sum('wanita_oap'),
+                      total_wanita_non_oap=Sum('wanita_non_oap'),
+                      total_oap=Sum('jumlah_penduduk_oap'),
+                      total_non_oap=Sum('jumlah_penduduk_non_oap'),
+                      )
+         
+        )
         data = {
             'dt_info_wilayah' : dt_info_wilayah,
-            'dt_wilayah_penduduk' : dt_wilayah_penduduk
+            'dt_wilayah_penduduk' : dt_wilayah_penduduk,
+            'data' : data
         }
         return render(request, 'setori/potensidaerah/detail.html', data)
 
