@@ -29,6 +29,14 @@ class HomeViews(View):
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
+        jumlah = Data_penduduk.objects.aggregate(
+        total_pria=Sum('pria_oap') + Sum('pria_non_oap'),
+        total_wanita=Sum('wanita_oap') + Sum('wanita_non_oap'),
+        total_kk=Sum('total_kk'),
+        total_penduduk=Sum('total_penduduk'),
+    )
+
+
         dt_tentang = Tentang.objects.filter(deleted_at__isnull = True).order_by('created_at')
         data = {
             'dt_slider' : dt_slider,
@@ -36,5 +44,6 @@ class HomeViews(View):
             'dt_kategori': dt_kategori, 
             'page_obj': page_obj,
             'dt_tentang' : dt_tentang,
+            'jumlah' : jumlah,
         }
         return render(request, 'setori/home/index.html', data)

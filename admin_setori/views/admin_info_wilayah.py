@@ -132,15 +132,32 @@ class InfoWilayahAdd(View):
             return redirect('admin_setori:admin_info_wilayah',wilayah_id)  # Ubah dengan nama URL yang sesuai
         
 class EditInfoWilayah(View):
-     def post(self, request):
+     def get(self, request,wilayah_id):
+        dt_info_wilayah = Info_wilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
+        pilih_wilayah = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id).first()
+        info_wilayah = get_object_or_404(Info_wilayah,  wilayah_id=wilayah_id, deleted_at__isnull=True)
+               
+        data = {
+            'dt_info_wilayah' : dt_info_wilayah,
+            'pilih_wilayah' : pilih_wilayah,
+            'wilayah_id' : wilayah_id,
+            'info_wilayah' : info_wilayah,
+            'edit':True,
+       
+        }
+        
+        return render(request, 'admin/admin_info_wilayah/form.html',data)
+     
+     def post(self, request,wilayah_id):
+        dt_wilayah = get_object_or_404(Info_wilayah,  wilayah_id=wilayah_id, deleted_at__isnull=True)
+                
         visi = request.POST.get('visi')
         misi = request.POST.get('misi')
         kode_info_wilayah = request.POST.get('kode_info_wilayah')
         tahun_pembentukan = request.POST.get('tahun_pembentukan')
         kode_pos = request.POST.get('kode_pos')
         link_maps = request.POST.get('map')
-        image_profile = request.FILES.get('profil')
-        wilayah_id = request.POST.get('wilayah')
+        image_profile = request.FILES.get('profil') or dt_wilayah.image_profile
        
         try:
             with transaction.atomic():

@@ -26,7 +26,7 @@
     <div class="ms-auto pageheader-btn">
        
         {% if data_info_wilayah %}
-        <a href="#" class="btn btn-primary btn-icon text-white">
+        <a href="{% url 'admin_setori:edit_info_wilayah' wilayah_id %}" class="btn btn-primary btn-icon text-white">
             <span>
                 <i class="fa-solid fa-pen-to-square"></i>Edit 
             </span> 

@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="feature-box-info w-100">
                                     <h4 class="feature-title mb-1">Total Penduduk</h4>
-                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ total_penduduk_semua }}</p>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ jumlah.total_penduduk|default:"0"}}</p>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="feature-box-info w-100">
                                     <h4 class="feature-title mb-1">Total Pria</h4>
-                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ total_pria_semua }}</p>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ jumlah.total_pria|default:"0" }}</p>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="feature-box-info w-100">
                                     <h4 class="feature-title mb-1">Total Wanita</h4>
-                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ total_wanita_semua }}</p>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ jumlah.total_wanita|default:"0" }}</p>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="feature-box-info w-100">
                                     <h4 class="feature-title mb-1">Total Keluarga</h4>
-                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ total_kk_semua }}</p>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ jumlah.total_kk|default:"0" }}</p>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +129,7 @@
                         customLabel = chart.options.chart.custom.label =
                             chart.renderer.label(
                                 'Total<br/>' +
-                                '<strong>{{ total_penduduk_semua }}</strong>' // Update total population
+                                '<strong>{{ jumlah.total_penduduk|default:"0"}}</strong>' // Update total population
                             )
                             .css({
                                 color: '#000',
@@ -199,12 +199,12 @@
             innerSize: '75%',
             data: [{
                 name: 'OAP',
-                y: '{{total_oap}}' / '{{total_penduduk_semua}}' * 100, // OAP percentage
-                z: '{{total_oap}}' // Actual number of OAP
+                y: '{{ jumlah.total_oap|default:"0"}}' / '{{ jumlah.total_penduduk|default:"0"}}' * 100, // OAP percentage
+                z: '{{ jumlah.total_oap|default:"0"}}' // Actual number of OAP
             }, {
                 name: 'NON OAP',
-                y: '{{total_non_oap}}' / '{{total_penduduk_semua}}' * 100, // NON OAP percentage
-                z: '{{total_non_oap}}' // Actual number of NON OAP
+                y: '{{ jumlah.total_non_oap|default:"0"}}' / '{{ jumlah.total_penduduk|default:"0"}}' * 100, // NON OAP percentage
+                z: '{{ jumlah.total_non_oap|default:"0"}}' // Actual number of NON OAP
             }]
         }]
     });
@@ -225,7 +225,7 @@
                         customLabel = chart.options.chart.custom.label =
                             chart.renderer.label(
                                 'Total<br/>' +
-                                '<strong>{{ total_penduduk_semua }}</strong>' // Update total population
+                                '<strong>{{ jumlah.total_penduduk|default:"0"}}</strong>' // Update total population
                             )
                             .css({
                                 color: '#000',
@@ -292,76 +292,76 @@
             innerSize: '75%',
             data: [{
                 name: 'Pria',
-                y: '{{total_pria_semua}}' / '{{total_penduduk_semua}}' * 100, // OAP percentage
-                z: '{{total_pria_semua}}' // Actual number of OAP
+                y: '{{ jumlah.total_pria|default:"0"}}' / '{{ jumlah.total_penduduk|default:"0"}}' * 100, // OAP percentage
+                z: '{{ jumlah.total_pria|default:"0"}}' // Actual number of OAP
             }, {
                 name: 'Wanita',
-                y: '{{total_wanita_semua}}' / '{{total_penduduk_semua}}' * 100, // NON OAP percentage
-                z: '{{total_wanita_semua}}' // Actual number of NON OAP
+                y: '{{ jumlah.total_wanita|default:"0"}}' / '{{ jumlah.total_penduduk|default:"0"}}' * 100, // NON OAP percentage
+                z: '{{ jumlah.total_wanita|default:"0"}}' // Actual number of NON OAP
             }]
         }]
     });
 
-    //air bersih
-    {% for jenis in dt_array_jenis %}
-    Highcharts.chart('{{ jenis.nama_jenis }}', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: ' ',
-            align: 'middle'
-        },
-        subtitle: {
-            text: 'Source: Data Spreadsheet',
-            align: 'middle'
-        },
-        xAxis: {
-            categories: [
-                {% for indikator in dt_array_indikator %}
-                    {{ indikator.nama_indikator }}
-                {% endfor %}
-            ],
-            crosshair: true,
-            accessibility: {
-                description: ' '
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: ' '
-            }
-        },
-        tooltip: {
-            shared: true,
-            valueSuffix: ' '
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
-                borderWidth: 0,
-                groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
-            }
-        },
-        {% for kesehatan in dt_array_kesehatan %}
-        series: [
-            {
-                name: 'OAP',
-                data: [
-                    {{ kesehatan.oap }}
-                ]
-            },
-            {
-                name: 'non-OAP',
-                data: [
-                    {{ kesehatan.non_oap }}
-                ]
-            }
-        ]
-        {% endfor %}
-    });
-    {% endfor %}
+    // //air bersih
+    // {% for jenis in dt_array_jenis %}
+    // Highcharts.chart('{{ jenis.nama_jenis }}', {
+    //     chart: {
+    //         type: 'column'
+    //     },
+    //     title: {
+    //         text: ' ',
+    //         align: 'middle'
+    //     },
+    //     subtitle: {
+    //         text: 'Source: Data Spreadsheet',
+    //         align: 'middle'
+    //     },
+    //     xAxis: {
+    //         categories: [
+    //             {% for indikator in dt_array_indikator %}
+    //                 {{ indikator.nama_indikator }}
+    //             {% endfor %}
+    //         ],
+    //         crosshair: true,
+    //         accessibility: {
+    //             description: ' '
+    //         }
+    //     },
+    //     yAxis: {
+    //         min: 0,
+    //         title: {
+    //             text: ' '
+    //         }
+    //     },
+    //     tooltip: {
+    //         shared: true,
+    //         valueSuffix: ' '
+    //     },
+    //     plotOptions: {
+    //         column: {
+    //             pointPadding: 0.2, // Mengurangi pointPadding untuk membuat jarak antar bar lebih kecil
+    //             borderWidth: 0,
+    //             groupPadding: 0.1 // Menambahkan groupPadding untuk membuat grup bar lebih renggang
+    //         }
+    //     },
+    //     {% for kesehatan in dt_array_kesehatan %}
+    //     series: [
+    //         {
+    //             name: 'OAP',
+    //             data: [
+    //                 {{ kesehatan.oap }}
+    //             ]
+    //         },
+    //         {
+    //             name: 'non-OAP',
+    //             data: [
+    //                 {{ kesehatan.non_oap }}
+    //             ]
+    //         }
+    //     ]
+    //     {% endfor %}
+    // });
+    // {% endfor %}
 
     // // tenaga kesehatan
     // Highcharts.chart('tenaga_kesehatan', {

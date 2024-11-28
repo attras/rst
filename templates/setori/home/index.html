@@ -178,7 +178,7 @@
                                 </div>
                                 <div class="feature-box-info w-100">
                                     <h4 class="feature-title mb-1">Total Penduduk</h4>
-                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">192.782</p>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ jumlah.total_penduduk|default:"0" }}</p>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="feature-box-info w-100">
                                     <h4 class="feature-title mb-1">Total Pria</h4>
-                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">192.782</p>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ jumlah.total_pria|default:"0" }}</p>
                                 </div>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                                 </div>
                                 <div class="feature-box-info w-100">
                                     <h4 class="feature-title mb-1">Total Wanita</h4>
-                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">192.782</p>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ jumlah.total_wanita|default:"0" }}</p>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +220,7 @@
                                 </div>
                                 <div class="feature-box-info w-100">
                                     <h4 class="feature-title mb-1">Total Keluarga</h4>
-                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">2.782</p>
+                                    <p class="feature-subtitle mb-0 pt-1 line-height-6">{{ jumlah.total_kk|default:"0" }}</p>
                                 </div>
                             </div>
                         </div>
