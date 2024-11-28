@@ -66,7 +66,9 @@ urlpatterns = [
     
     path('master_sarpras/',include([
         path('', master_sarpras.Master_kategoriViews.as_view(), name = 'master_sarpras'),
-       
+        path('add/', master_sarpras.AddSarpras.as_view(), name = 'add_master_sarpras'),
+        path('edit/<str:id>/',master_sarpras.EditSarpras.as_view(), name ='edit_master_sarpras'),
+        path('delete/<str:id>/', master_sarpras.DeleteSarpras.as_view(), name='delete_master_sarpras')
         ])),
 
     path('master_identitas/',include([

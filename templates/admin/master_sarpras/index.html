@@ -15,13 +15,9 @@
         <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addKategoriModal" onclick="Tambah_kat_berita()">
             <span>
                 <i class="fe fe-plus"></i>
-            </span> Add kategori
+            </span> tembah sarpras
         </a>
-        <a href="#" class="btn btn-success btn-icon text-white">
-            <span>
-                <i class="fe fe-log-in"></i>
-            </span> Export
-        </a>
+       
     </div>
 </div>
 
@@ -36,7 +32,7 @@
                         <thead class="border-top">
                             <tr>
                                 <th class="bg-transparent border-bottom-0 w-5">No</th>
-                                <th class="bg-transparent border-bottom-0">Kategori</th>
+                                <th class="bg-transparent border-bottom-0">Nama Sarpras</th>
                                 <th class="bg-transparent border-bottom-0">Action</th>
                             </tr>
                         </thead>
@@ -45,19 +41,19 @@
                           
                             <tr class="border-bottom" >
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kategori.name }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ kategori.nama}}</td>
                                 <td class="text-muted fs-15 fw-semibold">
                                         <a class="btn btn-primary btn-md rounded-11 me-2" 
                                             href="#" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#addKategoriModal" 
-                                            data-bs-id="{{ kategori.categori_id }}" 
-                                            data-bs-nama="{{ kategori.name }}" >
+                                            data-bs-id="{{ kategori.id }}" 
+                                            data-bs-nama="{{ kategori.nama }}" >
                                             <i class="fa-solid fa-pen-to-square"></i>Edit  
                                         </a>
                                         <!--delete kategori-->
                                         <a >
-                                            <button type="button" class="btn btn-danger" onclick="Hapus_kat_berita('{{kategori.categori_id }}')">
+                                            <button type="button" class="btn btn-danger" onclick="Hapus_kat_berita('{{kategori.id }}')">
                                                 <i class="fe fe-trash"></i> Hapus
                                             </button>     
                                         </a>
@@ -77,15 +73,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addKategoriModalLabel">Tambah Identitas</h5>
+                <h5 class="modal-title" id="addKategoriModalLabel">Tambah sarpras</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="post">
                   {% csrf_token %}
                     <div class="mb-3">
-                        <label class="form-label">Kategori</label>
-                        <input type="text" name="name" id="nama" class="form-control" placeholder="Masukkan Nama Kategori" required />
+                        <label class="form-label">Nama Sarpras</label>
+                        <input type="text" name="name" id="nama" class="form-control" placeholder="Masukkan Nama sarpras" required />
                     </div>
                     <button type="submit"  onclick="" class="btn btn-primary">Simpan</button>
                 </form>
@@ -94,6 +90,9 @@
     </div>
 </div>
 
+<h3>
+    jocojofjosjfojspo
+</h3>
 {% endblock main %}
 {% block js %}
 <!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->
@@ -116,15 +115,15 @@
         inputnama.value = nama;
 
         // Update form action URL dynamically with the correct FAQ ID
-        form.action = "{% url 'admin_setori:edit_kategori' 'holder' %}".replace('holder', KategoriId);
+        form.action = "{% url 'admin_setori:edit_master_sarpras' 'holder' %}".replace('holder', KategoriId);
        
        
     });
 
     function Tambah_kat_berita(){
         var form = editKategoriModal.querySelector('form');
-        document.getElementById('addKategoriModalLabel').textContent = 'Tambahkan Kategori';
-        form.action = "{% url 'admin_setori:add_kategori' %}";
+        document.getElementById('addKategoriModalLabel').textContent = 'Tambahkan Master Sarpras';
+        form.action = "{% url 'admin_setori:add_master_sarpras' %}";
 
     };
 
@@ -138,7 +137,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: `del/${id_hapus_kat_berita}`,
+                url: `delete/${id_hapus_kat_berita}`,
                 dataType: "html",
                 timeout: 10000,
                 beforeSend: function() {

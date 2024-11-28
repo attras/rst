@@ -300,10 +300,15 @@ class Data_kesehatan(CreateUpdateTime):
     oap = models.IntegerField(default=0)
     non_oap = models.IntegerField(default=0)
 
+class Master_sarpras(CreateUpdateTime):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    nama = models.CharField(max_length=100, unique=True)
+
+
 class Data_sarpras(CreateUpdateTime):
     sarpras_id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
     wilayah = models.ForeignKey(MasterWilayah,on_delete=models.CASCADE)
-    nama_sarpras = models.CharField(max_length=255)
+    nama_sarpras = models.ForeignKey(Master_sarpras, on_delete=models.RESTRICT)
     jumlah = models.IntegerField(default=0)
 
 

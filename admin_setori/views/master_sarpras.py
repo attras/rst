@@ -16,56 +16,56 @@ from django.utils.decorators import method_decorator
 # @method_decorator(admin_only(), name='dispatch')
 class Master_kategoriViews(View):
     def get(self, request):
-        dt_category = Category.objects.all()
+        dt_category = Master_sarpras.objects.all()
         data = {
             'dt_category': dt_category
         }
-        return render(request, 'admin/master_kategori/index.html',data)
+        return render(request, 'admin/master_sarpras/index.html',data)
 
-class AddCategory(View):
+class AddSarpras(View):
     def post(self, request):
         category_name = request.POST.get('name')  # Fetch the name field from POST request
         try:
             with transaction.atomic():
-                insert_category = Category()
-                insert_category.name = category_name
+                insert_category = Master_sarpras()
+                insert_category.nama = category_name
                 insert_category.save()  # Save new category in the database
 
                 messages.success(request, "Category added successfully!")
-                return redirect('admin_setori:master_kategori')  # Redirect to the list view
+                return redirect('admin_setori:master_sarpras')  # Redirect to the list view
                 
         except Exception as e:
             print('Error while adding category', e)
             messages.error(request, "Failed to add category")
-            return redirect('admin_setori:master_kategori')
+            return redirect('admin_setori:master_sarpras')
 
     
-class EditCategory(View):
-    def post(self, request, categori_id):
+class EditSarpras(View):
+    def post(self, request, id):
         name = request.POST.get('name')  # Fetch the name field from POST request
         try:
             with transaction.atomic():
                 
-                insert_category = get_object_or_404(Category,categori_id=categori_id)
-                insert_category.name = name
+                insert_category = get_object_or_404(Master_sarpras,id=id)
+                insert_category.nama = name
                 insert_category.updated_at = timezone.now()
                 insert_category.save()  # Save new category in the database
 
                 messages.success(request, "Category edit successfully!")
-                return redirect('admin_setori:master_kategori')  # Redirect to the list view
+                return redirect('admin_setori:master_sarpras')  # Redirect to the list view
                 
         except Exception as e:
             print('Error while editing category', e)
             messages.error(request, "Failed to edit category")
-            return redirect(reverse('admin_setori:master_kategori'))
+            return redirect(reverse('admin_setori:master_sarpras'))
         
 
 
 # Delete a Category (DeleteCategory)
-class DeleteCategory(View):
-    def get(self, request, category_id):
-        del_category = get_object_or_404(Category, categori_id=category_id)  # Fetch category by UUID
+class DeleteSarpras(View):
+    def get(self, request, id):
+        del_category = get_object_or_404(Master_sarpras, id=id)  # Fetch category by UUID
         del_category.delete()  # Delete the category
         messages.success(request, "Category deleted successfully!")
-        return redirect('admin_setori:master_kategori')
+        return redirect('admin_setori:master_sarpras')
 
