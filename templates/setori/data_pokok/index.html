@@ -98,7 +98,7 @@
                             <div id="wanita_pria"></div>
                         </div>
                         <div class="shadow-sm col-lg-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
-                            <div id="tenaga_kesehatan"></div>
+                            <div id="charts-container"></div> <!-- Kontainer untuk menampilkan semua grafik -->
                         </div>
                         {% for jenis in dt_array_jenis %}
                             <div class="shadow-sm mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
@@ -114,62 +114,69 @@
                 
                 {% endfor %}
 
-
                 <script>
-                    // Fetch data dari API
-                    fetch('/api/tenaga-kesehatan-data/')
+                    // JavaScript untuk memanggil dan membuat chart
+                    fetch('/api/tenaga-kesehatan-data/') // Ganti dengan endpoint API Anda
                         .then(response => response.json())
                         .then(data => {
-                            // Render chart menggunakan data dari API
-                            Highcharts.chart('tenaga_kesehatan', {
-                                chart: {
-                                    type: 'column'
-                                },
-                                title: {
-                                    text: data.title,
-                                    align: 'middle'
-                                },
-                                subtitle: {
-                                    text: 'Source: Data Spreadsheet',
-                                    align: 'middle'
-                                },
-                                xAxis: {
-                                    categories: data.categories, // Data dari API
-                                    crosshair: true,
-                                    accessibility: {
-                                        description: 'Profesi'
-                                    }
-                                },
-                                yAxis: {
-                                    min: 0,
-                                    title: {
-                                        text: 'Jumlah Tenaga Kesehatan'
-                                    }
-                                },
-                                tooltip: {
-                                    shared: true,
-                                    valueSuffix: ' orang'
-                                },
-                                plotOptions: {
-                                    column: {
-                                        pointPadding: 0.2,
-                                        borderWidth: 0,
-                                        groupPadding: 0.1
-                                    }
-                                },
-                                series: [
-                                    {
-                                        name: 'OAP',
-                                        data: data.oap // Data dari API
+                            const groupedData = data.data;
+            
+                            for (const [fk_jenis, chartData] of Object.entries(groupedData)) {
+                                // Buat elemen div baru untuk setiap chart
+                                const chartContainer = document.createElement('div');
+                                chartContainer.id = `chart_${fk_jenis.replace(/\s+/g, '_')}`;
+                                chartContainer.style.marginBottom = '50px';
+                                document.getElementById('charts-container').appendChild(chartContainer);
+            
+                                // Render chart
+                                Highcharts.chart(chartContainer.id, {
+                                    chart: {
+                                        type: 'column'
                                     },
-                                    {
-                                        name: 'non-OAP',
-                                        data: data.non_oap // Data dari API
-                                    }
-                                ]
-                            });
-                        });
+                                    title: {
+                                        text: `Distribusi Tenaga Kesehatan (${fk_jenis})`,
+                                        align: 'middle'
+                                    },
+                                    xAxis: {
+                                        categories: chartData.categories, // Data kategori
+                                        crosshair: true
+                                    },
+                                    yAxis: {
+                                        min: 0,
+                                        title: {
+                                            text: 'Jumlah Tenaga Kesehatan'
+                                        }
+                                    },
+                                    tooltip: {
+                                        shared: true,
+                                        valueSuffix: ' orang'
+                                    },
+                                    plotOptions: {
+                                        column: {
+                                            pointPadding: 0.2,
+                                            borderWidth: 0,
+                                            groupPadding: 0.1
+                                        }
+                                    },
+                                    series: [
+                                        {
+                                            name: 'OAP',
+                                            data: chartData.oap // Data OAP
+                                        },
+                                        {
+                                            name: 'non-OAP',
+                                            data: chartData.non_oap // Data non-OAP
+                                        }
+                                    ]
+                                });
+                            }
+                        })
+                        .catch(error => console.error('Error fetching chart data:', error));
                 </script>
+
+
+
+
 <script>
     // oap non oap
     Highcharts.chart('oap_non_oap', {

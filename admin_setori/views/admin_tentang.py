@@ -78,6 +78,7 @@ class Edittentang(View):
         return render(request, 'admin/admin_tentang/form.html', data)
 
     def post(self, request, id_tentang):
+        dt_tentang = get_object_or_404(Tentang, id_tentang=id_tentang)
         pengantar_tentang = request.POST.get('pengantar_tentang')
         nama_kepala = request.POST.get('nama_kepala')
         jabatan_kepala = request.POST.get('jabatan_kepala')
@@ -87,9 +88,9 @@ class Edittentang(View):
         kata_kepala = request.POST.get('kata_kepala')
         kata_sekretaris = request.POST.get('kata_sekretaris')
 
-        foto_kepala = request.FILES.get('foto_kepala')
-        foto_sekretaris = request.FILES.get('foto_sekretaris')
-        thumbnail_profil = request.FILES.get('thumbnail_profil')
+        foto_kepala = request.FILES.get('foto_kepala') or dt_tentang.foto_kepala
+        foto_sekretaris = request.FILES.get('foto_sekretaris') or dt_tentang.foto_sekretaris
+        thumbnail_profil = request.FILES.get('thumbnail_profil') or dt_tentang.foto_pegantar
 
         try :
             with transaction.atomic():

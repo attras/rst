@@ -68,8 +68,8 @@ class DistridetailViews(View):
     def get(self, request, info_wilayah_id):
         dt_info_wilayah = get_object_or_404(Info_wilayah, info_wilayah_id=info_wilayah_id, deleted_at__isnull=True)
 
-        dt_wilayah_penduduk = Data_penduduk.objects.filter(wilayah=dt_info_wilayah.wilayah)
-
+        dt_wilayah_penduduk = Data_penduduk.objects.filter(wilayah=dt_info_wilayah.wilayah, deleted_at__isnull=True)
+        dt_sarpras = Data_sarpras.objects.filter(wilayah=dt_info_wilayah.wilayah, deleted_at__isnull=True)
         data = (
             Data_penduduk.objects
             .filter(wilayah__wilayah_parent= dt_info_wilayah.wilayah)
@@ -87,7 +87,8 @@ class DistridetailViews(View):
         data = {
             'dt_info_wilayah' : dt_info_wilayah,
             'dt_wilayah_penduduk' : dt_wilayah_penduduk,
-            'data' : data
+            'data' : data,
+            'dt_sarpras' : dt_sarpras,
         }
         return render(request, 'setori/potensidaerah/detail.html', data)
 

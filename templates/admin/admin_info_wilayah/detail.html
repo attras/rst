@@ -40,11 +40,7 @@
         </a>
        
         {% endif %}
-        <a href="" class="btn btn-success btn-icon text-white">
-            <span>
-                <i class="fa-solid fa-rotate-right"></i>
-            </span> Histori
-        </a>
+        
 
     </div>
 </div>
@@ -123,7 +119,7 @@
       {% for info in dt_sarpras %}
         <tr class="border-bottom">
             <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-            <td class="text-muted fs-15 fw-semibold">{{ info.nama_sarpras|slice:":60" }}</td>
+            <td class="text-muted fs-15 fw-semibold">{{ info.nama_sarpras.nama|slice:":60" }}</td>
             <td class="text-muted fs-15 fw-semibold">{{ info.jumlah|slice:":60" }}</td>
          
             <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
@@ -153,10 +149,15 @@
             <div class="modal-body">
                 <form method="post" action="{% url 'admin_setori:add_sarpras' %}">
                   {% csrf_token %}
-                  <input type="hidden" value="{{data_info_wilayah.wilayah.wilayah_id}}" name="wilayah_id">
+                  <input type="hidden" value="{{wilayah_id}}" name="wilayah_id">
                 <div class="mb-3">
                     <label for="map" class="form-label">Sarpras</label>
-                    <input type="text" id="nama_sarpras" class="form-control" name="nama_sarpras" placeholder="Masukkan nama sarpras" required>
+                <select name="nama_sarpras" id="nama_sarpras" required>
+                    <option value="" disabled selected>Pilih Sarpras</option>
+                    {% for s in available_sarpras %}
+                        <option value="{{ s.pk }}">{{ s.nama }}</option>
+                    {% endfor %}
+                </select>
                 </div>
                 <div class="mb-3">
                     <label for="map" class="form-label">Jumlah</label>

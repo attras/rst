@@ -219,14 +219,9 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class=" ">
-                                                <p><strong>Puskesmas:</strong> -</p>
-                                                <p><strong>Posyandu:</strong> -</p>
-                                                <p><strong>Apotek:</strong> -</p>
-                                                <p><strong>Pondok Bersalin:</strong> -</p>
-                                                <p><strong>Klinik:</strong> -</p>
-                                                <p><strong>Rumah Sakit Umum Daerah:</strong> -</p>
-                                                <p><strong>Rumah Sakit Swasta:</strong> -</p>
-                                                <p><strong>Rumah Sakit Jiwa:</strong> -</p>
+                                            {% for sarpras in dt_sarpras %}
+                                            <p><strong>{{ sarpras.nama_sarpras.nama }} : {{ sarpras.jumlah }}</strong> </p>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
@@ -262,6 +257,7 @@
                                         <p><strong>Total OAP:</strong> {{ penduduk.jumlah_penduduk_oap }}</p>
                                         <p><strong>Total Non OAP:</strong> {{ penduduk.jumlah_penduduk_non_oap }}</p>
                                         {% endfor %}
+                                        
                                         {% for item in data %}
                                         <p><strong>Total Jiwa:</strong> {{ item.total_jiwa }}</p>
                                         <p><strong>Laki-laki:</strong>  {{ item.total_pria_oap|add:item.total_pria_non_oap }}</p>
@@ -285,14 +281,9 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class=" ">
-                                                <p><strong>Puskesmas:</strong> -</p>
-                                                <p><strong>Posyandu:</strong> -</p>
-                                                <p><strong>Apotek:</strong> -</p>
-                                                <p><strong>Pondok Bersalin:</strong> -</p>
-                                                <p><strong>Klinik:</strong> -</p>
-                                                <p><strong>Rumah Sakit Umum Daerah:</strong> -</p>
-                                                <p><strong>Rumah Sakit Swasta:</strong> -</p>
-                                                <p><strong>Rumah Sakit Jiwa:</strong> -</p>
+                                                {% for sarpras in dt_sarpras %}
+                                                <p><strong>{{ sarpras.nama_sarpras.nama }} : {{ sarpras.jumlah }}</strong> </p>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>

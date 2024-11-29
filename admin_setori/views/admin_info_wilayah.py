@@ -38,8 +38,10 @@ class Detail_info_wilayah(View):
         except ObjectDoesNotExist:
             data_info_wilayah = None  # Atau menangani error sesuai kebutuhan
 
-        
+        used_sarpras = Data_sarpras.objects.filter(deleted_at__isnull = True,wilayah=wilayah_id).values_list('nama_sarpras', flat=True)
+        available_sarpras = Master_sarpras.objects.exclude(pk__in=  used_sarpras)
         data = {
+            'available_sarpras': available_sarpras,
             'dt_info_wilayah' : dt_info_wilayah,
             'pilih_wilayah' : pilih_wilayah,
             'wilayah_id' : wilayah_id,
@@ -74,12 +76,12 @@ class Addsarpras(View):
 
         try:
             with transaction.atomic():
-                
-
+                sarpras_id = Master_sarpras.objects.get(pk=nama_sarpras)
+                wilayah = MasterWilayah.objects.get(pk=wilayah_id)
                 sarpras = Data_sarpras()
-                sarpras.nama_sarpras = nama_sarpras
+                sarpras.nama_sarpras= sarpras_id
                 sarpras.jumlah = jumlah_sarpras
-                sarpras.wilayah_id = wilayah_id
+                sarpras.wilayah= wilayah
             
                 sarpras.save()
 

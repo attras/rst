@@ -31,7 +31,7 @@
                           {% for wilayah in dt_wilayah %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ wilayah.wilayah_nama }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ wilayah.wilayah_nama }}==>{{ wilayah.wilayah_parent.wilayah_nama }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ wilayah.get_level_display }}</td>
                                 <td class="text-muted fs-15 fw-semibold">
                                     <a class="btn btn-primary btn-md rounded-11" href="{% url 'admin_setori:detail_info_wilayah' wilayah.wilayah_id  %}">
