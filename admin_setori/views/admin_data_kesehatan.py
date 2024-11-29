@@ -23,6 +23,19 @@ class Admin_data_kesehatanViews(View):
         
       
         return render(request, 'admin/data_kesehatan/index.html',data)
+    
+class Pilih_wilayah(View):
+    def get(self, request):
+        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True,wilayah_level='4').order_by('wilayah_level')
+
+        data = {
+            'dt_wilayah': dt_wilayah,
+            'LEVEL_WILAYAH': LEVEL_WILAYAH,
+            
+        }
+        
+
+        return render(request, 'admin/data_kesehatan/pilih_wilayah.html',data)
 
 class Detail_data_kesehatanViews(View):
     def get(self,request,jenis_kesehatan_id):

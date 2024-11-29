@@ -41,6 +41,31 @@ class Data_pokokViews(View):
         dt_array_jenis = list(jenis_kesehatan.values('nama_jenis',))
         dt_array_kesehatan = list(dt_kesehatan.values('oap', 'non_oap')) # Sesuaikan dengan field yang ada
 
+      
+        data = Data_kesehatan.objects.select_related('indikator')
+
+        # Ambil kategori indikator
+        indicators = data.values_list('indikator__nama_indikator', flat=True).distinct()
+
+        # Hitung total OAP dan non-OAP per indikator
+        chart_data = []
+        for indicator in indicators:
+            oap_total = data.filter(indikator__nama_indikator=indicator).aggregate(total_oap=models.Sum('oap'))['total_oap'] or 0
+            non_oap_total = data.filter(indikator__nama_indikator=indicator).aggregate(total_non_oap=models.Sum('non_oap'))['total_non_oap'] or 0
+            chart_data.append({
+                'indicator': indicator,
+                'oap': oap_total,
+                'non_oap': non_oap_total,
+            })
+
+        # Format data untuk template
+        categories = [item['indicator'] for item in chart_data]
+        oap_data = [item['oap'] for item in chart_data]
+        non_oap_data = [item['non_oap'] for item in chart_data]
+
+        
+
+        
         data = {
             'dt_penduduk': dt_penduduk,
             'jumlah':jumlah,
@@ -51,8 +76,50 @@ class Data_pokokViews(View):
             'dt_array_indikator': dt_array_indikator,
             'dt_array_jenis': dt_array_jenis,
             'dt_array_kesehatan': dt_array_kesehatan,
+            'categories': categories,
+            'oap': oap_data,
+            'non_oap': non_oap_data,
         }
         return render(request, 'setori/data_pokok/index.html', data)
+    
+class TenagaKesehatanDataViews(View):
+    # Mengirimkan data JSON
+    def get(self, request):
+        data = Data_kesehatan.objects.select_related('indikator', 'fk_jenis')
+
+        # Ambil nama jenis dari fk_jenis
+        fk_jenis_nama = data.values_list('fk_jenis__nama_jenis', flat=True).distinct().first()
+
+
+        # Ambil kategori indikator
+        indicators = data.values_list('indikator__nama_indikator', flat=True).distinct()
+
+        # Hitung total OAP dan non-OAP per indikator
+        chart_data = []
+        for indicator in indicators:
+            oap_total = data.filter(indikator__nama_indikator=indicator).aggregate(
+                total_oap=Sum('oap')
+            )['total_oap'] or 0
+            non_oap_total = data.filter(indikator__nama_indikator=indicator).aggregate(
+                total_non_oap=Sum('non_oap')
+            )['total_non_oap'] or 0
+            chart_data.append({
+                'indicator': indicator,
+                'oap': oap_total,
+                'non_oap': non_oap_total,
+            })
+
+        # Format data untuk dikirim sebagai JSON
+        categories = [item['indicator'] for item in chart_data]
+        oap_data = [item['oap'] for item in chart_data]
+        non_oap_data = [item['non_oap'] for item in chart_data]
+
+        return JsonResponse({
+            'categories': categories,
+            'oap': oap_data,
+            'non_oap': non_oap_data,
+            'title': fk_jenis_nama if fk_jenis_nama else 'Data Kesehatan',
+        })
 
 class DetaildataViews(View):
     def get(self, request):

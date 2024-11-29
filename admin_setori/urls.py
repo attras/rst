@@ -133,7 +133,9 @@ urlpatterns = [
 
     path('data_kesehatan/',include([
         path('',admin_data_kesehatan.Admin_data_kesehatanViews.as_view(),name='data_kesehatan'),
+        path('pilih_wilayah/',admin_data_kesehatan.Pilih_wilayah.as_view(),name='pilih_wilayah'),
         path('detail/<str:jenis_kesehatan_id>',admin_data_kesehatan.Detail_data_kesehatanViews.as_view(),name='detail_data_kesehatan'),    
+           
         path('add',admin_data_kesehatan.Add_data_kesehatan.as_view(),name='add_data_kesehatan'),
         path('delete/<str:data_kesehatan_id>/', admin_data_kesehatan.DeleteKesehatan.as_view(), name = 'delete_kesehatan'),
         path('delete_at/<str:data_kesehatan_id>/',Delete_at_kesehatan.as_view(),name='delete_at_kesehatan'),

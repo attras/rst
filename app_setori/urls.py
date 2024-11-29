@@ -16,6 +16,7 @@ app_name = 'app_setori'
 urlpatterns = [
      path('', beranda.HomeViews.as_view(), name = 'index_home'),
      path('data', data_pokok.Data_pokokViews.as_view(), name = 'data'),
+     path('api/tenaga-kesehatan-data/', data_pokok.TenagaKesehatanDataViews.as_view(), name='tenaga-kesehatan-data'),
      path('detail_data', data_pokok.DetaildataViews.as_view(), name = 'detail_data'),
      
      path('layanan', layanan.LayananViews.as_view(), name = 'layanan'),

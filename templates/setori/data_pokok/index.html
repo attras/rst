@@ -97,6 +97,9 @@
                         <div class="shadow-sm col-lg-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                             <div id="wanita_pria"></div>
                         </div>
+                        <div class="shadow-sm col-lg-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                            <div id="tenaga_kesehatan"></div>
+                        </div>
                         {% for jenis in dt_array_jenis %}
                             <div class="shadow-sm mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                 <a href="{% url 'app_setori:detail_data' %}">
@@ -112,6 +115,61 @@
                 {% endfor %}
 
 
+                <script>
+                    // Fetch data dari API
+                    fetch('/api/tenaga-kesehatan-data/')
+                        .then(response => response.json())
+                        .then(data => {
+                            // Render chart menggunakan data dari API
+                            Highcharts.chart('tenaga_kesehatan', {
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: data.title,
+                                    align: 'middle'
+                                },
+                                subtitle: {
+                                    text: 'Source: Data Spreadsheet',
+                                    align: 'middle'
+                                },
+                                xAxis: {
+                                    categories: data.categories, // Data dari API
+                                    crosshair: true,
+                                    accessibility: {
+                                        description: 'Profesi'
+                                    }
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                        text: 'Jumlah Tenaga Kesehatan'
+                                    }
+                                },
+                                tooltip: {
+                                    shared: true,
+                                    valueSuffix: ' orang'
+                                },
+                                plotOptions: {
+                                    column: {
+                                        pointPadding: 0.2,
+                                        borderWidth: 0,
+                                        groupPadding: 0.1
+                                    }
+                                },
+                                series: [
+                                    {
+                                        name: 'OAP',
+                                        data: data.oap // Data dari API
+                                    },
+                                    {
+                                        name: 'non-OAP',
+                                        data: data.non_oap // Data dari API
+                                    }
+                                ]
+                            });
+                        });
+                </script>
 <script>
     // oap non oap
     Highcharts.chart('oap_non_oap', {
@@ -302,6 +360,9 @@
         }]
     });
 
+    
+
+ 
     // //air bersih
     // {% for jenis in dt_array_jenis %}
     // Highcharts.chart('{{ jenis.nama_jenis }}', {
@@ -363,7 +424,7 @@
     // });
     // {% endfor %}
 
-    // // tenaga kesehatan
+    // tenaga kesehatan
     // Highcharts.chart('tenaga_kesehatan', {
     //     chart: {
     //         type: 'column'
