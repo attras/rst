@@ -149,9 +149,9 @@
                                 <div class="content-container">
                                     <p><strong>Wilayah:</strong> {{ dt_info_wilayah.wilayah.wilayah_nama }}</p>
                                     <p><strong>Distrik:</strong> {{ dt_info_wilayah.wilayah.wilayah_parent.wilayah_nama }}</p>
-                                    <p><strong>Luas Wilayah:</strong> </p>
-                                    <p><strong>Jumlah Penduduk:</strong> </p>
-                                    <p><strong>Kepadatan Penduduk:</strong> </p>
+                                    {% comment %} <p><strong>Luas Wilayah:</strong> </p> {% endcomment %}
+                                    {% comment %} <p><strong>Jumlah Penduduk:</strong> </p>
+                                    <p><strong>Kepadatan Penduduk:</strong> </p> {% endcomment %}
                                     
                                 </div>
                             </div>
@@ -205,25 +205,6 @@
                                 </div>
                                 <div class="card-body">
                                     {{ dt_info_wilayah.misi|safe }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Facilities Section -->
-                    <div class="row">
-                        <div class="col">
-                            <div class="card mb-4">
-                                <div class="card-header card-header-custom">
-                                    Sarana dan Prasarana
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class=" ">
-                                            {% for sarpras in dt_sarpras %}
-                                            <p><strong>{{ sarpras.nama_sarpras.nama }} : {{ sarpras.jumlah }}</strong> </p>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
