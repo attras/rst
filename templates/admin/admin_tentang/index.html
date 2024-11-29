@@ -42,7 +42,7 @@
                             {% for tentang in dt_tentang %}
                             <div class="col-lg">
                                 <label for="">Kata Pengantar</label>
-                                <textarea name="pengantar_tentang" class="form-control form-control-lg  mb-4" required>{{ tentang.pengantar }}</textarea>
+                                <textarea name="pengantar_tentang" class="form-control form-control-lg  mb-4" required readonly>{{ tentang.pengantar }}</textarea>
                                 <label for="">Nama Kepala Dinas</label>
                                 <input name="nama_kepala" class="form-control form-control-lg mb-4" value="{{ tentang.nama_kepala_dinas }}" required>
                                 <label for="">Jabatan</label>

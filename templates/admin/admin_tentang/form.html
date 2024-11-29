@@ -25,31 +25,31 @@
                         <div class="col-6">
                             <div class="col-lg">
                                 <label for="">Kata Pengantar</label>
-                                <textarea name="pengantar_tentang" class="form-control form-control-lg  mb-4" value="{{ tentang.pengantar }}" required></textarea>
+                                <textarea name="pengantar_tentang" class="form-control form-control-lg  mb-4" value="{{ dt_tentang.pengantar }}" required></textarea>
                                 <label for="">Nama Kepala Dinas</label>
-                                <input name="nama_kepala" class="form-control form-control-lg mb-4" value="{{ tentang.nama_kepala_dinas }}" required>
+                                <input name="nama_kepala" class="form-control form-control-lg mb-4" value="{{ dt_tentang.nama_kepala_dinas }}" required>
                                 <label for="">Jabatan</label>
-                                <input name="jabatan_kepala" class="form-control form-control-lg"  type="text" value="{{ tentang.jabatan_kepala }}" required>
+                                <input name="jabatan_kepala" class="form-control form-control-lg"  type="text" value="{{ dt_tentang.jabatan_kepala }}" required>
                                 <label for="">Nama sekretaris Dinas</label>
-                                <input name="nama_sekretaris" class="form-control form-control-lg  mb-4"  type="text" value="{{ tentang.nama_sekretaris }}" required>
+                                <input name="nama_sekretaris" class="form-control form-control-lg  mb-4"  type="text" value="{{ dt_tentang.nama_sekretaris }}" required>
                                 <label for="">Jabatan</label>
-                                <input name="jabatan_sekretaris" class="form-control form-control-lg  mb-4"  type="text" value="{{ tentang.jabatan_sekretaris }}" required>
+                                <input name="jabatan_sekretaris" class="form-control form-control-lg  mb-4"  type="text" value="{{ dt_tentang.jabatan_sekretaris }}" required>
                                 <label for="">Deskripsi Singkat</label>
-                                <textarea name="deskripsi_singkat_tentang" id="" class="form-control form-control-lg  mb-4" value="{{ tentang.deskripsi_singkat }}" required></textarea>
+                                <textarea name="deskripsi_singkat_dt_tentang" id="" class="form-control form-control-lg  mb-4" value="{{ dt_tentang.deskripsi_singkat }}" required></textarea>
                                 <label for="">Sambutan Kepala Dinas</label>
-                                <textarea name="kata_kepala" id="" class="form-control form-control-lg  mb-4" value="{{ tentang.kata_kepala }}" required></textarea>
+                                <textarea name="kata_kepala" id="" class="form-control form-control-lg  mb-4" value="{{ dt_tentang.kata_kepala }}" required></textarea>
                                 <label for="">Sambutan sekretaris Dinas</label>
-                                <textarea name="kata_sekretaris" id="" class="form-control form-control-lg  mb-4" value="{{ tentang.kata_sekretaris }}" required></textarea>
+                                <textarea name="kata_sekretaris" id="" class="form-control form-control-lg  mb-4" value="{{ dt_tentang.kata_sekretaris }}" required></textarea>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="col-lg">
                                 <label for="">Foto Kepala Dinas</label>
-                                <input name="foto_kepala" class="form-control form-control-sm  mb-4 dropify"  type="file" value="{{ tentang.foto_kepala.url }}" required>
+                                <input name="foto_kepala" class="form-control form-control-sm  mb-4 dropify"  type="file" value="{{ dt_tentang.foto_kepala.url }}" required>
                                 <label for="">Foto sekretaris Dinas</label>
-                                <input name="foto_sekretaris" class="form-control  mb-4 dropify"  type="file" value="{{ tentang.foto_sekretaris.url }}" required>
+                                <input name="foto_sekretaris" class="form-control  mb-4 dropify"  type="file" value="{{ dt_tentang.foto_sekretaris.url }}" required>
                                 <label for="">Thumbnail Profil</label>
-                                <input name="thumbnail_profil" class="form-control  mb-4 dropify"  type="file" value="{{ tentang.foto_pegantar.url }}" required>
+                                <input name="thumbnail_profil" class="form-control  mb-4 dropify"  type="file" value="{{ dt_tentang.foto_pegantar.url }}" required>
                             </div>
                         </div>
                     </div>
