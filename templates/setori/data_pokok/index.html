@@ -97,9 +97,9 @@
                         <div class="shadow-sm col-lg-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                             <div id="wanita_pria"></div>
                         </div>
-                        <div class="shadow-sm col-lg-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+
                             <div id="charts-container"></div> <!-- Kontainer untuk menampilkan semua grafik -->
-                        </div>
+                        
                         {% for jenis in dt_array_jenis %}
                             <div class="shadow-sm mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                 <a href="{% url 'app_setori:detail_data' %}">
@@ -134,7 +134,7 @@
                                         type: 'column'
                                     },
                                     title: {
-                                        text: `Distribusi Tenaga Kesehatan (${fk_jenis})`,
+                                        text: `(${fk_jenis})`,
                                         align: 'middle'
                                     },
                                     xAxis: {
@@ -144,7 +144,7 @@
                                     yAxis: {
                                         min: 0,
                                         title: {
-                                            text: 'Jumlah Tenaga Kesehatan'
+                                            text: 'Jumlah Orang'
                                         }
                                     },
                                     tooltip: {
