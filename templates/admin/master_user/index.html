@@ -1,13 +1,18 @@
 {% extends 'admin/base_layout/index.html' %}
 {% block css %} {% endblock css %}
-{% block main %}
 
-<h2 class="mb-4">User Admin Table</h2>
-    
+{% block admin_header %} 
 <!-- Button to Add New User -->
 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
     Add New User
 </button>
+{% endblock admin_header %}
+
+{% block main %}
+
+
+
+
 
 
 

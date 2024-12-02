@@ -2,29 +2,24 @@
 {% block css %} 
 
 {% endblock css %}
+{% block admin_header %}
+<div class="ms-auto pageheader-btn">
+    <a href="{% url 'admin_setori:add_slider' %}" class="btn btn-primary btn-icon text-white me-2" >
+        <span>
+            <i class="fe fe-plus"></i>
+        </span> Add kategori
+    </a>
+    <a href="{% url 'admin_setori:histori_slider' %}" class="btn btn-success btn-icon text-white">
+        <span>
+            <i class="fa-solid fa-rotate-right"></i>
+        </span> histori
+    </a>
+</div>
+{% endblock admin_header %}
 {% block main %}
 
 <!-- PAGE-HEADER -->
-<div class="page-header">
-    <div>
-        <h1 class="page-title">Dashboard 01</h1>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-        </ol>
-    </div>
-    <div class="ms-auto pageheader-btn">
-        <a href="{% url 'admin_setori:add_slider' %}" class="btn btn-primary btn-icon text-white me-2" >
-            <span>
-                <i class="fe fe-plus"></i>
-            </span> Add kategori
-        </a>
-        <a href="{% url 'admin_setori:histori_slider' %}" class="btn btn-success btn-icon text-white">
-            <span>
-                <i class="fa-solid fa-rotate-right"></i>
-            </span> histori
-        </a>
-    </div>
-</div>
+
 
 <div class="row">
     <div class="col-12 col-sm-12">

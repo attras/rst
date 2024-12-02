@@ -16,9 +16,16 @@ from django.utils.decorators import method_decorator
 # @method_decorator(admin_only(), name='dispatch')
 class Master_kategoriViews(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Master Jenis Kesehatan',
+        'url': reverse('admin_setori:master_jenis_kesehatan'),
+        }
+        ]
         dt_category = Master_sarpras.objects.all()
         data = {
-            'dt_category': dt_category
+            'dt_category': dt_category,
+            'breadcrump':breadcrump,
+            'title':'Master sarpras'
         }
         return render(request, 'admin/master_sarpras/index.html',data)
 

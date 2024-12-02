@@ -15,10 +15,17 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Master_userViews(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Master user',
+        'url': reverse('admin_setori:master_user'),
+        }
+        ]
         dt_akun = Account.objects.all()
         akun={
             'dt_akun':dt_akun,
-            'role':ROLE_CHOICES
+            'role':ROLE_CHOICES,
+            'breadcrump':breadcrump,
+            'title':'Master user'
         }
        
         return render(request, 'admin/master_user/index.html',akun)

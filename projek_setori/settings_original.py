@@ -136,3 +136,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #auth
 AUTH_USER_MODEL = 'admin_setori.Account'
+
+LOGIN_URL = 'admin_setori:halaman_login'

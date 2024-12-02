@@ -16,12 +16,23 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Master_indikator(View):
     def get(self, request,jenis_kesehatan_id):
+        breadcrump = [{
+        'nama': 'Master Jenis Kesehatan',
+        'url': reverse('admin_setori:master_jenis_kesehatan'),
+        },
+        {
+        'nama': 'Master Idikator',
+        'url': reverse('admin_setori:master_indikator',args=[jenis_kesehatan_id]),
+        }
+        ]
         dt_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
         dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
 
         data = {
             'dt_indikator': dt_indikator,
             'dt_kesehatan': dt_kesehatan,
+            'breadcrump': breadcrump,
+            'title' : 'Master Idikator'
 
         }
         

@@ -1,20 +1,8 @@
 {% extends 'admin/base_layout/index.html' %}
 {% block css %} {% endblock css %}
-{% block main %}
 
-<!-- PAGE-HEADER -->
-<div class="page-header">
-    <div class="pageheader-btn">
-        <div>
-            <a href="{% url 'admin_setori:master_jenis_kesehatan' %}">
-                <button type="button" class="btn btn-primary" >
-                   <i class="fa-solid fa-arrow-left"></i>
-                    Kembali
-                </button>
-            </a>
-        </div>
-    </div>
-    <div class="ms-auto pageheader-btn">
+{% block admin_header %}
+<div class="ms-auto pageheader-btn">
         <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_indikator()">
             <span>
                 <i class="fe fe-plus"></i>
@@ -26,8 +14,19 @@
             </span> Riwayat
         </a>
     </div>
-</div>
+    
+{% endblock admin_header %}
+{% block main %}
 
+
+
+
+<a href="{% url 'admin_setori:master_jenis_kesehatan' %}">
+    <button type="button" class="btn btn-primary" >
+       <i class="fa-solid fa-arrow-left"></i>
+        Kembali
+    </button>
+</a>
 <div class="row">
     <div class="col-12 col-sm-12">
         <div class="card">

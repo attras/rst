@@ -15,6 +15,11 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Master_wilayahViews(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Master Wilayah',
+        'url': reverse('admin_setori:master_kategori'),
+        }
+        ]
         dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True).order_by('wilayah_level')
         provinsi_choices = MasterWilayah.objects.filter(wilayah_level='1')
         kabupaten_choices = MasterWilayah.objects.filter(wilayah_level='2')
@@ -26,6 +31,8 @@ class Master_wilayahViews(View):
             'kabupaten_choices': kabupaten_choices,
             'kecamatan_choices': kecamatan_choices,
             'LEVEL_WILAYAH': LEVEL_WILAYAH,
+            'breadcrump': breadcrump,
+            'title':'Master Wilayah'
             
         }
         return render(request, 'admin/master_wilayah/index.html',data)

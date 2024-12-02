@@ -16,10 +16,17 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Master_jenis_kesehatanView(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Master Jenis Kesehatan',
+        'url': reverse('admin_setori:master_jenis_kesehatan'),
+        }
+        ]
         dt_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = True)
 
         data = {
-            'dt_kesehatan': dt_kesehatan
+            'dt_kesehatan': dt_kesehatan,
+            'breadcrump': breadcrump,
+            'title':'Master Jenis Kesehatan'
         }
 
         return render(request, 'admin/master_jenis_kesehatan/index.html',data)

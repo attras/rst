@@ -14,10 +14,19 @@ from django.utils.decorators import method_decorator
 
 @method_decorator(login_required(), name='dispatch')
 class Master_sliderViews(View):
+    
     def get(self, request):
+        
+        breadcrump = [{
+        'nama': 'Home',
+        'url': reverse('admin_setori:master_slider'),
+        }
+        ]
         dt_slider = Slider.objects.filter(deleted_at__isnull = True)
         data ={
             'dt_slider':dt_slider,
+            'breadcrump':breadcrump,
+            'title': 'Master Slider',
         }
        
         return render(request, 'admin/master_slider/index.html',data)
