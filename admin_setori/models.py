@@ -90,7 +90,7 @@ class Account(AbstractBaseUser):
     last_login = models.DateTimeField(null=True)
     phone = models.CharField(max_length=15)
     date_of_birth = models.DateField(blank=True, null=True)
-    avatar = models.ImageField(blank=True, null=True, upload_to='profile/', validators=[validate_file_gambar, validate_file_size_gambar],)
+    avatar = models.ImageField(blank=True, null=True, upload_to='profile/foto', validators=[validate_file_gambar, validate_file_size_gambar])
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='posting')
     email_verification_token = models.CharField(max_length=100, default='')
     

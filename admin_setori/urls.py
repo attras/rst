@@ -9,8 +9,13 @@ urlpatterns = [
     path('logout', auth.LogoutViews.as_view(), name = 'logout_admin'),
 
     path('dashboard/',admin_index.Admin_indexViews.as_view(), name = 'dashboard'),
-    
-     path('master_user/',include([
+    path('profil/',include([
+        path('',profil.ProfilViews.as_view(),name='profil'),
+        path('edit/',profil.Edit_profil.as_view(),name='edit_profil'),
+        path('edit_password/',profil.Edit_password.as_view(),name='edit_password'),
+        ])),
+
+    path('master_user/',include([
          path('', master_user.Master_userViews.as_view(), name = 'master_user'),
          path('add', master_user.AddUser.as_view(), name = 'add_user'),
          path('delete/<int:id>', master_user.DeleteUser.as_view(), name = 'del_user'),

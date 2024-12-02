@@ -1,0 +1,156 @@
+{% extends 'admin/base_layout/index.html' %}
+{% block css %} {% endblock css %}
+{% load static %}
+{% block main %}
+
+<div class="side-app">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Edit Profile</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+            </ol>
+        </div>
+        <div class="ms-auto pageheader-btn">
+            <a href="#" class="btn btn-primary btn-icon text-white me-2">
+                <span>
+                    <i class="fe fe-plus"></i>
+                </span> Add Account
+            </a>
+            <a href="#" class="btn btn-success btn-icon text-white">
+                <span>
+                    <i class="fe fe-log-in"></i>
+                </span> Export
+            </a>
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+
+    <!-- ROW-1 OPEN -->
+    <div class="row">
+        <div class="col-lg-4 col-xl-4 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Edit Password</div>
+                </div>
+                <form method="POST" action="{% url 'admin_setori:edit_password' %}">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                           
+                        <div class="form-group">
+                            <label class="form-label">Masukkan Password Lama</label>
+                            <input type="password" class="form-control" name="password_lama" placeholder="Password Lama">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Masukkan Password Baru</label>
+                            <input type="password" class="form-control" name="password_baru" placeholder="Password Baru">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Konfirmasi Password</label>
+                            <input type="password" class="form-control" name="password_konfirmasi" placeholder="Konfirmasi Password">
+                        </div>
+                    </div>
+                   
+                </form>
+            </div>
+            
+           
+        </div>
+        <div class="col-lg-8 col-xl-8 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Edit Profile</h3>
+                </div>
+                <form method="POST" action="{% url 'admin_setori:edit_profil' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body" >
+                        <div class="row">
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <div class="col-lg-12 col-sm-12 mb-3 mb-lg-0">
+                                <label class="form-label" for="id_profil">profil</label>
+                                <input type="file" name="foto_profil" id="id_profil" class="dropify" data-default-file="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'admin/assets/images/users/8.jpg' %}{% endif %}" data-bs-height="180" accept="image/*" />
+                                <div class="form-text">Unggah background foto profil (format gambar).</div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputname">First Name</label>
+                                    <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}" id="exampleInputname" placeholder="First Name">
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputname1">Last Name</label>
+                                    <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}" id="exampleInputname1" placeholder="Enter Last Name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" name="email" value="{{ user.email }}" class="form-control" id="exampleInputEmail1" placeholder="Email Address">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputnumber">Contact Number</label>
+                                    <input type="number" name="phone" value="{{ user.phone }}" class="form-control" id="exampleInputnumber" placeholder="Phone Number">
+                                </div>
+                            </div>
+                        </div>
+                      
+                       
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-success mt-1">Save</button>
+                        <a href="#" class="btn btn-danger mt-1">Cancel</a>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+    <!-- ROW-1 CLOSED -->
+
+    <!-- ROW-2 OPEN -->
+   
+    <!-- ROW-2 CLOSED -->
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const passwordBaru = document.querySelector("input[name='password_baru']");
+        const passwordKonfirmasi = document.querySelector("input[name='password_konfirmasi']");
+        const errorMessage = document.createElement("small");
+        errorMessage.style.color = "red";
+        errorMessage.style.display = "none";
+
+        // Tambahkan elemen pesan error di bawah input konfirmasi password
+        passwordKonfirmasi.parentElement.appendChild(errorMessage);
+
+        form.addEventListener("submit", function (event) {
+            // Reset pesan error
+            errorMessage.style.display = "none";
+
+            // Cek apakah password baru dan konfirmasi password sama
+            if (passwordBaru.value !== passwordKonfirmasi.value) {
+                event.preventDefault(); // Mencegah pengiriman formulir
+                errorMessage.textContent = "Password baru dan konfirmasi password tidak sama!";
+                errorMessage.style.display = "block";
+                passwordKonfirmasi.focus();
+            }
+        });
+    });
+</script>
+
+
+{% endblock main %}
+{% block js %}
+<!-- Script to handle CRUD operations via AJAX and Bootstrap modal -->
+
+{% endblock js %}
