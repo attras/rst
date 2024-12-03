@@ -30,8 +30,19 @@ class Admin_beritaViews(View):
 
         }
         return render(request, 'admin/admin_berita/berita.html',data)
+
 class Detail_Berita(View):
     def get(self, request, slug):
+        breadcrump = [{
+        'nama': 'Berita',
+        'url': reverse('admin_setori:admin_berita'),
+        },
+        {
+        'nama': 'Detail Berita',
+        'url': reverse('admin_setori:detail_berita',args=[slug]),
+        }
+        ]
+
         detail_berita = get_object_or_404(News,slug=slug)
         dt_berita = News.objects.filter(deleted_at__isnull=True).order_by('-created_at')  # Ambil semua berita yang tidak dihapus
         dt_category = Category.objects.filter(deleted_at__isnull = True)  # Ambil semua kategori yang tidak dihapus
@@ -40,6 +51,9 @@ class Detail_Berita(View):
             'dt_berita': dt_berita,
             'detail_berita': detail_berita,
             'dt_category': dt_category,
+            'breadcrump': breadcrump,
+            'title' : 'Detail Berita'
+
         }
         return render(request, 'admin/admin_berita/detail.html', data)
     
@@ -103,13 +117,23 @@ class AddBerita(View):
         
 class Editberita(View):
     def get(self, request,id):
+        breadcrump = [{
+        'nama': 'Berita',
+        'url': reverse('admin_setori:admin_berita'),
+        },
+        {
+        'nama': 'Edit Berita',
+        'url': reverse('admin_setori:edit_berita',args=[id]),
+        }
+        ]
         dt_berita = get_object_or_404(News,id=id)
         dt_kategori = Category.objects.filter(deleted_at__isnull = True)
         data = {
             'dt_berita' : dt_berita,
             'dt_kategori' : dt_kategori,
-            'edit': True
-            
+            'edit': True,
+            'breadcrump': breadcrump,
+            'title' : 'Edit Berita'
 
         }
         return render(request, 'admin/admin_berita/form.html',data)

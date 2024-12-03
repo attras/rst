@@ -1,43 +1,33 @@
 {% extends 'admin/base_layout/index.html' %}
 {% block css %} {% endblock css %}
-{% block main %}
-<!-- Button to Add New User -->
-<div class="page-header">
-    <div>
-        <h1 class="page-title">Kontak</h1>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Kontak</a></li>
-        </ol>
-    </div>
 
-    <div class="ms-auto pageheader-btn" data-bs-toggle="modal" data-bs-target="#addUserModal" >
-        {% if dt_kontak %}
-        {% for kontak in dt_kontak %}
-        <a href="{% url 'admin_setori:edit_kontak' kontak.id  %}" class="btn btn-primary btn-icon text-white">
-            <span>
-                <i class="fa-solid fa-pen-to-square"></i>Edit 
-            </span> 
-        </a>
-        {% endfor %}
-        {% else %}
-        <a href="{% url 'admin_setori:add_kontak' %}" class="btn btn-primary btn-icon text-white me-2" >
-            <span>
-                <i class="fe fe-plus"></i>
-            </span> Tambah Kontak
-        </a>
+{% block admin_header %}
+<div class="ms-auto pageheader-btn" data-bs-toggle="modal" data-bs-target="#addUserModal" >
+    {% if dt_kontak %}
+    {% for kontak in dt_kontak %}
+    <a href="{% url 'admin_setori:edit_kontak' kontak.id  %}" class="btn btn-primary btn-icon text-white">
+        <span>
+            <i class="fa-solid fa-pen-to-square"></i>Edit 
+        </span> 
+    </a>
+    {% endfor %}
+    {% else %}
+    <a href="{% url 'admin_setori:add_kontak' %}" class="btn btn-primary btn-icon text-white me-2" >
+        <span>
+            <i class="fe fe-plus"></i>
+        </span> Tambah Kontak
+    </a>
 
-        {% endif %}
-        <a href="" class="btn btn-success btn-icon text-white">
-            <span>
-                <i class="fe fe-log-in"></i>
-            </span> Histori
-        </a>
-    </div>
-
+    {% endif %}
+    <a href="" class="btn btn-success btn-icon text-white">
+        <span>
+            <i class="fe fe-log-in"></i>
+        </span> Histori
+    </a>
 </div>
+{% endblock admin_header %}
 
-
-
+{% block main %}
 <!-- User Table -->
 <div class="row">
     <div class="col-12 col-sm-12">

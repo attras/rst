@@ -1,29 +1,22 @@
 {% extends 'admin/base_layout/index.html' %}
 {% block css %} {% endblock css %}
-{% block main %}
-<!-- Button to Add New Layanan -->
-<div class="page-header">
-    <div>
-        <h1 class="page-title">{{ title }}</h1>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
-        </ol>
-    </div>
-    <div class="ms-auto pageheader-btn">
-        <a href="{% url 'admin_setori:add_layanan' %}" class="btn btn-primary btn-icon text-white me-2" >
-            <span>
-                <i class="fe fe-plus"></i>
-            </span> Add Layanan
-        </a>
-        <a href="{% url 'admin_setori:histori_layanan' %}" class="btn btn-success btn-icon text-white">
-            <span>
-                <i class="fa-solid fa-rotate-right"></i>
-            </span> Histori
-        </a>
-    </div>
-</div>
 
+{% block admin_header %}
+<div class="ms-auto pageheader-btn">
+    <a href="{% url 'admin_setori:add_layanan' %}" class="btn btn-primary btn-icon text-white me-2" >
+        <span>
+            <i class="fe fe-plus"></i>
+        </span> Add Layanan
+    </a>
+    <a href="{% url 'admin_setori:histori_layanan' %}" class="btn btn-success btn-icon text-white">
+        <span>
+            <i class="fa-solid fa-rotate-right"></i>
+        </span> Histori
+    </a>
+</div>
+{% endblock admin_header %}
+
+{% block main %}
 <!-- Layanan Table -->
 <div class="row">
     <div class="col-12 col-sm-12">

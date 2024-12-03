@@ -15,18 +15,36 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Admin_kontakViews(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Kontak',
+        'url': reverse('admin_setori:admin_kontak'),
+        }
+        ]
+
         dt_kontak = Kontak.objects.filter(deleted_at__isnull = True)
         data = {
-            'dt_kontak' : dt_kontak
+            'dt_kontak' : dt_kontak,
+            'breadcrump' : breadcrump,
+            'title' : 'Kontak'
         }
 
         return render(request, 'admin/admin_kontak/index.html',data)
 
 class Addkontak(View):
     def get(self, request):
+        breadcrump = [{
+            'nama': 'Kontak',
+            'url': reverse('admin_setori:admin_kontak'),
+        },{
+            'nama': 'Tambah Kontak',
+            'url': reverse('admin_setori:add_kontak'),
+        }
+        ]
         dt_kontak = Kontak.objects.filter(deleted_at__isnull = True)
         data = {
-            'dt_kontak' : dt_kontak
+            'dt_kontak' : dt_kontak,
+            'breadcrump' : breadcrump,
+            'title' : 'Tambah Kontak'
         }
         return render(request, 'admin/admin_kontak/form.html',data)
 
@@ -65,11 +83,21 @@ class Addkontak(View):
 
 class Editkontak(View):
     def get(self, request, id):
+        breadcrump = [{
+            'nama': 'Kontak',
+            'url': reverse('admin_setori:admin_kontak'),
+        },{
+            'nama': 'Edit Kontak',
+            'url': reverse('admin_setori:edit_kontak',args=[id]),
+        }
+        ]
         dt_kontak = get_object_or_404(Kontak, id=id)
         data = {
             'kontak' : dt_kontak,
             'edit' : True,
             'id' : id,
+            'breadcrump' : breadcrump,
+            'title' : 'Edit Kontak'
         }
         return render(request, 'admin/admin_kontak/form.html',data)
 

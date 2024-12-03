@@ -36,6 +36,17 @@ class Info_wilayahViews(View):
 
 class Detail_info_wilayah(View):
     def get(self, request,wilayah_id):
+        breadcrump = [{
+        'nama': 'Info Wilayah',
+        'url': reverse('admin_setori:admin_info_wilayah'),
+        },
+        {
+        'nama': 'Detail Info Wilayah',
+        'url': reverse('admin_setori:detail_info_wilayah',args=[wilayah_id]),
+        }
+        ]
+
+
         dt_info_wilayah = Info_wilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
         pilih_wilayah = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
         dt_sarpras = Data_sarpras.objects.filter(deleted_at__isnull = True,wilayah=wilayah_id)
@@ -55,6 +66,9 @@ class Detail_info_wilayah(View):
             'wilayah_id' : wilayah_id,
             'data_info_wilayah' : data_info_wilayah,
             'dt_sarpras' : dt_sarpras,
+            'breadcrump': breadcrump,
+            'title' : 'Detail Info Wilayah'
+
         }
         
         return render(request, 'admin/admin_info_wilayah/detail.html',data)
@@ -64,12 +78,28 @@ class Detail_info_wilayah(View):
 
 class FormWilayah(View):
     def get(self, request,wilayah_id):
+        breadcrump = [{
+        'nama': 'Info Wilayah',
+        'url': reverse('admin_setori:admin_info_wilayah'),
+        },
+        {
+        'nama': 'Detail Info Wilayah',
+        'url': reverse('admin_setori:detail_info_wilayah',args=[wilayah_id]),
+        },
+        {
+        'nama': 'Form Info Wilayah',
+        'url': reverse('admin_setori:detail_info_wilayah',args=[wilayah_id]),
+        }
+        ]
+
         dt_info_wilayah = Info_wilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
         pilih_wilayah = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id).first()
         data = {
             'dt_info_wilayah' : dt_info_wilayah,
             'pilih_wilayah' : pilih_wilayah,
             'wilayah_id' : wilayah_id,
+            'breadcrump': breadcrump,
+            'title' : 'Form Info Wilayah'
        
         }
         

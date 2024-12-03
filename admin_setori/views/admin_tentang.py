@@ -15,17 +15,34 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Admin_tetang_kami(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Tentang Kami',
+        'url': reverse('admin_setori:admin_tentang'),
+        }
+        ]
         dt_tentang = Tentang.objects.filter(deleted_at__isnull = True)
         data = {
             'dt_tentang' : dt_tentang,
+            'breadcrump' : breadcrump,
+            'title' : 'Tentang Kami'
         }
         return render(request, 'admin/admin_tentang/index.html', data)
 
 class Add_tentang(View):
     def get(self, request):
+        breadcrump = [{
+            'nama': 'Tentang Kami',
+            'url': reverse('admin_setori:admin_tentang'),
+        },{
+            'nama': 'Tambah Tentang Kami',
+            'url': reverse('admin_setori:add_tentang'),
+        }
+        ]
         dt_tentang = Tentang.objects.filter(deleted_at__isnull = True)
         data = {
             'dt_tentang' : dt_tentang,
+            'breadcrump' : breadcrump,
+            'title' : 'Tambah Tentang Kami'
         }
         return render(request, 'admin/admin_tentang/form.html', data)
 
@@ -69,11 +86,21 @@ class Add_tentang(View):
 
 class Edittentang(View):
     def get(self, request, id_tentang):
+        breadcrump = [{
+            'nama': 'Tentang Kami',
+            'url': reverse('admin_setori:admin_tentang'),
+        },{
+            'nama': 'Edit Tentang Kami',
+            'url': reverse('admin_setori:edit_tentang',args=[id_tentang]),
+        }
+        ]
         dt_tentang = get_object_or_404(Tentang, id_tentang=id_tentang)
         data = {
             'dt_tentang' : dt_tentang,
             'edit' : True,
             'id_tentang' : id_tentang,
+            'breadcrump' : breadcrump,
+            'title' : 'Edit Tentang Kami'
         }
         return render(request, 'admin/admin_tentang/form.html', data)
 

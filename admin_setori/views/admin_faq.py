@@ -15,9 +15,18 @@ from admin_setori.decorators import role_required
 
 class Admin_faqViews(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'FAQ',
+        'url': reverse('admin_setori:admin_faq'),
+        }
+        ]
+        
         dt_faq = Faq.objects.filter(deleted_at__isnull = True)
         data = {
-            'dt_faq' : dt_faq
+            'dt_faq' : dt_faq,
+            'breadcrump' : breadcrump,
+            'title' : 'FAQ'
+
         }
         return render(request, 'admin/admin_faq/index.html',data)
 

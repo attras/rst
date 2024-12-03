@@ -25,7 +25,7 @@ class Admin_data_kesehatanViews(View):
         data = {
             'dt_kesehatan': dt_kesehatan,
             'breadcrump': breadcrump,
-            'title' : 'Data Kesehatan'
+            'title' : 'Detail Data Kesehatan'
         }
         
       
@@ -46,6 +46,16 @@ class Pilih_wilayah(View):
 
 class Detail_data_kesehatanViews(View):
     def get(self,request,jenis_kesehatan_id):
+        breadcrump = [{
+            'nama' : 'Data Kesehatan',
+            'url' : reverse('admin_setori:data_kesehatan')
+        },
+        {
+        'nama': 'Detail Data Kesehatan',
+        'url': reverse('admin_setori:detail_data_kesehatan',args=[jenis_kesehatan_id])
+        }
+        ]
+
         dt_kesehatan = Data_kesehatan.objects.filter(deleted_at__isnull = True,fk_jenis=jenis_kesehatan_id)
         jenis_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
         dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
@@ -55,7 +65,9 @@ class Detail_data_kesehatanViews(View):
             'jenis_kesehatan': jenis_kesehatan,
             'wilayah_list': wilayah_list,
             'dt_kesehatan': dt_kesehatan,
-            'jenis_kesehatan_id' : jenis_kesehatan_id
+            'jenis_kesehatan_id' : jenis_kesehatan_id,
+            'breadcrump': breadcrump,
+            'title' : 'Detail Data Kesehatan'
         }
         
 

@@ -15,19 +15,36 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class LayananViews(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Layanan',
+        'url': reverse('admin_setori:admin_layanan'),
+        }
+        ]
         dt_layanan = Layanan.objects.filter(deleted_at__isnull = True)
         data = {
             'title' : 'Layanan',
-            'dt_layanan' : dt_layanan
+            'dt_layanan' : dt_layanan,
+            'breadcrump' : breadcrump,
+            'title' : 'Layanan'
         }
         return render(request, 'admin/admin_layanan/index.html',data)
 
 class Addlayanan(View) :
     def get(self, request):
+        breadcrump = [{
+            'nama': 'Layanan',
+            'url': reverse('admin_setori:admin_layanan'),
+        },{
+            'nama': 'Tambah Layanan',
+            'url': reverse('admin_setori:add_layanan'),
+        }
+        ]
         dt_layanan = Layanan.objects.filter(deleted_at__isnull = True)
         data = {
             'title' : 'Tambah data',
-            'dt_layanan' : dt_layanan
+            'dt_layanan' : dt_layanan,
+            'breadcrump' : breadcrump,
+            'title' : 'Tambah Layanan'
         }
         return render(request, 'admin/admin_layanan/form.html',data)
 
@@ -59,12 +76,22 @@ class Deletelayanan(View):
 
 class Editlayanan(View) :
     def get(self, request,id_layanan):
-        
+        breadcrump = [{
+            'nama': 'Layanan',
+            'url': reverse('admin_setori:admin_layanan'),
+        },{
+            'nama': 'Edit Layanan',
+            'url': reverse('admin_setori:edit_layanan',args=[id_layanan]),
+        }
+        ]
+
         dt_layanan = get_object_or_404(Layanan, id_layanan=id_layanan,deleted_at__isnull = True )
         data = {
             'title' : 'edit ',
             'edit': True,
-            'dt_layanan' : dt_layanan
+            'dt_layanan' : dt_layanan,
+            'breadcrump' : breadcrump,
+            'title' : 'Edit Layanan'
         }
         return render(request, 'admin/admin_layanan/form.html',data)
 

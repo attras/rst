@@ -1,36 +1,29 @@
 
 {% extends 'admin/base_layout/index.html' %}
 {% load static %}
-{% block main %}
-<div class="page-header">
-    <div>
-        <h1 class="page-title">Setting tentang kami</h1>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Setting</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tentang kami</li>
-        </ol>
-    </div>
-    <div class="ms-auto pageheader-btn" data-bs-toggle="modal" data-bs-target="#addUserModal" >
-        {% if dt_tentang %}
-        {% for tentang in dt_tentang %}
-        <a href="{% url 'admin_setori:edit_tentang' tentang.id_tentang  %}" class="btn btn-primary btn-icon text-white">
-            <span>
-                <i class="fa-solid fa-pen-to-square"></i>Edit 
-            </span> 
-        </a>
-        {% endfor %}
-        {% else %}
-        <a href="{% url 'admin_setori:add_tentang' %}" class="btn btn-primary btn-icon text-white me-2" >
-            <span>
-                <i class="fe fe-plus"></i>
-            </span> Tambah Tentang
-        </a>
 
-        {% endif %}
-    </div>
+{% block admin_header %}
+<div class="ms-auto pageheader-btn" data-bs-toggle="modal" data-bs-target="#addUserModal" >
+    {% if dt_tentang %}
+    {% for tentang in dt_tentang %}
+    <a href="{% url 'admin_setori:edit_tentang' tentang.id_tentang  %}" class="btn btn-primary btn-icon text-white">
+        <span>
+            <i class="fa-solid fa-pen-to-square"></i>Edit 
+        </span> 
+    </a>
+    {% endfor %}
+    {% else %}
+    <a href="{% url 'admin_setori:add_tentang' %}" class="btn btn-primary btn-icon text-white me-2" >
+        <span>
+            <i class="fe fe-plus"></i>
+        </span> Tambah Tentang
+    </a>
 
+    {% endif %}
 </div>
+{% endblock admin_header %}
 
+{% block main %}
 <div class="row">
     <div class="col-12 col-sm-12">
         <div class="card">
