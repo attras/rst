@@ -139,7 +139,7 @@
 
                 <div class="mb-3">
                     <label for="password" class="form-label">password</label>
-                    <input name="password" type="password" class="form-control" id="password" placeholder="Enter username">
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Enter username" required>
                 </div>
                 <div class="mb-3">
                     <label for="confirm_password" class="form-label">Confirm Password</label>
@@ -241,5 +241,34 @@ document.getElementById("addUserForm").addEventListener("submit", function(event
 
        
     });
+
+
+
+// Fungsi untuk validasi nomor handphone
+function validatePhoneNumber(event) {
+    const phoneInput = document.getElementById('phone');
+    const phoneError = document.getElementById('phoneError');
+    const phonePattern = /^08\d{8,13}$/;
+
+    // Hapus pesan error sebelumnya
+    if (phoneError) {
+        phoneError.remove();
+    }
+
+    // Validasi nomor handphone
+    if (!phonePattern.test(phoneInput.value)) {
+        event.preventDefault(); // Mencegah form submit jika tidak valid
+        const errorMessage = document.createElement('small');
+        errorMessage.id = 'phoneError';
+        errorMessage.classList.add('text-danger');
+        errorMessage.textContent = 'Nomor handphone tidak valid! Harus diawali dengan 08 dan memiliki panjang 10-15 digit.';
+        phoneInput.parentNode.appendChild(errorMessage);
+        phoneInput.focus();
+    }
+}
+
+// Tambahkan event listener pada form
+document.getElementById('addUserForm').addEventListener('submit', validatePhoneNumber);
+
 </script>
 {% endblock js %}

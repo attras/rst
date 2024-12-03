@@ -36,7 +36,7 @@
                 <div class="card-header">
                     <div class="card-title">Edit Password</div>
                 </div>
-                <form method="POST" action="{% url 'admin_setori:edit_password' %}">
+                <form method="POST" id="form_password" action="{% url 'admin_setori:edit_password' %}">
                     {% csrf_token %}
                     <div class="card-body">
                         <input type="hidden" name="user_id" value="{{ user.id }}">
@@ -54,7 +54,10 @@
                             <input type="password" class="form-control" name="password_konfirmasi" placeholder="Konfirmasi Password">
                         </div>
                     </div>
-                   
+                    <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <a href="#" class="btn btn-secondary">Cancel</a>
+                    </div>
                 </form>
             </div>
             
@@ -65,7 +68,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Edit Profile</h3>
                 </div>
-                <form method="POST" action="{% url 'admin_setori:edit_profil' %}" enctype="multipart/form-data">
+                <form method="POST" id="form_profil" action="{% url 'admin_setori:edit_profil' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="card-body" >
                         <div class="row">
@@ -146,6 +149,34 @@
             }
         });
     });
+
+    // Fungsi untuk validasi input nomor telepon
+function validatePhoneProfil(event) {
+    const phoneInput = document.getElementById('exampleInputnumber'); // ID dari input phone
+    const phoneErrorId = 'phoneProfilError'; // ID untuk pesan error
+    const phonePattern = /^08\d{8,13}$/;
+
+    // Hapus pesan error jika sudah ada
+    const existingError = document.getElementById(phoneErrorId);
+    if (existingError) {
+        existingError.remove();
+    }
+
+    // Validasi nomor telepon
+    if (!phonePattern.test(phoneInput.value)) {
+        event.preventDefault(); // Mencegah form dikirim jika nomor telepon tidak valid
+        const errorMessage = document.createElement('small');
+        errorMessage.id = phoneErrorId;
+        errorMessage.classList.add('text-danger');
+        errorMessage.textContent = 'Nomor telepon tidak valid! Harus diawali dengan 08 dan memiliki panjang 10-15 digit.';
+        phoneInput.parentNode.appendChild(errorMessage);
+        phoneInput.focus();
+    }
+}
+
+// Tambahkan event listener ke form_profil
+document.getElementById('form_profil').addEventListener('submit', validatePhoneProfil);
+
 </script>
 
 
