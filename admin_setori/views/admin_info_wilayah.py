@@ -16,11 +16,19 @@ from django.core.exceptions import ObjectDoesNotExist
 @method_decorator(login_required(), name='dispatch')
 class Info_wilayahViews(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Data Penduduk',
+        'url': reverse('admin_setori:data_penduduk'),
+        }
+        ]
         dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True).order_by('wilayah_level')
 
         data = {
             'dt_wilayah': dt_wilayah,
             'LEVEL_WILAYAH': LEVEL_WILAYAH,
+            'breadcrump': breadcrump,
+            'title':'Data Penduduk'
+
             
         }
 

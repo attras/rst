@@ -15,10 +15,17 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Admin_data_kesehatanViews(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Data Kesehatan',
+        'url': reverse('admin_setori:data_kesehatan'),
+        }
+        ]
         dt_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = True)
-    
+
         data = {
-            'dt_kesehatan': dt_kesehatan
+            'dt_kesehatan': dt_kesehatan,
+            'breadcrump': breadcrump,
+            'title' : 'Data Kesehatan'
         }
         
       

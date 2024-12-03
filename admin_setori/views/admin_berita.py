@@ -15,11 +15,18 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required(), name='dispatch')
 class Admin_beritaViews(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Berita',
+        'url': reverse('admin_setori:admin_berita'),
+        }
+        ]
         dt_berita = News.objects.filter(deleted_at__isnull = True)
         dt_kategori = Category.objects.filter(deleted_at__isnull = True)
         data = {
             'dt_berita' : dt_berita,
-            'dt_kategori' : dt_kategori
+            'dt_kategori' : dt_kategori,
+            'breadcrump' : breadcrump,
+            'title' : 'Berita'
 
         }
         return render(request, 'admin/admin_berita/berita.html',data)
