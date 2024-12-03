@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from admin_setori.decorators import role_required
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator
 
 @method_decorator(login_required(), name='dispatch')
 class Master_userViews(View):
@@ -20,10 +21,15 @@ class Master_userViews(View):
         'url': reverse('admin_setori:master_user'),
         }
         ]
+        items_per_page = request.GET.get('items_per_page', 5)
         dt_akun = Account.objects.all()
+        paginator = Paginator(dt_akun, items_per_page)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         akun={
             'dt_akun':dt_akun,
             'role':ROLE_CHOICES,
+            'page_obj': page_obj,
             'breadcrump':breadcrump,
             'title':'Master user'
         }
