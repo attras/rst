@@ -16,7 +16,7 @@ from django.utils.decorators import method_decorator
 class Admin_data_kesehatanViews(View):
     def get(self, request):
         breadcrump = [{
-        'nama': 'Data Kesehatan',
+        'nama': 'Data',
         'url': reverse('admin_setori:data_kesehatan'),
         }
         ]
@@ -25,7 +25,7 @@ class Admin_data_kesehatanViews(View):
         data = {
             'dt_kesehatan': dt_kesehatan,
             'breadcrump': breadcrump,
-            'title' : 'Detail Data Kesehatan'
+            'title' : 'Data'
         }
         
       
@@ -38,7 +38,7 @@ class Detail_data_kesehatanViews(View):
             'url' : reverse('admin_setori:data_kesehatan')
         },
         {
-        'nama': 'Detail Data Kesehatan',
+        'nama': 'Pilih wilayah',
         'url': reverse('admin_setori:detail_data_kesehatan',args=[jenis_kesehatan_id])
         }
         ]
@@ -54,7 +54,7 @@ class Detail_data_kesehatanViews(View):
             'dt_kesehatan': dt_kesehatan,
             'jenis_kesehatan_id' : jenis_kesehatan_id,
             'breadcrump': breadcrump,
-            'title' : 'Detail Data Kesehatan',
+            'title' : 'Pilih wilayah',
             'jenis_kesehatan_id' : jenis_kesehatan_id
         }
         
@@ -68,14 +68,25 @@ class xDetail_data_kesehatanViews(View):
             'url' : reverse('admin_setori:data_kesehatan')
         },
         {
-        'nama': 'Detail Data Kesehatan',
+        'nama': 'Pilih wilayah',
         'url': reverse('admin_setori:detail_data_kesehatan',args=[jenis_kesehatan_id])
+        },
+         {
+        'nama': 'Input data',
+        'url': reverse('admin_setori:xdetail_data_kesehatan',args=[jenis_kesehatan_id,wilayah_id])
         }
+       
         ]
 
-        dt_kesehatan = Data_kesehatan.objects.filter(deleted_at__isnull = True,fk_jenis=jenis_kesehatan_id,wilayah=wilayah_id)
+        
+        # dt_kesehatan = Data_kesehatan.objects.filter(deleted_at__isnull = True,fk_jenis=jenis_kesehatan_id,wilayah=wilayah_id)
         jenis_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
-        dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
+        dt_kesehatan = Data_kesehatan.objects.filter(deleted_at__isnull = True,fk_jenis=jenis_kesehatan_id,wilayah_id=wilayah_id).select_related('indikator', 'fk_jenis')
+        used_indikator =  Data_kesehatan.objects.filter(deleted_at__isnull = True,fk_jenis=jenis_kesehatan_id,wilayah_id=wilayah_id).values_list('indikator', flat=True)
+        print(used_indikator)
+    # Ambil semua indikator terkait dengan fk_jenis yang ada di data_kesehatan
+        dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id).exclude(id_indikator__in=used_indikator)
+       
         wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_level='4',wilayah_id=wilayah_id)
         data = {
             'dt_indikator': dt_indikator,
@@ -84,7 +95,8 @@ class xDetail_data_kesehatanViews(View):
             'dt_kesehatan': dt_kesehatan,
             'jenis_kesehatan_id' : jenis_kesehatan_id,
             'breadcrump': breadcrump,
-            'title' : 'Detail Data Kesehatan'
+            'jenis_kesehatan_id':jenis_kesehatan_id,
+            'title' : 'Input Data'
         }
         
 
@@ -116,11 +128,11 @@ class Add_data_kesehatan(View) :
                 
 
                 messages.success(request, f"data berhasil Ditambahkan")
-                return redirect('admin_setori:detail_data_kesehatan',jenis_kesehatan_id=fk_jenis_id)
+                return redirect('admin_setori:xdetail_data_kesehatan',jenis_kesehatan_id=fk_jenis_id, wilayah_id= wilayah_id)
         except Exception as e:
             print('Error Data', e)
             messages.error(request,"gagal menambahkan")
-            return redirect('admin_setori:data_kesehatan',jenis_kesehatan_id=fk_jenis_id)
+            return redirect('admin_setori:xdetail_data_kesehatan',jenis_kesehatan_id=fk_jenis_id, wilayah_id= wilayah_id)
 
 
 class DeleteKesehatan(View):

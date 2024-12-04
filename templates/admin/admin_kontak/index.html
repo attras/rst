@@ -51,7 +51,7 @@
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ kontak.nama_instansi }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ kontak.alamat }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ kontak.alamat|slice:":30"}}</td>
                                 <td class="text-muted fs-15 fw-semibold">
                                     <a>
                                         <button type="button" class="btn btn-danger" onclick="Hapus_kontak('{{ kontak.id }}')">

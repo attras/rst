@@ -41,7 +41,7 @@
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ layanan.surat }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ layanan.syarat|safe}}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ layanan.syarat|safe|slice:":30"}}</td>
                              
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
                                 <td class="text-muted fs-15 fw-semibold">

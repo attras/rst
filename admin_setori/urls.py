@@ -17,7 +17,9 @@ urlpatterns = [
 
     path('master_user/',include([
          path('', master_user.Master_userViews.as_view(), name = 'master_user'),
-         path('add', master_user.AddUser.as_view(), name = 'add_user'),
+         path('form/', master_user.Form_user.as_view(), name = 'form_user'),
+         path('add/', master_user.AddUser.as_view(), name = 'add_user'),
+         
          path('delete/<int:id>', master_user.DeleteUser.as_view(), name = 'del_user'),
          ])),
          
