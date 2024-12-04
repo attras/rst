@@ -97,8 +97,11 @@
                         <div class="shadow-sm col-lg-6 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                             <div id="wanita_pria"></div>
                         </div>
-
-                            <div id="charts-container"></div> <!-- Kontainer untuk menampilkan semua grafik -->
+                        <label for="wilayah-filter">Pilih Wilayah:</label>
+                        <select id="wilayah-filter">
+                            <option value="">Semua Wilayah</option>
+                        </select>
+                        <div id="charts-container"></div> <!-- Kontainer untuk menampilkan semua grafik -->
                         
                         {% for jenis in dt_array_jenis %}
                             <div class="shadow-sm mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
@@ -115,63 +118,70 @@
                 {% endfor %}
 
                 <script>
-                    // JavaScript untuk memanggil dan membuat chart
-                    fetch('/api/tenaga-kesehatan-data/') // Ganti dengan endpoint API Anda
-                        .then(response => response.json())
-                        .then(data => {
-                            const groupedData = data.data;
+                    const wilayahFilter = document.getElementById('wilayah-filter');
+                    const chartsContainer = document.getElementById('charts-container');
             
-                            for (const [fk_jenis, chartData] of Object.entries(groupedData)) {
-                                // Buat elemen div baru untuk setiap chart
-                                const chartContainer = document.createElement('div');
-                                chartContainer.id = `chart_${fk_jenis.replace(/\s+/g, '_')}`;
-                                chartContainer.style.marginBottom = '50px';
-                                document.getElementById('charts-container').appendChild(chartContainer);
+                    // Fungsi untuk memuat data dan render chart
+                    function loadChartData(wilayah = '') {
+                        // Kosongkan kontainer chart
+                        chartsContainer.innerHTML = '';
             
-                                // Render chart
-                                Highcharts.chart(chartContainer.id, {
-                                    chart: {
-                                        type: 'column'
-                                    },
-                                    title: {
-                                        text: `(${fk_jenis})`,
-                                        align: 'middle'
-                                    },
-                                    xAxis: {
-                                        categories: chartData.categories, // Data kategori
-                                        crosshair: true
-                                    },
-                                    yAxis: {
-                                        min: 0,
-                                        title: {
-                                            text: 'Jumlah Orang'
-                                        }
-                                    },
-                                    tooltip: {
-                                        shared: true,
-                                        valueSuffix: ' orang'
-                                    },
-                                    plotOptions: {
-                                        column: {
-                                            pointPadding: 0.2,
-                                            borderWidth: 0,
-                                            groupPadding: 0.1
-                                        }
-                                    },
-                                    series: [
-                                        {
-                                            name: 'OAP',
-                                            data: chartData.oap // Data OAP
+                        // Ambil data dari API
+                        fetch(`/api/kesehatan-data/?wilayah=${wilayah}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                const groupedData = data.data;
+            
+                                // Update dropdown wilayah
+                                if (wilayahFilter.options.length === 1) {
+                                    data.wilayah_list.forEach(w => {
+                                        const option = document.createElement('option');
+                                        option.value = w;
+                                        option.textContent = w;
+                                        wilayahFilter.appendChild(option);
+                                    });
+                                }
+            
+                                // Render setiap chart
+                                for (const [fk_jenis, chartData] of Object.entries(groupedData)) {
+                                    const chartContainer = document.createElement('div');
+                                    chartContainer.id = `chart_${fk_jenis.replace(/\s+/g, '_')}`;
+                                    chartContainer.style.marginBottom = '50px';
+                                    chartsContainer.appendChild(chartContainer);
+            
+                                    Highcharts.chart(chartContainer.id, {
+                                        chart: { type: 'column' },
+                                        title: { text: `Distribusi Tenaga Kesehatan (${fk_jenis})`, align: 'middle' },
+                                        xAxis: { categories: chartData.categories, crosshair: true },
+                                        yAxis: {
+                                            min: 0,
+                                            title: { text: 'Jumlah Tenaga Kesehatan' }
                                         },
-                                        {
-                                            name: 'non-OAP',
-                                            data: chartData.non_oap // Data non-OAP
-                                        }
-                                    ]
-                                });
-                            }
-                        })
-                        .catch(error => console.error('Error fetching chart data:', error));
+                                        tooltip: { shared: true, valueSuffix: ' orang' },
+                                        plotOptions: {
+                                            column: {
+                                                pointPadding: 0.2,
+                                                borderWidth: 0,
+                                                groupPadding: 0.1
+                                            }
+                                        },
+                                        series: [
+                                            { name: 'OAP', data: chartData.oap },
+                                            { name: 'non-OAP', data: chartData.non_oap }
+                                        ]
+                                    });
+                                }
+                            })
+                            .catch(error => console.error('Error fetching chart data:', error));
+                    }
+            
+                    // Event listener untuk filter wilayah
+                    wilayahFilter.addEventListener('change', (event) => {
+                        loadChartData(event.target.value);
+                    });
+            
+                    // Muat data pertama kali
+                    loadChartData();
                 </script>
 
 

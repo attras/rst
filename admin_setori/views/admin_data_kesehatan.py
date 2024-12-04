@@ -31,19 +31,6 @@ class Admin_data_kesehatanViews(View):
       
         return render(request, 'admin/data_kesehatan/index.html',data)
     
-class Pilih_wilayah(View):
-    def get(self, request):
-        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True,wilayah_level='4').order_by('wilayah_level')
-
-        data = {
-            'dt_wilayah': dt_wilayah,
-            'LEVEL_WILAYAH': LEVEL_WILAYAH,
-            
-        }
-        
-
-        return render(request, 'admin/data_kesehatan/pilih_wilayah.html',data)
-
 class Detail_data_kesehatanViews(View):
     def get(self,request,jenis_kesehatan_id):
         breadcrump = [{
@@ -59,7 +46,37 @@ class Detail_data_kesehatanViews(View):
         dt_kesehatan = Data_kesehatan.objects.filter(deleted_at__isnull = True,fk_jenis=jenis_kesehatan_id)
         jenis_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
         dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
-        wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_level='4')
+        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_level='4')
+        data = {
+            'dt_indikator': dt_indikator,
+            'jenis_kesehatan': jenis_kesehatan,
+            'dt_wilayah': dt_wilayah,
+            'dt_kesehatan': dt_kesehatan,
+            'jenis_kesehatan_id' : jenis_kesehatan_id,
+            'breadcrump': breadcrump,
+            'title' : 'Detail Data Kesehatan',
+            'jenis_kesehatan_id' : jenis_kesehatan_id
+        }
+        
+
+        return render(request,'admin/data_kesehatan/pilih_wilayah.html',data)
+
+class xDetail_data_kesehatanViews(View):
+    def get(self,request,jenis_kesehatan_id,wilayah_id):
+        breadcrump = [{
+            'nama' : 'Data Kesehatan',
+            'url' : reverse('admin_setori:data_kesehatan')
+        },
+        {
+        'nama': 'Detail Data Kesehatan',
+        'url': reverse('admin_setori:detail_data_kesehatan',args=[jenis_kesehatan_id])
+        }
+        ]
+
+        dt_kesehatan = Data_kesehatan.objects.filter(deleted_at__isnull = True,fk_jenis=jenis_kesehatan_id,wilayah=wilayah_id)
+        jenis_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
+        dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull = True,jenis_kesehatan_id=jenis_kesehatan_id)
+        wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_level='4',wilayah_id=wilayah_id)
         data = {
             'dt_indikator': dt_indikator,
             'jenis_kesehatan': jenis_kesehatan,

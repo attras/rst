@@ -76,12 +76,7 @@ urlpatterns = [
         path('delete/<str:id>/', master_sarpras.DeleteSarpras.as_view(), name='delete_master_sarpras')
         ])),
 
-    path('master_identitas/',include([
-        path('', master_identitas.Master_identitasViews.as_view(), name = 'master_identitas'),
-        path('add_master_identitas', master_identitas.AddIdentitas.as_view(), name = 'add_identitas'),
-        path('edit/<uuid:identitas_id>/', master_identitas.EditIdentitas.as_view(), name = 'edit_identitas'),
-        path('delete/<uuid:id_identitas>', master_identitas.DeleteIdentitas.as_view(), name = 'delete_identitas'),
-        ])),
+   
 
     path('master_slider/',include([
         path('',master_slider.Master_sliderViews.as_view(),name='master_slider'),
@@ -138,8 +133,9 @@ urlpatterns = [
 
     path('data_kesehatan/',include([
         path('',admin_data_kesehatan.Admin_data_kesehatanViews.as_view(),name='data_kesehatan'),
-        path('pilih_wilayah/',admin_data_kesehatan.Pilih_wilayah.as_view(),name='pilih_wilayah'),
-        path('detail/<str:jenis_kesehatan_id>',admin_data_kesehatan.Detail_data_kesehatanViews.as_view(),name='detail_data_kesehatan'),    
+        # path('pilih_wilayah/',admin_data_kesehatan.Pilih_wilayah.as_view(),name='pilih_wilayah'),
+        path('detail/<str:jenis_kesehatan_id>/',admin_data_kesehatan.Detail_data_kesehatanViews.as_view(),name='detail_data_kesehatan'),
+        path('detail/<str:jenis_kesehatan_id>/<str:wilayah_id>',admin_data_kesehatan.xDetail_data_kesehatanViews.as_view(),name='xdetail_data_kesehatan'),    
            
         path('add',admin_data_kesehatan.Add_data_kesehatan.as_view(),name='add_data_kesehatan'),
         path('delete/<str:data_kesehatan_id>/', admin_data_kesehatan.DeleteKesehatan.as_view(), name = 'delete_kesehatan'),

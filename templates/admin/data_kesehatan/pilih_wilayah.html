@@ -3,20 +3,7 @@
 {% block main %}
 
 <!-- PAGE-HEADER -->
-<div class="page-header">
-    <div>
-        <h1 class="page-title">penduduk</h1>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
-        </ol>
-    </div>
-</div>
-<a href="{% url 'admin_setori:semua_penduduk' %}" class="btn btn-primary btn-icon text-white me-2" >
-    <span>
-        <i class="fe fe-plus"></i>
-    </span> Add data penduduk
-</a>
+
 <!-- User Table -->
 <div class="row">
     <div class="col-12 col-sm-12">
@@ -39,7 +26,7 @@
                                 <td class="text-muted fs-15 fw-semibold">{{ wilayah.wilayah_nama }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ wilayah.get_level_display }}</td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                    <a class="btn btn-primary btn-md rounded-11" href="{% url 'admin_setori:detail_data_penduduk' wilayah.wilayah_id  %}">
+                                    <a class="btn btn-primary btn-md rounded-11" href="{% url 'admin_setori:xdetail_data_kesehatan' jenis_kesehatan_id wilayah.wilayah_id  %}">
                                          
                                          <i class="fa-solid fa-pen-to-square"></i>Tambahkan data penduduk
                                     </a>

@@ -7,7 +7,6 @@ from .master_kategori import *
 from .admin_faq import *
 from .admin_kontak import *
 from .master_slider import *
-from .master_identitas import *
 from .layanan import *
 from .admin_berita import *
 from .admin_info_wilayah import *

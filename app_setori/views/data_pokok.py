@@ -82,43 +82,38 @@ class Data_pokokViews(View):
         }
         return render(request, 'setori/data_pokok/index.html', data)
     
-class TenagaKesehatanDataViews(View):
+class KesehatanDataViews(View):
     # Mengirimkan data JSON
     def get(self, request):
-        data = Data_kesehatan.objects.select_related('indikator', 'fk_jenis')
+        wilayah_filter = request.GET.get('wilayah', None)  # Dapatkan filter wilayah dari query string
+        data_queryset = Data_kesehatan.objects.filter(wilayah__wilayah_level=4)  # Hanya level 4
 
-        # Filter data berdasarkan fk_jenis
+        # Terapkan filter wilayah jika ada
+        if wilayah_filter:
+            data_queryset = data_queryset.filter(wilayah__wilayah_nama=wilayah_filter)
+
         grouped_data = {}
-        fk_jenis_list = data.values_list('fk_jenis__nama_jenis', flat=True).distinct()
-        for fk_jenis_name in fk_jenis_list:
-            fk_jenis_data = data.filter(fk_jenis__nama_jenis=fk_jenis_name)
+        for item in data_queryset:
+            jenis = item.fk_jenis.nama_jenis
+            if jenis not in grouped_data:
+                grouped_data[jenis] = {
+                    "categories": [],
+                    "oap": [],
+                    "non_oap": []
+                }
+            grouped_data[jenis]["categories"].append(item.indikator.nama_indikator)
+            grouped_data[jenis]["oap"].append(item.oap)
+            grouped_data[jenis]["non_oap"].append(item.non_oap)
 
-            # Ambil kategori indikator
-            indicators = fk_jenis_data.values_list('indikator__nama_indikator', flat=True).distinct()
+        # Semua wilayah untuk dropdown
+        wilayah_list = Data_kesehatan.objects.values_list(
+            'wilayah__wilayah_nama', flat=True
+        ).distinct()
 
-            # Hitung total OAP dan non-OAP per indikator
-            chart_data = []
-            for indicator in indicators:
-                oap_total = fk_jenis_data.filter(indikator__nama_indikator=indicator).aggregate(
-                    total_oap=Sum('oap')
-                )['total_oap'] or 0
-                non_oap_total = fk_jenis_data.filter(indikator__nama_indikator=indicator).aggregate(
-                    total_non_oap=Sum('non_oap')
-                )['total_non_oap'] or 0
-                chart_data.append({
-                    'indicator': indicator,
-                    'oap': oap_total,
-                    'non_oap': non_oap_total,
-                })
-
-            # Format data per `fk_jenis`
-            grouped_data[fk_jenis_name] = {
-                'categories': [item['indicator'] for item in chart_data],
-                'oap': [item['oap'] for item in chart_data],
-                'non_oap': [item['non_oap'] for item in chart_data],
-            }
-
-        return JsonResponse({'data': grouped_data})
+        return JsonResponse({
+            "data": grouped_data,
+            "wilayah_list": list(wilayah_list)
+        })
 
 class DetaildataViews(View):
     def get(self, request):
