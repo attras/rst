@@ -103,7 +103,7 @@ class Editslider(View):
                 insert_slider.save()  # Save new category in the database
 
                 messages.success(request, "Category edit successfully!")
-                return redirect('admin_setori:edit_slider',args=[id_slider])  # Redirect to the list view
+                return redirect('admin_setori:edit_slider',id_slider)  # Redirect to the list view
                 
         except Exception as e:
             print('Error while editing category', e)
