@@ -43,6 +43,8 @@
         height: auto;
     }
 
+    
+
 </style>
 {% endblock css %}
 
@@ -55,11 +57,11 @@
                         <div class="owl-stage">
 
                             <!-- Carousel Slide 1 -->
-                            {% for slider in dt_slider %}
+                            
 
                          
                             <!-- Carousel Slide 2-->
-                            <div class="owl-item p-relative border-radius-0 overflow-hidden">
+                            <!-- <div class="owl-item p-relative border-radius-0 overflow-hidden">
                                 <div class="image-wrapper p-absolute z-index-1 top-0 left-0 right-0 bottom-0 overlay overlay-color-dark overlay-show overlay-op-6" data-carousel-onchange-show>
                                     <img src="{% if slider.foto %}{{ slider.foto.url }}{% else %}{% endif %}" alt="Slider Image" class="background-image" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
@@ -72,8 +74,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                           
+                            </div> -->
+                            {% for slider in dt_slider %}
                             <div class="owl-item p-relative border-radius-0 overflow-hidden">
                                 <div class="image-wrapper p-absolute z-index-1 top-0 left-0 right-0 bottom-0 overlay overlay-color-dark overlay-show overlay-op-6" data-carousel-onchange-show>
                                     <img src="{{ slider.foto.url }}" alt="Slider Image" class="background-image" style="width: 100%; height: 100%; object-fit: cover;">

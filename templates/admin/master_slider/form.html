@@ -30,6 +30,7 @@
                 <form action="{% if edit %}{% url 'admin_setori:edit_slider' id_slider %}{% else %}{% url 'admin_setori:add_slider' %} {% endif %}"  enctype="multipart/form-data" method="post">
                     {% csrf_token %}
                     <div class="row">
+                        
                         <div class="col-lg-6 col-sm-12 mb-3 mb-lg-0">
                             <label class="form-label" for="id_logo">Logo</label>
                             <input type="file" name="logo" id="id_logo" class="dropify" data-default-file="{% if dt_slider.logo %}{{ dt_slider.logo.url }}{% else %}{% endif %}" data-bs-height="180" accept="image/*"/>

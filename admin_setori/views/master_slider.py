@@ -65,6 +65,7 @@ class Add_slider(View):
 class Editslider(View):
     def get(self,request,id_slider):
         dt_slider = get_object_or_404(Slider,id_slider=id_slider,deleted_at__isnull = True)
+        data_slider = Slider.objects.filter(deleted_at__isnull = True,id_slider=id_slider)
         breadcrump = [{
         'nama': 'Master slider',
         'url': reverse('admin_setori:master_slider'),
@@ -80,6 +81,7 @@ class Editslider(View):
             'id_slider' : id_slider,
             'breadcrump' : breadcrump,
             'title': 'Edit Slider',
+            'data_slider ':data_slider 
         }
        
         return render(request, 'admin/master_slider/form.html',data)
