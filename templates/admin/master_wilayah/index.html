@@ -215,12 +215,45 @@
 
 
 
+    // document.getElementById("wilayah_level").addEventListener("change", function() {
+    //     var level = this.value;
+    //     document.getElementById("parent_provinsi").style.display = level == "2" ? "block" : "none";
+    //     document.getElementById("parent_kabupaten").style.display = level == "3" ? "block" : "none";
+    //     document.getElementById("parent_kecamatan").style.display = level == "4" ? "block" : "none";
+    // });
+
     document.getElementById("wilayah_level").addEventListener("change", function() {
-        var level = this.value;
-        document.getElementById("parent_provinsi").style.display = level == "2" ? "block" : "none";
-        document.getElementById("parent_kabupaten").style.display = level == "3" ? "block" : "none";
-        document.getElementById("parent_kecamatan").style.display = level == "4" ? "block" : "none";
-    });
+    var level = this.value;
+
+    var parentProvinsi = document.getElementById("parent_provinsi");
+    var parentKabupaten = document.getElementById("parent_kabupaten");
+    var parentKecamatan = document.getElementById("parent_kecamatan");
+
+    // Tampilkan atau sembunyikan elemen berdasarkan level
+    parentProvinsi.style.display = level == "2" ? "block" : "none";
+    parentKabupaten.style.display = level == "3" ? "block" : "none";
+    parentKecamatan.style.display = level == "4" ? "block" : "none";
+
+    // Atur atribut required berdasarkan level
+    if (level == "2") {
+        parentProvinsi.querySelector("input, select").setAttribute("required", "true");
+    } else {
+        parentProvinsi.querySelector("input, select").removeAttribute("required");
+    }
+
+    if (level == "3") {
+        parentKabupaten.querySelector("input, select").setAttribute("required", "true");
+    } else {
+        parentKabupaten.querySelector("input, select").removeAttribute("required");
+    }
+
+    if (level == "4") {
+        parentKecamatan.querySelector("input, select").setAttribute("required", "true");
+    } else {
+        parentKecamatan.querySelector("input, select").removeAttribute("required");
+    }
+});
+
 
     
 

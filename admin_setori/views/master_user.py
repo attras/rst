@@ -66,17 +66,18 @@ class Edit_user(View):
         'url': reverse('admin_setori:master_user'),
         }
         ]
-        items_per_page = request.GET.get('items_per_page', 5)
-        dt_akun = Account.objects.all()
-        paginator = Paginator(dt_akun, items_per_page)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
+
+        dt_akun = get_object_or_404(Account,id=id)
+
+
         akun={
             'dt_akun':dt_akun,
             'role':ROLE_CHOICES,
-            'page_obj': page_obj,
+           
             'breadcrump':breadcrump,
-            'title':'Tambah user'
+            'title':'Tambah user',
+            'id':id,
+            'edit' : True
         }
 
         return render(request, 'admin/master_user/form.html',akun)
@@ -107,6 +108,27 @@ class Edit_user(View):
 
     
 class AddUser(View):
+    def get(self, request):
+        breadcrump = [{
+        'nama': 'Tambah user',
+        'url': reverse('admin_setori:master_user'),
+        }
+        ]
+        items_per_page = request.GET.get('items_per_page', 5)
+        dt_akun = Account.objects.all()
+        paginator = Paginator(dt_akun, items_per_page)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        akun={
+            'dt_akun':dt_akun,
+            'role':ROLE_CHOICES,
+            'page_obj': page_obj,
+            'breadcrump':breadcrump,
+            'title':'Tambah user'
+        }
+
+        return render(request, 'admin/master_user/form.html',akun)
+     
     def post(self, request):
         email = request.POST.get('email')
         username = request.POST.get('username')

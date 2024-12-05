@@ -23,19 +23,19 @@
                 <h3 class="card-title mb-0">{{ title }}{{ dt_layanan.surat }}</h3>
             </div>
             <div class="card-body">
-                <form method="post" action="{% url 'admin_setori:add_user' %}" id="addUserForm">
+                <form method="post" action="{% if edit %}{% url 'admin_setori:edit_user' id %}{% else %}{% url 'admin_setori:add_user' %}{% endif %}" id="addUserForm">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input name="email" type="email" class="form-control" id="email" placeholder="Enter email">
+                        <input value="{{ dt_akun.email }}" name="email" type="email" class="form-control" id="email" placeholder="Enter email">
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input name="username" type="text" class="form-control" id="username" placeholder="Enter username">
+                        <input value="{{ dt_akun.username }}" name="username" type="text" class="form-control" id="username" placeholder="Enter username">
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">no hp</label>
-                        <input name="phone" type="number" class="form-control" id="phone" placeholder="Enter phone">
+                        <input value="{{ dt_akun.phone }}" name="phone" type="number" class="form-control" id="phone" placeholder="Enter phone">
                     </div>
                     
                     <div class="mb-3">
@@ -43,7 +43,7 @@
                         <select name="role" class="form-select" id="role">
                             <option selected>Select role</option>
                             {% for value in role %}
-                            <option value="{{ value.0 }}">{{ value.1 }}</option>
+                            <option value="{{ value.0 }}" {%  if dt_akun.role ==  value.0   %} selected {% endif %}>{{ value.1 }}</option>
                             {% endfor %}
                         </select>
                     </div>

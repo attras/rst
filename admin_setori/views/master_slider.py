@@ -18,7 +18,7 @@ class Master_sliderViews(View):
     def get(self, request):
         
         breadcrump = [{
-        'nama': 'Home',
+        'nama': 'Master slider',
         'url': reverse('admin_setori:master_slider'),
         }
         ]
@@ -65,11 +65,21 @@ class Add_slider(View):
 class Editslider(View):
     def get(self,request,id_slider):
         dt_slider = get_object_or_404(Slider,id_slider=id_slider,deleted_at__isnull = True)
-        
+        breadcrump = [{
+        'nama': 'Master slider',
+        'url': reverse('admin_setori:master_slider'),
+        },
+        {
+        'nama': 'Edit Slider',
+        'url': reverse('admin_setori:edit_slider',args=[id_slider]),
+        },
+        ]
         data ={
             'edit':True,
             'dt_slider':dt_slider,
-            'id_slider' : id_slider
+            'id_slider' : id_slider,
+            'breadcrump' : breadcrump,
+            'title': 'Edit Slider',
         }
        
         return render(request, 'admin/master_slider/form.html',data)
@@ -93,7 +103,7 @@ class Editslider(View):
                 insert_slider.save()  # Save new category in the database
 
                 messages.success(request, "Category edit successfully!")
-                return redirect('admin_setori:master_slider')  # Redirect to the list view
+                return redirect('admin_setori:edit_slider',args=[id_slider])  # Redirect to the list view
                 
         except Exception as e:
             print('Error while editing category', e)
@@ -126,8 +136,19 @@ class Delete_at_slider(View):
 class Historislider(View):
     def get(self, request):
         dt_slider = Slider.objects.filter(deleted_at__isnull = False)
+        breadcrump = [{
+        'nama': 'Master slider',
+        'url': reverse('admin_setori:master_slider'),
+        },
+        {
+        'nama': 'Riwayat Slider',
+        'url': reverse('admin_setori:histori_slider'),
+        },
+        ]
         data ={
             'dt_slider':dt_slider,
+            'breadcrump':breadcrump,
+            'title':'Riwayat Hapus Master Slider'
         }
        
         return render(request, 'admin/master_slider/histori.html',data)

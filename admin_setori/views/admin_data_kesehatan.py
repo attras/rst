@@ -172,11 +172,20 @@ class Historikesehatan(View):
         jenis_kesehatan = Master_jenis_kesehatan.objects.filter(deleted_at__isnull = False)
         dt_indikator = Indikator_kesehatan.objects.filter(deleted_at__isnull = False)
         wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = False,wilayah_level='4')
+        breadcrump = [{
+            'nama' : 'Data Kesehatan',
+            'url' : reverse('admin_setori:data_kesehatan')
+        }
+        
+       
+        ]
         data = {
             'dt_indikator': dt_indikator,
             'jenis_kesehatan': jenis_kesehatan,
             'wilayah_list': wilayah_list,
             'dt_kesehatan': dt_kesehatan,
+            'breadcrump': breadcrump,
+            'title':'Riwayat Master slider'
         }
         return render(request,'admin/data_kesehatan/histori.html',data)
     

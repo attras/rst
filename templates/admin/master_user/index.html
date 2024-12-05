@@ -3,7 +3,7 @@
 
 {% block admin_header %} 
 <!-- Button to Add New User -->
- <a href="{% url 'admin_setori:form_user' %}">
+ <a href="{% url 'admin_setori:add_user' %}">
     <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#">
         Add New User
     </button>
@@ -72,7 +72,7 @@
                                     <td class="text-muted fs-15 fw-semibold">{{ user.last_login }}</td>
                                     <td>
                                        <a class="btn btn-primary btn-md rounded-11 me-2" 
-                                    href="#"
+                                    href="{% url 'admin_setori:edit_user' user.id %}"
                                     >
                                     <i class="fa-solid fa-pen-to-square"></i>Edit  
                                     </a>

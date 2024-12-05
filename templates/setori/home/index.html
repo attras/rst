@@ -57,11 +57,11 @@
                             <!-- Carousel Slide 1 -->
                             {% for slider in dt_slider %}
 
-                            {% if forloop.counter > 1 %}
+                         
                             <!-- Carousel Slide 2-->
                             <div class="owl-item p-relative border-radius-0 overflow-hidden">
                                 <div class="image-wrapper p-absolute z-index-1 top-0 left-0 right-0 bottom-0 overlay overlay-color-dark overlay-show overlay-op-6" data-carousel-onchange-show>
-                                    <img src="{{ slider.foto.url }}" alt="Slider Image" class="background-image" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <img src="{% if slider.foto %}{{ slider.foto.url }}{% else %}{% endif %}" alt="Slider Image" class="background-image" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
                                 <div class="container text-color-light p-relative z-index-2">
                                     <div class="row justify-content-center align-items-center mh-750px py-5">
@@ -73,7 +73,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {% else %}
+                           
                             <div class="owl-item p-relative border-radius-0 overflow-hidden">
                                 <div class="image-wrapper p-absolute z-index-1 top-0 left-0 right-0 bottom-0 overlay overlay-color-dark overlay-show overlay-op-6" data-carousel-onchange-show>
                                     <img src="{{ slider.foto.url }}" alt="Slider Image" class="background-image" style="width: 100%; height: 100%; object-fit: cover;">
@@ -81,6 +81,7 @@
                                 <div class="container text-color-light p-relative z-index-2">
                                     <div class="row justify-content-center align-items-center mh-750px py-5">
                                         <div class="col-lg-6 text-center">
+                                            {% if slider.logo %}
                                             <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
                                                 <h4 class="text-6 text-lg-7 text-color-light font-weight-regular mb-4">
                                                     <span class="d-inline-flex p-relative top-7">
@@ -88,6 +89,7 @@
                                                     </span>
                                                 </h4>
                                             </div>
+                                            {% else %}{% endif %}
                                             <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
                                                 <h2 class="text-10 text-lg-12 font-weight-semibold text-color-light line-height-1">{{ slider.text}}</h2>
                                             </div>
@@ -101,7 +103,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
+                            
                             {% endfor %}
                         </div>
                     </div>
