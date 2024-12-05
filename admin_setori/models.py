@@ -12,18 +12,22 @@ from django.db.models import Sum, Q
 
 def validate_file_gambar(value):
     dokumen =[
-                'image/jpeg',
-                'image/png',
-                'image/jpg',
+                 'image/jpeg', 
+                'image/png', 
+                'image/jpg', 
+                'image/bmp', 
+                'image/webp',
+                'image/heif',  
+                'image/heic', 
             ]
     if value.file.content_type not in dokumen:
-        raise ValidationError(u'Pastikan ekstensi file adalah .jpg, .jpeg atau .png.')
+        raise ValidationError(u'Pastikan ekstensi file adalah .jpg, .jpeg, .png, .bmp, .webp, .heif, atau .heic.')
     
 def validate_file_size_gambar(value):
     filesize= value.size
     
     # if filesize > 5242880:
-    if filesize > 2242880:
+    if filesize > 2 * 1024 * 1024 :
         raise ValidationError("Pastikan ukuran File dibawah 2 MB.")
     else:
         return value
@@ -248,7 +252,7 @@ class Info_wilayah(CreateUpdateTime):
     info_wilayah_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     visi = models.TextField(help_text="Visi kelurahan")
     misi = models.TextField(help_text="Misi kelurahan")
-    image_profile = models.ImageField(upload_to='daerah',default='artikel/defaultartikel.jpeg')
+    image_profile = models.ImageField(upload_to='daerah', validators=[validate_file_gambar, validate_file_size_gambar],default='artikel/defaultartikel.jpeg')
     link_maps = models.TextField(blank=True, null=True)
     kode_info_wilayah = models.CharField(max_length=50, unique=True, help_text="Kode unik untuk Kelurahan")
     tahun_pembentukan = models.CharField(max_length=100,help_text="Tahun pembentukan kelurahan")
@@ -261,14 +265,14 @@ class Tentang(CreateUpdateTime):
     pengantar = models.TextField()
     kata_kepala = models.TextField()
     kata_sekretaris = models.TextField()
-    foto_pegantar = models.ImageField(upload_to='tentang')
+    foto_pegantar = models.ImageField(upload_to='tentang', validators=[validate_file_gambar, validate_file_size_gambar])
     nama_kepala_dinas = models.CharField(max_length=255)
     jabatan_kepala = models.CharField(max_length=255)
     nama_sekretaris = models.CharField(max_length=255)
     jabatan_sekretaris = models.CharField(max_length=255)
     deskripsi_singkat = models.TextField()
-    foto_kepala = models.ImageField(upload_to='tentang')
-    foto_sekretaris = models.ImageField(upload_to='tentang')
+    foto_kepala = models.ImageField(upload_to='tentang', validators=[validate_file_gambar, validate_file_size_gambar])
+    foto_sekretaris = models.ImageField(upload_to='tentang', validators=[validate_file_gambar, validate_file_size_gambar])
    
 
 class Kontak(CreateUpdateTime):

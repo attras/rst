@@ -53,10 +53,8 @@
                                 <th class="bg-transparent border-bottom-0">Username</th>
                                 <th class="bg-transparent border-bottom-0">Role</th>
                                 <th class="bg-transparent border-bottom-0">No HP</th>
-                                <!-- <th class="bg-transparent border-bottom-0">Password</th> -->
-                                <th class="bg-transparent border-bottom-0">Date joined</th>
-                                <th class="bg-transparent border-bottom-0">Last login</th>
-                                <th class="bg-transparent border-bottom-0">Action</th>
+
+                                <th class="bg-transparent border-bottom-0">Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -67,9 +65,7 @@
                                     <td class="text-muted fs-15 fw-semibold">{{ user.username }}</td>
                                     <td class="text-muted fs-15 fw-semibold">{{ user.role }}</td>
                                     <td class="text-muted fs-15 fw-semibold">{{ user.phone }}</td>
-                                    <!-- <td class="text-muted fs-15 fw-semibold">{{ user.password|slice:":30" }}</td> -->
-                                    <td class="text-muted fs-15 fw-semibold">{{ user.date_joined }}</td>
-                                    <td class="text-muted fs-15 fw-semibold">{{ user.last_login }}</td>
+
                                     <td>
                                        <a class="btn btn-primary btn-md rounded-11 me-2" 
                                     href="{% url 'admin_setori:edit_user' user.id %}"
@@ -80,6 +76,22 @@
                                     <button type="button" class="btn btn-danger" onclick="Hapus_user('{{ user.id }}')">
                                         <i class="fe fe-trash"></i> Hapus
                                     </button>
+                                    <!-- <div class="btn-group mt-2 mb-2">
+                                        <button type="button" class="btn btn-outline-info btn-pill dropdown-toggle" data-bs-toggle="dropdown">
+                                            Action <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li class="dropdown-plus-title">
+                                                Dropdown
+                                                <b class="fa fa-angle-up" aria-hidden="true"></b>
+                                            </li>
+                                            <li><a href="#">Action</a></li>
+                                            <li><a href="#">Another action</a></li>
+                                            <li><a href="#">Something else here</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Separated link</a></li>
+                                        </ul>
+                                    </div> -->
                                     </td>
                                 </tr>
                             {% endfor %}

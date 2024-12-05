@@ -1,4 +1,6 @@
+
 {% extends 'admin/base_layout/index.html' %}
+{% load static %}
 {% block css %} 
 
 {% endblock css %}
@@ -44,10 +46,10 @@
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                    <img src="{% if  slider.logo %}{{ slider.logo.url }}{% else  %}#{% endif %}" alt="logo_null" style="width: 50px; height: auto;">
+                                    <img class="gambar" src="{% if  slider.logo %}{{ slider.logo.url }}{% else  %}{% static 'default/image/default.png' %}{% endif %}" alt="logo_null" style="width: 50px; height: auto;">
                                 </td>
                                 <td class="text-muted fs-15 fw-semibold">
-                                    <img src="{{ slider.foto.url }}" alt="foto" style="width: 50px; height: auto;">
+                                    <img class="gambar" src="{{ slider.foto.url }}" alt="foto" style="width: 50px; height: auto;">
                                 </td>
                                 <td class="text-muted fs-15 fw-semibold">{{ slider.text}}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ slider.status}}</td>

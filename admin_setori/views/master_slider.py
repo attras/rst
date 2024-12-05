@@ -22,7 +22,7 @@ class Master_sliderViews(View):
         'url': reverse('admin_setori:master_slider'),
         }
         ]
-        dt_slider = Slider.objects.filter(deleted_at__isnull = True)
+        dt_slider = Slider.objects.filter(deleted_at__isnull = True).order_by('-created_at')
         data ={
             'dt_slider':dt_slider,
             'breadcrump':breadcrump,
@@ -87,7 +87,7 @@ class Editslider(View):
     def post(self, request, id_slider):
         dt_slider = get_object_or_404(Slider, id_slider=id_slider, deleted_at__isnull=True)
 
-        logo = request.FILES.get('logo') or dt_slider.logo
+        logo = request.FILES.get('logo') 
         foto = request.FILES.get('foto') or dt_slider.foto
         text = request.POST.get('text')
         status = request.POST.get('status')
@@ -103,12 +103,12 @@ class Editslider(View):
                 insert_slider.save()  # Save new category in the database
 
                 messages.success(request, "Category edit successfully!")
-                return redirect('admin_setori:edit_slider',id_slider)  # Redirect to the list view
+                return redirect('admin_setori:master_slider')  # Redirect to the list view
                 
         except Exception as e:
             print('Error while editing category', e)
             messages.error(request, "Failed to edit category")
-            return redirect(reverse('admin_setori:master_slider'))
+            return redirect(reverse('admin_setori:edit_slider',id_slider))
 
 class Delete_slider(View):
     def get(self, request, id_slider):
