@@ -16,7 +16,7 @@ from django.utils.decorators import method_decorator
 class LayananViews(View):
     def get(self, request):
         breadcrump = [{
-        'nama': 'Layanan',
+        'nama': 'Setting Layanan',
         'url': reverse('admin_setori:admin_layanan'),
         }
         ]
@@ -25,7 +25,7 @@ class LayananViews(View):
             'title' : 'Layanan',
             'dt_layanan' : dt_layanan,
             'breadcrump' : breadcrump,
-            'title' : 'Layanan'
+            'title' : 'Setting Layanan'
         }
         return render(request, 'admin/admin_layanan/index.html',data)
 
@@ -131,9 +131,19 @@ class Delete_at(View):
 
 class Historilayanan(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Setting Layanan',
+        'url': reverse('admin_setori:admin_layanan'),
+        },{
+        'nama': 'Riwayat Layanan',
+        'url': reverse('admin_setori:histori_layanan'),
+        }
+        ]
         dt_layanan = Layanan.objects.filter(deleted_at__isnull = False)
         data = {
-            'dt_layanan' : dt_layanan
+            'dt_layanan' : dt_layanan,
+            'breadcrump' : breadcrump,
+            'title' : 'Layanan'
         }
         return render(request, 'admin/admin_layanan/histori.html',data)
     

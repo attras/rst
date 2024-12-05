@@ -34,7 +34,7 @@ class Admin_data_kesehatanViews(View):
 class Detail_data_kesehatanViews(View):
     def get(self,request,jenis_kesehatan_id):
         breadcrump = [{
-            'nama' : 'Data Kesehatan',
+            'nama' : 'Data',
             'url' : reverse('admin_setori:data_kesehatan')
         },
         {
@@ -64,7 +64,7 @@ class Detail_data_kesehatanViews(View):
 class xDetail_data_kesehatanViews(View):
     def get(self,request,jenis_kesehatan_id,wilayah_id):
         breadcrump = [{
-            'nama' : 'Data Kesehatan',
+            'nama' : 'Data',
             'url' : reverse('admin_setori:data_kesehatan')
         },
         {

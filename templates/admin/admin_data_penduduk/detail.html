@@ -1,8 +1,10 @@
 {% extends 'admin/base_layout/index.html' %}
 {% block css %} {% endblock css %}
-{% block main %}
 
-<!-- PAGE-HEADER -->
+{% block admin_header %}{% endblock admin_header %}
+
+{% block main %}
+<!-- User Table -->
 <div class="page-header">
     <div>
         <a href="{% url 'admin_setori:semua_penduduk' %}">
@@ -11,17 +13,6 @@
                 Kembali
             </button>
         </a>
-    </div>
-</div>
-<div class="page-header">
-    <div>
-        {% for penduduk in wilayah_list %}
-        <h1 class="page-title">Penduduk {{ penduduk.wilayah_nama }}</h1>
-        {% endfor %}
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
-        </ol>
     </div>
     <div class="ms-auto pageheader-btn" data-bs-toggle="modal" data-bs-target="#addUserModal" >
         {% if dt_penduduk %}
@@ -46,7 +37,6 @@
         </a>
     </div>
 </div>
-<!-- User Table -->
 <div class="row">
     <div class="col-12 col-sm-12">
         <div class="card">

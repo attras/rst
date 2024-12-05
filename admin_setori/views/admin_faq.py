@@ -16,7 +16,7 @@ from admin_setori.decorators import role_required
 class Admin_faqViews(View):
     def get(self, request):
         breadcrump = [{
-        'nama': 'FAQ',
+        'nama': 'Setting FAQ',
         'url': reverse('admin_setori:admin_faq'),
         }
         ]
@@ -25,7 +25,7 @@ class Admin_faqViews(View):
         data = {
             'dt_faq' : dt_faq,
             'breadcrump' : breadcrump,
-            'title' : 'FAQ'
+            'title' : 'Setting FAQ'
 
         }
         return render(request, 'admin/admin_faq/index.html',data)
@@ -89,9 +89,19 @@ class DeleteAt(View):
     
 class Historifaq(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Setting FAQ',
+        'url': reverse('admin_setori:admin_faq'),
+        },{
+        'nama': 'Riwayat FAQ',
+        'url': reverse('admin_setori:histori_faq'),
+        }
+        ]
         dt_faq = Faq.objects.filter(deleted_at__isnull = False)
         data = {
-            'dt_faq' : dt_faq
+            'dt_faq' : dt_faq,
+            'breadcrump' : breadcrump,
+            'title' : 'FAQ'
         }
         return render(request, 'admin/admin_faq/histori.html',data)
     

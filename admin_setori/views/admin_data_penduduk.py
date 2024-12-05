@@ -124,6 +124,14 @@ class Semua_data(View):
     
 class Detail_penduduk(View):
     def get(self, request,wilayah_id):
+        breadcrump = [{
+        'nama': 'Data Penduduk',
+        'url': reverse('admin_setori:data_penduduk'),
+        },{
+        'nama': 'Detail Data Penduduk',
+        'url': reverse('admin_setori:detail_data_penduduk',args=[wilayah_id]),
+        }
+        ]
         wilayah_list = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
         dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull = True,wilayah=wilayah_id)
         try:
@@ -132,14 +140,12 @@ class Detail_penduduk(View):
         except ObjectDoesNotExist:
             data_penduduk = None  # Atau menangani error sesuai kebutuhan
 
-
-       
-
-
         data={
             'dt_penduduk': dt_penduduk,
             'wilayah_list': wilayah_list,
             'data_penduduk':data_penduduk,
+            'breadcrump': breadcrump,
+            'title':'Detail Data Penduduk'
             
         }
 
