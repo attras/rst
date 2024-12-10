@@ -42,6 +42,7 @@ class Add_slider(View):
     
     def post(self, request):
         logo = request.FILES.get('logo')
+       
         foto = request.FILES.get('foto')
         text = request.POST.get('text')
         status = request.POST.get('status')
@@ -88,8 +89,9 @@ class Editslider(View):
      
     def post(self, request, id_slider):
         dt_slider = get_object_or_404(Slider, id_slider=id_slider, deleted_at__isnull=True)
-
+        
         logo = request.FILES.get('logo') 
+        print(logo)
         foto = request.FILES.get('foto') or dt_slider.foto
         text = request.POST.get('text')
         status = request.POST.get('status')

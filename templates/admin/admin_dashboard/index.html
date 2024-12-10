@@ -7,5 +7,55 @@
 
 {% block main %}
 <h1>SELAMAT DATANG {{ user.username }}</h1>
-
+<div class="row row-cards">
+    <div class="col-md-12 col-lg-4 col-xl-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Numbers counter
+                </h3>
+            </div>
+            <div class="card-body text-center">
+                <div class="counter-icon bg-primary-gradient box-shadow-primary brround ms-auto me-auto">
+                    <i class="fe fe-users text-white mb-5 "></i>
+                </div>
+                <h5>Employess</h5>
+                <h2 class="counter">2569</h2>
+            </div>
+        </div>
+    </div><!-- COL-END -->
+    <div class="col-md-12 col-lg-4 col-xl-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Numbers counter
+                </h3>
+            </div>
+            <div class="card-body text-center">
+                <div class="counter-icon bg-danger-gradient box-shadow-danger brround ms-auto me-auto">
+                    <i class="fe fe-dollar-sign text-white mb-5 "></i>
+                </div>
+                <h5>Profit</h5>
+                <h2 class="counter"> 2,56989.32</h2>
+            </div>
+        </div>
+    </div><!-- COL-END -->
+    <div class="col-md-12 col-lg-4 col-xl-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Numbers counter
+                </h3>
+            </div>
+            <div class="card-body text-center">
+                <div class="counter-icon bg-secondary-gradient  box-shadow-secondary brround ms-auto me-auto">
+                    <i class="fe fe-alert-octagon text-white mb-5 "></i>
+                </div>
+                <h5>Errors</h5>
+                <h2 class="counter">0.8998</h2>
+            </div>
+        </div>
+    </div><!-- COL-END -->
+ 
+</div>
 {% endblock main %}

@@ -17,7 +17,7 @@
     <a href="{% url 'admin_setori:add_info_wilayah' wilayah_id %}" class="btn btn-primary btn-icon text-white me-2" >
         <span>
             <i class="fe fe-plus" ></i>
-        </span> Add
+        </span> Tambah info wilayah
     </a>
    
     {% endif %}
@@ -51,7 +51,7 @@
                                 <th class="bg-transparent border-bottom-0">Misi</th>
                                 
                                 <th class="bg-transparent border-bottom-0">wilayah</th>
-                                <th class="bg-transparent border-bottom-0">Action</th>
+                                <!-- <th class="bg-transparent border-bottom-0">Action</th> -->
                                 
                             </tr>
                         </thead>
@@ -67,10 +67,74 @@
                                 <td class="text-muted fs-15 fw-semibold">{{ info.wilayah.wilayah_nama|slice:":60" }}</td>
                              
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
-                                <td class="text-muted fs-15 fw-semibold">
+                                <!-- <td class="text-muted fs-15 fw-semibold">
                                     
                                         <a >
                                             <button type="button" class="btn btn-danger" onclick="Hapus_info()">
+                                                <i class="fe fe-trash"></i> Hapus
+                                            </button>     
+                                        </a>
+                                        
+                                        
+                                    </td> -->
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- COL END -->
+</div>
+
+<a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_sarpras()">
+    <span>
+        <i class="fe fe-plus">Tambah data sarpras</i>
+    </span> 
+</a>
+
+<div class="row">
+    <div class="col-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Sarpras</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th class="bg-transparent border-bottom-0 w-5">No</th>
+                                <th class="bg-transparent border-bottom-0">Sarana</th>
+                                <th class="bg-transparent border-bottom-0">Jumlah</th>
+                                <th class="bg-transparent border-bottom-0">Action</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for info in dt_sarpras %}
+                            <tr class="border-bottom">
+                                <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ info.nama_sarpras.nama|slice:":60" }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ info.jumlah|slice:":60" }}</td>
+                             
+                                <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
+                                <td class="text-muted fs-15 fw-semibold">
+                                    
+                                        <a class="btn btn-primary btn-md rounded-11 me-2"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#addModal"
+                                        data-bs-wilayah="{{ info.wilayah }}"
+                                        data-bs-nama_sarpras="{{ info.nama_sarpras }}"
+                                        data-bs-jumlah="{{ info.jumlah }}"
+                                        onclick="Edit_sarpras()"
+                                        href="#"
+                                        >
+                                        <i class="fa-solid fa-pen-to-square"></i>Edit  
+                                        </a>
+                                        <a >
+                                            <button type="button" class="btn btn-danger" onclick="Hapus_sarpras('{{ info.sarpras_id }}')">
                                                 <i class="fe fe-trash"></i> Hapus
                                             </button>     
                                         </a>
@@ -88,81 +152,43 @@
     <!-- COL END -->
 </div>
 
-<a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addModal" onclick="Tambah_jenis_kesehatan()">
-    <span>
-        <i class="fe fe-plus">Tambah data sarpras</i>
-    </span> 
-</a>
 
-<table id="data-table" class="table table-bordered text-nowrap mb-0">
-    <thead class="border-top">
-        <tr>
-            <th class="bg-transparent border-bottom-0 w-5">No</th>
-            <th class="bg-transparent border-bottom-0">Sarana</th>
-            <th class="bg-transparent border-bottom-0">Jumlah</th>
-            <th class="bg-transparent border-bottom-0">Action</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-      {% for info in dt_sarpras %}
-        <tr class="border-bottom">
-            <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-            <td class="text-muted fs-15 fw-semibold">{{ info.nama_sarpras.nama|slice:":60" }}</td>
-            <td class="text-muted fs-15 fw-semibold">{{ info.jumlah|slice:":60" }}</td>
-         
-            <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
-            <td class="text-muted fs-15 fw-semibold">
-                
-                    <a >
-                        <button type="button" class="btn btn-danger" onclick="Hapus_sarpras()">
-                            <i class="fe fe-trash"></i> Hapus
-                        </button>     
-                    </a>
-                    
-                    
-                </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<!-- Add dan Edit info sarpras -->
+<!-- form modal sarpras -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">sarpras</h5>
+                <h5 class="modal-title" id="addModalLabel">Sarpras</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="post" action="{% url 'admin_setori:add_sarpras' %}">
-                  {% csrf_token %}
-                  <input type="hidden" value="{{wilayah_id}}" name="wilayah_id">
-                <div class="mb-3">
-                    <label for="map" class="form-label">Sarpras</label>
-                <select name="nama_sarpras" id="nama_sarpras" required>
-                    <option value="" disabled selected>Pilih Sarpras</option>
-                    {% for s in available_sarpras %}
-                        <option value="{{ s.pk }}">{{ s.nama }}</option>
-                    {% endfor %}
-                </select>
-                </div>
-                <div class="mb-3">
-                    <label for="map" class="form-label">Jumlah</label>
-                    <input type="number" id="jumlah" name="jumlah"  class="form-control" name="nama_sarpras" placeholder="Masukkan jumlah sarpras" required>
-                </div >
-                  <!-- Tombol submit -->
-                  <button class="btn btn-primary" type="submit">Submit</button>   
+                    {% csrf_token %}
+                    <input type="hidden" name="wilayah_id" value="{{ wilayah_id }}">
+                    <div class="mb-3">
+                        <label for="nama_sarpras" class="form-label">Sarpras</label>
+                        <input type="text" id="sarpras" name="sarpras" class="form-control" placeholder="Masukkan jumlah sarpras" readonly>
+                        <select name="nama_sarpras" id="nama_sarpras" class="form-select" required>
+
+                            <option value="" disabled selected>Pilih Sarpras</option>
+                            {% for s in available_sarpras %}
+                                <option value="{{ s.pk }}">{{ s.nama }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah" class="form-label">Jumlah</label>
+                        <input type="number" id="jumlah" name="jumlah" class="form-control" placeholder="Masukkan jumlah sarpras" required>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-
 <script>
-    function Hapus_info() {
+    function Hapus_sarpras(id_hapus_sarpras) {
     Swal.fire({
         title: 'Apakah kamu yakin ingin menghapus?',
         showCancelButton: true,
@@ -172,7 +198,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: "{% url 'admin_setori:delete_penduduk' 'holder' %}".replace('holder', id_hapus_penduduk),
+                url: "{% url 'admin_setori:delete_sarpras' 'holder' %}".replace('holder', id_hapus_sarpras),
                 dataType: "html",
                 timeout: 10000,
                 beforeSend: function() {
@@ -199,6 +225,53 @@
     });
 
 };
+// var FormSarpras = document.getElementById('addModal');
+// function Tambah_sarpras(){
+        
+//         var form = FormSarpras.querySelector('form');
+//         document.getElementById('addModalLabel').textContent = 'Tambahkan Sarpras';
+//         form.action = "{% url 'admin_setori:add_sarpras' %}";
+
+//     };
+
+// FormSarpras.addEventListener('show.bs.modal',function Edit_sarpras() {
+    
+//     // Ambil data dari atribut data-bs-*
+//     var button = event.relatedTarget;
+//     const wilayah = button.getAttribute('data-bs-wilayah');
+//     const namaSarpras = button.getAttribute('data-bs-nama_sarpras');
+//     const jumlah = button.getAttribute('data-bs-jumlah');
+    
+//     // Cari form dalam modal edit
+//     const modal = document.getElementById('addModal');
+//     const wilayahField = modal.querySelector('input[name="wilayah_id"]');
+//     const namaSarprasField = modal.querySelector('select[name="nama_sarpras"]');
+//     const jumlahField = modal.querySelector('input[name="jumlah"]');
+//     const sarpras = document.getElementById('sarpras');
+//     sarpras.value = namaSarpras
+//     // Set nilai ke field
+//     wilayahField.value = wilayah;
+//     namaSarprasField.value = namaSarpras;
+//     jumlahField.value = jumlah;
+
+//     console.log('Wilayah:', wilayah);
+//     console.log('Nama Sarpras:', namaSarpras);
+//     console.log('Nama Sarpras:',namaSarprasField);
+//     console.log('Jumlah:', jumlah);
+
+//     // Ubah judul modal menjadi "Edit Sarpras"
+//     const modalTitle = modal.querySelector('.modal-title');
+//     modalTitle.textContent = 'Edit Sarpras';
+
+//     // Update action URL form jika dibutuhkan
+//     const form = modal.querySelector('form');
+//     form.action = `/admin_setori/edit_sarpras/${sarpras_id}/`; // Sesuaikan URL edit dengan backend Anda
+
+   
+// });
+
+
+
 
 
 

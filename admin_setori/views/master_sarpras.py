@@ -31,12 +31,12 @@ class Master_kategoriViews(View):
 
 class AddSarpras(View):
     def post(self, request):
-        category_name = request.POST.get('name')  # Fetch the name field from POST request
+        sarpras_name = request.POST.get('name')  # Fetch the name field from POST request
         try:
             with transaction.atomic():
-                insert_category = Master_sarpras()
-                insert_category.nama = category_name
-                insert_category.save()  # Save new category in the database
+                insert_sarpras = Master_sarpras()
+                insert_sarpras.nama = sarpras_name
+                insert_sarpras.save()  # Save new category in the database
 
                 messages.success(request, "Category added successfully!")
                 return redirect('admin_setori:master_sarpras')  # Redirect to the list view
@@ -53,10 +53,10 @@ class EditSarpras(View):
         try:
             with transaction.atomic():
                 
-                insert_category = get_object_or_404(Master_sarpras,id=id)
-                insert_category.nama = name
-                insert_category.updated_at = timezone.now()
-                insert_category.save()  # Save new category in the database
+                insert_sarpras = get_object_or_404(Master_sarpras,id=id)
+                insert_sarpras.nama = name
+                insert_sarpras.updated_at = timezone.now()
+                insert_sarpras.save()  # Save new category in the database
 
                 messages.success(request, "Category edit successfully!")
                 return redirect('admin_setori:master_sarpras')  # Redirect to the list view
@@ -71,8 +71,8 @@ class EditSarpras(View):
 # Delete a Category (DeleteCategory)
 class DeleteSarpras(View):
     def get(self, request, id):
-        del_category = get_object_or_404(Master_sarpras, id=id)  # Fetch category by UUID
-        del_category.delete()  # Delete the category
+        del_sarpras = get_object_or_404(Master_sarpras, id=id)  # Fetch category by UUID
+        del_sarpras.delete()  # Delete the category
         messages.success(request, "Category deleted successfully!")
         return redirect('admin_setori:master_sarpras')
 

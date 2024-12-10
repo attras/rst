@@ -126,8 +126,10 @@ urlpatterns = [
         path('add_info_wilayah/<str:wilayah_id>/',admin_info_wilayah.FormWilayah.as_view(),name='add_info_wilayah'),
         path('info_wilayah_add',admin_info_wilayah.InfoWilayahAdd.as_view(),name='info_wilayah_add'),
         path('info_wilayah_edit/<str:wilayah_id>/',admin_info_wilayah.EditInfoWilayah.as_view(),name='edit_info_wilayah'),
+        # path('delete_wilayah_edit/<str:wilayah_id>/',admin_info_wilayah.EditInfoWilayah.as_view(),name='delete_info_wilayah'),
         
         path('add_sarpras/',admin_info_wilayah.Addsarpras.as_view(),name='add_sarpras'),
+        path('delete_sarpras/<str:sarpras_id>',admin_info_wilayah.DeleteSarpras.as_view(),name='delete_sarpras'),
         
         path('detail/<str:wilayah_id>/',admin_info_wilayah.Detail_info_wilayah.as_view(),name='detail_info_wilayah'),
         path('delete/<str:wilayah_id>/', master_wilayah.DeleteWilayah.as_view(), name = 'delete_wilayah'),

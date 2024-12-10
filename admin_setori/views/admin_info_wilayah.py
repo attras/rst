@@ -37,7 +37,7 @@ class Info_wilayahViews(View):
 class Detail_info_wilayah(View):
     def get(self, request,wilayah_id):
         breadcrump = [{
-        'nama': 'Info Wilayah',
+        'nama': 'Info Wilayah ',
         'url': reverse('admin_setori:admin_info_wilayah'),
         },
         {
@@ -52,6 +52,7 @@ class Detail_info_wilayah(View):
         dt_sarpras = Data_sarpras.objects.filter(deleted_at__isnull = True,wilayah=wilayah_id)
        
         try:
+            data_wilayah =  MasterWilayah.objects.get(wilayah_id=wilayah_id, deleted_at__isnull=True)
             data_info_wilayah =  Info_wilayah.objects.get(wilayah_id=wilayah_id, deleted_at__isnull=True)
         # Jika ada data penduduk, ambil semua field
         except ObjectDoesNotExist:
@@ -67,7 +68,7 @@ class Detail_info_wilayah(View):
             'data_info_wilayah' : data_info_wilayah,
             'dt_sarpras' : dt_sarpras,
             'breadcrump': breadcrump,
-            'title' : 'Detail Info Wilayah'
+            'title' : f'Detail Info Wilayah - {data_wilayah.wilayah_nama}'
 
         }
         
@@ -132,8 +133,45 @@ class Addsarpras(View):
                 messages.error(request, "Gagal menambahkan data sarpras.")
                 return redirect('admin_setori:admin_info_wilayah',wilayah_id)  # Ubah dengan nama URL yang sesuai
 
+class Editsarpras(View):
+    def post(self, request,sarpras_id):
+        wilayah_id = request.POST.get('wilayah_id')
+        nama_sarpras = request.POST.get('nama_sarpras')
+        jumlah_sarpras = request.POST.get('jumlah')
+
+        try:
+            with transaction.atomic():
+                sarpras_id = Master_sarpras.objects.get(pk=nama_sarpras)
+                wilayah = MasterWilayah.objects.get(pk=wilayah_id)
+                sarpras = get_object_or_404(Data_sarpras,sarpras_id=sarpras_id)
+                sarpras.nama_sarpras= sarpras_id
+                sarpras.jumlah = jumlah_sarpras
+                sarpras.wilayah= wilayah
+            
+                sarpras.save()
 
 
+                messages.success(request, "Data sarpras berhasil diedit.")
+                return redirect('admin_setori:detail_info_wilayah', wilayah_id)  # Ubah dengan nama URL yang sesuai
+
+        except Exception as e:
+                print("Error Data:", e)
+                messages.error(request, "Gagal mengedit data sarpras.")
+                return redirect('admin_setori:detail_info_wilayah',wilayah_id)  # Ubah dengan nama URL yang sesuai
+
+class DeleteSarpras(View):
+    def get(self, request, sarpras_id):
+        try:
+            with transaction.atomic():
+                sarpras_id = get_object_or_404(Data_sarpras,sarpras_id=sarpras_id)
+                sarpras_id.delete()
+                messages.success(request, f"data berhasil dihapus")
+                return redirect('admin_setori:admin_info_wilayah')
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menghapus")
+            return redirect('admin_setori:admin_info_wilayah')
+        
 
 class InfoWilayahAdd(View):
     def post(self, request):
