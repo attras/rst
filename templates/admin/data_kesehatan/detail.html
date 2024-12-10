@@ -54,9 +54,18 @@
                                 <td class="text-muted fs-15 fw-semibold">{{ data.oap }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ data.non_oap }}</td>
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
-                                <td class="">
-                                    <a class="btn btn-primary btn-sm rounded-11 me-2" data-bs-toggle="modal" data-bs-target="#editUserModal" data-bs-original-title="Edit"><i><svg class="table-edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z"/></svg></i></a>
-                                    <!-- Delete User Modal -->
+                                <td class="text-muted fs-15 fw-semibold">
+                                    <a class="btn btn-primary btn-md rounded-11 me-2" data-bs-toggle="modal" data-bs-target="#editModal"
+                                    data-bs-id = "{{ data.data_kesehatan_id}}"
+                                    data-bs-wilayah_id ="{{ data.wilayah.wilayah_id }}"
+                                    data-bs-wilayah_nama ="{{ data.wilayah.wilayah_nama}}"
+                                    data-bs-idikator_id="{{ data.indikator.id_indikator }}"
+                                    data-bs-idikator_nama="{{ data.indikator.nama_indikator }}"
+                                    data-bs-oap="{{ data.oap }}"
+                                    data-bs-non_oap="{{ data.non_oap }}"
+                                    >
+                                        
+                                        <i class="fa-solid fa-pen-to-square"></i>Edit  
                                     <a >
                                         <button type="button" class="btn btn-danger" onclick="Hapus_kesehatan('{{data.data_kesehatan_id}}')">
                                             <i class="fe fe-trash"></i> Hapus
@@ -76,7 +85,7 @@
         </div>
     </div>
 </div>
-
+<!-- modal tambah -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -111,11 +120,56 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">OAP</label>
-                        <input type="text" name="oap" id="oap" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                        <input type="number" name="oap" id="oap" class="form-control" placeholder="Masukkan Jumlah OAP" required />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">NON-OAP</label>
-                        <input type="text" name="non_oap" id="non_oap" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                        <input type="number" name="non_oap" id="non_oap" class="form-control" placeholder="Masukkan Jumlah NON-OAP" required />
+                    </div>
+                   
+                    <button type="submit"  class="btn btn-primary">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal edit -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post"  id="form_edit" action="" id="tambah_kesehatan">
+                  {% csrf_token %}
+                    
+                    {% for kesehatan in jenis_kesehatan %}
+                        <input type="hidden" name="jenis_kesehatan" id="nama_indikator" value="{{ kesehatan.jenis_kesehatan_id }}" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                    {% endfor %}
+                    <div class="mb-3">
+                        <input type="hidden" name="wilayah" id="id_wilayah" name="oap" id="oap" class="form-control" placeholder="Masukkan Jumlah OAP" required />
+                    </div>
+                    <div class="mb-3">
+                        <input type="hidden" name="indikator" id="id_indikator" class="form-control" placeholder="Masukkan Jumlah OAP" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Wilayah</label>
+                        <input type="text" name="edit_wilayah" id="edit_wilayah" name="oap" id="oap" class="form-control" placeholder="Masukkan Jumlah OAP" required readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Indikator</label>
+                        <input type="text" name="edit_indikator" id="edit_indikator" class="form-control" placeholder="Masukkan Jumlah OAP" required readonly/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">OAP</label>
+                        <input type="number" name="edit_oap" id="edit_oap" class="form-control" placeholder="Masukkan Jumlah OAP" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">NON-OAP</label>
+                        <input type="number" name="edit_non_oap" id="edit_non_oap" class="form-control" placeholder="Masukkan Jumlah NON-OAP" required />
                     </div>
                    
                     <button type="submit"  class="btn btn-primary">Simpan</button>
@@ -149,6 +203,37 @@
     }
    
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    // Menangkap elemen tombol Edit
+    const editButtons = document.querySelectorAll('[data-bs-target="#editModal"]');
+    
+    editButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            // Ambil data dari atribut tombol
+            const dataId = this.getAttribute("data-bs-id");
+            const wilayahId = this.getAttribute("data-bs-wilayah_id");
+            const wilayahNama = this.getAttribute("data-bs-wilayah_nama");
+            const indikatorId = this.getAttribute("data-bs-idikator_id");
+            const indikatorNama = this.getAttribute("data-bs-idikator_nama");
+            const oap = this.getAttribute("data-bs-oap");
+            const nonOap = this.getAttribute("data-bs-non_oap");
+          
+            
+            // Isi data ke dalam modal
+            document.getElementById("id_wilayah").value = wilayahId;
+            document.getElementById("id_indikator").value = indikatorId;
+            document.getElementById("edit_wilayah").value = wilayahNama;
+            document.getElementById("edit_indikator").value = indikatorNama;
+            document.getElementById("edit_oap").value = oap;
+            document.getElementById("edit_non_oap").value = nonOap;
+            document.getElementById("form_edit").action = "{% url 'admin_setori:edit_data' 'holder' %}".replace('holder',  dataId);
+
+           
+        });
+    });
+});
+
 
     function Hapus_kesehatan(id) {
     Swal.fire({

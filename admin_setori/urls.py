@@ -142,6 +142,7 @@ urlpatterns = [
         path('detail/<str:jenis_kesehatan_id>/<str:wilayah_id>',admin_data_kesehatan.xDetail_data_kesehatanViews.as_view(),name='xdetail_data_kesehatan'),    
            
         path('add',admin_data_kesehatan.Add_data_kesehatan.as_view(),name='add_data_kesehatan'),
+        path('edit/<str:data_kesehatan_id>/', admin_data_kesehatan.Edit_data_kesehatan.as_view(), name = 'edit_data'),
         path('delete/<str:data_kesehatan_id>/', admin_data_kesehatan.DeleteKesehatan.as_view(), name = 'delete_kesehatan'),
         path('delete_at/<str:data_kesehatan_id>/',Delete_at_kesehatan.as_view(),name='delete_at_kesehatan'),
         path('histori/',admin_data_kesehatan.Historikesehatan.as_view(),name='histori_kesehatan'),

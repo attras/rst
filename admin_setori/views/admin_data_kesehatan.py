@@ -107,8 +107,8 @@ class Add_data_kesehatan(View) :
         fk_jenis_id = request.POST.get('jenis_kesehatan')
         wilayah_id = request.POST.get('wilayah')
         indikator_id = request.POST.get('indikator')
-        oap = request.POST.get('oap')
-        non_oap = request.POST.get('non_oap')
+        oap = int(request.POST.get('oap', 0))
+        non_oap = int(request.POST.get('non_oap', 0))
 
         wilayah = MasterWilayah.objects.get(wilayah_id=wilayah_id)
         fk_jenis = Master_jenis_kesehatan.objects.get(jenis_kesehatan_id=fk_jenis_id)
@@ -133,6 +133,34 @@ class Add_data_kesehatan(View) :
             print('Error Data', e)
             messages.error(request,"gagal menambahkan")
             return redirect('admin_setori:xdetail_data_kesehatan',jenis_kesehatan_id=fk_jenis_id, wilayah_id= wilayah_id)
+
+class Edit_data_kesehatan(View) :
+    def post(self, request,data_kesehatan_id):
+        fk_jenis_id = request.POST.get('jenis_kesehatan')
+        wilayah_id = request.POST.get('wilayah')
+        indikator_id = request.POST.get('indikator')
+        oap = int(request.POST.get('edit_oap', 0))
+        non_oap = int(request.POST.get('edit_non_oap', 0))
+
+        wilayah = MasterWilayah.objects.get(wilayah_id=wilayah_id)
+        fk_jenis = Master_jenis_kesehatan.objects.get(jenis_kesehatan_id=fk_jenis_id)
+        indikator = Indikator_kesehatan.objects.get(id_indikator=indikator_id)
+
+        try:
+            with transaction.atomic():
+                input_data = get_object_or_404(Data_kesehatan, data_kesehatan_id=data_kesehatan_id)
+                input_data.oap = oap,
+                input_data.non_oap = non_oap,
+                input_data.save()
+                
+
+                messages.success(request, f"data berhasil Ditambahkan")
+                return redirect('admin_setori:xdetail_data_kesehatan',jenis_kesehatan_id=fk_jenis_id, wilayah_id= wilayah_id)
+        except Exception as e:
+            print('Error Data', e)
+            messages.error(request,"gagal menambahkan")
+            return redirect('admin_setori:xdetail_data_kesehatan',jenis_kesehatan_id=fk_jenis_id, wilayah_id= wilayah_id)
+
 
 
 class DeleteKesehatan(View):
