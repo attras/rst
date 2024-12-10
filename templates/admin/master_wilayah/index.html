@@ -2,7 +2,7 @@
 {% block css %} {% endblock css %}
 {% block admin_header %}
 <div class="ms-auto pageheader-btn">
-    <a href="#" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addWilayahModal" onclick="Tambah_wilayah()">
+    <a href="#" id="btnTambahWilayah" class="btn btn-primary btn-icon text-white me-2" data-bs-toggle="modal" data-bs-target="#addWilayahModal" >
         <span>
             <i class="fe fe-plus"></i>
         </span> Tambah Wilayah
@@ -43,12 +43,7 @@
                                 </td>
                                 <td class="text-muted fs-15 fw-semibold">
                                     <a class="btn btn-primary btn-md rounded-11"
-                                         data-bs-toggle="modal" 
-                                         data-bs-target="#addWilayahModal" 
-                                         data-bs-id="{{ wilayah.wilayah_id }}"
-                                         data-bs-wilayah = "{{ wilayah.wilayah_nama }}"
-                                         data-bs-level = "{{ wilayah.wilayah_level }}"
-                                         onclick="edit_wilayah()"
+                                         href="{% url 'admin_setori:edit_wilayah' wilayah.wilayah_id %}"
                                          >
                                          
                                          <i class="fa-solid fa-pen-to-square"></i>Edit 
@@ -87,7 +82,7 @@
                         <input type="text" name="wilayah_nama" id="wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required>
                     </div>
                 
-                    <div class="mb-3">
+                    <div class="mb-3 level">
                         <label for="wilayah_level" class="form-label">Level</label>
                         <select name="wilayah_level" id="wilayah_level" class="form-select" required>
                             <option value="" disabled selected>Pilih Level Wilayah</option>
@@ -97,7 +92,7 @@
                         </select>
                     </div>
                 
-                    <div class="mb-3" id="parent_provinsi" style="display: none;">
+                    <div class="mb-3 level" id="parent_provinsi" style="display: none;">
                         <label for="wilayah_parent_provinsi" class="form-label">Pilih Provinsi</label>
                         <select name="wilayah_parent_provinsi" id="wilayah_parent_provinsi" class="form-select">
                             <option value="" disabled selected>Pilih Provinsi</option>
@@ -107,7 +102,7 @@
                         </select>
                     </div>
                 
-                    <div class="mb-3" id="parent_kabupaten" style="display: none;">
+                    <div class="mb-3 level" id="parent_kabupaten" style="display: none;">
                         <label for="wilayah_parent_kabupaten" class="form-label">Pilih Kabupaten</label>
                         <select name="wilayah_parent_kabupaten" id="wilayah_parent_kabupaten" class="form-select">
                             <option value="" disabled selected>Pilih Kabupaten</option>
@@ -117,7 +112,7 @@
                         </select>
                     </div>
                 
-                    <div class="mb-3" id="parent_kecamatan" style="display: none;">
+                    <div class="mb-3 level" id="parent_kecamatan" style="display: none;">
                         <label for="wilayah_parent_kecamatan" class="form-label">Pilih Kecamatan</label>
                         <select name="wilayah_parent_kecamatan" id="wilayah_parent_kecamatan" class="form-select">
                             <option value="" disabled selected>Pilih Kecamatan</option>
@@ -142,30 +137,8 @@
 
 <script>
      
-
-    var editWilayahModal = document.getElementById('addWilayahModal');
-    editWilayahModal.addEventListener('show.bs.modal', function edit_wilayah() {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-
-        // Extract info from data-bs-* attributes
-        var WilayahId = button.getAttribute('data-bs-id');
-        var Wilayah = button.getAttribute('data-bs-wilayah');
-        
-       
-        // Update the modal's form fields
-        var modalTitle = editWilayahModal.querySelector('.modal-title');
-        var inputWilayah = editWilayahModal.querySelector('#wilayah_nama');
-   
-        var form = editWilayahModal.querySelector('form');
-
-        modalTitle.textContent = 'Edit Wilayah ' + Wilayah;
-        inputWilayah.value = Wilayah;
-       
-
-        // Update form action URL dynamically with the correct Wilayah ID
-        form.action = "{% url 'admin_setori:edit_wilayah' 'holder' %}".replace('holder', WilayahId);
-        
+    document.getElementById('btnTambahWilayah').addEventListener('click', function () {
+    Tambah_wilayah();
     });
 
     function Tambah_wilayah(){
@@ -205,7 +178,7 @@
                         }, 2000); 
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
-                        Swal.fire('Gagal!', 'Data Gagal Dihapus!', 'error');
+                        Swal.fire('Gagal!', 'Data Wilayah Gagal Dihapus!', 'error');
                     }
                 });
             }

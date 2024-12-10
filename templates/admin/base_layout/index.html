@@ -29,7 +29,7 @@
 		<link href="{% static 'admin/assets/css/sidemenu.css' %}" rel="stylesheet" id="sidemenu-theme">
 
 		<!--C3 CHARTS CSS -->
-		<link href="{% static 'admin/assets/plugins/charts-c3/c3-chart.css' %}" rel="stylesheet"/>
+		<!-- <link href="{% static 'admin/assets/plugins/charts-c3/c3-chart.css' %}" rel="stylesheet"/> -->
 
 		<!-- P-scroll bar css-->
 		<link href="{% static 'admin/assets/plugins/p-scroll/perfect-scrollbar.css' %}" rel="stylesheet" />
@@ -231,7 +231,7 @@
 								<div class="card-body text-center">
 									<div class="dropdown user-pro-body">
 										<div class="">
-											<img alt="user-img" class="avatar avatar-xl brround mx-auto text-center" src="../../assets/images/faces/6.jpg"><span class="avatar-status profile-status bg-green"></span>
+											<img alt="user-img" class="avatar avatar-xl brround mx-auto text-center" src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'admin/assets/images/users/8.jpg' %}{% endif %}"><span class="avatar-status profile-status bg-green"></span>
 										</div>
 										<div class="user-info mg-t-20">
 											<h6 class="fw-semibold  mt-2 mb-0">Mintrona Pechon</h6>

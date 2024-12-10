@@ -33,9 +33,20 @@ class Master_sliderViews(View):
     
 class Add_slider(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Master slider',
+        'url': reverse('admin_setori:master_slider'),
+        },
+        {
+        'nama': 'Tambah Master Slider',
+        'url': reverse('admin_setori:add_slider'),
+        },
+        ]
         dt_slider = Slider.objects.filter(deleted_at__isnull = True)
         data ={
             'dt_slider':dt_slider,
+            'breadcrump':breadcrump,
+            'title': 'Tambah Master Slider',
         }
        
         return render(request, 'admin/master_slider/form.html',data)
@@ -55,12 +66,12 @@ class Add_slider(View):
                 insert_slider.text = text
                 insert_slider.status = status
                 insert_slider.save()
-                messages.success(request, " added successfully!")
+                messages.success(request, " Data slider berhasil ditambahkan!")
                 return redirect('admin_setori:master_slider') 
 
         except Exception as e:
             print('Error while adding category', e)
-            messages.error(request, "Failed to add ")
+            messages.error(request, "Gagal menambahkan data ")
             return redirect('admin_setori:master_slider')
 
 class Editslider(View):
@@ -106,12 +117,12 @@ class Editslider(View):
                 insert_slider.updated_at = timezone.now()
                 insert_slider.save()  # Save new category in the database
 
-                messages.success(request, "Category edit successfully!")
+                messages.success(request, "Data slider berhasil dihapus!")
                 return redirect('admin_setori:master_slider')  # Redirect to the list view
                 
         except Exception as e:
             print('Error while editing category', e)
-            messages.error(request, "Failed to edit category")
+            messages.error(request, "Gagal menghapus slider")
             return redirect(reverse('admin_setori:edit_slider',id_slider))
 
 class Delete_slider(View):

@@ -99,11 +99,11 @@ class Edit_user(View):
                 insert_user.role = role
                 insert_user.set_password(password)
                 insert_user.save()
-                messages.success(request, " added successfully!")
+                messages.success(request, "User berhasil diedit!")
                 return redirect('admin_setori:master_user')  # Redirect to the list view
         except Exception as e:
             print('Error while adding category', e)
-            messages.error(request, "Failed to add ")
+            messages.error(request, "User gagal diedit ")
             return redirect('admin_setori:master_user')
 
     
@@ -146,11 +146,11 @@ class AddUser(View):
                 insert_user.role = role
                 insert_user.set_password(password)
                 insert_user.save()
-                messages.success(request, " added successfully!")
+                messages.success(request, f"User {username} Berhasil ditambahkan!")
                 return redirect('admin_setori:master_user')  # Redirect to the list view
         except Exception as e:
             print('Error while adding category', e)
-            messages.error(request, "Failed to add ")
+            messages.error(request, "Gagal menambahkan user ")
             return redirect('admin_setori:master_user')
         
 

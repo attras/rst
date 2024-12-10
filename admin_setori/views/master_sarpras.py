@@ -38,12 +38,12 @@ class AddSarpras(View):
                 insert_sarpras.nama = sarpras_name
                 insert_sarpras.save()  # Save new category in the database
 
-                messages.success(request, "Category added successfully!")
+                messages.success(request, f"{sarpras_name} berhasil ditambahkan!")
                 return redirect('admin_setori:master_sarpras')  # Redirect to the list view
                 
         except Exception as e:
             print('Error while adding category', e)
-            messages.error(request, "Failed to add category")
+            messages.error(request, "Gagal menambahkan sarpras")
             return redirect('admin_setori:master_sarpras')
 
     
@@ -58,12 +58,12 @@ class EditSarpras(View):
                 insert_sarpras.updated_at = timezone.now()
                 insert_sarpras.save()  # Save new category in the database
 
-                messages.success(request, "Category edit successfully!")
+                messages.success(request, "Berhasil mengedit sarpras")
                 return redirect('admin_setori:master_sarpras')  # Redirect to the list view
                 
         except Exception as e:
             print('Error while editing category', e)
-            messages.error(request, "Failed to edit category")
+            messages.error(request, "Gagal mengedit sarpras")
             return redirect(reverse('admin_setori:master_sarpras'))
         
 
@@ -73,6 +73,6 @@ class DeleteSarpras(View):
     def get(self, request, id):
         del_sarpras = get_object_or_404(Master_sarpras, id=id)  # Fetch category by UUID
         del_sarpras.delete()  # Delete the category
-        messages.success(request, "Category deleted successfully!")
+        messages.success(request, "Sarpras berhasil dihapus!")
         return redirect('admin_setori:master_sarpras')
 

@@ -74,6 +74,29 @@ class AddWilayah(View):
             return redirect('admin_setori:master_wilayah')  # Ubah dengan nama URL yang sesuai
 
 class EditWilayah(View):
+    def get(self, request,wilayah_id):
+        breadcrump = [{
+        'nama': 'Master Wilayah',
+        'url': reverse('admin_setori:master_kategori'),
+        }
+        ]
+        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True).order_by('wilayah_level')
+        provinsi_choices = MasterWilayah.objects.filter(wilayah_level='1')
+        kabupaten_choices = MasterWilayah.objects.filter(wilayah_level='2')
+        kecamatan_choices = MasterWilayah.objects.filter(wilayah_level='3')
+        
+        data = {
+            'dt_wilayah': dt_wilayah,
+            'provinsi_choices': provinsi_choices,
+            'kabupaten_choices': kabupaten_choices,
+            'kecamatan_choices': kecamatan_choices,
+            'LEVEL_WILAYAH': LEVEL_WILAYAH,
+            'breadcrump': breadcrump,
+            'title':'Master Wilayah'
+            
+        }
+        return render(request, 'admin/master_wilayah/form.html',data)
+     
     def post(self, request,wilayah_id):
         wilayah_nama = request.POST.get('wilayah_nama')
         wilayah_level = request.POST.get('wilayah_level')
@@ -114,13 +137,14 @@ class DeleteWilayah(View):
     def get(self, request, wilayah_id):
         del_wilayah = get_object_or_404(MasterWilayah, wilayah_id=wilayah_id)
         
+        
+
         try:
             with transaction.atomic():
                 del_wilayah.delete()
                 messages.success(request, "Data berhasil dihapus")
         except Exception as e:
             print('Error Data:', e)
-            messages.error(request, "Gagal menghapus data")
-        
-        return redirect('admin_setori:master_wilayah')
+            
+           
     

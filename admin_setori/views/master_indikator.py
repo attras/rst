@@ -21,7 +21,7 @@ class Master_indikator(View):
         'url': reverse('admin_setori:master_jenis_kesehatan'),
         },
         {
-        'nama': 'Master Idikator',
+        'nama': 'Master Indikator',
         'url': reverse('admin_setori:master_indikator',args=[jenis_kesehatan_id]),
         }
         ]
@@ -32,7 +32,7 @@ class Master_indikator(View):
             'dt_indikator': dt_indikator,
             'dt_kesehatan': dt_kesehatan,
             'breadcrump': breadcrump,
-            'title' : 'Master Idikator'
+            'title' : 'Master Indikator'
 
         }
         
