@@ -57,8 +57,8 @@ class Add_indikator(View):
                 messages.success(request, "Indikator kesehatan berhasil ditambahkan.")
                 return redirect(reverse('admin_setori:master_indikator',args=[jenis_kesehatan_id]))    
         except Exception as e:
-            print('gagal menambahkan', e)
-            messages.error(request, "gagal menambahkan")
+            print('Gagal menambahkan', e)
+            messages.error(request, "Gagal menambahkan")
             return redirect(reverse('admin_setori:master_indikator',args=[jenis_kesehatan_id])) 
 
 class Edit_indikator(View):
@@ -79,8 +79,8 @@ class Edit_indikator(View):
                 messages.success(request, "Indikator kesehatan berhasil ditambahkan.")
                 return redirect(reverse('admin_setori:master_indikator',args=[jenis_kesehatan_id]))    
         except Exception as e:
-            print('gagal menambahkan', e)
-            messages.error(request, "gagal menambahkan")
+            print('Gagal menambahkan', e)
+            messages.error(request, "Gagal diedit")
             return redirect(reverse('admin_setori:master_indikator',args=[jenis_kesehatan_id])) 
    
 

@@ -74,7 +74,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <form method="post" action="#">
+                <form method="post" action="{% url 'admin_setori:add_wilayah' %}">
                     {% csrf_token %}
                 
                     <div class="mb-3">
@@ -137,15 +137,7 @@
 
 <script>
      
-    document.getElementById('btnTambahWilayah').addEventListener('click', function () {
-    Tambah_wilayah();
-    });
-
-    function Tambah_wilayah(){
-        var form = editWilayahModal.querySelector('form');
-        document.getElementById('addWilayahModalLabel').textContent = 'Tambahkan Wilayah';
-        form.action = "{% url 'admin_setori:add_wilayah' %}";
-    };
+   
 
     // Show confirmation dialog
     function Hapus_wilayah(id_hapus_wilayah) {

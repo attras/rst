@@ -135,12 +135,10 @@ class EditWilayah(View):
 
 class DeleteWilayah(View):
     def get(self, request, wilayah_id):
-        del_wilayah = get_object_or_404(MasterWilayah, wilayah_id=wilayah_id)
-        
-        
 
         try:
             with transaction.atomic():
+                del_wilayah = get_object_or_404(MasterWilayah, wilayah_id=wilayah_id)
                 del_wilayah.delete()
                 messages.success(request, "Data berhasil dihapus")
         except Exception as e:
