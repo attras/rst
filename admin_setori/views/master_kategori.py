@@ -38,13 +38,17 @@ class AddCategory(View):
                 insert_category.name = category_name
                 insert_category.save()  # Save new category in the database
 
-                messages.success(request, "Category added successfully!")
+                messages.success(request, "Kategori berhasil ditambahkan!")
                 return redirect('admin_setori:master_kategori')  # Redirect to the list view
                 
         except Exception as e:
-            print('Error while adding category', e)
-            messages.error(request, "Failed to add category")
-            return redirect('admin_setori:master_kategori')
+            if Category.objects.filter(name=category_name).exists():
+                messages.error(request, f"Kategori {category_name} sudah ada ")
+                return redirect(reverse('admin_setori:master_kategori'))
+            else:
+                messages.error(request, "Gagal menambahkan data ")
+                return redirect(reverse('admin_setori:master_kategori'))
+        
 
     
 class EditCategory(View):
@@ -58,13 +62,17 @@ class EditCategory(View):
                 insert_category.updated_at = timezone.now()
                 insert_category.save()  # Save new category in the database
 
-                messages.success(request, "Category edit successfully!")
+                messages.success(request, "Kategori berhasil di edit!")
                 return redirect('admin_setori:master_kategori')  # Redirect to the list view
                 
         except Exception as e:
             print('Error while editing category', e)
-            messages.error(request, "Failed to edit category")
-            return redirect(reverse('admin_setori:master_kategori'))
+            if Category.objects.filter(name=name).exists():
+                messages.error(request, f"Kategori {name} sudah ada ")
+                return redirect(reverse('admin_setori:master_kategori'))
+            else:
+                messages.error(request, "Gagal mengedit data ")
+                return redirect(reverse('admin_setori:master_kategori'))
         
 
 
@@ -73,7 +81,7 @@ class DeleteCategory(View):
     def get(self, request, categori_id):
         del_category = get_object_or_404(Category, categori_id=categori_id)  # Fetch category by UUID
         del_category.delete()  # Delete the category
-        messages.success(request, "Category deleted successfully!")
+        messages.success(request, "Kategori berhasil dihapus")
         return redirect('admin_setori:master_kategori')
 
 
@@ -96,8 +104,20 @@ class Delete_at_kategori(View):
 class Historikategori(View):
     def get(self, request):
         dt_category = Category.objects.filter(deleted_at__isnull = False)
+        breadcrump = [{
+        'nama': 'Master Kategori',
+        'url': reverse('admin_setori:master_kategori'),
+        },
+        {
+        'nama': 'Riwayat Kategori',
+        'url': reverse('admin_setori:histori_kategori'),
+        }
+
+        ]
         data = {
-            'dt_category': dt_category
+            'dt_category': dt_category,
+            'breadcrump': breadcrump,
+            'title':'Riwayat Kategori'
         }
         return render(request, 'admin/master_kategori/histori.html',data)
     
