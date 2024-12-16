@@ -102,12 +102,13 @@
                     {% endfor %}
                     <div class="mb-3">
                         <label for="wilayah">Wilayah:</label>
-                        <select name="wilayah" id="wilayah" class="form-select" required>
-                            <option value="" disabled selected>Pilih Wilayah</option>
+  
                             {% for wilayah in wilayah_list %} 
-                                <option value="{{ wilayah.wilayah_id  }}">{{ wilayah.wilayah_nama }}</option>
+                            <input type="hidden"  name="wilayah" id="wilayah" value="{{ wilayah.wilayah_id  }}" class="form-control" placeholder="Masukkan Jumlah OAP" required />
+                            <input type="text"  name="wilayah_nama" id="wilayah_nama" value="{{ wilayah.wilayah_nama  }}" class="form-control" placeholder="Masukkan Jumlah OAP" required readonly />
+                             
                             {% endfor %}
-                        </select>
+                       
                    </div>
                    <div class="mb-3">
                     <label for="wilayah">Indikator:</label>
@@ -147,17 +148,17 @@
                   {% csrf_token %}
                     
                     {% for kesehatan in jenis_kesehatan %}
-                        <input type="hidden" name="jenis_kesehatan" id="nama_indikator" value="{{ kesehatan.jenis_kesehatan_id }}" class="form-control" placeholder="Masukkan Jenis data Kesehatan" required />
+                        <input type="hidden" name="jenis_kesehatan" id="nama_indikator" value="{{ kesehatan.jenis_kesehatan_id }}" class="form-control"  required />
                     {% endfor %}
                     <div class="mb-3">
-                        <input type="hidden" name="wilayah" id="id_wilayah" name="oap" id="oap" class="form-control" placeholder="Masukkan Jumlah OAP" required />
+                        <input type="hidden" name="wilayah" id="id_wilayah"  class="form-control"  required />
                     </div>
                     <div class="mb-3">
-                        <input type="hidden" name="indikator" id="id_indikator" class="form-control" placeholder="Masukkan Jumlah OAP" required />
+                        <input type="hidden" name="indikator" id="id_indikator" class="form-control"  required />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Wilayah</label>
-                        <input type="text" name="edit_wilayah" id="edit_wilayah" name="oap" id="oap" class="form-control" placeholder="Masukkan Jumlah OAP" required readonly />
+                        <input type="text" name="edit_wilayah" id="edit_wilayah"  class="form-control" placeholder="Masukkan Jumlah OAP" required readonly />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Indikator</label>
@@ -211,23 +212,23 @@
     editButtons.forEach(button => {
         button.addEventListener("click", function () {
             // Ambil data dari atribut tombol
-            const dataId = this.getAttribute("data-bs-id");
-            const wilayahId = this.getAttribute("data-bs-wilayah_id");
-            const wilayahNama = this.getAttribute("data-bs-wilayah_nama");
-            const indikatorId = this.getAttribute("data-bs-idikator_id");
-            const indikatorNama = this.getAttribute("data-bs-idikator_nama");
-            const oap = this.getAttribute("data-bs-oap");
-            const nonOap = this.getAttribute("data-bs-non_oap");
+            const dataId = this.getAttribute("data-bs-id")
+            const wilayahId = this.getAttribute("data-bs-wilayah_id")
+            const wilayahNama = this.getAttribute("data-bs-wilayah_nama")
+            const indikatorId = this.getAttribute("data-bs-idikator_id")
+            const indikatorNama = this.getAttribute("data-bs-idikator_nama")
+            const oap = this.getAttribute("data-bs-oap")
+            const nonOap = this.getAttribute("data-bs-non_oap")
           
             
             // Isi data ke dalam modal
-            document.getElementById("id_wilayah").value = wilayahId;
-            document.getElementById("id_indikator").value = indikatorId;
-            document.getElementById("edit_wilayah").value = wilayahNama;
-            document.getElementById("edit_indikator").value = indikatorNama;
-            document.getElementById("edit_oap").value = oap;
-            document.getElementById("edit_non_oap").value = nonOap;
-            document.getElementById("form_edit").action = "{% url 'admin_setori:edit_data' 'holder' %}".replace('holder',  dataId);
+            document.getElementById("id_wilayah").value = wilayahId
+            document.getElementById("id_indikator").value = indikatorId
+            document.getElementById("edit_wilayah").value = wilayahNama
+            document.getElementById("edit_indikator").value = indikatorNama
+            document.getElementById("edit_oap").value = oap
+            document.getElementById("edit_non_oap").value = nonOap
+            document.getElementById("form_edit").action = "{% url 'admin_setori:edit_data' 'holder' %}".replace('holder',  dataId)
 
            
         });

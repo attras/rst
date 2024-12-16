@@ -1,41 +1,109 @@
 {% extends 'admin/base_layout/index.html' %}
 {% block css %}
- 
+<style>
+    /* Styling khusus untuk tombol dengan class 'custom-transparent-btn' */
+   
+    /* Styling khusus untuk tombol dengan class 'custom-green-transparent-btn' */
+    .custom-green-transparent-btn {
+        background-color: rgba(0, 128, 0, 0.1); /* Hijau transparan */
+        border: 1px solid rgba(0, 128, 0, 0.5); /* Border hijau sedikit lebih tegas */
+        font-weight: bold; /* Tulisan tebal */
+        color: black; /* Warna teks hitam */
+    }
+
+    /* Hover effect untuk tombol ini saja */
+    .custom-green-transparent-btn:hover {
+        background-color: rgba(0, 128, 0, 0.2); /* Warna hijau lebih tebal saat hover */
+    }
+
+    /* Styling untuk dropdown items (opsional agar tetap serasi) */
+    .custom-green-transparent-btn ~ .dropdown-menu .dropdown-item {
+        font-weight: bold; /* Tulisan dropdown tebal */
+        color: black; /* Warna teks dropdown hitam */
+    }
+
+    .custom-green-transparent-btn ~ .dropdown-menu .dropdown-item:hover {
+        background-color: rgba(0, 128, 0, 0.1); /* Hijau transparan saat hover */
+        color: black;
+    }
+
+    .scrollable-dropdown {
+        max-height: 200px; /* Maksimal tinggi dropdown */
+        overflow-y: auto; /* Aktifkan scrollbar vertikal */
+    }
+
+    /* Scrollbar terlihat lebih rapi */
+    .scrollable-dropdown::-webkit-scrollbar {
+        width: 8px; /* Lebar scrollbar */
+    }
+    .scrollable-dropdown::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 128, 0, 0.5); /* Warna scrollbar hijau transparan */
+        border-radius: 5px;
+    }
+    .scrollable-dropdown::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(0, 128, 0, 0.7); /* Warna lebih tegas saat hover */
+    }
+</style>
 {% endblock css %}
 
 {% block admin_header %}
 <div class="ms-auto pageheader-btn">
-       
-    {% if data_info_wilayah %}
-    <a href="{% url 'admin_setori:edit_info_wilayah' wilayah_id %}" class="btn btn-primary btn-icon text-white">
-        <span>
-            <i class="fa-solid fa-pen-to-square"></i>Edit 
-        </span> 
-    </a>
-    
-    {% else %}
-    <a href="{% url 'admin_setori:add_info_wilayah' wilayah_id %}" class="btn btn-primary btn-icon text-white me-2" >
-        <span>
-            <i class="fe fe-plus" ></i>
-        </span> Tambah info wilayah
-    </a>
-   
-    {% endif %}
-    
-</div>
-{% endblock admin_header %}
-
-{% block main %}
-<div class="class mt-3">
     <a href="{% url 'admin_setori:admin_info_wilayah' %}">
-        <button type="button" class="btn btn-primary" >
-        <i class="fa-solid fa-arrow-left"></i>
+        <button type="button" class="btn btn-primary">
+            <i class="fa-solid fa-arrow-left"></i>
             Kembali
         </button>
     </a>
 </div>
+{% endblock admin_header %}
+
+{% block main %}
+
 <div class="row">
     <div class="col-12 col-sm-12">
+        <div class="row mt-3 align-items-center">
+            <!-- Tombol Kembali di posisi start -->
+            <div class="col text-start">
+               
+                {% if data_info_wilayah %}
+                <a href="{% url 'admin_setori:edit_info_wilayah' wilayah_id %}" class="btn btn-primary btn-icon text-white">
+                    <span>
+                        <i class="fa-solid fa-pen-to-square"></i>Edit 
+                    </span> 
+                </a>
+                
+                {% else %}
+                <a href="{% url 'admin_setori:add_info_wilayah' wilayah_id %}" class="btn btn-primary btn-icon text-white me-2" >
+                    <span>
+                        <i class="fe fe-plus" ></i>
+                    </span> Tambah info wilayah
+                </a>
+            
+                {% endif %}
+               
+            </div>
+        
+            <!-- Tombol Simpan di posisi end -->
+            <div class="col text-end">
+                <div class="dropdown mt-3">
+                    <button 
+                        class="btn dropdown-toggle custom-green-transparent-btn" 
+                        type="button" 
+                        id="filterDropdown" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false">
+                        Pilih Wilayah
+                    </button>
+                    <ul class="dropdown-menu scrollable-dropdown" aria-labelledby="filterDropdown">
+                        {% for wilayah in dt_wilayah %}
+                        <li><a class="dropdown-item" href="{% url 'admin_setori:detail_info_wilayah' wilayah.wilayah_id  %}" >{{ wilayah.wilayah_nama }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+        
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title mb-0">info</h3>
@@ -62,8 +130,8 @@
                                 <td class="text-muted fs-15 fw-semibold">
                                     <img src="{{ info.image_profile.url }}" alt="logo" style="width: 50px; height: auto;">
                                 </td>
-                                <td class="text-muted fs-15 fw-semibold">{{ info.visi|slice:":60" }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ info.misi|slice:":60" }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ info.visi|safe|slice:":40" }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ info.misi|safe|slice:":40" }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ info.wilayah.wilayah_nama|slice:":60" }}</td>
                              
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
@@ -122,17 +190,17 @@
                                 <!-- <td class="text-success fs-15 fw-semibold">Success</td> -->
                                 <td class="text-muted fs-15 fw-semibold">
                                     
-                                        <a class="btn btn-primary btn-md rounded-11 me-2"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#addModal"
-                                        data-bs-wilayah="{{ info.wilayah }}"
-                                        data-bs-nama_sarpras="{{ info.nama_sarpras }}"
-                                        data-bs-jumlah="{{ info.jumlah }}"
-                                        onclick="Edit_sarpras()"
-                                        href="#"
-                                        >
-                                        <i class="fa-solid fa-pen-to-square"></i>Edit  
-                                        </a>
+                                    <a class="btn btn-primary btn-md rounded-11 me-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editModal"
+                                    data-bs-sarpras_id="{{ info.sarpras_id }}"
+                                    data-bs-nama_sarpras="{{ info.nama_sarpras.nama }}"
+                                    data-bs-jumlah="{{ info.jumlah }}"
+                                    onclick="Edit_sarpras()"
+                                    href="#">
+                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                 </a>
+                                 
                                         <a >
                                             <button type="button" class="btn btn-danger" onclick="Hapus_sarpras('{{ info.sarpras_id }}')">
                                                 <i class="fe fe-trash"></i> Hapus
@@ -159,7 +227,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addModalLabel">Sarpras</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
                 <form method="post" action="{% url 'admin_setori:add_sarpras' %}">
@@ -179,6 +247,37 @@
                     <div class="mb-3">
                         <label for="jumlah" class="form-label">Jumlah</label>
                         <input type="number" id="jumlah" name="jumlah" class="form-control" placeholder="Masukkan jumlah sarpras" required>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- form edit modal sarpras -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Sarpras</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="form_edit" action="{% url 'admin_setori:add_sarpras' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="edit_wilayah_id" value="{{ wilayah_id }}">
+                    <div class="mb-3">
+                        <label for="edit_nama_sarpras" class="form-label">Sarpras</label>
+                        <input type="text" id="edit_sarpras" name="edit_sarpras" class="form-control" placeholder="Masukkan jumlah sarpras" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nama_sarpras" class="form-label">Nama Sarpras</label>
+                        <input type="text"  name="edit_nama_sarpras" id="edit_nama_sarpras" class="form-control" placeholder="Masukkan jumlah sarpras" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah" class="form-label">Jumlah</label>
+                        <input type="number" id="edit_jumlah" name="edit_jumlah" class="form-control" placeholder="Masukkan jumlah sarpras" required>
                     </div>
                     <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
@@ -225,50 +324,37 @@
     });
 
 };
-// var FormSarpras = document.getElementById('addModal');
-// function Tambah_sarpras(){
-        
-//         var form = FormSarpras.querySelector('form');
-//         document.getElementById('addModalLabel').textContent = 'Tambahkan Sarpras';
-//         form.action = "{% url 'admin_setori:add_sarpras' %}";
 
-//     };
-
-// FormSarpras.addEventListener('show.bs.modal',function Edit_sarpras() {
+document.addEventListener("DOMContentLoaded", function () {
+    // Menangkap elemen tombol Edit
+    const editButtons = document.querySelectorAll('[data-bs-target="#editModal"]');
     
-//     // Ambil data dari atribut data-bs-*
-//     var button = event.relatedTarget;
-//     const wilayah = button.getAttribute('data-bs-wilayah');
-//     const namaSarpras = button.getAttribute('data-bs-nama_sarpras');
-//     const jumlah = button.getAttribute('data-bs-jumlah');
-    
-//     // Cari form dalam modal edit
-//     const modal = document.getElementById('addModal');
-//     const wilayahField = modal.querySelector('input[name="wilayah_id"]');
-//     const namaSarprasField = modal.querySelector('select[name="nama_sarpras"]');
-//     const jumlahField = modal.querySelector('input[name="jumlah"]');
-//     const sarpras = document.getElementById('sarpras');
-//     sarpras.value = namaSarpras
-//     // Set nilai ke field
-//     wilayahField.value = wilayah;
-//     namaSarprasField.value = namaSarpras;
-//     jumlahField.value = jumlah;
+    editButtons.forEach(button => {
+        button.addEventListener("click", function () {
+    // Dapatkan elemen modal dan input
+    const modal = document.getElementById('editModal');
+    const sarprasInput = document.getElementById('edit_sarpras');
+    const namaSarprasInput = document.getElementById('edit_nama_sarpras');
+    const jumlahInput = document.getElementById('edit_jumlah');
 
-//     console.log('Wilayah:', wilayah);
-//     console.log('Nama Sarpras:', namaSarpras);
-//     console.log('Nama Sarpras:',namaSarprasField);
-//     console.log('Jumlah:', jumlah);
+    // Ambil data dari atribut data-bs-*
+    const sarpras_id = button.getAttribute('data-bs-sarpras_id');
+    const namaSarpras = button.getAttribute('data-bs-nama_sarpras');
+    const jumlah = button.getAttribute('data-bs-jumlah');
 
-//     // Ubah judul modal menjadi "Edit Sarpras"
-//     const modalTitle = modal.querySelector('.modal-title');
-//     modalTitle.textContent = 'Edit Sarpras';
+    // Isi data ke dalam input form di modal
+    sarprasInput.value = sarpras_id;
+    namaSarprasInput.value = namaSarpras;
+    jumlahInput.value = jumlah;
+    document.getElementById("form_edit").action = "{% url 'admin_setori:edit_sarpras' 'holder' %}".replace('holder',  sarpras_id)
 
-//     // Update action URL form jika dibutuhkan
-//     const form = modal.querySelector('form');
-//     form.action = `/admin_setori/edit_sarpras/${sarpras_id}/`; // Sesuaikan URL edit dengan backend Anda
 
-   
-// });
+               
+});
+    });
+});
+
+
 
 
 

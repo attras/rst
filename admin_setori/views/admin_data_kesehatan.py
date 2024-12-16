@@ -149,8 +149,9 @@ class Edit_data_kesehatan(View) :
         try:
             with transaction.atomic():
                 input_data = get_object_or_404(Data_kesehatan, data_kesehatan_id=data_kesehatan_id)
-                input_data.oap = oap,
-                input_data.non_oap = non_oap,
+                print(input_data)
+                input_data.oap = oap
+                input_data.non_oap = non_oap
                 input_data.save()
                 
 

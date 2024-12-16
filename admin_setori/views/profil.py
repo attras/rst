@@ -18,11 +18,19 @@ from django.contrib.auth.hashers import check_password
 @method_decorator(login_required(), name='dispatch')
 class ProfilViews(View):
     def get(self, request):
+        breadcrump = [{
+        'nama': 'Profil',
+        }
+        ]
+        
         dt_akun = Account.objects.all()
         akun={
             'dt_akun':dt_akun,
-            'role':ROLE_CHOICES
+            'role':ROLE_CHOICES,
+            'breadcrump': breadcrump,
+            'title':'Profil'
         }
+        
        
         return render(request, 'admin/profil/index.html',akun)
     

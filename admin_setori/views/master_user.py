@@ -21,7 +21,7 @@ class Master_userViews(View):
         'url': reverse('admin_setori:master_user'),
         }
         ]
-        items_per_page = request.GET.get('items_per_page', 2)
+        items_per_page = request.GET.get('items_per_page', 5)
         dt_akun = Account.objects.all()
         paginator = Paginator(dt_akun, items_per_page)
         page_number = request.GET.get('page')

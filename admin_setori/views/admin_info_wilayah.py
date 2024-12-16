@@ -21,7 +21,7 @@ class Info_wilayahViews(View):
         'url': reverse('admin_setori:data_penduduk'),
         }
         ]
-        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True).order_by('wilayah_level')
+        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True).exclude(wilayah_level='1').order_by('wilayah_level')
 
         data = {
             'dt_wilayah': dt_wilayah,
@@ -50,7 +50,8 @@ class Detail_info_wilayah(View):
         dt_info_wilayah = Info_wilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
         pilih_wilayah = MasterWilayah.objects.filter(deleted_at__isnull = True,wilayah_id=wilayah_id)
         dt_sarpras = Data_sarpras.objects.filter(deleted_at__isnull = True,wilayah=wilayah_id)
-       
+        dt_wilayah = MasterWilayah.objects.filter(deleted_at__isnull=True).exclude(wilayah_level='1').order_by('wilayah_level')
+
         try:
             data_wilayah =  MasterWilayah.objects.get(wilayah_id=wilayah_id, deleted_at__isnull=True)
             data_info_wilayah =  Info_wilayah.objects.get(wilayah_id=wilayah_id, deleted_at__isnull=True)
@@ -68,7 +69,8 @@ class Detail_info_wilayah(View):
             'data_info_wilayah' : data_info_wilayah,
             'dt_sarpras' : dt_sarpras,
             'breadcrump': breadcrump,
-            'title' : f'Detail Info Wilayah - {data_wilayah.wilayah_nama}'
+            'title' : f'Detail Info Wilayah - {data_wilayah.wilayah_nama}',
+            'dt_wilayah': dt_wilayah,
 
         }
         
@@ -135,18 +137,16 @@ class Addsarpras(View):
 
 class Editsarpras(View):
     def post(self, request,sarpras_id):
-        wilayah_id = request.POST.get('wilayah_id')
-        nama_sarpras = request.POST.get('nama_sarpras')
-        jumlah_sarpras = request.POST.get('jumlah')
+        wilayah_id = request.POST.get('edit_wilayah_id')
+        jumlah_sarpras = request.POST.get('edit_jumlah')
 
         try:
             with transaction.atomic():
-                sarpras_id = Master_sarpras.objects.get(pk=nama_sarpras)
-                wilayah = MasterWilayah.objects.get(pk=wilayah_id)
+             
                 sarpras = get_object_or_404(Data_sarpras,sarpras_id=sarpras_id)
-                sarpras.nama_sarpras= sarpras_id
+              
                 sarpras.jumlah = jumlah_sarpras
-                sarpras.wilayah= wilayah
+           
             
                 sarpras.save()
 

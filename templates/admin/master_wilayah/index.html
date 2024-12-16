@@ -32,7 +32,7 @@
                           {% for wilayah in dt_wilayah %}
                             <tr class="border-bottom">
                                 <td class="text-muted fs-15 fw-semibold text-center">{{ forloop.counter }}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ wilayah.wilayah_nama }}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ wilayah.wilayah_nama }}==>{{ wilayah.wilayah_parent.wilayah_nama }}</td>
                                 <td class="text-muted fs-15 fw-semibold">{{ wilayah.get_level_display }}</td>
                                 <td class="text-muted fs-15 fw-semibold"> 
                                 {% if wilayah.wilayah_status %}
@@ -43,7 +43,11 @@
                                 </td>
                                 <td class="text-muted fs-15 fw-semibold">
                                     <a class="btn btn-primary btn-md rounded-11"
-                                         href="{% url 'admin_setori:edit_wilayah' wilayah.wilayah_id %}"
+                                        
+                                         data-bs-toggle="modal"
+                                        data-bs-target="#editWilayahModal"
+                                        data-bs-wilayah_id="{{ wilayah.wilayah_id }}"
+                                        data-bs-wilayah_nama="{{ wilayah.wilayah_nama }}"
                                          >
                                          
                                          <i class="fa-solid fa-pen-to-square"></i>Edit 
@@ -134,6 +138,30 @@
     </div>
 </div>
 
+<!-- edit modal -->
+<div class="modal fade" id="editWilayahModal" tabindex="-1" aria-labelledby="editWilayahModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editWilayahModalLabel">Edit Wilayah</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="form_edit" action="#">
+                    {% csrf_token %}
+                
+                    <div class="mb-3">
+                        <label for="edit_wilayah_nama" class="form-label">Nama Wilayah</label>
+                        <input type="text" name="edit_wilayah_nama" id="edit_wilayah_nama" class="form-control" placeholder="Masukkan Nama Wilayah" required>
+                    </div>
+                
+            
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
      
@@ -219,6 +247,31 @@
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Menangkap elemen tombol Edit
+    const editButtons = document.querySelectorAll('[data-bs-target="#editWilayahModal"]');
+    
+    editButtons.forEach(button => {
+        button.addEventListener("click", function () {
+    // Dapatkan elemen modal dan input
+
+    const form_wilayah_nama = document.getElementById('edit_wilayah_nama');
+   
+
+    // Ambil data dari atribut data-bs-*
+    const wilayah_nama = button.getAttribute('data-bs-wilayah_nama');
+    const wilayah_id= button.getAttribute('data-bs-wilayah_id');
+
+    // Isi data ke dalam input form di modal
+    form_wilayah_nama.value = wilayah_nama;
+
+    document.getElementById("form_edit").action = "{% url 'admin_setori:edit_wilayah' 'holder' %}".replace('holder',  wilayah_id)
+
+
+               
+});
+    });
+});
 
     
 

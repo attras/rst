@@ -37,7 +37,7 @@
                                 <th class="bg-transparent border-bottom-0">logo</th>
                                 <th class="bg-transparent border-bottom-0">Foto</th>
                                 <th class="bg-transparent border-bottom-0">text</th>
-                                <th class="bg-transparent border-bottom-0">status</th>
+                                <!-- <th class="bg-transparent border-bottom-0">status</th> -->
                                 <th class="bg-transparent border-bottom-0">Action</th>
                             </tr>
                         </thead>
@@ -51,8 +51,8 @@
                                 <td class="text-muted fs-15 fw-semibold">
                                     <img class="gambar" src="{{ slider.foto.url }}" alt="foto" style="width: 50px; height: auto;">
                                 </td>
-                                <td class="text-muted fs-15 fw-semibold">{{ slider.text}}</td>
-                                <td class="text-muted fs-15 fw-semibold">{{ slider.status}}</td>
+                                <td class="text-muted fs-15 fw-semibold">{{ slider.text|slice:30}}</td>
+                                <!-- <td class="text-muted fs-15 fw-semibold">{{ slider.status}}</td> -->
                                 <td class="">
                                    
                                     <a class="btn btn-primary btn-md rounded-11 me-2" 
