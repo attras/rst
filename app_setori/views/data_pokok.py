@@ -42,28 +42,26 @@ class Data_pokokViews(View):
         dt_array_kesehatan = list(dt_kesehatan.values('oap', 'non_oap')) # Sesuaikan dengan field yang ada
 
       
-        data = Data_kesehatan.objects.select_related('indikator')
+        # Ambil semua data dari model Data_kesehatan
+        data = Data_kesehatan.objects.select_related('wilayah', 'fk_jenis', 'indikator').all()
 
-        # Ambil kategori indikator
-        indicators = data.values_list('indikator__nama_indikator', flat=True).distinct()
+        # Siapkan array untuk menangkap data
+        all_data = []
 
-        # Hitung total OAP dan non-OAP per indikator
-        chart_data = []
-        for indicator in indicators:
-            oap_total = data.filter(indikator__nama_indikator=indicator,deleted_at__isnull=True).aggregate(total_oap=models.Sum('oap'))['total_oap'] or 0
-            non_oap_total = data.filter(indikator__nama_indikator=indicator,deleted_at__isnull=True).aggregate(total_non_oap=models.Sum('non_oap'))['total_non_oap'] or 0
-            chart_data.append({
-                'indicator': indicator,
-                'oap': oap_total,
-                'non_oap': non_oap_total,
+        # Loop data untuk memasukkan setiap atribut ke dalam array
+        for entry in data:
+            all_data.append({
+                "data_kesehatan_id": str(entry.data_kesehatan_id),
+                "wilayah": entry.wilayah.wilayah_nama if entry.wilayah else "N/A",
+                "fk_jenis": entry.fk_jenis.nama_jenis if entry.fk_jenis else "N/A",
+                "indikator": entry.indikator.nama_indikator if entry.indikator else "N/A",
+                "oap": entry.oap,
+                "non_oap": entry.non_oap
             })
 
-        # Format data untuk template
-        categories = [item['indicator'] for item in chart_data]
-        oap_data = [item['oap'] for item in chart_data]
-        non_oap_data = [item['non_oap'] for item in chart_data]
+        print(all_data)
 
-        
+       
 
         
         data = {
@@ -76,9 +74,8 @@ class Data_pokokViews(View):
             'dt_array_indikator': dt_array_indikator,
             'dt_array_jenis': dt_array_jenis,
             'dt_array_kesehatan': dt_array_kesehatan,
-            'categories': categories,
-            'oap': oap_data,
-            'non_oap': non_oap_data,
+            'all_data': all_data
+           
         }
         return render(request, 'setori/data_pokok/index.html', data)
     
@@ -87,7 +84,7 @@ class KesehatanDataViews(View):
     def get(self, request):
         wilayah_filter = request.GET.get('wilayah', None)  # Dapatkan filter wilayah dari query string
         data_queryset = Data_kesehatan.objects.filter(wilayah__wilayah_level=4,deleted_at__isnull=True)  # Hanya level 4
-
+        
         # Terapkan filter wilayah jika ada
         if wilayah_filter:
             data_queryset = data_queryset.filter(wilayah__wilayah_nama=wilayah_filter)
@@ -101,10 +98,11 @@ class KesehatanDataViews(View):
                     "oap": [],
                     "non_oap": []
                 }
+      
             grouped_data[jenis]["categories"].append(item.indikator.nama_indikator)
             grouped_data[jenis]["oap"].append(item.oap)
             grouped_data[jenis]["non_oap"].append(item.non_oap)
-
+        print(grouped_data)
         # Semua wilayah untuk dropdown
         wilayah_list = Data_kesehatan.objects.values_list(
             'wilayah__wilayah_nama', flat=True

@@ -101,11 +101,17 @@
                         <select id="wilayah-filter">
                             <option value="">Semua Wilayah</option>
                         </select>
-                        <div id="charts-container"></div> <!-- Kontainer untuk menampilkan semua grafik -->
+                        
+
+                        <div id="tenaga_kesehatan"></div>
+                      
+
+                        <!-- <div id="charts-container"></div>  -->
+                        <!-- Kontainer untuk menampilkan semua grafik -->
                         
                         {% for jenis in dt_array_jenis %}
                             <div class="shadow-sm mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
-                                <a href="{% url 'app_setori:detail_data' %}">
+                                <a >
                                     <div id="{{ jenis.nama_jenis }}"></div>
                                 </a>
                             </div>
