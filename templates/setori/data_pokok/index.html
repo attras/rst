@@ -151,11 +151,11 @@
             
                                     Highcharts.chart(chartContainer.id, {
                                         chart: { type: 'column' },
-                                        title: { text: `Distribusi Tenaga Kesehatan (${fk_jenis})`, align: 'middle' },
+                                        title: { text: `(${fk_jenis})`, align: 'middle' },
                                         xAxis: { categories: chartData.categories, crosshair: true },
                                         yAxis: {
                                             min: 0,
-                                            title: { text: 'Jumlah Tenaga Kesehatan' }
+                                            title: { text: 'Jumlah Orang' }
                                         },
                                         tooltip: { shared: true, valueSuffix: ' orang' },
                                         plotOptions: {

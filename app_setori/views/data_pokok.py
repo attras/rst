@@ -50,8 +50,8 @@ class Data_pokokViews(View):
         # Hitung total OAP dan non-OAP per indikator
         chart_data = []
         for indicator in indicators:
-            oap_total = data.filter(indikator__nama_indikator=indicator).aggregate(total_oap=models.Sum('oap'))['total_oap'] or 0
-            non_oap_total = data.filter(indikator__nama_indikator=indicator).aggregate(total_non_oap=models.Sum('non_oap'))['total_non_oap'] or 0
+            oap_total = data.filter(indikator__nama_indikator=indicator,deleted_at__isnull=True).aggregate(total_oap=models.Sum('oap'))['total_oap'] or 0
+            non_oap_total = data.filter(indikator__nama_indikator=indicator,deleted_at__isnull=True).aggregate(total_non_oap=models.Sum('non_oap'))['total_non_oap'] or 0
             chart_data.append({
                 'indicator': indicator,
                 'oap': oap_total,
@@ -86,7 +86,7 @@ class KesehatanDataViews(View):
     # Mengirimkan data JSON
     def get(self, request):
         wilayah_filter = request.GET.get('wilayah', None)  # Dapatkan filter wilayah dari query string
-        data_queryset = Data_kesehatan.objects.filter(wilayah__wilayah_level=4)  # Hanya level 4
+        data_queryset = Data_kesehatan.objects.filter(wilayah__wilayah_level=4,deleted_at__isnull=True)  # Hanya level 4
 
         # Terapkan filter wilayah jika ada
         if wilayah_filter:
