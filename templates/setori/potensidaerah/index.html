@@ -115,14 +115,40 @@
             </div>
             {% endfor %}
             
+            <!-- Kontrol Pagination -->
             <div class="pt-3 pb-5">
                 <ul class="pagination pagination-rounded pagination-md justify-content-center">
-					<li class="page-item"><a class="page-link bg-transparent text-dark" href="#" data-cursor-effect-hover="fit"><i class="fas fa-angle-left"></i></a></li>
-					<li class="page-item active"><a class="page-link bg-secondary text-light border-color-secondary" href="#" data-cursor-effect-hover="fit">1</a></li>
-					<li class="page-item"><a class="page-link bg-transparent text-dark" href="#" data-cursor-effect-hover="fit">2</a></li>
-					<li class="page-item"><a class="page-link bg-transparent text-dark" href="#" data-cursor-effect-hover="fit">3</a></li>
-					<li class="page-item"><a class="page-link bg-transparent text-dark" href="#" data-cursor-effect-hover="fit"><i class="fas fa-angle-right"></i></a></li>
-				</ul>
+                    <!-- Previous Page Link -->
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link bg-transparent text-dark" href="?page={{ page_obj.previous_page_number }}" data-cursor-effect-hover="fit"><i class="fas fa-angle-left"></i></a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link bg-transparent text-dark"><i class="fas fa-angle-left"></i></span>
+                    </li>
+                    {% endif %}
+
+                    <!-- Page Number Links -->
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link bg-secondary text-light border-color-secondary" href="?page={{ num }}" data-cursor-effect-hover="fit">{{ num }}</a></li>
+                    {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                    <li class="page-item"><a class="page-link bg-transparent text-dark" href="?page={{ num }}" data-cursor-effect-hover="fit">{{ num }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    <!-- Next Page Link -->
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link bg-transparent text-dark" href="?page={{ page_obj.next_page_number }}" data-cursor-effect-hover="fit"><i class="fas fa-angle-right"></i></a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link bg-transparent text-dark"><i class="fas fa-angle-right"></i></span>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </div>

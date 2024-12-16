@@ -17,7 +17,7 @@ from django.db.models import Sum
 class PotensiViews(View):
     def get(self, request):
         dt_potensi = Info_wilayah.objects.filter(wilayah__wilayah_level="4", deleted_at__isnull=True)
-        paginator = Paginator(dt_potensi, 4)  # Batasi 10 berita per halaman
+        paginator = Paginator(dt_potensi, 1)  # Batasi 10 berita per halaman
 
         dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull = True)
 
@@ -50,7 +50,7 @@ class PotensiViews(View):
 class PotensiDistrikViews(View):
     def get(self, request):
         dt_potensi = Info_wilayah.objects.filter(wilayah__wilayah_level="3", deleted_at__isnull=True)
-        paginator = Paginator(dt_potensi, 4)  # Batasi 10 berita per halaman
+        paginator = Paginator(dt_potensi, 1)  # Batasi 10 berita per halaman
 
         dt_penduduk = Data_penduduk.objects.filter(deleted_at__isnull = True)
 
